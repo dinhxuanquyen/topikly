@@ -1,0 +1,49 @@
+id: w52-0001
+type_code: W52
+subskill: expository_completion
+difficulty: 4
+tags: [topic:health, genre:expository, grammar:-(으)ㄹ-수-있다, grammar:-는-것이-좋다]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+register: written_plain
+stem: "다음 글의 ㉠과 ㉡에 알맞은 말을 각각 한 문장으로 쓰십시오."
+passage: |
+  낮잠을 짧게 자면 오후의 집중력을 높이는 데 도움이 된다. 그러나 30분 이상 자면 오히려 ( ㉠ ). 깊은 잠에 빠졌다가 깨어나면 머리가 무겁고 몸이 더 나른해지기 때문이다. 또한 저녁 가까운 시간에 낮잠을 자면 밤에 잠들기가 어려워진다. 따라서 낮잠을 잘 때는 ( ㉡ ).
+blanks:
+  - label: "㉠"
+    accepted_answers:
+      - 더 피곤해질 수 있다
+      - 피로감이 더 커질 수 있다
+      - 집중력이 떨어질 수 있다
+      - 더 피곤함을 느끼게 된다
+    partial_answers:
+      - 피곤하다            # đúng hướng nhưng thiếu sắc thái 오히려 → "càng/thậm chí"
+      - 더 피곤해질 수 있어요  # đúng ý, sai văn phong (-요)
+    rejected_answers:
+      - { text: "집중력이 높아진다", reason_vi: "Ngược nghĩa với 오히려 và với câu giải thích phía sau." }
+    required_elements_vi:
+      - "Kết quả tiêu cực ngược với lợi ích đã nêu (mệt hơn / giảm tập trung)."
+      - "Câu hoàn chỉnh, đuôi -ㄴ다/-다. Nên có -(으)ㄹ 수 있다 hoặc -게 된다."
+  - label: "㉡"
+    accepted_answers:
+      - 30분 이내로 짧게 자고 너무 늦은 시간에는 자지 않는 것이 좋다
+      - 30분을 넘기지 않고 이른 오후에 자는 것이 좋다
+      - 시간을 짧게 하고 저녁 가까운 시간은 피해야 한다
+    partial_answers:
+      - 30분 이내로 자는 것이 좋다   # chỉ đủ một trong hai yếu tố
+    required_elements_vi:
+      - "Đủ cả hai lời khuyên: (a) ngủ ngắn, dưới 30 phút; (b) không ngủ quá muộn, gần tối."
+      - "Kết bằng -는 것이 좋다 / -아야 한다 (sau 따라서 cần lời khuyên)."
+scoring_notes_vi: |
+  Mỗi chỗ trống chấm riêng. Điểm tối đa khi đúng nội dung + đúng văn phong -ㄴ다 + một câu hoàn chỉnh.
+  Điểm một phần khi đúng ý nhưng sai văn phong/ngữ pháp nhỏ, hoặc (㉡) thiếu một trong hai yếu tố.
+  0 điểm khi ngược nghĩa hoặc lạc ý.
+common_mistakes_vi:
+  - "Dùng -아요/-습니다 trong đoạn văn 문어체."
+  - "㉡ chỉ nhắc 'ngủ ngắn' mà bỏ ý 'không ngủ muộn' ở câu ngay trước 따라서."
+  - "Viết hai câu hoặc chỉ viết cụm danh từ."
+explanation_vi: |
+  ㉠: "그러나 … 오히려" báo hiệu kết quả **ngược** với lợi ích ở câu 1. Câu sau "-기 때문이다" giải thích lý do (đầu nặng, người uể oải), nên ㉠ là "mệt hơn / giảm tập trung".
+  ㉡: "따라서" tổng hợp **hai** vấn đề đã nêu (ngủ quá 30 phút; ngủ gần tối) thành lời khuyên, nên cần nhắc cả hai.

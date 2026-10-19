@@ -1,0 +1,54 @@
+id: w54-0001
+type_code: W54
+subskill: argumentative_essay
+difficulty: 5
+tags: [topic:culture, topic:society, genre:argumentative]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+stem: "다음을 주제로 하여 자신의 생각을 600~700자로 글을 쓰십시오. 단, 문제를 그대로 옮겨 쓰지 마십시오."
+task: |
+  최근 혼자 여가 활동을 즐기는 사람이 늘고 있다. 이러한 변화에 대해 아래의 내용을 중심으로 자신의 생각을 쓰라.
+  · 혼자 하는 여가 활동이 늘어나는 이유는 무엇인가?
+  · 혼자 하는 여가 활동의 장점과 단점은 무엇인가?
+  · 여가 시간을 의미 있게 보내기 위해 필요한 것은 무엇인가?
+required_points:
+  - { id: p1, ko: "증가 이유", vi: "Lý do tăng" }
+  - { id: p2, ko: "장점과 단점", vi: "Cả ưu và nhược điểm" }
+  - { id: p3, ko: "의미 있게 보내기 위한 조건", vi: "Điều cần thiết để dùng thời gian rảnh có ý nghĩa" }
+char_limit: { min: 600, max: 700 }
+model_answers:
+  - level: 5
+    char_count: 670
+    covers: [p1, p2, p3]
+    text: |
+      최근 영화를 보거나 여행을 가는 등 혼자서 여가 시간을 보내는 사람들이 눈에 띄게 늘고 있다. 이러한 변화는 우리 사회의 모습이 달라지고 있음을 보여 준다.
+      혼자 하는 여가 활동이 늘어나는 이유는 먼저 개인의 취향을 중시하는 분위기가 퍼졌기 때문이다. 또한 일과 학업으로 바쁜 사람들이 다른 사람의 일정에 맞추는 일을 부담스럽게 느끼는 것도 한 가지 원인이다. 여기에 혼자서도 즐길 수 있는 서비스와 공간이 많아진 것도 영향을 주었다. 이처럼 여러 요인이 겹치면서 혼자만의 시간을 선택하는 일이 자연스러운 흐름이 되었다.
+      혼자 하는 여가 활동에는 장점과 단점이 모두 있다. 장점은 자신이 하고 싶은 일을 원하는 시간에 할 수 있어서 마음이 편안해진다는 것이다. 또한 새로운 취미를 스스로 찾아 깊이 있게 즐길 수 있다는 점도 큰 장점이다. 반면에 이런 생활이 계속되면 다른 사람과 이야기를 나눌 기회가 줄어들어 외로움을 느끼거나 인간관계가 약해질 수 있다는 점은 단점이라고 할 수 있다.
+      따라서 여가 시간을 의미 있게 보내려면 혼자만의 시간과 함께하는 시간을 균형 있게 계획하는 태도가 필요하다. 혼자 쉬면서 재충전을 하되, 때로는 취미를 공유하는 사람들과 만나 경험을 나눈다면 여가 시간이 더욱 풍요로워질 것이다. 이러한 노력은 개인의 행복뿐만 아니라 건강한 공동체를 만드는 데에도 도움이 될 것이다.
+    rubric_notes_vi:
+      task_fulfillment: "Trả lời đủ 3 câu hỏi gợi ý, mỗi ý có lập luận; không chép đề."
+      organization: "4 đoạn: mở bài, lý do, ưu–nhược, kết luận; liên kết bằng 또한, 반면에, 따라서."
+      language_use: "Đúng -ㄴ다 xuyên suốt, biểu hiện cấp 5 như 눈에 띄게, -(으)ㄹ 수 있다, -되."
+  - level: 6
+    char_count: 660
+    covers: [p1, p2, p3]
+    text: |
+      혼자 여가를 즐기는 사람이 빠르게 늘면서 '혼영', '혼행' 같은 말이 일상어가 되었다. 이는 단순한 유행이 아니라 사회 전반의 가치관이 변하고 있음을 나타내는 현상이라고 할 수 있다. 이러한 변화의 원인과 영향을 차분히 살펴볼 필요가 있다.
+      이러한 현상의 배경에는 여러 가지 요인이 있다. 우선 개인의 선택과 취향을 존중하는 문화가 자리를 잡으면서 타인에게 맞추지 않아도 된다는 인식이 확산되었다. 게다가 장시간 노동으로 시간적 여유가 부족한 현대인에게는 약속을 조율하는 일 자체가 하나의 부담으로 작용한다. 1인 가구가 늘고 혼자 이용하기 좋은 시설이 확대된 점도 이러한 흐름을 뒷받침한다.
+      혼자 하는 여가는 분명한 장점을 지닌다. 눈치 보지 않고 자신에게 집중할 수 있어 심리적 안정과 자기 이해에 도움이 된다. 또한 새로운 분야를 깊이 있게 탐색할 기회를 얻기도 한다. 그러나 이러한 시간이 지나치게 길어지면 사회적 교류가 줄어 고립감이 깊어지고, 공동체에 대한 소속감이 약해질 우려가 있다.
+      결국 여가가 의미를 지니려면 개인의 만족에만 머물지 않고 자신의 삶을 돌아보며 타인과 연결되는 기회로 이어져야 한다. 혼자만의 휴식과 사람들과의 교류를 균형 있게 조절하는 지혜가 필요하며, 사회 역시 누구나 부담 없이 참여할 수 있는 모임과 공간을 마련하는 노력을 기울여야 할 것이다.
+    rubric_notes_vi:
+      task_fulfillment: "Phủ đủ p1–p3, có góc nhìn xã hội (trách nhiệm của cộng đồng)."
+      organization: "Mở bài nêu hiện tượng, thân bài tách rõ lý do/ưu–nhược, kết luận đề xuất."
+      language_use: "Từ vựng trừu tượng cấp 6: 가치관, 뒷받침하다, 고립감, 우려, 소속감."
+scoring_notes_vi: |
+  Mức cao: trả lời đủ p1–p3, có ví dụ/lập luận, 4 đoạn rõ, đúng -ㄴ다, 600–700 ký tự.
+  Bị hạ mạnh: bỏ một câu hỏi gợi ý; chép đề; dùng -요/-습니다; thiếu hoặc vượt giới hạn ký tự.
+common_mistakes_vi:
+  - "Chép nguyên câu hỏi gợi ý thay vì diễn đạt lại."
+  - "Chỉ nêu ưu điểm mà bỏ nhược điểm."
+  - "Viết 1 đoạn dài, không chia đoạn."
+explanation_vi: |
+  Dàn ý 4 đoạn: (1) mở bài nêu hiện tượng → (2) lý do (p1) → (3) ưu và nhược (p2) → (4) điều kiện để có ý nghĩa + kết luận (p3).

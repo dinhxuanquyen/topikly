@@ -1,0 +1,37 @@
+id: r19-0001
+type_code: R19
+subskill: fill_blank_connector
+difficulty: 3                 # dễ hơn mức điển hình (4): quan hệ bổ sung lộ rõ ở câu kết
+tags: [topic:workplace, topic:health, genre:expository, connector:게다가]
+group_key: r19-20-0001
+pair_with: [r20-0001]          # r20-0001 (chủ đề của đoạn) có thể chưa soạn
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Hạ độ khó xuống 3 để làm bài khởi động cho thẻ R19-20."
+passage: |
+  요즘 점심시간에 회사 근처를 짧게 산책하는 직장인이 늘고 있다. 점심을 먹고 나면 졸음이 오고 일의 능률이 떨어지기 쉬운데, 10분 정도만 걸어도 몸이 가벼워지고 머리가 맑아진다고 한다. (   ) 동료와 함께 걸으면 자연스럽게 이야기를 나누게 되어 사무실에서는 꺼내기 어려웠던 고민을 털어놓기도 한다. 이처럼 짧은 산책은 건강뿐만 아니라 직장 내 인간관계에도 좋은 영향을 준다.
+stem: "(   )에 들어갈 말로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 게다가
+    correct: true
+    note_vi: "게다가 = hơn nữa, thêm vào đó: bổ sung một lợi ích cùng chiều."
+  - label: "②"
+    text: 오히려
+    trap: logic_mismatch
+    note_vi: "오히려 (trái lại) dùng khi vế sau ngược với điều được chờ đợi. Ở đây vế sau là một lợi ích nữa, cùng chiều với câu trước."
+  - label: "③"
+    text: 그래서
+    trap: logic_mismatch
+    note_vi: "그래서 nối nguyên nhân với kết quả. Trò chuyện với đồng nghiệp không phải là kết quả của việc 'người nhẹ, đầu óc tỉnh táo'."
+  - label: "④"
+    text: 반면에
+    trap: logic_mismatch
+    note_vi: "반면에 dùng để đối lập hai mặt. Vế sau không trái ngược mà bổ sung."
+explanation_vi: |
+  **Đáp án ①.** Căn cứ: câu kết "짧은 산책은 건강뿐만 아니라 직장 내 인간관계에도 좋은 영향을 준다" (đi dạo ngắn tốt không chỉ cho sức khoẻ mà còn cho quan hệ nơi làm việc).
+  Câu trước chỗ trống nói lợi ích sức khoẻ, câu sau nói lợi ích quan hệ. Hai câu có quan hệ **bổ sung**, nên cần 게다가.
+  **Mẹo dạng:** xác định quan hệ logic giữa câu trước và câu sau chỗ trống (bổ sung / đối lập / nhân quả) trước khi nhìn phương án.
+  **Đáng chú ý:** 능률 (năng suất), 털어놓다 (giãi bày), -뿐만 아니라 (không chỉ… mà còn).

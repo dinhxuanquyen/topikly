@@ -1,0 +1,4 @@
+# File đề thi — chỉ tham chiếu id câu hỏi, validator phải bỏ qua.
+id: exam-0001
+kind: mini
+questions: [r19-0001]

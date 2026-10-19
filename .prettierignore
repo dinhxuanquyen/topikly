@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+build
+coverage
+package-lock.json
+next-env.d.ts
+supabase/migrations
+*.tsbuildinfo
+# Tài liệu & cấu hình agent do con người/agent khác quản lý
+README.md
+CLAUDE.md
+AGENTS.md
+docs
+.claude
+content

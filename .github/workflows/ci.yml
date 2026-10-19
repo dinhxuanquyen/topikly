@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kiem-tra:
+    name: Lint · Typecheck · Test · Validate nội dung
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Cài dependency
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Kiểm tra định dạng
+        run: npm run format:check
+
+      - name: Kiểm tra kiểu
+        run: npm run typecheck
+
+      - name: Unit test
+        run: npm test
+
+      - name: Validate nội dung
+        run: npm run validate:content

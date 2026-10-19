@@ -1,0 +1,62 @@
+id: w53-0001
+type_code: W53
+subskill: data_description
+difficulty: 4
+tags: [topic:consumer, topic:environment, genre:chart-trend]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+stem: "다음은 '20대의 중고 거래 이용 현황'에 대한 자료이다. 이 내용을 200~300자의 글로 설명하십시오. 단, 글의 제목을 쓰지 마십시오."
+task: |
+  조사 기관: ○○연구소 / 조사 대상: 20대 500명
+  [중고 거래 이용 경험] 2015년 18% → 2020년 41% → 2025년 67%
+  [이용 이유] 저렴한 가격 52%, 환경 보호 27%, 희귀한 물건 구매 21%
+  [전망] 중고 거래 플랫폼 다양화 → 이용자 계속 증가 예상
+data_is_fictional: true
+image_desc: "Trái: biểu đồ đường 3 điểm (2015: 18%, 2020: 41%, 2025: 67%). Phải: biểu đồ tròn lý do sử dụng. Dưới: ô chữ 'Triển vọng'. Mọi nhãn bằng tiếng Hàn."
+image_url: null
+chart_data:
+  - chart_type: line
+    title: 중고 거래 이용 경험
+    unit: "%"
+    series: [{ name: 20대, points: [{x: 2015, y: 18}, {x: 2020, y: 41}, {x: 2025, y: 67}] }]
+  - chart_type: pie
+    title: 이용 이유
+    unit: "%"
+    series: [{ name: 이유, points: [{x: 저렴한 가격, y: 52}, {x: 환경 보호, y: 27}, {x: 희귀한 물건 구매, y: 21}] }]
+required_points:
+  - { id: p1, ko: "이용 경험 비율의 변화(2015→2020→2025)", vi: "Xu hướng tỉ lệ đã dùng, đủ 3 mốc" }
+  - { id: p2, ko: "이용 이유와 비율", vi: "3 lý do theo thứ tự kèm %" }
+  - { id: p3, ko: "전망", vi: "Triển vọng: nền tảng đa dạng hơn nên người dùng tiếp tục tăng" }
+char_limit: { min: 200, max: 300 }
+model_answers:
+  - level: 4
+    char_count: 246
+    covers: [p1, p2, p3]
+    text: |
+      ○○연구소에서 20대 500명을 대상으로 중고 거래 이용 경험을 조사하였다. 그 결과 중고 거래를 이용해 본 적이 있다는 응답은 2015년 18%에서 2020년 41%, 2025년 67%로 꾸준히 증가하였다. 이렇게 중고 거래 이용이 늘어난 이유로는 '저렴한 가격'이 52%로 가장 많았고, '환경 보호'가 27%, '희귀한 물건 구매'가 21%로 그 뒤를 이었다. 앞으로도 중고 거래 앱이 다양해지면서 이용자는 계속 늘어날 것으로 보인다.
+    rubric_notes_vi:
+      task_fulfillment: "Đủ 3 ý, số liệu chính xác, không thêm ý kiến cá nhân."
+      organization: "Trình tự giới thiệu → xu hướng → lý do → triển vọng. Có 그 결과, 이렇게 làm liên kết."
+      language_use: "Đúng -ㄴ다. Biểu hiện chuẩn cấp 4 (-에서 -로 증가하였다, 가장 많았고, 그 뒤를 이었다) nhưng chưa đa dạng."
+  - level: 5
+    char_count: 273
+    covers: [p1, p2, p3]
+    text: |
+      ○○연구소에서 20대 500명을 대상으로 중고 거래 이용 실태를 조사하였다. 조사 결과에 따르면 중고 거래 이용 경험이 있다는 응답은 2015년 18%에 불과하였으나 2020년 41%로 두 배 이상 늘었고, 2025년에는 67%에 달하였다. 이와 같이 이용자가 증가한 원인으로는 '저렴한 가격'(52%)이 가장 많이 꼽혔으며, '환경 보호'(27%)와 '희귀한 물건 구매'(21%)가 뒤를 이었다. 앞으로 중고 거래 플랫폼이 다양해짐에 따라 이러한 증가세는 당분간 이어질 것으로 전망된다.
+    rubric_notes_vi:
+      task_fulfillment: "Đủ 3 ý, có diễn giải mức tăng (두 배 이상) dựa đúng trên số liệu."
+      organization: "Liên kết chặt (조사 결과에 따르면, 이와 같이, -에 따라). Câu phức cân đối."
+      language_use: "Biểu hiện đa dạng cấp 5: -에 불과하였으나, -에 달하였다, 꼽히다, 증가세, 전망되다."
+scoring_notes_vi: |
+  Mức cao: đủ p1–p3 với số liệu đúng; có biểu hiện so sánh, xu hướng; một đoạn liền mạch; đúng -ㄴ다.
+  Bị hạ mạnh: thiếu một khối dữ liệu; sai số; thêm ý kiến cá nhân; dùng -요/-습니다; dưới 200 ký tự; viết tiêu đề.
+common_mistakes_vi:
+  - "Thêm cảm nghĩ: '나는 중고 거래가 좋다고 생각한다' (W53 không hỏi ý kiến)."
+  - "Bỏ mốc 2020 hoặc bỏ phần 전망."
+  - "Dịch thẳng tiếng Việt: '중고 거래를 사용하는 사람' thay vì '중고 거래 이용자'."
+  - "Chép nguyên dòng '플랫폼 다양화 → 이용자 계속 증가 예상' mà không viết thành câu."
+explanation_vi: |
+  Dàn ý 4 câu: (1) giới thiệu khảo sát → (2) xu hướng 3 mốc (p1) → (3) lý do theo thứ tự lớn → nhỏ (p2) → (4) triển vọng (p3).
+  Dữ liệu có mũi tên "→" nên phải chuyển thành câu nhân quả: -(으)ㅁ에 따라, -(으)면서.
