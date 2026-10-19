@@ -324,4 +324,6 @@ Chi tiết từng hạng mục, chỉ số thành công và rủi ro: [docs/02-l
 - [01 · Phân tích chuyên môn TOPIK II & người học Việt Nam](docs/01-phan-tich-chuyen-mon.md)
 - [02 · Lộ trình triển khai](docs/02-lo-trinh-trien-khai.md)
 - [03 · Phân tích tham khảo Migii TOPIK](docs/03-phan-tich-tham-khao-migii.md)
+- [04 · Phân công agent](docs/04-phan-cong-agent.md) — 7 subagent Claude Code trong [`.claude/agents/`](.claude/agents/), mỗi agent một vùng file
+- [CLAUDE.md](CLAUDE.md) — quy ước chung cho Claude và các agent
 - Nguồn chính thức: [topik.go.kr](https://www.topik.go.kr) — luôn đối chiếu cấu trúc đề mới nhất tại đây.
