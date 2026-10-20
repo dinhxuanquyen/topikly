@@ -1,0 +1,57 @@
+id: l26-0001
+type_code: L26
+subskill: detail_match
+difficulty: 4
+tags: [topic:society, topic:daily-life, genre:interview, grammar:-더라고요]
+group_key: l25-26-0001
+pair_with: [l25-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "l25-0001 chưa soạn. Gợi ý cho L25 (중심 생각 của 남자): 'Giúp người dân tự sửa xe quan trọng hơn sửa hộ'. Đáp án L26 (lý do người dân bỏ đi xe) là chi tiết bối cảnh, không trùng ý chính. Transcript khoảng 345 ký tự (không tính nhãn), đếm tay. Hoạt động sửa xe đạp hư cấu, không gắn với tổ chức có thật."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "phóng viên/người dẫn chương trình phỏng vấn"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng rõ ràng, thân thiện"
+  - label: 남자
+    gender: male
+    role_vi: "người đã nghỉ hưu, cuối tuần giúp hàng xóm sửa xe đạp"
+    age_range: 60s+
+    voice_hint_vi: "giọng ấm, chậm rãi, kể chuyện tự nhiên"
+tts_notes:
+  speed: 1.0
+  style_vi: "Phỏng vấn: nữ hỏi rõ ràng, nam trả lời kiểu kể chuyện, có -더라고요, -거든요."
+  pauses_vi: "Ngắt sau '나눠 보자 싶었죠.' và trước '그런데 막상 해 보니까' để đánh dấu bước ngoặt."
+  pronunciation_vi: "10분 = 십 분; 부품값 [부품깝]; 많더라고요 [만터라고요]; 아끼게 rõ âm căng ㄲ."
+transcript_ko: |
+  여자: 주말마다 아파트 단지 앞에서 이웃들의 자전거를 고쳐 주신다고 들었습니다. 어떻게 시작하시게 됐나요?
+  남자: 회사를 그만두고 나서 시간이 좀 생겼는데, 동네에 바퀴에 바람이 빠진 채로 세워 둔 자전거가 정말 많더라고요. 수리점이 멀어서 고장 나면 그냥 안 타게 된다는 얘기를 듣고, 젊을 때부터 취미로 해 온 걸 나눠 보자 싶었죠. 그런데 막상 해 보니까 고쳐 드리는 것보다 고치는 방법을 알려 드리는 게 더 중요하더라고요. 간단한 고장은 누구나 10분이면 직접 고칠 수 있거든요. 그래서 요즘은 부품값만 받고, 주민분들이 직접 고쳐 보시도록 옆에서 도와드리고 있어요. 자기 손으로 고친 자전거는 더 아끼게 되니까 훨씬 오래 타시더라고요.
+transcript_vi: |
+  Nữ: Tôi nghe nói cuối tuần nào ông cũng sửa xe đạp cho hàng xóm ở trước khu chung cư. Ông đã bắt đầu việc này như thế nào ạ?
+  Nam: Sau khi nghỉ việc ở công ty, tôi có thêm chút thời gian, thì thấy trong khu phố có rất nhiều xe đạp bị xẹp lốp mà cứ để nguyên đó. Nghe mọi người kể là vì tiệm sửa xa nên hễ xe hỏng là thôi không đi nữa, tôi nghĩ hay là chia sẻ cái việc mình làm như sở thích từ hồi trẻ. Nhưng khi bắt tay làm thật thì tôi thấy dạy cách sửa còn quan trọng hơn là sửa giúp. Hỏng hóc đơn giản thì ai cũng tự sửa được trong 10 phút. Vì thế dạo này tôi chỉ lấy tiền phụ tùng, rồi đứng bên cạnh giúp để bà con tự tay sửa. Xe tự tay mình sửa thì người ta quý hơn, nên đi được lâu hơn hẳn.
+stem: "들은 내용으로 맞는 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 남자는 회사에 다니면서 이 활동을 시작했다.
+    trap: time_shift
+    note_vi: "Sai thời điểm: nam bắt đầu sau khi nghỉ việc (회사를 그만두고 나서 시간이 좀 생겼는데), không phải khi vẫn còn đi làm."
+  - label: "②"
+    text: 남자는 최근에 자전거 수리를 배웠다.
+    trap: detail_swap
+    note_vi: "Nam sửa xe như một sở thích từ hồi trẻ (젊을 때부터 취미로 해 온 걸), không phải mới học gần đây. '요즘은' trong bài gắn với cách làm hiện nay, không gắn với việc học sửa xe."
+  - label: "③"
+    text: 이 활동에서는 돈을 전혀 받지 않는다.
+    trap: degree_shift
+    note_vi: "Quá mức 'hoàn toàn không': nam vẫn lấy tiền phụ tùng (부품값만 받고), chỉ không lấy tiền công."
+  - label: "④"
+    text: 수리점이 멀어 자전거를 안 타는 주민이 있었다.
+    correct: true
+explanation_vi: |
+  **Đáp án ④.** Căn cứ: "수리점이 멀어서 고장 나면 그냥 안 타게 된다는 얘기를 듣고" (nghe mọi người kể vì tiệm sửa xa nên xe hỏng là thôi không đi nữa).
+  Đây là lời người dân mà nam kể lại, cũng là lý do ông bắt đầu hoạt động. Đáp án diễn đạt lại thành "có người dân không đi xe đạp vì tiệm sửa xa".
+  **Mẹo dạng:** Bài phỏng vấn thường kể theo trình tự: bắt đầu thế nào → nhận ra điều gì → hiện nay làm gì. Ghi các mốc thời gian (그만두고 나서, 젊을 때부터, 요즘은) để loại các phương án sai thời điểm.
+  **Đáng chú ý:** 부품값 (部品 – bộ phẩm, + 값 "giá") – tiền phụ tùng, đọc [부품깝]; 막상 – khi thực sự bắt tay vào; -더라고요 – kể lại điều chính mình đã thấy, trải nghiệm.

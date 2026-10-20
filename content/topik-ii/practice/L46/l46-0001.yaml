@@ -1,0 +1,51 @@
+id: l46-0001
+type_code: L46
+subskill: speaker_strategy
+difficulty: 6
+tags: [topic:language, topic:history, genre:lecture, vocab:의미-변화]
+group_key: l45-46-0001
+pair_with: [l45-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "l45-0001 chưa soạn. Gợi ý cho L45 (trùng khớp): đáp án kiểu ''다리'는 처음에는 사람이나 짐승의 몸에만 쓰였다' hoặc ''어린 백성'은 원래 글을 모르는 백성을 가리켰다'; tránh hỏi lại cách phân loại ba kiểu (đó là căn cứ của L46). Kiến thức cần reviewer xác nhận: '어리다' trung đại = '어리석다' (ví dụ '어린 百姓' trong lời tựa Huấn dân chính âm, kiểu 의미의 이동); '얼굴' trung đại = 모습/형체 (의미의 축소); '다리' mở rộng sang đồ vật (의미의 확대) — đều là ví dụ quen thuộc trong sách giáo khoa quốc ngữ Hàn. Thứ tự câu hỏi trong cặp L45–46 và giới tính người giảng còn [cần đối chiếu] (Phụ lục A6). Transcript khoảng 545 ký tự (không tính nhãn), đếm tay. Giữ difficulty 6 (sau lượt duyệt 2026-10-20): đáp án ② có tín hiệu cấu trúc rõ, nhưng hai nhiễu ① (절충) và ④ (촉구 giữ nghĩa gốc) cùng bám vào quan điểm '말이 타락한다' có thật trong bài. Thí sinh phải phân biệt được quan điểm được trích dẫn với lập trường của người giảng (phản bác bằng 하지만, không dung hoà). Từ khoá nhiễu 상반된, 절충하다, 촉구하다 ở mức cấp 6. Đạt điều kiện nhãn 6 của spec v0.2 (ghi chú dưới bảng 3.1). Theo §2.2 v0.2, trap của ④ đổi từ speaker_swap sang concession_point."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "giảng viên ngôn ngữ học tiếng Hàn, giảng cho công chúng"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng giảng bài rõ, điềm tĩnh, có nhấn ở các từ khoá phân loại"
+tts_notes:
+  speed: 0.95
+  style_vi: "Bài giảng học thuật bằng văn nói: -습니다 xen -는데요, -죠, mở và kết bằng câu hỏi tu từ."
+  pauses_vi: "Ngắt dài sau câu hỏi mở đầu. Ngắt rõ trước '먼저', '반대로', '그리고', '하지만'. Câu hỏi cuối đọc chậm."
+  pronunciation_vi: "백성 [백썽]; 훈민정음 [훈민정음] đọc liền; 의미의 [의미에]; 확대 [확때]; 축소 [축쏘]; 넓어지는 [널버지는]; 좁아지기도 [조바지기도]; 끊임없이 [끄니멉씨]. Dấu nháy đơn quanh từ ví dụ không đọc ra, chỉ ngắt nhẹ."
+transcript_ko: |
+  여자: 여러분, '어린 백성'이라는 말을 들으면 어떤 사람들이 떠오르세요? 아마 나이가 어린 사람들을 생각하실 텐데요. 그런데 훈민정음 서문에 나오는 '어린 백성'은 '어리석은 백성', 다시 말해 글을 몰라 하고 싶은 말을 제대로 펴지 못하는 백성을 가리키는 말이었습니다. 이처럼 단어의 뜻은 시간이 흐르면서 달라지는데, 그 방향은 크게 세 가지로 나눌 수 있습니다. 먼저 뜻이 넓어지는 경우가 있습니다. '다리'는 원래 사람이나 짐승의 몸에만 쓰던 말이었지만 지금은 책상 다리, 안경 다리처럼 물건에도 씁니다. 이를 의미의 확대라고 합니다. 반대로 뜻이 좁아지기도 하는데요. '얼굴'은 옛날에는 사람의 모습이나 형체 전체를 가리켰지만 지금은 눈, 코, 입이 있는 부분만을 뜻합니다. 이를 의미의 축소라고 합니다. 그리고 앞에서 본 '어리다'처럼 뜻이 아예 다른 쪽으로 옮겨 가는 의미의 이동도 있습니다. 새로운 뜻이 생기는 것을 두고 말이 타락한다며 걱정하시는 분들도 있습니다. 하지만 단어의 뜻은 그 시대를 사는 사람들의 필요에 따라 끊임없이 다시 만들어지는 것입니다. 그렇다면 변화 자체를 막으려 하기보다 그 변화가 우리 삶의 어떤 모습을 비추고 있는지 살펴보는 것이 더 의미 있는 일이 아닐까요?
+transcript_vi: |
+  Nữ: Thưa các bạn, nghe cụm từ '어린 백성' các bạn nghĩ đến những người như thế nào? Có lẽ các bạn sẽ nghĩ đến những người nhỏ tuổi. Thế nhưng '어린 백성' trong lời tựa của Huấn dân chính âm lại là cách gọi 'dân chúng ngu muội', nói cách khác là những người dân không biết chữ nên không thể bày tỏ trọn vẹn điều mình muốn nói. Như vậy, nghĩa của từ thay đổi theo thời gian, và hướng thay đổi đó có thể chia thành ba loại lớn. Trước hết là trường hợp nghĩa rộng ra. '다리' (chân) vốn là từ chỉ dùng cho cơ thể người hoặc con vật, nhưng nay còn dùng cho đồ vật như chân bàn, gọng kính. Hiện tượng này gọi là sự mở rộng nghĩa. Ngược lại, nghĩa cũng có khi hẹp lại. '얼굴' xưa kia chỉ toàn bộ dáng vẻ, hình thể của con người, nhưng nay chỉ còn nghĩa là phần có mắt, mũi, miệng (khuôn mặt). Hiện tượng này gọi là sự thu hẹp nghĩa. Và cũng có sự chuyển nghĩa, khi nghĩa của từ chuyển hẳn sang một hướng khác, như từ '어리다' ta vừa thấy ở trên. Có những người lo lắng rằng việc xuất hiện nghĩa mới khiến ngôn ngữ bị suy đồi. Nhưng nghĩa của từ là thứ được tạo lại không ngừng theo nhu cầu của những con người sống trong thời đại đó. Nếu vậy, thay vì tìm cách ngăn chặn bản thân sự thay đổi, chẳng phải xem xét xem sự thay đổi ấy đang phản chiếu điều gì trong cuộc sống của chúng ta mới là việc có ý nghĩa hơn sao?
+stem: "여자의 말하는 방식으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 의미 변화에 대한 상반된 견해를 절충하고 있다.
+    trap: attitude_mismatch
+    note_vi: "Người giảng có nêu quan điểm lo ngại '말이 타락한다', nhưng phản bác bằng '하지만…' chứ không dung hoà hai quan điểm. Người giảng giữ một lập trường rõ: nghĩa của từ thay đổi là tự nhiên (끊임없이 다시 만들어지는 것입니다)."
+  - label: "②"
+    text: 의미 변화를 유형별로 나누어 예를 들고 있다.
+    correct: true
+  - label: "③"
+    text: 의미 변화가 가져온 문제점을 지적하고 있다.
+    trap: outside_text
+    note_vi: "Bài giảng không nêu 'vấn đề' cụ thể nào do thay đổi nghĩa gây ra. Người giảng chỉ nhắc nỗi lo chung chung của người khác (말이 타락한다며 걱정하시는 분들) rồi phản bác, và coi thay đổi nghĩa là điều tự nhiên."
+  - label: "④"
+    text: 단어를 본래 뜻대로 쓸 것을 촉구하고 있다.
+    trap: concession_point
+    note_vi: "Gán quan điểm được trích dẫn cho người giảng: nỗi lo 'ngôn ngữ suy đồi' là của 'một số người' (걱정하시는 분들도 있습니다), và người giảng phản bác ngay bằng '하지만'. Người giảng còn khuyên đừng tìm cách ngăn sự thay đổi."
+explanation_vi: |
+  **Đáp án ②.** Căn cứ: "그 방향은 크게 세 가지로 나눌 수 있습니다" (hướng thay đổi đó có thể chia thành ba loại lớn), sau đó người giảng lần lượt đưa ví dụ cho từng loại: '다리' (의미의 확대 – mở rộng nghĩa), '얼굴' (의미의 축소 – thu hẹp nghĩa), '어리다' (의미의 이동 – chuyển nghĩa).
+  Cách triển khai là **phân loại rồi minh hoạ bằng ví dụ cụ thể**, đúng với "유형별로 나누어 예를 들고 있다".
+  Về thái độ: người giảng nhắc tới nỗi lo "말이 타락한다" của người khác nhưng phản bác bằng "하지만…", rồi kết bằng câu hỏi tu từ đề nghị tìm hiểu ý nghĩa của sự thay đổi thay vì ngăn cản. Người giảng không dung hoà hai quan điểm (①) và không kêu gọi giữ nghĩa gốc (④).
+  **Mẹo dạng:** Với câu hỏi 말하는 방식, hãy nghe các từ đánh dấu cấu trúc bài (크게 세 가지로, 먼저, 반대로, 그리고). Ý kiến kiểu "… 분들도 있습니다" đứng trước 하지만 thường không phải lập trường của người nói.
+  **Đáng chú ý:** 확대·축소·이동 (擴大·縮小·移動 – khuếch đại·súc tiểu·di động) – mở rộng, thu hẹp, chuyển dịch (의미의 확대/축소/이동: mở rộng/thu hẹp/chuyển nghĩa); "khuếch đại" và "di động" trong tiếng Việt mang nghĩa khác (phóng to âm thanh; điện thoại, di chuyển được); 타락하다 (墮落 – đoạ lạc) – sa đoạ, suy đồi; -을 두고 – về việc…, nhân chuyện….

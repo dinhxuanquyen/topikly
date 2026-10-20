@@ -1,0 +1,37 @@
+id: r03-0001
+type_code: R03
+subskill: similar_expression
+difficulty: 3
+tags:
+  - "topic:leisure"
+  - "genre:sentence"
+  - "grammar:-(으)ㄹ까-봐"
+  - "grammar:-(으)ㄹ지도-모르다"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Cặp gần nghĩa: -(으)ㄹ까 봐 ≈ -(으)ㄹ지도 몰라서 (lo một việc có thể xảy ra nên làm vế sau để đề phòng). 2026-10-20: đổi genre:essay → genre:sentence (hợp lệ từ spec v0.2); viết lại note_vi ② về -는 김에 và đổi trap ② sang logic_mismatch theo báo cáo duyệt 2026-10-19-mau-doc."
+passage: |
+  주말에 비가 <u>올까 봐</u> 캠핑 대신 실내 전시회에 가기로 했다.
+stem: "밑줄 친 부분과 의미가 가장 비슷한 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "오더라도"
+    trap: logic_mismatch
+    note_vi: "-더라도 là nhượng bộ (cho dù mưa thì vẫn…). Thay vào, câu mất hẳn ý 'lo mưa nên đổi kế hoạch'; việc đổi từ cắm trại sang triển lãm trong nhà không còn lý do."
+  - label: "②"
+    text: "오는 김에"
+    trap: logic_mismatch
+    note_vi: "-는 김에 nghĩa là 'nhân dịp/nhân tiện A thì làm luôn B'. A được coi là việc đang hoặc chắc chắn xảy ra và được tận dụng làm cơ hội (비 오는 김에 부침개를 해 먹자). Câu gốc nói nỗi lo trời *có thể* mưa vào cuối tuần nên phải đổi kế hoạch, không phải tận dụng cơn mưa, nên nghĩa khác hẳn."
+  - label: "③"
+    text: "오기 전에"
+    trap: time_shift
+    note_vi: "-기 전에 chỉ trình tự thời gian (trước khi mưa). Câu vẫn đúng ngữ pháp nhưng nghĩa đổi: không còn là nỗi lo về mưa dẫn tới quyết định."
+  - label: "④"
+    text: "올지도 몰라서"
+    correct: true
+explanation_vi: |
+  **Đáp án ④.** Phần gạch chân "올까 봐" dùng -(으)ㄹ까 봐: lo rằng một việc không mong muốn có thể xảy ra nên làm hành động ở vế sau để đề phòng. Ở đây: sợ cuối tuần trời mưa nên quyết định đi triển lãm trong nhà thay vì cắm trại. -(으)ㄹ지도 몰라서 (vì không chừng sẽ…) cũng nêu khả năng xảy ra một việc làm lý do cho vế sau, nên gần nghĩa nhất.
+  **Mẹo dạng:** thay từng phương án vào chỗ gạch chân rồi đọc lại cả câu. Phương án đúng phải giữ nguyên quan hệ logic giữa hai vế (ở đây là "lo ngại → đề phòng"), không chỉ đúng ngữ pháp.
+  **Đáng chú ý:** -(으)ㄹ까 봐 – sợ rằng…, lo rằng… (nên làm vế sau để đề phòng) · -(으)ㄹ지도 모르다 – không chừng…, biết đâu… · 실내 (室內 – thất nội) – trong nhà.

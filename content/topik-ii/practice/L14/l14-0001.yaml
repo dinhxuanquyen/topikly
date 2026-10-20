@@ -1,0 +1,48 @@
+id: l14-0001
+type_code: L14
+subskill: detail_match
+difficulty: 4
+tags: [topic:art, topic:culture, genre:announcement, setting:museum]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Thể loại L14 = thông báo theo bảng 3.1 (còn [cần đối chiếu], Phụ lục A2). Transcript khoảng 200 ký tự (không tính nhãn), đếm tay. Độ khó 4 (dải 3–4) vì có 선착순, 변동, 접수 và bẫy -부터/-까지."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "nhân viên phát thanh của bảo tàng mỹ thuật thành phố"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng phát thanh rõ, đều, trang trọng"
+tts_notes:
+  speed: 1.0
+  style_vi: "Giọng loa thông báo trong bảo tàng: rõ ràng, đều, không cảm xúc."
+  pauses_vi: "Ngắt sau câu chào mở đầu và trước '감사합니다'. Ngắt nhẹ trước '1층 강당에서'."
+  pronunciation_vi: "3시 = 세 시; 2층 = 이 층; 1층 = 일 층; 30분 = 삼십 분; 선착순 [선착쑨]; 판화 [판화]: đọc chuẩn, giữ âm ㅎ, không ép TTS đọc [파놔]; đọc tên sự kiện trong dấu nháy đơn như một cụm liền, không đọc dấu nháy."
+transcript_ko: |
+  여자: 관람객 여러분께 안내 말씀 드리겠습니다. 오늘 오후 3시에 2층 체험실에서 열릴 예정이었던 '가족 판화 만들기' 행사는 체험실 냉방 기기 점검으로 인해 1층 강당에서 진행됩니다. 시작 시간은 변동이 없습니다. 미리 신청하지 않으신 분들도 행사 시작 30분 전부터 강당 입구에서 선착순으로 접수하실 수 있습니다. 재료는 미술관에서 모두 준비해 드리니 따로 챙겨 오실 것은 없습니다. 감사합니다.
+transcript_vi: |
+  Nữ: Xin thông báo tới quý khách tham quan. Sự kiện 'Cả nhà cùng làm tranh khắc in' dự kiến diễn ra lúc 3 giờ chiều nay tại phòng trải nghiệm tầng 2 sẽ được tổ chức tại hội trường tầng 1 do thiết bị làm mát của phòng trải nghiệm đang được kiểm tra bảo dưỡng. Giờ bắt đầu không thay đổi. Những vị chưa đăng ký trước cũng có thể đăng ký theo thứ tự đến trước tại lối vào hội trường, bắt đầu từ 30 phút trước giờ bắt đầu sự kiện. Bảo tàng đã chuẩn bị sẵn toàn bộ nguyên liệu nên quý vị không cần mang theo gì. Xin cảm ơn.
+stem: "다음을 듣고 들은 내용과 같은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 행사 장소가 다른 곳으로 바뀌었다.
+    correct: true
+  - label: "②"
+    text: 현장 접수는 행사 30분 전에 마감된다.
+    trap: time_shift
+    note_vi: "Nghe nhầm '-부터' thành '-까지': thông báo nói đăng ký tại chỗ bắt đầu từ 30 phút trước sự kiện (30분 전부터 … 접수하실 수 있습니다), không phải kết thúc lúc đó."
+  - label: "③"
+    text: 미리 신청한 사람만 참가할 수 있다.
+    trap: negation_flip
+    note_vi: "Ngược với thông báo: người chưa đăng ký trước cũng tham gia được (미리 신청하지 않으신 분들도 … 접수하실 수 있습니다)."
+  - label: "④"
+    text: 접수는 2층 체험실 앞에서 받는다.
+    trap: detail_swap
+    note_vi: "Sai địa điểm: đăng ký tại lối vào hội trường tầng 1 (강당 입구에서). '2층 체험실' là địa điểm cũ của sự kiện trước khi đổi."
+explanation_vi: |
+  **Đáp án ①.** Căn cứ: "2층 체험실에서 열릴 예정이었던 '가족 판화 만들기' 행사는 … 1층 강당에서 진행됩니다" (sự kiện dự kiến tổ chức ở phòng trải nghiệm tầng 2 … sẽ diễn ra tại hội trường tầng 1).
+  Địa điểm đổi từ phòng trải nghiệm tầng 2 sang hội trường tầng 1, đáp án diễn đạt lại thành "장소가 다른 곳으로 바뀌었다". Riêng giờ bắt đầu thì "변동이 없습니다" (không thay đổi).
+  **Mẹo dạng:** Thông báo thay đổi thường có khung "-(으)ㄹ 예정이었던 A는 … B에서 진행됩니다". Vừa nghe vừa ghi hai cột: cái gì đổi (địa điểm), cái gì giữ nguyên (giờ, nguyên liệu do bảo tàng lo).
+  **Đáng chú ý:** 변동 (變動 – biến động) – sự thay đổi (lịch, giá, số liệu); nghĩa nhẹ hơn "biến động" trong tiếng Việt, 변동이 없다 chỉ là "không thay đổi"; 선착순 (先着順 – tiên trước thuận) – theo thứ tự ai đến trước được trước; 着 ở đây nghĩa là "đến nơi" (như 到着 – đáo trước), không phải "trước" trong "trước – sau"; 접수하다 (接受 – tiếp thụ) – tiếp nhận (đơn, đăng ký).

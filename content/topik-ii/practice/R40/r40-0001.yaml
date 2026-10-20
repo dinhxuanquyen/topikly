@@ -1,0 +1,38 @@
+id: r40-0001
+type_code: R40
+subskill: insert_sentence
+difficulty: 5
+tags:
+  - "topic:nature"
+  - "topic:animals"
+  - "genre:expository"
+  - "connector:이처럼"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Nhờ reviewer kiểm tra kiến thức: (1) chim bay theo đội hình chữ V tận dụng luồng khí bốc lên (upwash) phía sau đầu cánh con bay trước để tiết kiệm sức; (2) chim bay chữ V luân phiên vị trí dẫn đầu (đã được ghi nhận ở một số loài như cò quăm, ngỗng). Bài dùng '…것으로 알려져 있다' để tránh khẳng định tuyệt đối. Liên kết hai phía của ㉡: '바로 이 공기의 흐름' (cần câu trước ㉡) và '이처럼 힘을 아끼는 새들' (câu sau ㉡ cần <보기>). Đã chèn thử ở cả 4 vị trí. 2026-10-20: rào câu cuối thành '… 새들 가운데에는 … 종도 있는 것으로 알려져 있다' (chỉ một số loài), theo gợi ý duyệt; không ảnh hưởng đáp án ㉡. 2026-10-20 (lượt 2): bỏ '들' ('새들 가운데에는' → '새 가운데에는') để khớp với '종도' (loài), theo gợi ý duyệt lại; không câu trích nào trong lời giải bị ảnh hưởng. Người dùng nên tự kiểm tra kho đề NIIED với từ khoá 기러기/철새 V자 trước khi import."
+passage: |
+  기러기나 두루미 같은 큰 철새들은 먼 거리를 이동할 때 V자 모양으로 줄을 지어 나는 경우가 많다. ( ㉠ ) 앞에서 나는 새의 날개 끝 뒤쪽에는 위로 올라가는 공기의 흐름이 생긴다. ( ㉡ ) 이처럼 힘을 아끼는 새들이 모여 날기 때문에 무리 전체가 혼자 날 때보다 훨씬 먼 거리를 이동할 수 있다. ( ㉢ ) 그렇다면 맨 앞에서 바람을 그대로 맞는 새는 금방 지치지 않을까? ( ㉣ ) 실제로 V자로 나는 새 가운데에는 앞자리를 서로 번갈아 맡아 한 마리에게 부담이 몰리지 않게 하는 종도 있는 것으로 알려져 있다.
+insert_sentence: "뒤따르는 새들은 바로 이 공기의 흐름을 타고 날기 때문에 적은 힘으로도 높이를 유지할 수 있다."
+stem: "다음 글에서 <보기>의 문장이 들어가기에 가장 알맞은 곳을 고르십시오."
+choices:
+  - label: "①"
+    text: "㉠"
+    trap: cohesion_break
+    note_vi: "Ở ㉠ chưa có câu nào nói về luồng không khí, nên '바로 이 공기의 흐름' (chính luồng không khí này) không có tiền ngữ."
+  - label: "②"
+    text: "㉡"
+    correct: true
+  - label: "③"
+    text: "㉢"
+    trap: logic_mismatch
+    note_vi: "Đặt ở ㉢ thì câu sau ㉡ ('이처럼 힘을 아끼는 새들', những con chim tiết kiệm sức như vậy) vẫn thiếu tiền ngữ. Ngoài ra <보기> giải thích cơ chế lại đứng sau câu kết luận về cả đàn, đảo trình tự cơ chế → kết quả."
+  - label: "④"
+    text: "㉣"
+    trap: cohesion_break
+    note_vi: "Sau câu hỏi 'con bay đầu có nhanh mệt không?', mạch văn cần câu trả lời về con đầu đàn. <보기> lại nói về những con bay phía sau nên làm đứt mạch hỏi – đáp."
+explanation_vi: |
+  **Đáp án ②.** Câu <보기> có "바로 이 공기의 흐름" (chính luồng không khí này), nên phải đứng ngay sau câu "앞에서 나는 새의 날개 끝 뒤쪽에는 위로 올라가는 공기의 흐름이 생긴다" (phía sau đầu cánh con chim bay trước có luồng khí bốc lên). Đồng thời câu sau ㉡ mở đầu bằng "이처럼 힘을 아끼는 새들이" (những con chim tiết kiệm sức như thế), cần một câu đứng trước nói về việc tiết kiệm sức, chính là "적은 힘으로도 높이를 유지할 수 있다" trong <보기>. Chỉ ㉡ thoả mãn cả hai phía.
+  **Mẹo dạng:** gạch chân chỉ từ và từ nối (이, 바로 이, 이처럼, 그렇다면) trong <보기> **và** trong câu đứng ngay sau mỗi vị trí. Vị trí đúng là nơi cả câu trước lẫn câu sau đều nối được.
+  **Đáng chú ý:** 철새 – chim di cư · 번갈아 – luân phiên, thay phiên nhau · 부담 (負擔 – phụ đảm) – gánh nặng; 부담이 몰리다: gánh nặng dồn vào một chỗ.

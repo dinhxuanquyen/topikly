@@ -1,0 +1,59 @@
+id: l11-0001
+type_code: L11
+subskill: next_action
+difficulty: 3
+tags: [topic:sports, topic:public-service, genre:conversation, setting:gym, grammar:-아-놓다]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Transcript khoảng 175–180 ký tự (không tính nhãn), đếm tay; vượt 160 nhưng trong ngưỡng 30%. Có đủ 3 loại hành động: đã làm (mang đơn đến), người kia sẽ làm (kiểm tra đơn), người hỏi sẽ làm (đi chụp ảnh)."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "người dân đến đăng ký lớp bơi"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng tự nhiên, lịch sự"
+  - label: 남자
+    gender: male
+    role_vi: "nhân viên quầy tiếp nhận ở trung tâm thể thao quận"
+    age_range: 20s
+    voice_hint_vi: "giọng trẻ, rõ ràng, nhã nhặn"
+tts_notes:
+  speed: 1.0
+  style_vi: "Hội thoại tại quầy dịch vụ công, tự nhiên."
+  pauses_vi: "Ngắt nhẹ sau '그럼 아침반으로 할게요.' trước khi chuyển sang chuyện ảnh."
+  pronunciation_vi: "7시 반 đọc là 일곱 시 반 (không đọc 칠 시); 마감됐어요 [마감돼써요]; 깜빡하고 [깜빠카고]."
+transcript_ko: |
+  여자: 수영 강습 신청서 가져왔는데요. 저녁반으로 신청할 수 있을까요?
+  남자: 죄송하지만 저녁반은 어제 마감됐어요. 아침 7시 반 수업은 아직 자리가 있고요.
+  여자: 그럼 아침반으로 할게요. 그런데 사진도 필요하다고 들었는데 깜빡하고 안 가져왔어요.
+  남자: 저쪽에 사진 찍는 기계가 있으니까 거기서 찍어 오세요. 그동안 제가 신청서 내용을 확인해 놓을게요.
+transcript_vi: |
+  Nữ: Tôi mang đơn đăng ký lớp bơi đến đây. Tôi đăng ký lớp buổi tối được không ạ?
+  Nam: Xin lỗi chị, lớp buổi tối đã đóng đăng ký từ hôm qua rồi. Lớp 7 giờ rưỡi sáng thì vẫn còn chỗ.
+  Nữ: Vậy tôi chọn lớp buổi sáng. Nhưng tôi nghe nói cần cả ảnh, mà tôi quên mất, không mang theo.
+  Nam: Đằng kia có máy chụp ảnh, chị ra đó chụp rồi quay lại nhé. Trong lúc đó tôi sẽ kiểm tra trước nội dung đơn.
+stem: "다음 대화를 잘 듣고 여자가 이어서 할 행동으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 수영 강습 신청서를 쓴다.
+    trap: time_shift
+    note_vi: "Việc đã xong: nữ mở đầu bằng '신청서 가져왔는데요' (tôi mang đơn đến rồi), nên không cần viết đơn nữa."
+  - label: "②"
+    text: 신청서 내용을 확인한다.
+    trap: speaker_swap
+    note_vi: "Kiểm tra đơn là việc của nam (제가 신청서 내용을 확인해 놓을게요), không phải của nữ."
+  - label: "③"
+    text: 저녁반 강습을 신청한다.
+    trap: detail_swap
+    note_vi: "Lớp buổi tối đã đóng đăng ký (어제 마감됐어요), và nữ đã chuyển sang lớp buổi sáng (아침반으로 할게요)."
+  - label: "④"
+    text: 사진을 찍으러 간다.
+    correct: true
+explanation_vi: |
+  **Đáp án ④.** Căn cứ: nữ nói "사진도 필요하다고 들었는데 깜빡하고 안 가져왔어요" (nghe nói cần ảnh mà tôi quên không mang), và nam hướng dẫn "저쪽에 사진 찍는 기계가 있으니까 거기서 찍어 오세요" (đằng kia có máy chụp ảnh, chị ra đó chụp rồi quay lại nhé).
+  Vậy việc nữ làm ngay sau hội thoại là đi ra chỗ máy để chụp ảnh.
+  **Mẹo dạng:** Ghi nhanh ba cột: việc đã xong (mang đơn), việc của người kia (kiểm tra đơn), việc của người được hỏi (chụp ảnh). Câu đề nghị -(으)세요 của người kia thường chỉ ra hành động tiếp theo.
+  **Đáng chú ý:** 강습 (講習 – giảng tập) – lớp hướng dẫn kỹ năng (bơi, nấu ăn…); 마감되다 – hết hạn nhận, đóng đăng ký; 깜빡하다 – quên béng, quên mất.

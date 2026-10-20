@@ -1,0 +1,65 @@
+id: l01-0001
+type_code: L01
+subskill: picture_match
+difficulty: 3
+tags: [topic:daily-life, genre:conversation, setting:store, vocab:맡기다]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Độ dài transcript ước tính khoảng 90 ký tự (không tính nhãn người nói), đếm tay vì chưa có script. Tranh ③ và ④ chỉ khác chiều trao chiếc cúc, hoạ sĩ cần vẽ rõ bàn tay nào chìa ra, bàn tay nào ngửa ra đón."
+audio_url: null
+image_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "khách hàng mang váy đến gửi sửa"
+    age_range: 20s
+    voice_hint_vi: "giọng trẻ, lịch sự, hơi vội"
+  - label: 남자
+    gender: male
+    role_vi: "chủ tiệm giặt là – sửa đồ"
+    age_range: 50s
+    voice_hint_vi: "giọng trung niên, niềm nở"
+tts_notes:
+  speed: 1.0
+  style_vi: "Hội thoại tại quầy, tự nhiên, ngữ điệu đời thường."
+  pauses_vi: "Ngắt ngắn sau '네, 그럼요.' và sau '네, 여기 있어요.' (lúc trao cúc)."
+  pronunciation_vi: "떨어졌는데 [떠러전는데]; 목요일 [모교일]."
+image_desc: "Bên trong một tiệm giặt là – sửa đồ nhỏ (세탁소). Có quầy gỗ, phía sau treo nhiều quần áo bọc túi nilon. Người nam khoảng 50 tuổi, đeo tạp dề, đứng sau quầy. Người nữ khoảng 25–30 tuổi đứng trước quầy. Cả bốn tranh cùng bối cảnh và nhân vật, chỉ khác hành động."
+transcript_ko: |
+  여자: 이 원피스 좀 맡기려고요. 단추가 하나 떨어졌는데 달아 주실 수 있어요?
+  남자: 네, 그럼요. 떨어진 단추는 가져오셨어요?
+  여자: 네, 여기 있어요.
+  남자: 그럼 목요일 오후에 찾으러 오세요.
+transcript_vi: |
+  Nữ: Cháu muốn gửi chiếc váy liền này. Bị rơi mất một cái cúc, chú đính lại giúp cháu được không ạ?
+  Nam: Vâng, được chứ. Cháu có mang theo cái cúc bị rơi không?
+  Nữ: Có ạ, đây ạ.
+  Nam: Vậy chiều thứ Năm cháu đến lấy nhé.
+stem: "다음을 듣고 알맞은 그림 또는 그래프를 고르십시오."
+choices:
+  - label: "①"
+    text: ""
+    image_desc: "Người nam đưa qua quầy một chiếc váy liền đã treo móc và bọc túi nilon trong suốt; người nữ đưa hai tay ra nhận. Trên quầy không có cúc."
+    trap: time_shift
+    note_vi: "Đây là cảnh trả đồ. Theo hội thoại, việc lấy váy diễn ra vào chiều thứ Năm (목요일 오후에 찾으러 오세요), chưa phải lúc hai người đang nói chuyện."
+  - label: "②"
+    text: ""
+    image_desc: "Người nam ngồi sau quầy, một tay cầm chiếc váy liền, tay kia cầm kim chỉ đang khâu cúc vào váy; người nữ đứng trước quầy nhìn."
+    trap: keyword_echo
+    note_vi: "Bạn có nghe thấy '단추를 달다' (đính cúc), nhưng đó mới là lời nhờ của nữ. Việc đính cúc sẽ làm sau, không diễn ra ngay lúc này."
+  - label: "③"
+    text: ""
+    image_desc: "Chiếc váy liền (chưa bọc nilon) đặt trên quầy. Người nữ chìa bàn tay có một chiếc cúc nhỏ về phía người nam; người nam đứng sau quầy, ngửa tay ra đón. Bố cục, vị trí nhân vật và vị trí chiếc váy giống hệt tranh ④, chỉ khác chiều trao cúc."
+    correct: true
+  - label: "④"
+    text: ""
+    image_desc: "Chiếc váy liền (chưa bọc nilon) đặt trên quầy, cùng vị trí như tranh ③. Người nam đứng sau quầy, chìa bàn tay có một chiếc cúc nhỏ về phía người nữ; người nữ ngửa tay ra đón."
+    trap: speaker_swap
+    note_vi: "Đảo chiều trao đồ: chính nữ mang cúc đến và đưa cho nam (네, 여기 있어요), không phải nam đưa cúc cho nữ."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ: "떨어진 단추는 가져오셨어요?" – "네, 여기 있어요." (Cháu có mang cái cúc bị rơi không? – Có ạ, đây ạ.)
+  "여기 있어요" đi kèm hành động đưa đồ, nên tranh đúng là cảnh người nữ đưa chiếc cúc cho người nam, chiếc váy đã đặt trên quầy. Việc đính cúc và lấy váy chỉ xảy ra sau đó: "그럼 목요일 오후에 찾으러 오세요" (vậy chiều thứ Năm cháu đến lấy nhé).
+  **Mẹo dạng:** Tranh đúng là việc đang diễn ra ở thời điểm hội thoại. Xác định "ai đưa gì cho ai", rồi loại các hành động được hẹn cho tương lai.
+  **Đáng chú ý:** 맡기다 – gửi, giao cho người khác giữ hoặc làm hộ; 단추를 달다 – đính cúc; -(으)러 오다 – đến để làm gì (찾으러 오다: đến lấy đồ).

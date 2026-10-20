@@ -1,0 +1,40 @@
+id: r14-0001
+type_code: R14
+subskill: sentence_order
+difficulty: 4
+tags:
+  - "topic:public-service"
+  - "topic:daily-life"
+  - "genre:expository"
+  - "connector:그-덕분에"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Mô hình 'thư viện cho mượn hạt giống' (씨앗도서관) có thật ở nhiều nơi, bài chỉ nói 'một thư viện quận' chung chung, không gán cho cơ quan cụ thể. Hai câu mở đầu trong phương án: (나) và (다), mỗi câu xuất hiện 2 lần. Đã đọc nối cả 4 phương án: chỉ ② không có chỗ đứt liên kết. 2026-10-20: sửa (다) ('그 채소에서 받은 씨앗을' thay cho '거기에서 새로 얻은 씨앗을'), viết lại note_vi ③ nêu mối nối (나)→(가), bổ sung dấu hiệu '한 + danh từ' vào lời giải, theo báo cáo duyệt 2026-10-19-mau-doc. 2026-10-20 (lượt 2, theo mục 'Duyệt lại'): (다) bỏ '그 채소' → '채소를 키워 씨앗을 받은 뒤 도서관에 돌려주면 된다' để người học không loại (다) vì chỉ từ 그; note_vi ③ nói rõ tiền ngữ ở (다) bị (나) chen ngang; cập nhật trích dẫn và 'Mẹo dạng'. Đọc nối lại 4 thứ tự: ① và ③ đứt ở (나)→(가), ④ đặt việc trả hạt trước khi thư viện có dịch vụ; chỉ ② liền mạch."
+passage: |
+  (가) 이렇게 돌아온 씨앗은 다시 다른 주민들에게 빌려준다.
+  (나) 최근 한 구립 도서관이 책뿐만 아니라 채소 씨앗도 빌려주기 시작했다.
+  (다) 씨앗을 빌린 주민은 집이나 텃밭에서 채소를 키워 씨앗을 받은 뒤 도서관에 돌려주면 된다.
+  (라) 그 덕분에 처음 들어온 씨앗 몇 봉지가 해마다 여러 집을 거치며 동네 곳곳으로 퍼져 나가고 있다.
+stem: "다음을 순서대로 맞게 배열한 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "(나)-(가)-(다)-(라)"
+    trap: cohesion_break
+    note_vi: "Đặt (가) ngay sau (나) thì '이렇게 돌아온 씨앗' (hạt giống được trả về như vậy) không có tiền ngữ, vì lúc đó chưa có câu nào nói tới việc trả hạt giống."
+  - label: "②"
+    text: "(나)-(다)-(가)-(라)"
+    correct: true
+  - label: "③"
+    text: "(다)-(나)-(가)-(라)"
+    trap: cohesion_break
+    note_vi: "(다) khó đứng đầu: '-면 된다' là lời hướng dẫn cách dùng một dịch vụ mà người đọc chưa được giới thiệu, và '도서관' xuất hiện như thứ đã biết. Quan trọng hơn, (가) '이렇게 돌아온 씨앗은' đứng ngay sau (나): tiền ngữ của 이렇게 (việc trả hạt ở (다)) đã bị (나) chen ngang, mà (나) không nói gì về việc trả hạt giống, nên 이렇게 không còn trỏ được về việc trả hạt."
+  - label: "④"
+    text: "(다)-(가)-(나)-(라)"
+    trap: cohesion_break
+    note_vi: "(나) mở đầu bằng '최근 한 구립 도서관이 … 빌려주기 시작했다': 최근, 한 + danh từ và -기 시작했다 là dấu hiệu giới thiệu một dịch vụ mới, nên (나) không thể đứng sau (가) '이렇게 돌아온 씨앗은 다시 … 빌려준다', khi vòng mượn – trả đã được kể xong. Ngoài ra thứ tự này mở đầu bằng (다), cũng khó đứng đầu như ở ③."
+explanation_vi: |
+  **Đáp án ②.** (나) "최근 한 구립 도서관이 … 채소 씨앗도 빌려주기 시작했다" (gần đây một thư viện quận bắt đầu cho mượn cả hạt giống rau) không có chỉ từ hay từ nối và mang thông tin mới, nên là câu mở đầu. Chữ 한 trong "한 구립 도서관" (một thư viện quận nào đó) và 최근 (gần đây) là dấu hiệu giới thiệu đối tượng mới. (다) giải thích cách mượn và trả: "씨앗을 빌린 주민은 집이나 텃밭에서 채소를 키워 씨앗을 받은 뒤 도서관에 돌려주면 된다" (người mượn trồng rau, lấy hạt rồi trả lại thư viện). (가) "이렇게 돌아온 씨앗은" cần tiền ngữ là việc trả hạt ở (다). (라) "그 덕분에" (nhờ vậy) tổng kết kết quả của cả vòng mượn – trả – cho mượn lại.
+  **Mẹo dạng:** câu đầu là câu không có chỉ từ trỏ về câu trước (이, 그, 이렇게) hay từ nối, và giới thiệu thông tin mới. Sau đó lần theo các tín hiệu 이렇게, 그 덕분에 để nối các câu còn lại.
+  **Đáng chú ý:** 구립 (區立 – khu lập) – do quận lập, thuộc quận · 텃밭 – mảnh vườn nhỏ cạnh nhà · 거치다 – đi qua, trải qua.

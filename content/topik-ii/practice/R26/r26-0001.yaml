@@ -1,0 +1,38 @@
+id: r26-0001
+type_code: R26
+subskill: headline
+difficulty: 5
+tags:
+  - "topic:economy"
+  - "topic:food"
+  - "genre:headline"
+  - "vocab:주춤하다"
+  - "vocab:들썩이다"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Tít tự soạn, tin hư cấu, không gắn địa phương hay năm cụ thể. Hai từ tượng hình then chốt: 주춤 (chững lại) và 들썩 (giá nhấp nhổm tăng). Trợ từ 에 ở '가을비에' chỉ nguyên nhân. 2026-10-20: rút gọn ① ('자주 와서' → '잦아') để độ dài ngang các phương án khác, theo gợi ý duyệt."
+passage: |
+  잦은 가을비에 사과 수확 '주춤'… 추석 앞두고 과일값 '들썩'
+stem: "다음 신문 기사의 제목을 가장 잘 설명한 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "가을비가 잦아 사과 수확이 늦어지자 추석을 앞두고 과일값이 오르고 있다."
+    correct: true
+  - label: "②"
+    text: "추석을 앞두고 과일값이 오르자 농가들이 사과 수확 시기를 늦추고 있다."
+    trap: reverse_causality
+    note_vi: "Đảo nhân quả: tít cho biết mưa thu làm thu hoạch chậm lại, rồi giá mới tăng. Không có ý giá tăng khiến nông dân cố ý hoãn thu hoạch."
+  - label: "③"
+    text: "가을비가 잦았지만 사과 수확이 순조로워 추석 과일값이 안정되고 있다."
+    trap: negation_flip
+    note_vi: "Hiểu ngược nghĩa 주춤 và 들썩: tít nói thu hoạch bị chững lại và giá đang biến động theo chiều tăng, không phải thuận lợi và ổn định."
+  - label: "④"
+    text: "가을비로 사과 수확이 완전히 중단되어 추석에 과일을 구하기 어려워졌다."
+    trap: degree_shift
+    note_vi: "Phóng đại: 주춤 là chậm lại, chững lại, không phải dừng hẳn. 들썩 nói về giá cả, không nói tới chuyện không mua được hoa quả."
+explanation_vi: |
+  **Đáp án ①.** Tách tít thành ba phần: "잦은 가을비에" (vì mưa thu thường xuyên; 에 chỉ nguyên nhân), "사과 수확 '주춤'" (thu hoạch táo chững lại), "추석 앞두고 과일값 '들썩'" (trước Chuseok giá hoa quả nhấp nhổm tăng). Chuỗi nhân quả là: mưa nhiều → thu hoạch chậm → giá hoa quả có xu hướng tăng. ① diễn đạt lại đúng chuỗi đó: 주춤 → 늦어지다, 들썩 → 오르다.
+  **Mẹo dạng:** khôi phục trợ từ bị lược (에 = nguyên nhân) và dịch các từ tượng hình trước khi đọc phương án: 주춤 (chững lại), 들썩 (nhấp nhổm tăng), 껑충 (vọt lên), 뚝 (tụt mạnh). Sau đó kiểm tra chiều nhân quả của từng phương án.
+  **Đáng chú ý:** 수확 (收穫 – thu hoạch) – thu hoạch · 주춤하다 – chững lại, khựng lại · 들썩이다 – (giá cả) nhấp nhổm, có dấu hiệu tăng.

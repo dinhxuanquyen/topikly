@@ -1,0 +1,59 @@
+id: l18-0001
+type_code: L18
+subskill: central_thought
+difficulty: 4
+tags: [topic:leisure, topic:consumer, genre:conversation, vocab:후기]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Transcript khoảng 185 ký tự (không tính nhãn), hơi vượt 100–180 nhưng trong ngưỡng 30%. Ý chính của nam xuất hiện ở lượt 2 (đề xuất) và được củng cố ở lượt 4 (lý do), không dồn vào câu cuối."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "người đang chọn khu cắm trại, tin vào điểm đánh giá"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng than thở nhẹ, sau đó hơi cãi lại"
+  - label: 남자
+    gender: male
+    role_vi: "bạn/đồng nghiệp của nữ, đưa ra lời khuyên"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng điềm tĩnh, thuyết phục"
+tts_notes:
+  speed: 1.0
+  style_vi: "Hội thoại thân mật lịch sự (-요), tự nhiên, có ngữ điệu tranh luận nhẹ."
+  pauses_vi: "Ngắt ngắn sau '물론 별점도 참고는 해야죠.' để nhấn chữ '근데'."
+  pronunciation_vi: "못 고르겠어요 [몯꼬르게써요]; 확률 [황뉼]; 낮잖아요 [낟짜나요]; 놀 데가 [놀 떼가]."
+transcript_ko: |
+  여자: 이번 주말에 갈 캠핑장을 찾고 있는데 후기가 너무 많아서 못 고르겠어요.
+  남자: 후기 보기 전에 가서 뭘 하고 싶은지부터 정해 보면 어때요? 조용히 쉬고 싶은지, 아이들이 놀 데가 필요한지에 따라 좋은 곳이 다르잖아요.
+  여자: 그래도 별점 높은 데로 가면 실패할 확률이 낮잖아요.
+  남자: 물론 별점도 참고는 해야죠. 근데 남들한테 좋았던 곳이 나한테도 좋다는 보장은 없거든요.
+transcript_vi: |
+  Nữ: Tôi đang tìm khu cắm trại để đi cuối tuần này mà bài đánh giá nhiều quá, chẳng chọn nổi.
+  Nam: Trước khi xem đánh giá, sao chị không thử quyết định trước là đến đó muốn làm gì? Muốn nghỉ ngơi yên tĩnh hay cần chỗ cho bọn trẻ chơi thì chỗ tốt sẽ khác nhau mà.
+  Nữ: Nhưng đi chỗ được chấm nhiều sao thì khả năng thất bại thấp hơn còn gì.
+  Nam: Tất nhiên cũng phải tham khảo số sao chứ. Nhưng chỗ người khác thấy tốt thì chẳng có gì bảo đảm là mình cũng sẽ thấy tốt.
+stem: "다음을 듣고 남자의 중심 생각으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 별점이 높은 곳을 고르는 것이 안전하다.
+    trap: speaker_swap
+    note_vi: "Đây là ý của nữ (별점 높은 데로 가면 실패할 확률이 낮잖아요). Nam chỉ đồng ý số sao để tham khảo rồi phản bác bằng '근데…'."
+  - label: "②"
+    text: 다른 사람의 후기는 볼 필요가 없다.
+    trap: overgeneralization
+    note_vi: "Tuyệt đối hoá: nam không bảo bỏ hẳn đánh giá, anh nói 'trước khi xem' (후기 보기 전에) và 'vẫn phải tham khảo' (참고는 해야죠)."
+  - label: "③"
+    text: 자신이 원하는 조건을 먼저 정해야 한다.
+    correct: true
+  - label: "④"
+    text: 아이와 갈 때는 놀 곳이 있어야 한다.
+    trap: too_narrow
+    note_vi: "Chỉ là ví dụ minh hoạ cho các tiêu chí khác nhau (아이들이 놀 데가 필요한지), không phải quan điểm chính, và nam cũng không khuyên riêng điều này."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ: "후기 보기 전에 가서 뭘 하고 싶은지부터 정해 보면 어때요?" (trước khi xem đánh giá, thử quyết định trước là đến đó muốn làm gì xem sao?) và "남들한테 좋았던 곳이 나한테도 좋다는 보장은 없거든요" (chỗ người khác thấy tốt thì chưa chắc mình cũng thấy tốt).
+  Cả hai lượt của nam cùng hướng tới một ý: phải xác định nhu cầu, tiêu chí của bản thân trước. Đáp án diễn đạt lại "뭘 하고 싶은지부터 정하다" thành "원하는 조건을 먼저 정하다".
+  **Mẹo dạng:** Ý chính của nam thường nằm ở câu đề xuất (-아/어 보면 어때요?, -는 게 좋다) và được nhắc lại sau khi phản bác nữ. Ví dụ minh hoạ và lời nhượng bộ (물론 …) không phải ý chính.
+  **Đáng chú ý:** 후기 (後記 – hậu ký) – bài viết cảm nhận, đánh giá sau khi dùng; khác "hậu ký" trong tiếng Việt (phần ghi ở cuối sách); 보장 (保障 – bảo chướng) – sự bảo đảm, -다는 보장은 없다: không có gì bảo đảm rằng…; -부터 – (làm việc gì) trước hết.

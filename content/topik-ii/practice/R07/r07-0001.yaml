@@ -1,0 +1,39 @@
+id: r07-0001
+type_code: R07
+subskill: text_identification
+difficulty: 3
+tags:
+  - "topic:housing"
+  - "topic:society"
+  - "genre:campaign"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Khẩu hiệu công ích không gọi tên vấn đề; người học phải ghép 발소리 + 아래층 để suy ra 층간 소음. 2026-10-20: thay ④ '주차 질서 지키기' bằng '이웃 간 인사 예절' (cùng dạng danh từ, gần trường nghĩa hơn) theo gợi ý duyệt. Reviewer gợi ý trap keyword_echo cho ④; tôi gắn outside_text vì việc chào hỏi không có trong văn bản, và để câu vẫn có ít nhất 2 kiểu bẫy (② ③ đã là keyword_echo). Trước khi import, người dùng nên tự kiểm tra kho đề NIIED về khẩu hiệu 층간 소음. 2026-10-20 (spec v0.2): đổi genre:advertisement → genre:campaign (quảng cáo công ích); viết lại câu đầu note_vi ④ cho khớp outside_text theo gợi ý duyệt lại."
+passage: |
+  발소리는 작게, 배려는 크게
+  아래층 이웃에게 편안한 저녁을 선물하세요
+image_desc: "Poster dọc nền xanh nhạt. Hình mặt cắt một toà chung cư hai tầng: tầng trên có một gia đình đi dép trong nhà, bước nhẹ; tầng dưới một cụ bà ngồi đọc sách thư thái. Hai dòng khẩu hiệu tiếng Hàn in ở giữa poster, dòng thứ nhất to hơn. Góc dưới có dòng nhỏ '○○시'."
+image_url: null
+stem: "다음은 무엇에 대한 글인지 고르십시오."
+choices:
+  - label: "①"
+    text: "층간 소음 예방"
+    correct: true
+  - label: "②"
+    text: "이웃 초대 행사"
+    trap: keyword_echo
+    note_vi: "Lặp các từ 이웃, 저녁, 선물 nhưng khẩu hiệu không mời ai đến nhà. 'Món quà' ở đây là sự yên tĩnh có được nhờ đi lại nhẹ nhàng."
+  - label: "③"
+    text: "걷기 운동 권장"
+    trap: keyword_echo
+    note_vi: "발소리 (tiếng bước chân) gợi tới việc đi bộ, nhưng khẩu hiệu yêu cầu bước chân nhỏ tiếng trong nhà, không khuyến khích đi bộ rèn luyện."
+  - label: "④"
+    text: "이웃 간 인사 예절"
+    trap: outside_text
+    note_vi: "Chào hỏi cũng là phép lịch sự với hàng xóm, nhưng khẩu hiệu không nói tới; chi tiết then chốt là '발소리는 작게' (tiếng bước chân)."
+explanation_vi: |
+  **Đáp án ①.** Căn cứ: "발소리는 작게" (tiếng bước chân nhỏ thôi) và "아래층 이웃에게 편안한 저녁을" (cho hàng xóm tầng dưới một buổi tối dễ chịu). Tiếng bước chân cộng với hàng xóm tầng dưới là dấu hiệu của 층간 소음 (tiếng ồn giữa các tầng) ở nhà chung cư. Khẩu hiệu kêu gọi đi lại nhẹ nhàng để phòng tránh tiếng ồn đó.
+  **Mẹo dạng:** khẩu hiệu công ích thường không gọi thẳng tên vấn đề. Hãy ghép các từ khoá với nhau (발소리 + 아래층) để suy ra đối tượng của chiến dịch, đừng chọn theo một từ đơn lẻ.
+  **Đáng chú ý:** 층간 소음 (層間騷音 – tầng gian tao âm) – tiếng ồn giữa các tầng · 배려 (配慮 – phối lự) – sự quan tâm, nghĩ cho người khác · 예방 (豫防 – dự phòng) – phòng ngừa; trùng nghĩa 'dự phòng' trong 'y tế dự phòng' (예방 의학). Nghĩa 'để sẵn khi cần' (lốp dự phòng, quỹ dự phòng) thì tiếng Hàn dùng 예비 (豫備 – dự bị).

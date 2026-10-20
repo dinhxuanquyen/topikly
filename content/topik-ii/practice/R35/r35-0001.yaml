@@ -1,0 +1,38 @@
+id: r35-0001
+type_code: R35
+subskill: main_idea
+difficulty: 5
+tags:
+  - "topic:education"
+  - "topic:family"
+  - "genre:argumentative"
+  - "connector:따라서"
+  - "grammar:-되"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Luận điểm 'vui chơi có rủi ro vừa phải' (risky play) là quan điểm phổ biến trong giáo dục mầm non, bài viết dưới dạng nhận định chung, không dẫn nghiên cứu cụ thể. Cấu trúc: hiện trạng → nhượng bộ (물론) → phản biện (그러나) → ví dụ → kết luận (따라서). 2026-10-20: thêm cảnh báo bạn giả 대처하다 ≠ 'đối xử' theo gợi ý duyệt. Trap ② giữ true_not_main, chờ spec chốt mã cho 'ý nhượng bộ / quan điểm bị phản biện' (góp ý spec số 4). 2026-10-20 (spec v0.2): đổi trap ② → concession_point (ý nhượng bộ 물론 … trước 그러나, tác giả không giữ quan điểm 'làm sân chơi an toàn hơn nữa'), khớp định nghĩa §2.2 mới."
+passage: |
+  최근 많은 놀이터가 안전을 이유로 높은 미끄럼틀이나 흔들다리 같은 놀이 기구를 없애고 바닥을 푹신한 재료로 바꾸고 있다. 아이들이 다치지 않게 하려는 노력은 물론 필요하다. 그러나 위험 요소가 거의 사라진 놀이터에서는 아이들이 스스로 위험을 판단하고 대처하는 법을 배울 기회도 함께 줄어든다. 조금 높은 곳에 올라가 보고 넘어질 뻔한 경험을 하면서 아이들은 자신이 어디까지 할 수 있는지를 알게 된다. 따라서 놀이터를 만들 때는 큰 사고로 이어질 수 있는 위험은 막되 아이들이 감당할 수 있을 정도의 도전은 남겨 두어야 한다.
+stem: "다음 글의 주제로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "아이들이 위험한 놀이를 제한 없이 즐길 수 있어야 한다."
+    trap: overgeneralization
+    note_vi: "Quá khái quát: tác giả nói rõ phải ngăn những nguy hiểm có thể dẫn tới tai nạn lớn (큰 사고로 이어질 수 있는 위험은 막되), không chủ trương để trẻ chơi nguy hiểm không giới hạn."
+  - label: "②"
+    text: "아이들이 다치지 않도록 놀이터를 더 안전하게 바꾸어야 한다."
+    trap: concession_point
+    note_vi: "Đây là xu hướng hiện nay mà tác giả phản biện. Câu 'an toàn là cần thiết' (노력은 물론 필요하다) chỉ là ý nhượng bộ đứng trước 그러나, không phải chủ đề."
+  - label: "③"
+    text: "놀이터를 만들 때 아이들이 적당한 위험을 경험할 수 있게 해야 한다."
+    correct: true
+  - label: "④"
+    text: "아이들에게 높은 곳에 올라가 보는 경험을 하게 해야 한다."
+    trap: too_narrow
+    note_vi: "'Leo lên chỗ hơi cao' chỉ là một ví dụ minh hoạ cho thử thách vừa sức. Phương án quá hẹp, không bao quát chủ đề thiết kế sân chơi của cả đoạn."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ: câu kết sau 따라서 "놀이터를 만들 때는 큰 사고로 이어질 수 있는 위험은 막되 아이들이 감당할 수 있을 정도의 도전은 남겨 두어야 한다" (khi làm sân chơi, cần ngăn những nguy hiểm có thể gây tai nạn lớn nhưng giữ lại thử thách ở mức trẻ chịu được). Trước đó, 그러나 chuyển từ ý nhượng bộ (an toàn là cần) sang luận điểm: sân chơi quá an toàn làm trẻ mất cơ hội học cách phán đoán và ứng phó với nguy hiểm. ③ diễn đạt lại "thử thách vừa sức" thành "rủi ro ở mức thích hợp" (적당한 위험).
+  **Mẹo dạng:** chủ đề thường nằm sau 그러나 hoặc 따라서 ở cuối đoạn. Câu có 물론 thường là ý nhượng bộ, còn câu có ví dụ cụ thể là luận cứ, cả hai đều không phải chủ đề.
+  **Đáng chú ý:** 감당하다 (堪當 – kham đương) – chịu được, đảm đương · 대처하다 (對處 – đối xử) – ứng phó, xử lý tình huống; khác "đối xử" trong tiếng Việt · -되 – … nhưng…, nêu điều kiện hoặc giới hạn kèm theo.

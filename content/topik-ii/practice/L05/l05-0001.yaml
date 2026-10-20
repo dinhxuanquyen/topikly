@@ -1,0 +1,57 @@
+id: l05-0001
+type_code: L05
+subskill: next_response
+difficulty: 3
+tags: [topic:leisure, genre:conversation, grammar:-기로-하다, grammar:-거든요]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Transcript khoảng 105 ký tự (không tính nhãn), hơi vượt mức 50–100 nhưng trong ngưỡng 30%. Hai tag grammar cần lexicographer xác nhận đúng pattern trong grammar_points."
+audio_url: null
+speakers:
+  - label: 남자
+    gender: male
+    role_vi: "đồng nghiệp/bạn cùng câu lạc bộ, người mời"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng thân thiện, vui vẻ"
+  - label: 여자
+    gender: female
+    role_vi: "Su-jin, người được mời"
+    age_range: 20s
+    voice_hint_vi: "giọng trẻ, hơi tiếc nuối khi từ chối"
+tts_notes:
+  speed: 1.0
+  style_vi: "Hội thoại thân mật lịch sự (-요) giữa người quen, ngữ điệu tự nhiên."
+  pauses_vi: "Ngắt ngắn sau '아, 그래요?' để nghe rõ chuyển sang lời mời mới."
+  pronunciation_vi: "같이 [가치]; '같이 갈래요?' lên giọng ở cuối câu hỏi; 일요일 [이료일]; đọc rõ 토요일 và 일요일 vì đây là hai mốc quyết định."
+transcript_ko: |
+  남자: 수진 씨, 이번 토요일에 동호회 사람들이랑 등산 가는데 같이 갈래요?
+  여자: 가고 싶은데 그날은 친구 이사를 도와주기로 했거든요.
+  남자: 아, 그래요? 일요일에도 모임이 있는데, 그날은 공원에서 가볍게 걷기만 해요.
+transcript_vi: |
+  Nam: Su-jin này, thứ Bảy này tôi đi leo núi với mọi người trong câu lạc bộ, cô đi cùng không?
+  Nữ: Tôi cũng muốn đi nhưng hôm đó tôi đã hứa giúp bạn chuyển nhà rồi.
+  Nam: À, vậy à? Chủ nhật cũng có buổi gặp, hôm đó chỉ đi bộ nhẹ nhàng trong công viên thôi.
+stem: "다음 대화를 잘 듣고 이어질 수 있는 말로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 그 친구는 공원 근처로 이사 간대요.
+    trap: keyword_echo
+    note_vi: "Ghép hai từ khoá nghe được (공원, 이사) thành một thông tin không có trong hội thoại, và câu này cũng không đáp lại lời mời đi buổi Chủ nhật."
+  - label: "②"
+    text: 그 모임이라면 저도 갈 수 있겠네요.
+    correct: true
+  - label: "③"
+    text: 토요일에는 이사를 도와줘야 해요.
+    trap: time_shift
+    note_vi: "Đây là lời đáp cho lượt trước (lời mời thứ Bảy), nữ đã nói ý này rồi. Lượt cuối của nam hỏi về buổi Chủ nhật nên nhắc lại lý do bận thứ Bảy là không khớp."
+  - label: "④"
+    text: 그럼 토요일 모임에 나갈게요.
+    trap: detail_swap
+    note_vi: "Nhầm ngày: thứ Bảy nữ bận giúp bạn chuyển nhà (그날은 친구 이사를 도와주기로 했거든요), nên không thể nhận lời buổi thứ Bảy."
+explanation_vi: |
+  **Đáp án ②.** Căn cứ: lượt cuối của nam "일요일에도 모임이 있는데, 그날은 공원에서 가볍게 걷기만 해요" (Chủ nhật cũng có buổi gặp, hôm đó chỉ đi bộ nhẹ trong công viên thôi).
+  Vì thứ Bảy nữ bận, nam đưa ra một lựa chọn khác. Lời đáp phù hợp là nhận lời buổi Chủ nhật; "그 모임" thay cho "buổi gặp Chủ nhật", "-겠네요" thể hiện phán đoán khi vừa nghe thông tin mới.
+  **Mẹo dạng:** Đọc nối từng phương án vào ngay sau lượt cuối. Lời đáp phải trả lời lượt cuối, không phải lượt trước đó. Ghi nhanh hai mốc: 토요일 = bận, 일요일 = buổi đi bộ.
+  **Đáng chú ý:** 동호회 (同好會 – đồng hảo hội) – câu lạc bộ của những người cùng sở thích; 好 ở đây mang nghĩa "ưa thích" (âm theo nghĩa này là "hiếu", như hiếu học); -기로 하다 – quyết định, hẹn sẽ làm gì; -거든요 – vì… (giải thích lý do cho điều vừa nói).
