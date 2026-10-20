@@ -1,0 +1,57 @@
+id: l38-0001
+type_code: L38
+subskill: detail_match
+difficulty: 5
+tags: [topic:architecture, topic:tradition, topic:energy, genre:edu-program]
+group_key: l37-38-0001
+pair_with: [l37-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "l37-0001 chưa soạn. Gợi ý cho L37 (중심 생각 của 여자): 'Khi xây dựng, nên tính đến cách dùng chính cấu trúc công trình để điều tiết nắng và mưa trước khi dựa vào máy móc'. Đáp án L38 (mái hiên che mưa cho cột gỗ) không trùng ý đó. Kiến thức: chức năng che nắng mùa hè (mặt trời cao), đón nắng mùa đông (mặt trời thấp), che mưa cho cột gỗ và cửa giấy của 처마 là kiến thức phổ thông về kiến trúc hanok; reviewer xác nhận lại. Theo spec v0.2: genre:edu-program cho 교양 프로그램 (MC hỏi, chuyên gia trả lời); chuyên gia age_range 60s+ để khớp cách gọi 'bà' trong note_vi. Transcript khoảng 405 ký tự (không tính nhãn), đếm tay."
+audio_url: null
+speakers:
+  - label: 남자
+    gender: male
+    role_vi: "người dẫn chương trình giáo dục – văn hoá (교양 프로그램)"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng MC rõ ràng, tò mò"
+  - label: 여자
+    gender: female
+    role_vi: "chuyên gia kiến trúc truyền thống"
+    age_range: 60s+
+    voice_hint_vi: "giọng trầm, giảng giải, ngắt ý rõ"
+tts_notes:
+  speed: 0.95
+  style_vi: "Chương trình giáo dục: MC hỏi ngắn, chuyên gia trả lời kiểu giảng giải (-습니다 xen -잖아요, -는데요)."
+  pauses_vi: "Ngắt rõ trước '반대로 겨울에는', trước '또 비가 올 때는' và trước '요즘 건물들은'."
+  pronunciation_vi: "햇볕 [해뼏]; 깊숙한 [깁쑤칸]; 처마 đọc rõ, không nuốt âm; 뜨잖아요? lên giọng nhẹ như hỏi lại người nghe."
+transcript_ko: |
+  남자: 한옥을 보면 지붕 끝이 벽보다 훨씬 바깥쪽으로 길게 나와 있는데요. 이 부분을 처마라고 하죠? 처마를 이렇게 길게 만든 데에는 특별한 이유가 있습니까?
+  여자: 네, 처마는 무엇보다 햇빛이 들어오는 양을 조절하는 역할을 합니다. 여름에는 해가 높이 뜨기 때문에 긴 처마가 뜨거운 햇볕을 가려 줘서 방 안이 덜 덥습니다. 반대로 겨울에는 해가 낮게 뜨잖아요? 그래서 햇빛이 처마 밑으로 비스듬히 들어와 방 깊숙한 곳까지 따뜻하게 해 줍니다. 또 비가 올 때는 빗물이 나무 기둥이나 창호지를 바른 문에 직접 닿지 않도록 막아 줘서 집을 오래 보존할 수 있었고요. 요즘 건물들은 유리창을 크게 내고 냉난방 기기에 많이 의존하는데요. 기기에 기대기 전에 처마처럼 건물의 구조만으로 햇빛과 비를 다스리는 방법을 먼저 고민해 볼 필요가 있습니다.
+transcript_vi: |
+  Nam: Nhìn nhà hanok thì thấy mép mái nhô ra ngoài xa hơn tường rất nhiều. Phần này gọi là mái hiên (처마) phải không ạ? Làm mái hiên dài như vậy có lý do gì đặc biệt không ạ?
+  Nữ: Vâng, trước hết mái hiên có vai trò điều tiết lượng ánh nắng chiếu vào nhà. Mùa hè mặt trời lên cao nên mái hiên dài che bớt nắng nóng, trong phòng đỡ nóng hơn. Ngược lại, mùa đông mặt trời ở thấp, đúng không? Vì vậy ánh nắng chiếu xiên vào dưới mái hiên, sưởi ấm đến tận sâu bên trong phòng. Ngoài ra, khi trời mưa, mái hiên ngăn nước mưa chạm trực tiếp vào cột gỗ hay cửa dán giấy, nhờ vậy ngôi nhà được giữ gìn lâu bền. Các toà nhà ngày nay trổ cửa kính lớn và phụ thuộc nhiều vào thiết bị làm mát, sưởi ấm. Trước khi dựa vào thiết bị, chúng ta cần cân nhắc trước những cách chế ngự nắng và mưa chỉ bằng chính cấu trúc của công trình, như mái hiên vậy.
+stem: "들은 내용으로 맞는 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 처마는 겨울에 햇빛이 방에 들어오는 것을 막는다.
+    trap: detail_swap
+    note_vi: "Lẫn mùa: mái hiên che nắng vào mùa hè (여름에는 … 햇볕을 가려 줘서). Mùa đông thì ngược lại, nắng chiếu xiên vào tận sâu trong phòng (방 깊숙한 곳까지 따뜻하게 해 줍니다)."
+  - label: "②"
+    text: 처마는 여름에 바람이 잘 통하게 해 준다.
+    trap: outside_text
+    note_vi: "Nghe hợp lý theo hiểu biết chung về nhà hanok, nhưng bài chỉ nói mái hiên điều tiết nắng và che mưa, hoàn toàn không nhắc tới gió hay thông gió."
+  - label: "③"
+    text: 처마 덕분에 비가 와도 나무 기둥이 잘 젖지 않는다.
+    correct: true
+  - label: "④"
+    text: 요즘 건물들은 처마의 원리를 많이 활용한다.
+    trap: negation_flip
+    note_vi: "Ngược với bài: chuyên gia nói các toà nhà ngày nay phụ thuộc nhiều vào thiết bị làm mát, sưởi ấm (냉난방 기기에 많이 의존하는데요), nên bà mới đề nghị học theo nguyên lý mái hiên."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ: "빗물이 나무 기둥이나 창호지를 바른 문에 직접 닿지 않도록 막아 줘서 집을 오래 보존할 수 있었고요" (mái hiên ngăn nước mưa chạm trực tiếp vào cột gỗ hay cửa dán giấy, nhờ vậy nhà được giữ gìn lâu bền).
+  Nước mưa không chạm trực tiếp vào cột, tức là cột gỗ ít bị ướt. Đáp án diễn đạt lại "직접 닿지 않도록 막아 주다" thành "잘 젖지 않는다".
+  **Mẹo dạng:** Bài giải thích chức năng thường có các mốc "무엇보다 … / 반대로 … / 또 …". Ghi mỗi chức năng kèm điều kiện (mùa hè / mùa đông / trời mưa) để không lẫn, vì phương án nhiễu hay đảo điều kiện.
+  **Đáng chú ý:** 처마 – mái hiên; 의존하다 (依存 – y tồn) – phụ thuộc, dựa vào; 다스리다 – chế ngự, điều tiết.

@@ -1,0 +1,55 @@
+id: r10-0001
+type_code: R10
+subskill: chart_reading
+difficulty: 4
+tags:
+  - "topic:workplace"
+  - "topic:leisure"
+  - "genre:chart-compare"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Số liệu giả định. Mỗi nhóm cộng đủ 100%. Phương án ④ cố ý dùng hai hạng mục chênh 1 điểm (운동 27% / 취미 활동 26%) để kiểm tra đọc kỹ. 2026-10-20: đổi lệnh đề sang lệnh nhóm 9–12 '다음 글 또는 그래프의 내용과 같은 것을 고르십시오.' [cần đối chiếu topik.go.kr]; sửa mục 'Đáng chú ý' (다음으로, 계발/개발) theo gợi ý duyệt. 2026-10-20 (spec v0.2): bỏ passage (lặp tiêu đề biểu đồ); chuyển dòng nguồn/đối tượng sang chart_data[0].caption; chart_data đổi thành list một phần tử; image_desc sửa vị trí chú thích (dưới tiêu đề) cho khớp caption. unit '%' và y theo % đúng định nghĩa mới; hai series cùng tập x và cùng thứ tự x."
+image_desc: "Biểu đồ cột nhóm (grouped bar). Tiêu đề '퇴근 후 가장 많이 하는 활동', ngay dưới tiêu đề là dòng chú thích nhỏ '○○연구소, 20대·40대 직장인 각 500명 대상'. Trục hoành 4 hạng mục theo thứ tự: 휴식, 자기 계발, 취미 활동, 운동. Mỗi hạng mục có 2 cột: 20대 (màu xanh dương) và 40대 (màu cam), số % ghi trên đầu cột. 20대: 31, 29, 22, 18. 40대: 35, 12, 26, 27. Nhãn '단위: %' ở góc trên phải. Mọi nhãn bằng tiếng Hàn."
+image_url: null
+data_is_fictional: true
+chart_data:
+  - chart_type: bar
+    title: "퇴근 후 가장 많이 하는 활동"
+    caption: "○○연구소, 20대·40대 직장인 각 500명 대상"
+    unit: "%"
+    series:
+      - name: "20대"
+        points:
+          - { x: "휴식", y: 31 }
+          - { x: "자기 계발", y: 29 }
+          - { x: "취미 활동", y: 22 }
+          - { x: "운동", y: 18 }
+      - name: "40대"
+        points:
+          - { x: "휴식", y: 35 }
+          - { x: "자기 계발", y: 12 }
+          - { x: "취미 활동", y: 26 }
+          - { x: "운동", y: 27 }
+stem: "다음 글 또는 그래프의 내용과 같은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "두 연령대 모두 운동을 하는 비율이 가장 낮다."
+    trap: overgeneralization
+    note_vi: "Chỉ đúng với 20대 (운동 18% thấp nhất). Ở 40대, thấp nhất là 자기 계발 12%, còn 운동 27% đứng thứ hai. Chữ 모두 làm phương án sai."
+  - label: "②"
+    text: "자기 계발을 하는 비율은 40대가 20대보다 높다."
+    trap: detail_swap
+    note_vi: "Đảo chiều so sánh: 자기 계발 của 20대 là 29%, của 40대 chỉ 12%."
+  - label: "③"
+    text: "20대는 휴식 다음으로 자기 계발을 많이 한다."
+    correct: true
+  - label: "④"
+    text: "40대는 운동보다 취미 활동을 하는 비율이 더 높다."
+    trap: detail_swap
+    note_vi: "Ở 40대, 운동 (27%) cao hơn 취미 활동 (26%) một điểm. Phương án đảo thứ hạng của hai hạng mục sát nhau."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ trên biểu đồ, nhóm 20대: 휴식 31% cao nhất, tiếp theo là 자기 계발 29%, rồi 취미 활동 22% và 운동 18%. Vậy "20대는 휴식 다음으로 자기 계발을 많이 한다" (người 20 tuổi làm nhiều nhất sau nghỉ ngơi là tự trau dồi bản thân) là đúng.
+  **Mẹo dạng:** với mỗi phương án, gạch ra ba thứ: nhóm nào, hạng mục nào, kiểu so sánh nào (cao hơn, thấp nhất, đứng thứ hai), rồi tra đúng cột trên biểu đồ. Cẩn thận với từ 모두 và với những cặp số chênh nhau rất ít.
+  **Đáng chú ý:** 자기 계발 (自己啓發 – tự kỷ khải phát) – tự trau dồi, khơi dậy năng lực của bản thân. Cũng gặp cách viết 자기 개발 (開發 – khai phát): không sai, nhưng 계발 nhấn mạnh việc khơi dậy tiềm năng, 개발 nhấn mạnh việc phát triển năng lực · 비율 (比率 – tỉ suất) – tỉ lệ · 연령대 (年齡帶 – niên linh đới) – nhóm tuổi.

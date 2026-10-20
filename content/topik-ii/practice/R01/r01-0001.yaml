@@ -1,0 +1,36 @@
+id: r01-0001
+type_code: R01
+subskill: fill_blank_grammar
+difficulty: 3
+tags:
+  - "topic:daily-life"
+  - "genre:sentence"
+  - "grammar:-자마자"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Câu đơn kể việc đã xảy ra. Phó từ 다시 ở vế sau là căn cứ then chốt (ô đã được lấy ra). 2026-10-20: đổi genre:essay → genre:sentence theo báo cáo duyệt 2026-10-19-mau-doc; genre:sentence hợp lệ từ spec v0.2."
+passage: |
+  버스에서 내려 우산을 (   ) 비가 그쳐서 다시 가방에 넣었다.
+stem: "(   )에 들어갈 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "꺼내려고"
+    trap: near_synonym_grammar
+    note_vi: "-(으)려고 chỉ mục đích, vế sau phải là hành động có chủ ý nhằm đạt mục đích đó; 'mưa tạnh' không phải hành động như vậy. Muốn nói 'định lấy ô thì mưa tạnh' phải dùng -(으)려고 하는데, mà khi ấy ô chưa được lấy ra nên chữ 다시 (lại cất vào) không hợp."
+  - label: "②"
+    text: "꺼내자마자"
+    correct: true
+  - label: "③"
+    text: "꺼내더라도"
+    trap: logic_mismatch
+    note_vi: "-더라도 là nhượng bộ giả định (cho dù… thì vẫn…). Câu kể một chuỗi việc đã xảy ra, giữa 'lấy ô' và 'mưa tạnh' không có quan hệ nhượng bộ."
+  - label: "④"
+    text: "꺼내느라고"
+    trap: near_synonym_grammar
+    note_vi: "-느라고 cần hai vế cùng chủ ngữ và vế sau là hệ quả (thường tiêu cực) do mải làm vế trước. Ở đây chủ ngữ khác nhau (tôi / mưa) và mưa tạnh không phải do việc lấy ô gây ra."
+explanation_vi: |
+  **Đáp án ②.** Căn cứ: "비가 그쳐서 다시 가방에 넣었다" (vì mưa tạnh nên lại cất vào túi). Chữ 다시 (lại) cho thấy chiếc ô **đã được lấy ra**, và mưa tạnh xảy ra ngay sau đó. -자마자 diễn tả "vừa… thì ngay lập tức…", khớp với trình tự: vừa lấy ô ra thì mưa tạnh, nên lại cất ô vào túi. -자마자 cho phép hai vế khác chủ ngữ (tôi lấy ô / mưa tạnh).
+  **Mẹo dạng:** đọc vế sau trước, xác định quan hệ giữa hai vế (thời gian, nhân quả, nhượng bộ, mục đích) rồi mới chọn ngữ pháp. Để ý các phó từ nhỏ như 다시, 벌써, 아직 vì chúng thường quyết định đáp án.
+  **Đáng chú ý:** 그치다 – tạnh, ngừng (mưa, tiếng khóc…) · -자마자 – vừa… liền…; hai vế có thể khác chủ ngữ · -(으)려고 하는데 – định… thì…; khác -(으)려고 (chỉ mục đích).

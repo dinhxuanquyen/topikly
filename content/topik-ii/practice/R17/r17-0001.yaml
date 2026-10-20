@@ -1,0 +1,37 @@
+id: r17-0001
+type_code: R17
+subskill: fill_blank_content
+difficulty: 4
+tags:
+  - "topic:consumer"
+  - "topic:shopping"
+  - "genre:expository"
+  - "connector:반대로"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "Căn cứ hai phía: trước chỗ trống là '할인 표시나 … 진열에 끌려', sau là '반대로 … 필요한 물건만 … 불필요한 지출을 줄일 수 있다'. Câu cuối (또한 …) nêu một lợi ích riêng nên không phải là nội dung chỗ trống. 2026-10-20: thay ② ('할인 상품을 더 싸게 살 수 있다' → '할인하는 상품을 놓치게 된다') để có thêm một phương án tiêu cực, tránh lộ đáp án theo sắc thái, theo báo cáo duyệt 2026-10-19-mau-doc. Giữ ④ ở dạng -게 된다 (không đổi sang -기 쉽다) để song song hình thức với ②, ③."
+passage: |
+  장을 볼 때 미리 살 물건의 목록을 적어 가는 사람이 많다. 목록 없이 매장에 들어가면 이곳저곳을 돌아다니다가 할인 표시나 눈에 띄는 진열에 끌려 (   ). 반대로 목록을 들고 가면 필요한 물건만 골라 담게 되어 불필요한 지출을 줄일 수 있다. 또한 집에 이미 있는 물건을 또 사는 실수도 막을 수 있다.
+stem: "다음을 읽고 (   )에 들어갈 내용으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "매장에 머무는 시간이 줄어든다"
+    trap: logic_mismatch
+    note_vi: "Câu có chỗ trống nói '이곳저곳을 돌아다니다가' (đi lòng vòng khắp nơi), tức là ở trong cửa hàng lâu hơn chứ không phải ít đi."
+  - label: "②"
+    text: "할인하는 상품을 놓치게 된다"
+    trap: keyword_echo
+    note_vi: "Cũng là kết quả xấu và lặp từ khoá 할인, nhưng ngược với '할인 표시 … 에 끌려' (bị cuốn theo bảng giảm giá): người bị cuốn theo hàng giảm giá sẽ mua chúng chứ không bỏ lỡ. Câu sau dùng 반대로 để đối lập về chi tiêu thừa, không phải về việc bỏ lỡ hàng giảm giá."
+  - label: "③"
+    text: "필요한 물건을 빠뜨리지 않고 사게 된다"
+    trap: negation_flip
+    note_vi: "Không bỏ sót đồ cần mua là lợi ích của việc **có** danh sách. Phương án đảo ngược hai trường hợp có và không có danh sách."
+  - label: "④"
+    text: "사려고 하지 않았던 물건까지 사게 된다"
+    correct: true
+explanation_vi: |
+  **Đáp án ④.** Căn cứ trước chỗ trống: "할인 표시나 눈에 띄는 진열에 끌려" (bị cuốn theo bảng giảm giá hay cách bày hàng bắt mắt), nên kết quả tự nhiên là mua cả thứ vốn không định mua. Căn cứ sau chỗ trống: "반대로 목록을 들고 가면 필요한 물건만 골라 담게 되어 불필요한 지출을 줄일 수 있다" (ngược lại, mang danh sách thì chỉ chọn đồ cần, giảm được chi tiêu không cần thiết). 반대로 cho biết chỗ trống là mặt trái của "chỉ mua đồ cần", tức là mua thêm đồ ngoài dự định. Chữ 까지 (đến cả) trong ④ diễn đạt đúng ý "mua thừa".
+  **Mẹo dạng:** luôn đọc cả câu trước và câu sau chỗ trống. Từ nối như 반대로, 또한 cho biết chỗ trống đối lập hay bổ sung với câu nào. Đừng chỉ lọc phương án theo sắc thái tốt/xấu: có thể có hơn một phương án mang nghĩa tiêu cực (như ②), phải kiểm tra phương án có khớp với chi tiết "끌려" và với vế đối lập sau 반대로 hay không.
+  **Đáng chú ý:** 진열 (陳列 – trần liệt) – bày hàng, trưng bày · 지출 (支出 – chi xuất) – khoản chi, chi tiêu · 끌리다 – bị lôi cuốn, bị hấp dẫn.

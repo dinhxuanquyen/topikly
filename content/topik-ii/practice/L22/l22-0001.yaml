@@ -1,0 +1,61 @@
+id: l22-0001
+type_code: L22
+subskill: detail_match
+difficulty: 4
+tags: [topic:business, topic:workplace, genre:conversation, setting:office]
+group_key: l21-22-0001
+pair_with: [l21-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-19
+reviewed_by: null
+notes_internal: "l21-0001 chưa soạn. Gợi ý cho L21 (중심 생각 của 남자): 'Cho khách hàng tự dùng thử và học cách sử dụng sản phẩm là cách quảng bá hiệu quả hơn bốc thăm trúng thưởng'. Đáp án L22 (địa điểm trong toà nhà công ty) không trùng và không làm lộ ý đó. Transcript khoảng 300 ký tự (không tính nhãn), đếm tay. Khi soạn L21 phải chép nguyên văn transcript_ko/transcript_vi của file này."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "nhân viên phòng marketing của một công ty đồ gia dụng nhà bếp"
+    age_range: 20s
+    voice_hint_vi: "giọng trẻ, nhanh nhẹn, lễ phép với cấp trên"
+  - label: 남자
+    gender: male
+    role_vi: "trưởng nhóm, cấp trên của nữ"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng chín chắn, cân nhắc, thuyết phục"
+tts_notes:
+  speed: 1.0
+  style_vi: "Hội thoại công sở giữa cấp trên và cấp dưới, nữ dùng 팀장님, cả hai dùng -요."
+  pauses_vi: "Ngắt ngắn sau '글쎄요.' (do dự) và sau '좋은 생각이긴 한데요,'."
+  pronunciation_vi: "1층 = 일 층; 많더라고요 [만터라고요]; 익히는 [이키는]."
+transcript_ko: |
+  여자: 팀장님, 올해 고객 감사 행사도 작년처럼 경품 추첨으로 할까요? 준비하기도 편하고 고객들 반응도 좋았잖아요.
+  남자: 글쎄요. 작년 행사 끝나고 받은 설문 결과를 보니까 경품보다 제품을 제대로 쓰는 방법을 알고 싶다는 의견이 꽤 많더라고요. 이번에는 고객들이 직접 요리를 해 보면서 기능을 익히는 체험 수업을 열면 어떨까요?
+  여자: 좋은 생각이긴 한데요, 수업을 하려면 넓은 장소도 있어야 하고 강사도 따로 구해야 해서 비용이 꽤 들 것 같아요.
+  남자: 장소는 본사 1층 전시실을 쓰면 되고, 강사는 우리 제품 개발팀 직원들한테 부탁해 보죠. 고객이 직접 써 보고 만족하면 그게 가장 좋은 홍보가 될 거예요.
+transcript_vi: |
+  Nữ: Trưởng nhóm ơi, sự kiện tri ân khách hàng năm nay mình cũng làm bốc thăm trúng thưởng như năm ngoái nhé? Vừa dễ chuẩn bị mà phản ứng của khách cũng tốt mà.
+  Nam: Để xem đã. Xem kết quả khảo sát sau sự kiện năm ngoái thì thấy khá nhiều ý kiến nói muốn biết cách dùng sản phẩm cho đúng hơn là quà trúng thưởng. Lần này mình mở lớp trải nghiệm để khách tự nấu ăn và làm quen với các tính năng thì thế nào?
+  Nữ: Ý hay thì hay thật, nhưng muốn mở lớp thì cần địa điểm rộng, lại phải tìm giảng viên riêng nên chắc tốn kha khá chi phí.
+  Nam: Địa điểm thì dùng phòng trưng bày ở tầng 1 trụ sở là được, còn giảng viên thì thử nhờ nhân viên đội phát triển sản phẩm của mình xem. Khách tự dùng thử mà hài lòng thì đó sẽ là cách quảng bá tốt nhất.
+stem: "들은 내용으로 맞는 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 작년 행사는 고객들의 반응이 좋지 않았다.
+    trap: negation_flip
+    note_vi: "Ngược với lời nữ: '고객들 반응도 좋았잖아요' (phản ứng của khách cũng tốt mà). Nam không phủ nhận điều này, chỉ dựa vào khảo sát để đề xuất cách khác."
+  - label: "②"
+    text: 수업은 회사 건물 안에서 열 수 있다.
+    correct: true
+  - label: "③"
+    text: 수업 강사는 회사 밖에서 구하기로 했다.
+    trap: keyword_echo
+    note_vi: "'강사도 따로 구해야' là lo ngại của nữ. Nam đề xuất nhờ nhân viên đội phát triển sản phẩm của chính công ty (우리 제품 개발팀 직원들한테 부탁해 보죠), không phải thuê người ngoài."
+  - label: "④"
+    text: 여자는 작년과 다른 행사를 제안했다.
+    trap: speaker_swap
+    note_vi: "Đảo vai: nữ muốn làm giống năm ngoái (작년처럼 경품 추첨으로 할까요?); người đề xuất hình thức mới (lớp trải nghiệm) là nam."
+explanation_vi: |
+  **Đáp án ②.** Căn cứ: "장소는 본사 1층 전시실을 쓰면 되고" (địa điểm thì dùng phòng trưng bày ở tầng 1 trụ sở là được).
+  Phòng trưng bày nằm trong trụ sở công ty, nên đáp án diễn đạt lại thành "회사 건물 안에서 열 수 있다". Đây là câu nam trả lời lo ngại "넓은 장소도 있어야 하고" của nữ.
+  **Mẹo dạng:** Ở câu trùng khớp của bài hội thoại, đánh dấu **ai** nói chi tiết nào. Lo ngại của một người (강사도 따로 구해야) thường bị biến thành phương án nhiễu như thể đã được quyết định.
+  **Đáng chú ý:** 경품 추첨 (景品抽籤 – cảnh phẩm trừu thiêm) – bốc thăm trúng thưởng; 본사 (本社 – bản xã) – trụ sở chính của công ty; 社 ở đây là "công ty", không phải "xã" đơn vị hành chính; -긴 한데요 – … thì đúng là vậy, nhưng….
