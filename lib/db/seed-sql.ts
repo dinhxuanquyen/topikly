@@ -24,6 +24,11 @@ function storedConfig(program: ProgramConfig) {
     subskills: program.subskills,
     traps: program.traps,
     difficulty_range: program.difficulty_range,
+    speaker_age_ranges: program.speaker_age_ranges,
+    tag_vocabulary: program.tag_vocabulary,
+    manuscript: program.manuscript,
+    writing_sample_limits: program.writing_sample_limits,
+    multi_trap_exempt_subskills: program.multi_trap_exempt_subskills,
     type_groups: program.type_groups,
   };
 }

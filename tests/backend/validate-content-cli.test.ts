@@ -1,4 +1,5 @@
-import { cpSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
@@ -28,10 +29,20 @@ afterEach(() => {
 });
 
 describe("validate-content CLI", () => {
-  it("parseArgs: thư mục và cờ --for-import", () => {
-    expect(parseArgs([])).toEqual({ forImport: false, dir: undefined });
-    expect(parseArgs(["x/y", "--for-import"])).toEqual({ forImport: true, dir: "x/y" });
-    expect(parseArgs(["--for-import"])).toEqual({ forImport: true, dir: undefined });
+  it("parseArgs: thư mục và các cờ", () => {
+    expect(parseArgs([])).toEqual({
+      forImport: false,
+      dir: undefined,
+      formatOnlyAgainst: undefined,
+    });
+    expect(parseArgs(["x/y", "--for-import"])).toMatchObject({ forImport: true, dir: "x/y" });
+    expect(parseArgs(["--for-import"])).toMatchObject({ forImport: true, dir: undefined });
+    expect(parseArgs(["--format-only-against", "HEAD~1", "dir"])).toEqual({
+      forImport: false,
+      dir: "dir",
+      formatOnlyAgainst: "HEAD~1",
+    });
+    expect(parseArgs(["--format-only-against=main"]).formatOnlyAgainst).toBe("main");
   });
 
   it("thư mục không tồn tại -> thông báo, exit 0", () => {
@@ -78,5 +89,83 @@ describe("validate-content CLI", () => {
     const text = c.err.join("\n");
     expect(text).toContain("topik-ii/practice/R19/r19-0001.yaml");
     expect(text).toContain("[LỖI] explanation_vi: thiếu trường bắt buộc");
+  });
+});
+
+describe("validate-content CLI: --format-only-against <ref> (§8.2)", () => {
+  function git(cwd: string, ...args: string[]) {
+    return execFileSync(
+      "git",
+      [
+        "-c",
+        "user.name=test",
+        "-c",
+        "user.email=t@example.com",
+        "-c",
+        "commit.gpgsign=false",
+        ...args,
+      ],
+      { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
+    );
+  }
+
+  /** Repo tạm có fixtures hợp lệ đã commit; trả về thư mục content. */
+  function repo() {
+    const dir = tmp();
+    git(dir, "init", "-q");
+    cpSync(path.join(FIXTURES, "valid"), path.join(dir, "content"), { recursive: true });
+    git(dir, "add", "-A");
+    git(dir, "commit", "-q", "-m", "init");
+    return path.join(dir, "content");
+  }
+
+  const R19 = ["topik-ii", "practice", "R19", "r19-0001.yaml"];
+  const W53 = ["topik-ii", "practice", "W53", "w53-0001.yaml"];
+
+  function edit(content: string, file: string[], fn: (text: string) => string) {
+    const f = path.join(content, ...file);
+    const before = readFileSync(f, "utf8");
+    const after = fn(before);
+    expect(after).not.toBe(before);
+    writeFileSync(f, after);
+  }
+
+  it("không đổi gì -> exit 0", () => {
+    const content = repo();
+    const c = capture();
+    expect(runValidateContent([content, "--format-only-against", "HEAD"], c.io)).toBe(0);
+    expect(c.out.join("\n")).toMatch(/0 file YAML đổi/);
+  });
+
+  it("chỉ đổi khoảng trắng và metadata -> xác nhận 'chỉ định dạng'", () => {
+    const content = repo();
+    // khoảng trắng kép giữa hai câu: cùng văn bản sau chuẩn hoá khoảng trắng
+    edit(content, R19, (t) => t.replace("있다. 점심을", "있다.  점심을"));
+    edit(content, W53, (t) => t.replace("difficulty: 4", "difficulty: 5"));
+    const c = capture();
+    runValidateContent([content, "--format-only-against", "HEAD"], c.io);
+    const out = [...c.out, ...c.err].join("\n");
+    expect(out).toContain("[ĐỊNH DẠNG] topik-ii/practice/R19/r19-0001.yaml");
+    expect(out).toContain("[METADATA] topik-ii/practice/W53/w53-0001.yaml");
+    expect(out).toMatch(/1 chỉ định dạng, 1 chỉ metadata, 0 mới, 0 thay đổi nội dung/);
+    expect(c.err.join("\n")).not.toContain("[NỘI DUNG]");
+  });
+
+  it("đổi một chữ -> báo thay đổi nội dung, exit 1", () => {
+    const content = repo();
+    edit(content, R19, (t) => t.replace("산책", "걷기"));
+    const c = capture();
+    const code = runValidateContent([content, "--format-only-against", "HEAD"], c.io);
+    expect(code).toBe(1);
+    expect(c.err.join("\n")).toMatch(
+      /\[NỘI DUNG\] topik-ii\/practice\/R19\/r19-0001\.yaml: .*passage/,
+    );
+  });
+
+  it("ref không tồn tại -> lỗi, exit 1", () => {
+    const content = repo();
+    const c = capture();
+    expect(runValidateContent([content, "--format-only-against", "khong-co-ref"], c.io)).toBe(1);
+    expect(c.err.join("\n")).toMatch(/Không đọc được git diff/);
   });
 });

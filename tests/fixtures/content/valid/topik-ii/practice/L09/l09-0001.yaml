@@ -25,7 +25,7 @@ transcript_vi: |
   Nam: Vâng, tài liệu thuyết trình tôi làm xong hết hôm qua rồi. Nhưng nghe nói máy chiếu phòng đào tạo bị hỏng.
   Nữ: À, vậy à? Thế để tôi gọi ngay cho phòng hành chính nhờ sửa.
   Nam: Cảm ơn chị. Vậy trong lúc đó tôi sẽ in sẵn tài liệu để phát.
-stem: "여자가 이어서 할 행동으로 가장 알맞은 것을 고르십시오."
+stem: "다음 대화를 잘 듣고 여자가 이어서 할 행동으로 가장 알맞은 것을 고르십시오."
 choices:
   - label: "①"
     text: 총무팀에 전화를 건다.
@@ -45,4 +45,7 @@ choices:
 explanation_vi: |
   **Đáp án ①.** Căn cứ: "제가 지금 총무팀에 전화해서 수리를 부탁할게요" (để tôi gọi ngay cho phòng hành chính nhờ sửa). '지금' cho biết đây là việc nữ làm ngay sau hội thoại.
   **Mẹo dạng:** gạch nhanh "ai – làm gì – khi nào". Đáp án là việc **của người được hỏi** và **chưa làm**. Đuôi -(으)ㄹ게요 là tín hiệu mạnh.
-  **Đáng chú ý:** 총무팀 (phòng hành chính – tổng vụ), 고장 나다 (bị hỏng), -아/어 놓다 (làm sẵn).
+  **Đáng chú ý:**
+  - 총무팀 (總務 – tổng vụ) – phòng hành chính (팀 = team)
+  - 고장 나다 (故障 – cố chướng) – bị hỏng
+  - -아/어 놓다 – làm sẵn, làm trước để dùng sau

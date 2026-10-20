@@ -32,10 +32,19 @@ export const TOPIK_II_SUBSKILLS: readonly SubskillConfig[] = [
   { code: "argumentative_essay", name_vi: "Viết bài nghị luận (600–700 ký tự)" },
 ];
 
-/** content-spec 2.2 — kiểu bẫy cho phương án nhiễu. */
+/** content-spec 2.2 (v0.3) — kiểu bẫy cho phương án nhiễu. */
 export const TOPIK_II_TRAPS: readonly TrapConfig[] = [
   { code: "detail_swap", name_vi: "Sai một chi tiết: số, thời gian, địa điểm, đối tượng, thứ tự" },
-  { code: "speaker_swap", name_vi: "Gán lời/hành động của người này cho người kia" },
+  {
+    code: "speaker_swap",
+    name_vi:
+      "Gán lời, hành động hay quan điểm của người này cho người kia (trong số những người có mặt)",
+  },
+  {
+    code: "concession_point",
+    name_vi:
+      "Trình bày quan điểm ngữ liệu có nhắc tới nhưng người nói/tác giả không giữ (nhượng bộ, ý bị trích dẫn rồi phản bác)",
+  },
   { code: "time_shift", name_vi: "Lẫn đã/đang/sẽ làm, hoặc trước/sau" },
   { code: "negation_flip", name_vi: "Đảo khẳng định ↔ phủ định" },
   { code: "degree_shift", name_vi: "Sai mức độ hoặc phạm vi" },
@@ -44,7 +53,10 @@ export const TOPIK_II_TRAPS: readonly TrapConfig[] = [
   { code: "cohesion_break", name_vi: "Vị trí/thứ tự phá vỡ liên kết" },
   { code: "overgeneralization", name_vi: "Quá khái quát, tuyệt đối hoá" },
   { code: "too_narrow", name_vi: "Quá hẹp: chỉ là một chi tiết hoặc ví dụ" },
-  { code: "true_not_main", name_vi: "Đúng với văn bản nhưng không phải điều câu hỏi hỏi" },
+  {
+    code: "true_not_main",
+    name_vi: "Đúng theo ý của chính người nói/tác giả nhưng không phải điều câu hỏi hỏi",
+  },
   { code: "outside_text", name_vi: "Hợp lý theo hiểu biết chung nhưng văn bản không nói tới" },
   { code: "keyword_echo", name_vi: "Lặp từ khoá nhưng ghép sai nghĩa/ngữ dụng" },
   { code: "near_synonym_grammar", name_vi: "Ngữ pháp gần nghĩa nhưng sai sắc thái/điều kiện" },

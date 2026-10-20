@@ -76,6 +76,29 @@ export interface QuestionTypeConfig {
   char_limit?: { min: number; max: number };
 }
 
+/** Danh sách đóng của tag (content-spec §6). */
+export interface TagVocabulary {
+  topic: readonly string[];
+  genre: readonly string[];
+  setting: readonly string[];
+  /** Tiền tố cho giá trị tự do (grammar, connector, idiom, vocab). */
+  free_prefixes: readonly string[];
+  /** Quá số này thì cảnh báo. */
+  max_tags: number;
+}
+
+/** Ước tính ô 원고지 (content-spec §5.7). */
+export interface ManuscriptConfig {
+  cells_per_line: number;
+  indent_cells: number;
+}
+
+/** Giới hạn mềm cho bài mẫu Viết (content-spec §4.6): vượt thì cảnh báo. */
+export interface SampleSoftLimit {
+  max_chars: number;
+  max_cells: number;
+}
+
 export interface ProgramConfig {
   code: ProgramCode;
   name: string;
@@ -87,6 +110,14 @@ export interface ProgramConfig {
   traps: readonly TrapConfig[];
   /** Thang độ khó của câu hỏi (content-spec 2.3). */
   difficulty_range: { min: number; max: number };
+  /** Giá trị cho phép của speakers[].age_range (content-spec §5.4). */
+  speaker_age_ranges: readonly string[];
+  tag_vocabulary: TagVocabulary;
+  manuscript: ManuscriptConfig;
+  /** Theo type_code Viết (W53, W54). */
+  writing_sample_limits: Readonly<Record<string, SampleSoftLimit>>;
+  /** Các subskill được miễn quy tắc "ít nhất 2 kiểu trap" (content-spec §2.2). */
+  multi_trap_exempt_subskills: readonly string[];
   type_groups: readonly TypeGroupConfig[];
   question_types: readonly QuestionTypeConfig[];
 }

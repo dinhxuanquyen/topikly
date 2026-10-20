@@ -120,9 +120,9 @@ describe("ví dụ hợp lệ (content-spec 5.10)", () => {
     expect(r.issues).toEqual([]);
   });
 
-  it("bài mẫu W53 trong fixture khớp cách đếm 5.7 (246 và 273)", () => {
+  it("bài mẫu W53 trong fixture khớp cách đếm 5.7 (240 và 272, theo spec v0.3)", () => {
     const d = load(W53);
-    expect(d.model_answers.map((m: Doc) => countChars(m.text))).toEqual([246, 273]);
+    expect(d.model_answers.map((m: Doc) => countChars(m.text))).toEqual([240, 272]);
   });
 });
 
@@ -449,7 +449,7 @@ describe("luật 7 · Nghe", () => {
   it("dòng transcript không có nhãn người nói", () => {
     const r = run(L09, (d) => (d.transcript_ko = d.transcript_ko + "không có nhãn\n"));
     expect(
-      errors(r).some((e) => e.path === "transcript_ko" && e.message.includes("<người nói>")),
+      errors(r).some((e) => e.path === "transcript_ko" && e.message.includes("nhãn hợp lệ")),
     ).toBe(true);
   });
 
@@ -461,7 +461,7 @@ describe("luật 7 · Nghe", () => {
   it("speaker.gender / age_range sai enum", () => {
     const r = run(L09, (d) => {
       d.speakers[0].gender = "nữ";
-      d.speakers[1].age_range = "teen";
+      d.speakers[1].age_range = "50s+";
     });
     expect(hasError(r, "speakers[0].gender")).toBe(true);
     expect(hasError(r, "speakers[1].age_range")).toBe(true);
@@ -518,7 +518,7 @@ describe("luật 9 · W53–W54", () => {
 
   it("char_count khai báo lệch so với đếm lại", () => {
     const r = run(W53, (d) => (d.model_answers[0].char_count = 250));
-    expect(hasError(r, "model_answers[0].char_count", "đếm lại được 246")).toBe(true);
+    expect(hasError(r, "model_answers[0].char_count", "đếm lại được 240")).toBe(true);
   });
 
   it("bài mẫu ngắn hơn char_limit.min (dù char_count khớp)", () => {
@@ -537,14 +537,15 @@ describe("luật 9 · W53–W54", () => {
     expect(hasError(r, "model_answers[1].text", "ngoài char_limit")).toBe(true);
   });
 
-  it("bài mẫu sát biên (<10 ký tự) -> cảnh báo, không lỗi", () => {
+  it("bài mẫu sát biên dưới (<10 ký tự so với min) -> cảnh báo, không lỗi", () => {
     const r = run(W53, (d) => {
       const base = d.model_answers[1].text.trim();
-      d.model_answers[1].text = base + "가".repeat(295 - countChars(base));
-      d.model_answers[1].char_count = 295;
+      const text = base.slice(0, 205);
+      d.model_answers[1].text = text;
+      d.model_answers[1].char_count = countChars(text);
     });
     expect(errors(r)).toEqual([]);
-    expect(hasWarning(r, "model_answers[1].text", "sát biên")).toBe(true);
+    expect(hasWarning(r, "model_answers[1].text", "sát biên dưới")).toBe(true);
   });
 
   it("bài mẫu dùng đuôi -습니다. / -요.", () => {
@@ -745,11 +746,12 @@ describe("tags, NFC, pair_with, báo cáo", () => {
     expect(hasError(b, "tags", "genre:")).toBe(true);
   });
 
-  it("nhiều genre hoặc tag sai dạng -> cảnh báo", () => {
+  it("nhiều genre hoặc tag sai dạng -> lỗi (v0.3)", () => {
     const r = run(R19, (d) => d.tags.push("genre:news", "Sai Dạng"));
-    expect(errors(r)).toEqual([]);
-    expect(hasWarning(r, "tags", "đúng 1 tag genre")).toBe(true);
-    expect(warnings(r).some((w) => w.path.startsWith("tags["))).toBe(true);
+    expect(hasError(r, "tags", "đúng 1 tag genre:")).toBe(true);
+    expect(
+      errors(r).some((e) => e.path.startsWith("tags[") && e.message.includes("sai định dạng")),
+    ).toBe(true);
   });
 
   it("văn bản ở dạng NFD -> cảnh báo NFC", () => {

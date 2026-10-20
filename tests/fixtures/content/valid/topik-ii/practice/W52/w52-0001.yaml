@@ -18,8 +18,9 @@ blanks:
       - 피로감이 더 커질 수 있다
       - 집중력이 떨어질 수 있다
       - 더 피곤함을 느끼게 된다
+      - 더 피곤해진다
     partial_answers:
-      - 피곤하다            # đúng hướng nhưng thiếu sắc thái 오히려 → "càng/thậm chí"
+      - 좋지 않다              # đúng hướng nhưng mơ hồ, thiếu nội dung cụ thể (mệt hơn / giảm tập trung)
       - 더 피곤해질 수 있어요  # đúng ý, sai văn phong (-요)
     rejected_answers:
       - { text: "집중력이 높아진다", reason_vi: "Ngược nghĩa với 오히려 và với câu giải thích phía sau." }
@@ -30,7 +31,7 @@ blanks:
     accepted_answers:
       - 30분 이내로 짧게 자고 너무 늦은 시간에는 자지 않는 것이 좋다
       - 30분을 넘기지 않고 이른 오후에 자는 것이 좋다
-      - 시간을 짧게 하고 저녁 가까운 시간은 피해야 한다
+      - 짧게 자고 저녁 가까운 시간에는 낮잠을 피해야 한다
     partial_answers:
       - 30분 이내로 자는 것이 좋다   # chỉ đủ một trong hai yếu tố
     required_elements_vi:
@@ -45,5 +46,10 @@ common_mistakes_vi:
   - "㉡ chỉ nhắc 'ngủ ngắn' mà bỏ ý 'không ngủ muộn' ở câu ngay trước 따라서."
   - "Viết hai câu hoặc chỉ viết cụm danh từ."
 explanation_vi: |
-  ㉠: "그러나 … 오히려" báo hiệu kết quả **ngược** với lợi ích ở câu 1. Câu sau "-기 때문이다" giải thích lý do (đầu nặng, người uể oải), nên ㉠ là "mệt hơn / giảm tập trung".
-  ㉡: "따라서" tổng hợp **hai** vấn đề đã nêu (ngủ quá 30 phút; ngủ gần tối) thành lời khuyên, nên cần nhắc cả hai.
+  **Phân tích đề:** đoạn giải thích 문어체 về giấc ngủ trưa, có 2 chỗ trống, mỗi chỗ viết một câu -ㄴ다.
+  **Dàn ý:** ㉠ = hậu quả ngược với lợi ích ở câu 1; ㉡ = lời khuyên tổng hợp hai vấn đề đã nêu.
+  **Lưu ý:** ㉠: "그러나 … 오히려" báo hiệu kết quả **ngược** với lợi ích ở câu 1. Câu sau "-기 때문이다" giải thích lý do (đầu nặng, người uể oải), nên ㉠ là "mệt hơn / giảm tập trung". ㉡: "따라서" tổng hợp **hai** vấn đề đã nêu (ngủ quá 30 phút; ngủ gần tối) thành lời khuyên, nên cần nhắc cả hai.
+  **Đáng chú ý:**
+  - 집중력 (集中力 – tập trung lực) – sức tập trung
+  - 피로감 (疲勞感 – bì lao cảm) – cảm giác mệt mỏi
+  - 나른하다 – uể oải, rã rời

@@ -123,9 +123,9 @@ describe("topik-ii: cấu hình chương trình", () => {
     }
   });
 
-  it("danh mục trap có 17 mã không trùng", () => {
-    expect(topikII.traps).toHaveLength(17);
-    expect(new Set(topikII.traps.map((t) => t.code)).size).toBe(17);
+  it("danh mục trap có 18 mã không trùng (gồm concession_point)", () => {
+    expect(topikII.traps).toHaveLength(18);
+    expect(new Set(topikII.traps.map((t) => t.code)).size).toBe(18);
   });
 });
 

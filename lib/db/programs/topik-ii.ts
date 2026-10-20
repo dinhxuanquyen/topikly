@@ -1,4 +1,5 @@
 import { TOPIK_II_SUBSKILLS, TOPIK_II_TRAPS } from "./topik-ii-catalog";
+import { TOPIK_II_TAGS } from "./topik-ii-tags";
 import type { ProgramConfig, QuestionTypeConfig, Skill, TypeGroupConfig } from "./types";
 
 /**
@@ -134,7 +135,7 @@ const LISTENING_TYPES: RawType[] = [
   [43, 43, "Nội dung phim tài liệu về cái gì", "main_idea", NONE, [5, 6]],
   [44, 44, "Câu hỏi chi tiết: lý do, cách thức", "detail_specific", ["detail_match"], [5, 6]],
   [45, 45, "Nội dung trùng khớp: bài giảng chuyên sâu", "detail_match", NONE, [6, 6]],
-  [46, 46, "Cách nói của người giảng", "speaker_strategy", ["attitude"], [6, 6]],
+  [46, 46, "Cách nói của người giảng", "speaker_strategy", ["attitude"], [5, 6]],
   [47, 47, "Nội dung trùng khớp: đối đàm chuyên gia", "detail_match", NONE, [6, 6]],
   [48, 48, "Thái độ của 남자", "attitude", ["speaker_strategy"], [6, 6]],
   [49, 49, "Nội dung trùng khớp: bài giảng học thuật", "detail_match", NONE, [6, 6]],
@@ -256,6 +257,14 @@ export const topikII: ProgramConfig = {
   subskills: TOPIK_II_SUBSKILLS,
   traps: TOPIK_II_TRAPS,
   difficulty_range: { min: 3, max: 6 },
+  speaker_age_ranges: ["teen", "20s", "30s-40s", "50s", "60s+"],
+  tag_vocabulary: TOPIK_II_TAGS,
+  manuscript: { cells_per_line: 20, indent_cells: 1 },
+  writing_sample_limits: {
+    W53: { max_chars: 290, max_cells: 300 },
+    W54: { max_chars: 680, max_cells: 700 },
+  },
+  multi_trap_exempt_subskills: ["fill_blank_connector", "sentence_order", "insert_sentence"],
   type_groups: TYPE_GROUPS,
   question_types: [
     ...expand("listening", "multiple_choice", LISTENING_TYPES),

@@ -1,6 +1,13 @@
 import { parse as parseYaml } from "yaml";
 import { z } from "zod";
 import { countChars } from "./char-count";
+import {
+  analyzeAnswerLabels,
+  checkChartSemantics,
+  checkParagraphWhitespace,
+  checkTags,
+} from "./content-rules";
+import { estimateManuscriptCells } from "./manuscript";
 import { listPrograms } from "./programs";
 import type { ProgramConfig, QuestionTypeConfig } from "./programs";
 
@@ -11,9 +18,14 @@ import type { ProgramConfig, QuestionTypeConfig } from "./programs";
  * Quy ước: mỗi file = MỘT câu hỏi, đường dẫn content/<program>/practice/<TYPE_CODE>/<id>.yaml.
  * YAML ngoài practice/ (exams, vocab, grammar, strategies) không phải file câu hỏi -> bỏ qua.
  *
- * Chưa làm (ghi TODO theo yêu cầu, cả hai là cảnh báo trong spec 5.9):
- *  - cảnh báo "độ dài ngữ liệu lệch quá 30% so với mục 4";
- *  - cảnh báo "phân bố nhãn đúng của lô lệch".
+ * Theo content-spec v0.3. Chưa làm (TODO, đều là cảnh báo hoặc phụ thuộc định dạng chưa chốt):
+ *  - cảnh báo "độ dài ngữ liệu lệch quá 30% so với mục 4" (cần bảng độ dài chuẩn theo nhóm
+ *    dạng ở §4.4–4.6 đưa vào cấu hình chương trình; transcript đếm sau khi bỏ nhãn);
+ *  - cảnh báo "phân bố nhãn đúng lệch" (spec chỉ nói "khoảng 25% mỗi nhãn", chưa có ngưỡng);
+ *  - luật của ĐỀ LẮP RÁP (không quá 3 câu liền nhau cùng nhãn, không chu kỳ lặp, luôn ẩn stem câu
+ *    đơn): bắt buộc nhưng chỉ chạy được khi định dạng content/<program>/exams/ được chốt. Hiện
+ *    mới cảnh báo cho lô soạn theo từng thư mục type_code (từ 8 câu trở lên).
+ *  - "Chỉ định dạng" (§8.2) được xác nhận bởi lib/db/format-only.ts + cờ --format-only-against.
  */
 
 // ------------------------------------------------------------------ kiểu công khai
@@ -63,7 +75,9 @@ export const TYPE_CODE_REGEX = /^(L(0[1-9]|[1-4][0-9]|50)|R(0[1-9]|[1-4][0-9]|50
 export const CHOICE_LABELS = ["①", "②", "③", "④"] as const;
 const BLANK_LABELS = ["㉠", "㉡"] as const;
 const GROUP_KEY_REGEX = /^([lr])([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
-const TAG_REGEX = /^[a-z][a-z-]*:\S+$/;
+/** Số câu tối thiểu trong một thư mục type_code để kiểm nhãn đúng của lô. */
+const MIN_BATCH_FOR_LABEL_CHECK = 8;
+const TRANSCRIPT_LABEL = /^(남자|여자)( [0-9])?: /u;
 /** Đuôi câu không hợp văn phong 문어체 (-요. / -습니다. / -ㅂ니다.) trong bài mẫu Viết. */
 const SPOKEN_ENDING = /(요|니다)\s*[.?!]/u;
 const PLACEHOLDER_NOTE = /^[\s.…\-–—?!]*$|^(todo|tbd|xxx)$/i;
@@ -119,7 +133,8 @@ const chartSchema = z.object(
   {
     chart_type: enumOf(["line", "bar", "pie", "table"]),
     title: str(),
-    unit: strOptional(),
+    caption: strOptional(),
+    unit: str(),
     series: list(
       z.object({
         name: z.union([z.string(), z.number()], { error: miss("phải là chuỗi hoặc số") }),
@@ -135,22 +150,25 @@ const chartSchema = z.object(
   { error: miss("phải là đối tượng biểu đồ") },
 );
 
-/** chart_data: một biểu đồ hoặc danh sách biểu đồ; lỗi báo đúng đường dẫn bên trong. */
+/** chart_data luôn là list (kể cả 1 biểu đồ); lỗi báo đúng đường dẫn bên trong. */
 const chartData = z
   .unknown()
   .optional()
   .superRefine((value, ctx) => {
     if (value === undefined || value === null) return;
-    const isList = Array.isArray(value);
-    (isList ? value : [value]).forEach((item, i) => {
+    if (!Array.isArray(value)) {
+      ctx.addIssue({
+        code: "custom",
+        path: [],
+        message: "phải là danh sách biểu đồ (luôn là list, kể cả khi chỉ có 1 biểu đồ)",
+      });
+      return;
+    }
+    value.forEach((item, i) => {
       const result = chartSchema.safeParse(item);
       if (result.success) return;
       for (const issue of result.error.issues) {
-        ctx.addIssue({
-          code: "custom",
-          path: [...(isList ? [i] : []), ...issue.path],
-          message: issue.message,
-        });
+        ctx.addIssue({ code: "custom", path: [i, ...issue.path], message: issue.message });
       }
     });
   });
@@ -219,7 +237,7 @@ function buildSchemas(program: ProgramConfig) {
       label: str(),
       gender: enumOf(["male", "female"]),
       role_vi: strOptional(),
-      age_range: enumOf(["20s", "30s-40s", "50s+"]).optional(),
+      age_range: enumOf(program.speaker_age_ranges as unknown as [string, ...string[]]).optional(),
       voice_hint_vi: strOptional(),
     },
     { error: miss("mỗi người nói phải là một đối tượng") },
@@ -270,7 +288,8 @@ function buildSchemas(program: ProgramConfig) {
   const shapes = {
     A: {
       ...common,
-      passage: str(),
+      // Bắt buộc trừ R10 (spec §5.3) — kiểm ở checkReading.
+      passage: str().optional(),
       insert_sentence: strOptional(),
       ...figure,
       choices,
@@ -388,6 +407,11 @@ const SHARED_FIELDS = ["passage", "transcript_ko", "transcript_vi", "audio_url"]
 
 interface Parsed {
   file: string;
+  /** Thư mục type_code chứa file và chương trình — để phân tích nhãn đúng theo lô. */
+  dirType: string;
+  programCode: string;
+  /** Chỉ số (0–3) của đáp án đúng, nếu là câu trắc nghiệm hợp lệ. */
+  correctIndex: number | undefined;
   id: string | undefined;
   groupKey: string | undefined;
   pairWith: string[] | undefined;
@@ -415,6 +439,9 @@ function checkQuestionFile(doc: unknown, ctx: FileContext, out: ValidationIssue[
 
   const parsed: Parsed = {
     file,
+    dirType: ctx.dirType,
+    programCode: program.code,
+    correctIndex: undefined,
     id: undefined,
     groupKey: undefined,
     pairWith: undefined,
@@ -533,20 +560,19 @@ function checkQuestionFile(doc: unknown, ctx: FileContext, out: ValidationIssue[
     }
   }
 
-  // ---- tags (spec 5.2 + mục 6)
-  if (Array.isArray(data.tags)) {
-    const tags = data.tags.filter((t): t is string => typeof t === "string");
-    if (!tags.some((t) => t.startsWith("topic:"))) error("tags", "cần ít nhất 1 tag topic:");
-    const genres = tags.filter((t) => t.startsWith("genre:"));
-    if (genres.length === 0) error("tags", "cần ít nhất 1 tag genre:");
-    else if (genres.length > 1) warn("tags", "nên có đúng 1 tag genre:");
-    tags.forEach((t, i) => {
-      if (!TAG_REGEX.test(t)) {
-        warn(`tags[${i}]`, `tag "${t}" không theo dạng tiền_tố:giá_trị (chữ thường)`);
-      }
-    });
-    if (tags.length > 8) warn("tags", "nên có tối đa khoảng 8 tag");
+  // ---- tags (spec §6, §5.9 lỗi 13)
+  if (Array.isArray(data.tags) && data.tags.every((t) => typeof t === "string")) {
+    const tags = data.tags as string[];
+    for (const problem of checkTags(tags, program.tag_vocabulary)) {
+      error(`tags${problem.path}`, problem.message);
+    }
+    if (tags.length > program.tag_vocabulary.max_tags) {
+      warn("tags", `có ${tags.length} tag, nên tối đa ${program.tag_vocabulary.max_tags}`);
+    }
   }
+
+  // ---- khoảng trắng của các trường theo quy ước ngăn đoạn (spec §5.9 lỗi 14)
+  checkParagraphFields(data, error);
 
   // ---- 12) source & reviewed_by: lỗi khi import, cảnh báo khi soạn
   if (typeof data.source === "string" && data.source !== "original") {
@@ -608,13 +634,57 @@ function checkQuestionFile(doc: unknown, ctx: FileContext, out: ValidationIssue[
   for (const f of SHARED_FIELDS) parsed.shared[f] = data[f];
 
   // ---- luật riêng theo biến thể
-  if (variant === "A" || variant === "B") checkMultipleChoice(data, type, error, warn);
+  checkCharts(data, warn);
+  if (variant === "A" || variant === "B") {
+    checkMultipleChoice(data, type, program, error, warn);
+    if (Array.isArray(data.choices)) {
+      const idx = data.choices.findIndex((c) => isRecord(c) && c.correct === true);
+      if (idx >= 0) parsed.correctIndex = idx;
+    }
+  }
   if (variant === "A") checkReading(data, type, error);
-  if (variant === "B") checkListening(data, error);
+  if (variant === "B") checkListening(data, error, warn);
   if (variant === "C1") checkWritingBlanks(data, typeCode, error, warn);
-  if (variant === "C2") checkWritingEssay(data, type, typeCode, error, warn);
+  if (variant === "C2") checkWritingEssay(data, type, typeCode, program, error, warn);
 
   return parsed;
+}
+
+/** Kiểm khoảng trắng của các trường theo quy ước ngăn đoạn (lỗi 14). */
+function checkParagraphFields(data: Record<string, unknown>, error: Reporter): void {
+  const check = (value: unknown, path: string) => {
+    if (typeof value !== "string") return;
+    for (const problem of checkParagraphWhitespace(value)) {
+      error(path, problem.message, "whitespace");
+    }
+  };
+  for (const field of ["passage", "transcript_ko", "transcript_vi", "task"]) {
+    check(data[field], field);
+  }
+  if (Array.isArray(data.model_answers)) {
+    data.model_answers.forEach((m, i) => {
+      if (isRecord(m)) check(m.text, `model_answers[${i}].text`);
+    });
+  }
+}
+
+/** Cảnh báo ngữ nghĩa biểu đồ (pie cộng 100, series cùng tập x) ở chart_data và choices[].chart_data. */
+function checkCharts(data: Record<string, unknown>, warn: Reporter): void {
+  const scan = (value: unknown, base: string) => {
+    if (!Array.isArray(value)) return;
+    value.forEach((chart, i) => {
+      if (!isRecord(chart)) return;
+      for (const w of checkChartSemantics(chart)) {
+        warn(`${base}[${i}]${w.path ? "." + w.path : ""}`, w.message);
+      }
+    });
+  };
+  scan(data.chart_data, "chart_data");
+  if (Array.isArray(data.choices)) {
+    data.choices.forEach((c, i) => {
+      if (isRecord(c)) scan(c.chart_data, `choices[${i}].chart_data`);
+    });
+  }
 }
 
 function hasChart(data: Record<string, unknown>): boolean {
@@ -628,6 +698,7 @@ function hasChart(data: Record<string, unknown>): boolean {
 function checkMultipleChoice(
   data: Record<string, unknown>,
   type: QuestionTypeConfig | undefined,
+  program: ProgramConfig,
   error: Reporter,
   warn: Reporter,
 ): void {
@@ -688,6 +759,23 @@ function checkMultipleChoice(
   if (correctCount !== 1) {
     error("choices", `phải có đúng 1 đáp án đúng (correct: true), hiện có ${correctCount}`);
   }
+
+  // Cảnh báo: ít hơn 2 kiểu trap, trừ các subskill được miễn (§2.2).
+  const subskill = typeof data.subskill === "string" ? data.subskill : "";
+  if (!program.multi_trap_exempt_subskills.includes(subskill)) {
+    const traps = new Set(
+      data.choices
+        .filter((c) => isRecord(c) && c.correct !== true && typeof c.trap === "string")
+        .map((c) => (c as Record<string, unknown>).trap as string),
+    );
+    if (traps.size < 2) {
+      warn(
+        "choices",
+        `câu có ${traps.size} kiểu trap, nên dùng ít nhất 2 kiểu khác nhau`,
+        "few-traps",
+      );
+    }
+  }
 }
 
 function checkReading(
@@ -696,6 +784,9 @@ function checkReading(
   error: Reporter,
 ): void {
   if (!type) return;
+  if (type.code !== "R10" && data.passage === undefined) {
+    error("passage", "thiếu trường bắt buộc (chỉ R10 được bỏ passage)");
+  }
   const n = Number(type.code.slice(1));
   if (n >= 39 && n <= 41) {
     if (typeof data.insert_sentence !== "string" || data.insert_sentence.trim() === "") {
@@ -712,7 +803,7 @@ function checkReading(
   }
 }
 
-function checkListening(data: Record<string, unknown>, error: Reporter): void {
+function checkListening(data: Record<string, unknown>, error: Reporter, warn: Reporter): void {
   if ("passage" in data) {
     error(
       "passage",
@@ -744,16 +835,32 @@ function checkListening(data: Record<string, unknown>, error: Reporter): void {
       if (isRecord(s) && typeof s.label === "string") labels.add(s.label.trim());
     }
   }
+  const conversational =
+    Array.isArray(data.tags) &&
+    data.tags.some((t) => t === "genre:conversation" || t === "genre:phone-call");
+  let previous: string | undefined;
   ko.forEach((line, i) => {
-    const m = /^([^:：]+)[:：]\s*\S/.exec(line);
-    if (!m) {
-      error("transcript_ko", `dòng ${i + 1} không có dạng "<người nói>: <lời thoại>"`);
+    const m = TRANSCRIPT_LABEL.exec(line);
+    if (!m || line.slice(m[0].length).trim() === "") {
+      error(
+        "transcript_ko",
+        `dòng ${i + 1} không có nhãn hợp lệ (cần dạng "남자: …" / "여자: …" / "남자 1: …")`,
+      );
+      previous = undefined;
       return;
     }
-    const label = m[1]!.trim();
+    const label = m[0].replace(/: $/, "");
     if (!labels.has(label)) {
       error("transcript_ko", `dòng ${i + 1}: người nói "${label}" không có trong speakers`);
     }
+    if (conversational && previous === label) {
+      warn(
+        "transcript_ko",
+        `dòng ${i} và ${i + 1} liền nhau cùng nhãn "${label}" trong hội thoại (genre conversation/phone-call)`,
+        "same-speaker",
+      );
+    }
+    previous = label;
   });
 }
 
@@ -799,6 +906,7 @@ function checkWritingEssay(
   data: Record<string, unknown>,
   type: QuestionTypeConfig | undefined,
   typeCode: string | undefined,
+  program: ProgramConfig,
   error: Reporter,
   warn: Reporter,
 ): void {
@@ -865,10 +973,27 @@ function checkWritingEssay(
       if (min !== undefined && max !== undefined) {
         if (counted < min || counted > max) {
           error(`${base}.text`, `độ dài ${counted} ký tự nằm ngoài char_limit ${min}–${max}`);
-        } else if (counted < min + SAMPLE_MARGIN || counted > max - SAMPLE_MARGIN) {
+        } else if (counted < min + SAMPLE_MARGIN) {
           warn(
             `${base}.text`,
-            `độ dài ${counted} ký tự sát biên ${min}–${max} (nên cách mỗi biên ít nhất ${SAMPLE_MARGIN})`,
+            `độ dài ${counted} ký tự sát biên dưới ${min} (nên cách ít nhất ${SAMPLE_MARGIN} ký tự)`,
+          );
+        }
+      }
+      // Giới hạn mềm cho bài mẫu (§4.6): vượt thì cảnh báo, không chặn.
+      const soft = typeCode ? program.writing_sample_limits[typeCode] : undefined;
+      if (soft) {
+        if (counted > soft.max_chars) {
+          warn(
+            `${base}.text`,
+            `${counted} ký tự vượt giới hạn mềm ${soft.max_chars} ký tự của ${typeCode}`,
+          );
+        }
+        const cells = estimateManuscriptCells(m.text, program.manuscript);
+        if (cells > soft.max_cells) {
+          warn(
+            `${base}.text`,
+            `ước tính ${cells} ô 원고지 vượt giới hạn mềm ${soft.max_cells} ô của ${typeCode}`,
           );
         }
       }
@@ -1009,6 +1134,38 @@ function crossFileChecks(seen: readonly Parsed[], issues: ValidationIssue[]): vo
           `ngữ liệu chung "${f}" khác với ${first.file} (cùng group_key "${p.groupKey}"); phải giống hệt từng ký tự`,
         );
       }
+    }
+  }
+
+  // Nhãn đúng của lô soạn theo từng thư mục type_code (§4.1) — chỉ cảnh báo, và chỉ khi đủ câu
+  // để có ý nghĩa. Với đề lắp ráp quy tắc này bắt buộc, nhưng định dạng exams/ chưa chốt (TODO).
+  const byDir = new Map<string, Parsed[]>();
+  for (const p of seen) {
+    if (p.correctIndex === undefined || !p.id) continue;
+    const key = `${p.programCode}/${p.dirType}`;
+    byDir.set(key, [...(byDir.get(key) ?? []), p]);
+  }
+  for (const [dir, list] of byDir) {
+    if (list.length < MIN_BATCH_FOR_LABEL_CHECK) continue;
+    list.sort((a, b) => (a.id ?? "").localeCompare(b.id ?? ""));
+    const result = analyzeAnswerLabels(list.map((p) => p.correctIndex!));
+    if (result.maxRun > 3) {
+      const at = list[result.runEnd]!;
+      push(
+        "warning",
+        at.file,
+        "choices",
+        `${dir}: ${result.maxRun} câu liền nhau cùng nhãn đúng ${CHOICE_LABELS[at.correctIndex!]} (không quá 3)`,
+      );
+    }
+    if (result.cycle) {
+      const at = list[result.cycle.start]!;
+      push(
+        "warning",
+        at.file,
+        "choices",
+        `${dir}: chuỗi nhãn đúng dài ${result.cycle.length} lặp lại liền nhau (chu kỳ lặp nhãn)`,
+      );
     }
   }
 
