@@ -39,3 +39,43 @@ jobs:
 
       - name: Validate nội dung
         run: npm run validate:content
+
+  e2e:
+    name: E2E (Playwright · chromium)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Cài dependency
+        run: npm ci
+
+      - name: Cache trình duyệt Playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      # Luôn chạy: khi trúng cache vẫn cần cài thư viện hệ thống (--with-deps).
+      - name: Cài chromium cho Playwright
+        run: npx playwright install --with-deps chromium
+
+      # playwright.config.ts tự build rồi `next start` ở cổng 3100 khi CI=true.
+      - name: Chạy E2E
+        run: npm run test:e2e
+
+      - name: Tải báo cáo Playwright
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+          if-no-files-found: ignore
