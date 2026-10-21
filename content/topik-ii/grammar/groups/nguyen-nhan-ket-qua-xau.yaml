@@ -1,0 +1,139 @@
+slug: nguyen-nhan-ket-qua-xau
+title_vi: "Nguyên nhân dẫn đến kết quả không tốt: -느라고 / -는 바람에 / -(으)ㄴ/는 탓에"
+function: cause
+level: 4
+members: [g-0001, g-0002, g-0003]
+summary_vi: |
+  Cả ba đều nêu nguyên nhân, và vế sau thường là kết quả **không mong muốn**. Khác nhau ở **loại nguyên nhân**: -느라고 là việc **chủ ngữ đang mải làm**, -는 바람에 là việc **bất ngờ xảy ra**, -(으)ㄴ/는 탓에 là việc **bị quy lỗi**, có thể là trạng thái kéo dài. Dùng sai chủ ngữ hoặc từ loại là bẫy hay gặp ở R01–R04.
+compare_table:
+  columns: ["-느라고", "-는 바람에", "-(으)ㄴ/는 탓에"]
+  rows:
+    - criterion_key: meaning
+      criterion: "Nghĩa cốt lõi"
+      cells:
+        - "Mải làm A nên không làm được B (mất thời gian, sức lực)"
+        - "A xảy ra bất ngờ nên B xấu xảy ra (chẳng may)"
+        - "A là nguyên nhân bị quy lỗi, nên B xấu"
+    - criterion_key: pos
+      criterion: "Loại từ đi kèm"
+      cells:
+        - "Chỉ động từ"
+        - "Chỉ động từ"
+        - "Động từ, tính từ, danh từ (N인 탓에 / N 탓에); 있다/없다 dùng -는"
+    - criterion_key: other
+      criterion: "Tính chất nguyên nhân"
+      cells:
+        - "Hành động có chủ ý, mất thời gian"
+        - "Sự việc đột xuất, ngoài ý muốn"
+        - "Không giới hạn: hành động, trạng thái, hoàn cảnh"
+    - criterion_key: subject
+      criterion: "Chủ ngữ hai vế"
+      cells:
+        - "Phải giống nhau"
+        - "Có thể khác nhau"
+        - "Có thể khác nhau"
+    - criterion_key: tense
+      criterion: "Thì"
+      cells:
+        - "Không gắn -았/었-, -겠-"
+        - "Không gắn -았/었-; vế sau thường quá khứ"
+        - "Vế trước -는 (hiện tại) hoặc -(으)ㄴ / -았/었던 (quá khứ); không gắn -겠- trước 탓"
+    - criterion_key: main_clause
+      criterion: "Kết quả ở vế sau"
+      cells:
+        - "Thường không tốt hoặc không làm được việc khác"
+        - "Không tốt, ngoài dự tính"
+        - "Không tốt (bắt buộc)"
+    - criterion_key: other
+      criterion: "Mệnh lệnh / đề nghị ở vế sau"
+      cells:
+        - "Không dùng"
+        - "Không dùng"
+        - "Không dùng"
+    - criterion_key: nuance
+      criterion: "Sắc thái người nói"
+      cells:
+        - "Giải thích mình bận, thường kèm chút tiếc nuối hoặc xin lỗi"
+        - "Kể lại sự cố, tiếc nuối, bất lực"
+        - "Quy trách nhiệm, phê phán hoặc phân tích khách quan"
+    - criterion_key: register
+      criterion: "Văn nói / văn viết"
+      cells:
+        - "Cả hai; dạng -느라 hay gặp cả trong văn viết"
+        - "Cả hai, thiên văn nói"
+        - "Cả hai, thiên văn viết (tin tức, báo cáo)"
+    - criterion_key: other
+      criterion: "Dấu hiệu nhận ra trong đề"
+      cells:
+        - "Cùng chủ ngữ, vế trước là việc đang làm (준비하다, 기다리다...)"
+        - "갑자기, 그만, 하필; sự cố bất ngờ"
+        - "Tính từ hoặc danh từ trước 탓; trạng thái kéo dài"
+contrast_examples:
+  - situation_vi: "Đi học trễ vì tắc đường."
+    items:
+      - member: g-0001
+        ko: "길이 막히느라고 늦었어요."
+        vi: "Vì tắc đường nên tôi bị trễ."
+        ok: false
+        note_vi: "Sai: tắc đường không phải việc chủ ngữ đang mải làm; khác chủ ngữ và không có chủ ý nên không dùng -느라고."
+      - member: g-0002
+        ko: "길이 막히는 바람에 늦었어요."
+        vi: "Vì tắc đường nên tôi bị trễ."
+        ok: true
+        note_vi: "Việc tắc đường là bất ngờ, hợp -는 바람에."
+      - member: g-0003
+        ko: "길이 막힌 탓에 늦었어요."
+        vi: "Do tắc đường nên tôi bị trễ."
+        ok: true
+        note_vi: "Dùng được; nhấn mạnh tắc đường là thủ phạm."
+  - situation_vi: "Không ngủ được."
+    items:
+      - member: g-0001
+        ko: "보고서를 쓰느라고 못 잤어요."
+        vi: "Mải viết báo cáo nên tôi không ngủ được."
+        ok: true
+        note_vi: "Cùng chủ ngữ (tôi), hành động mất thời gian."
+      - member: g-0002
+        ko: "옆집 사람들이 시끄럽게 떠드는 바람에 못 잤어요."
+        vi: "Vì những người nhà bên cạnh ồn ào quá nên tôi không ngủ được."
+        ok: true
+        note_vi: "Khác chủ ngữ (옆집 사람들이 / tôi), việc ngoài ý muốn."
+      - member: g-0003
+        ko: "커피를 많이 마신 탓에 못 잤어요."
+        vi: "Do uống nhiều cà phê nên tôi không ngủ được."
+        ok: true
+        note_vi: "Nhấn mạnh nguyên nhân là lỗi của việc uống cà phê."
+  - situation_vi: "Nguyên nhân là một trạng thái kéo dài (nhà chật)."
+    items:
+      - member: g-0001
+        ko: "집이 좁느라고 손님을 초대하기가 어렵다."
+        vi: "Vì nhà chật nên khó mời khách đến chơi."
+        ok: false
+        note_vi: "Sai: -느라고 chỉ đi với động từ, không đi với tính từ."
+      - member: g-0002
+        ko: "집이 좁은 바람에 손님을 초대하기가 어렵다."
+        vi: "Vì nhà chật nên khó mời khách đến chơi."
+        ok: false
+        note_vi: "Sai: -는 바람에 cần động từ và một việc bất ngờ, không hợp với tính từ chỉ trạng thái kéo dài."
+      - member: g-0003
+        ko: "집이 좁은 탓에 손님을 초대하기가 어렵다."
+        vi: "Vì nhà chật nên khó mời khách đến chơi."
+        ok: true
+        note_vi: "Chỉ -(으)ㄴ/는 탓에 nhận tính từ và trạng thái."
+decision_tips_vi:
+  - "Kiểm tra từ loại trước: tính từ hoặc danh từ ở vế trước thì chỉ còn -(으)ㄴ/는 탓에."
+  - "Hai vế khác chủ ngữ thì loại -느라고."
+  - "Có 갑자기, 그만, 하필 hoặc một sự cố đột xuất thì nghĩ đến -는 바람에."
+  - "Vế trước là việc chủ ngữ đang mải làm (준비하다, 기다리다, 돌보다...) và cùng chủ ngữ với vế sau thì chọn -느라고."
+  - "Vế sau tốt: loại cả ba, dùng -아/어서, 덕분에."
+topik_traps_vi:
+  - "R01–R02: câu có hai chủ ngữ khác nhau và động từ ở vế trước, ba mẫu cùng xuất hiện làm phương án; -는 바람에 hợp lệ (và -는 탓에 cũng có thể hợp lệ)."
+  - "R03–R04: đáp án đúng là mẫu gần nghĩa khác (-는 바람에 ≈ -는 탓에 trong ngữ cảnh tiêu cực), không lặp lại mẫu trong câu gốc."
+  - "Phương án nhiễu thường dùng -느라고 với chủ ngữ khác, hoặc -는 바람에 với kết quả tốt (near_synonym_grammar)."
+  - "Khi soạn R01–R02: không đặt cả -는 바람에 và -(으)ㄴ/는 탓에 làm phương án nếu vế trước là động từ chỉ sự cố, vì cả hai đều đúng (hai đáp án)."
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Nhóm gồm 3 điểm g-0001, g-0002, g-0003. Sửa 2026-10-21 theo duyệt: đồng bộ với g-0001/g-0003 (văn nói/viết, 있다/없다 + -는, thì của 탓에), thêm criterion_key cho mọi hàng. Các hàng bảng phụ thuộc ràng buộc ghi trong từng điểm; sửa điểm nào thì xem lại bảng. Khẳng định trong topik_traps_vi về R01-R04 là mô tả chung của người soạn, không trích từ đề thật."

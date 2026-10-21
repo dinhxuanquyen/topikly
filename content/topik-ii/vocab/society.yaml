@@ -1,0 +1,140 @@
+# Lô từ vựng mẫu: xã hội. Đặc tả: docs/vocab-grammar-spec.md mục 3.
+batch: society
+program: topik-ii
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+verification_vi: "Tự biên soạn từ kiến thức của người soạn. Chưa mở trang mục từ krdict/표준국어대사전 cho từng từ (chỉ đối chiếu được một số mục ở file general.yaml, xem trường refs). Cấp độ là đánh giá của người soạn (level_basis: editor), chưa đối chiếu danh sách 급 chính thức. Reviewer cần kiểm hanja, âm Hán-Việt, cấp độ và phân loại bạn giả."
+words:
+  - id: v-00001
+    hangul: 사회
+    hanja: 社會
+    han_viet: xã hội
+    syllables:
+      - { ko: 사, hanja: 社, hv: xã }
+      - { ko: 회, hanja: 會, hv: hội }
+    meaning_vi: "xã hội"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [society]
+    example_ko: "우리 사회는 빠르게 변하고 있다."
+    example_vi: "Xã hội của chúng ta đang thay đổi nhanh chóng."
+    false_friend: null
+    collocations:
+      - { ko: "사회 문제", vi: "vấn đề xã hội" }
+      - { ko: "사회생활", vi: "cuộc sống xã hội; đời đi làm" }
+      - { ko: "사회에 나가다", vi: "bước ra xã hội (đi làm)" }
+    note_vi: "Giống nghĩa với 'xã hội' tiếng Việt, nên dễ nhớ. Chú ý chữ 社 (xã) khác chữ 事 (sự) trong 사고 事故 dù cùng đọc 사."
+
+  - id: v-00002
+    hangul: 인구
+    hanja: 人口
+    han_viet: nhân khẩu
+    syllables:
+      - { ko: 인, hanja: 人, hv: nhân }
+      - { ko: 구, hanja: 口, hv: khẩu }
+    meaning_vi: "dân số; số dân"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [population, society]
+    example_ko: "이 도시는 해마다 인구가 줄고 있다."
+    example_vi: "Dân số của thành phố này giảm đi mỗi năm."
+    false_friend: null
+    collocations:
+      - { ko: "인구가 늘다", vi: "dân số tăng" }
+      - { ko: "인구 밀도", vi: "mật độ dân số" }
+      - { ko: "인구 감소", vi: "dân số suy giảm" }
+    note_vi: "'Nhân khẩu' trong tiếng Việt thường chỉ số người trong một hộ hoặc đơn vị dân cư (hộ khẩu, nhân khẩu), còn tổng số dân của một nước hay thành phố tiếng Hàn gọi là 인구."
+    notes_internal: "Không đánh dấu bạn giả vì 'nhân khẩu' vẫn dùng trong 'nhân khẩu học' (= 인구학); reviewer cân nhắc nếu muốn đánh dấu partial."
+
+  - id: v-00003
+    hangul: 출산
+    hanja: 出産
+    han_viet: xuất sản
+    syllables:
+      - { ko: 출, hanja: 出, hv: xuất }
+      - { ko: 산, hanja: 産, hv: sản }
+    meaning_vi: "sinh con, sinh đẻ"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [population, family]
+    example_ko: "출산을 앞둔 직원에게는 휴가를 줍니다."
+    example_vi: "Nhân viên sắp sinh con sẽ được cho nghỉ phép."
+    false_friend: null
+    collocations:
+      - { ko: "출산율", vi: "tỉ lệ sinh" }
+      - { ko: "출산 휴가", vi: "nghỉ thai sản" }
+      - { ko: "저출산", vi: "tỉ lệ sinh thấp" }
+    note_vi: "'Xuất sản' hầu như không dùng trong tiếng Việt; nói 'sinh con', 'sinh nở' hoặc 'thai sản'. Hay gặp trong chủ đề dân số: 저출산 (tỉ lệ sinh thấp)."
+
+  - id: v-00004
+    hangul: 사고
+    hanja: 事故
+    han_viet: sự cố
+    syllables:
+      - { ko: 사, hanja: 事, hv: sự }
+      - { ko: 고, hanja: 故, hv: cố }
+    meaning_vi: "tai nạn; sự cố bất ngờ"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [society, transportation]
+    example_ko: "빗길에서는 교통사고가 자주 일어난다."
+    example_vi: "Trên đường trơn do mưa, tai nạn giao thông thường xảy ra."
+    false_friend:
+      kind: partial
+      vi_meaning: "việc không mong muốn xảy ra bất ngờ, thường là trục trặc kỹ thuật hoặc hỏng hóc (sự cố điện, sự cố máy móc)"
+      note_vi: "Trùng 'sự cố' ở nghĩa việc không mong muốn xảy ra bất ngờ. Khác ở trọng tâm: 사고 hay chỉ tai nạn có thiệt hại về người hoặc của (교통사고 = tai nạn giao thông), còn 'sự cố' tiếng Việt thiên về trục trặc kỹ thuật."
+    collocations:
+      - { ko: "교통사고", vi: "tai nạn giao thông" }
+      - { ko: "사고가 나다", vi: "xảy ra tai nạn" }
+      - { ko: "사고를 당하다", vi: "gặp tai nạn" }
+    note_vi: "Đồng âm khác chữ Hán: 사고 思考 (tư khảo) = suy nghĩ. Cũng đừng nhầm 事 (sự) với 社 (xã) trong 사회."
+    notes_internal: "Phân loại partial theo mức trùng nghĩa 'sự cố'; reviewer xác nhận."
+
+  - id: v-00005
+    hangul: 유행
+    hanja: 流行
+    han_viet: lưu hành
+    syllables:
+      - { ko: 유, hanja: 流, hv: lưu }
+      - { ko: 행, hanja: 行, hv: hành }
+    meaning_vi: "mốt, trào lưu; thịnh hành; (bệnh) lan rộng"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [culture, society]
+    example_ko: "이번 겨울에는 긴 외투가 유행이에요."
+    example_vi: "Mùa đông này áo khoác dài đang thịnh hành."
+    false_friend:
+      kind: partial
+      vi_meaning: "(sản phẩm, tiền tệ, ấn phẩm) được đưa vào dùng và lưu thông trên thị trường; (bệnh) đang có mặt ở một vùng"
+      note_vi: "Trùng 'lưu hành' ở nghĩa bệnh lan rộng trong cộng đồng (독감이 유행하다 = cúm đang lan). Khác ở nghĩa phổ biến nhất: 유행 là mốt, trào lưu được nhiều người chạy theo (유행에 민감하다 = nhạy với mốt), không phải việc sản phẩm được phát hành."
+    collocations:
+      - { ko: "유행하다", vi: "thịnh hành; lan rộng" }
+      - { ko: "유행이 지나다", vi: "hết mốt" }
+      - { ko: "유행을 따르다", vi: "chạy theo mốt" }
+    notes_internal: "Phân loại partial; kiểm lại nghĩa 'lưu hành' hiện đại trong tiếng Việt."
+
+  - id: v-00006
+    hangul: 이웃
+    hanja: null
+    han_viet: null
+    meaning_vi: "hàng xóm; láng giềng"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [society, daily-life]
+    example_ko: "우리는 이웃과 음식을 나눠 먹곤 해요."
+    example_vi: "Chúng tôi thường chia nhau đồ ăn với hàng xóm."
+    false_friend: null
+    collocations:
+      - { ko: "이웃집", vi: "nhà hàng xóm" }
+      - { ko: "이웃 나라", vi: "nước láng giềng" }
+      - { ko: "이웃을 돕다", vi: "giúp đỡ hàng xóm" }
+    note_vi: "Từ thuần Hàn, vừa là 'hàng xóm' vừa là 'láng giềng' (cả nước láng giềng)."

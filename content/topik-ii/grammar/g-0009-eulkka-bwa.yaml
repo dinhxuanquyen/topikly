@@ -1,0 +1,73 @@
+id: g-0009
+slug: eulkka-bwa
+pattern: "-(으)ㄹ까 봐"
+variants: ["-(으)ㄹ까 봐서", "-(으)ㄹ까 봐 걱정이다"]
+meaning_vi: "Vì lo (sợ) rằng có thể xảy ra việc không mong muốn nên (làm gì để đề phòng hoặc cảm thấy lo)."
+level: 4
+level_basis: editor
+function: concern
+compare_group: null
+form:
+  - host: V
+    attach: "V-(으)ㄹ까 봐 · V-았/었을까 봐 (lo rằng việc đã xảy ra rồi)"
+    note_vi: "Ví dụ: 늦을까 봐, 먹을까 봐; 떨어졌을까 봐."
+  - host: A
+    attach: "A-(으)ㄹ까 봐 · A-았/었을까 봐"
+    note_vi: "Ví dụ: 비쌀까 봐, 추울까 봐."
+  - host: "N"
+    attach: "N일까 봐 · N이 아닐까 봐"
+    note_vi: "Ví dụ: 거짓말일까 봐."
+constraints:
+  register: both
+  polarity: negative
+  subject_vi: "Vế đầu có thể khác chủ ngữ với vế sau (엄마가 걱정하실까 봐 ...). Người lo lắng thường là chủ ngữ của vế sau."
+  tense_vi: "Không gắn -겠-. Lo về việc sắp xảy ra: -(으)ㄹ까 봐; lo về việc có thể đã xảy ra rồi: -았/었을까 봐."
+  main_clause_vi: "Vế sau là hành động phòng ngừa (우산을 챙기다) hoặc cảm xúc lo ngại (걱정이다, 불안하다, 무섭다), thường ở quá khứ hoặc hiện tại. Không dùng mệnh lệnh, đề nghị (늦을까 봐 빨리 가세요 → 늦을지도 모르니까 빨리 가세요)."
+  other_vi: "Chỉ dùng cho việc không mong muốn. Việc mong muốn thì dùng -기를 바라다, -(으)면 좋겠다."
+examples:
+  - ko: "길이 막힐까 봐 일찍 집에서 나왔어요."
+    vi: "Tôi ra khỏi nhà sớm vì sợ tắc đường."
+  - ko: "엄마가 걱정하실까 봐 시험 결과를 말씀드리지 못했어요."
+    vi: "Tôi không dám nói kết quả thi với mẹ vì sợ mẹ lo."
+    note_vi: "Chủ ngữ vế đầu (엄마가) khác vế sau (tôi); chỉ người lo là người nói."
+  - ko: "시험에 떨어졌을까 봐 결과를 확인하기가 무서워요."
+    vi: "Tôi sợ phải xem kết quả vì lo mình đã trượt rồi."
+    note_vi: "-았/었을까 봐: lo về việc có thể đã xảy ra."
+  - ko: "아이가 감기에 걸릴까 봐 창문을 꼭 닫아 놓았어요."
+    vi: "Vì sợ con bị cảm nên tôi đóng chặt cửa sổ lại."
+  - ko: "약속에 늦을까 봐 마음이 급해서 택시를 탔어요."
+    vi: "Vì sợ trễ hẹn, lòng nôn nóng nên tôi đã đi taxi."
+non_examples:
+  - ko: "합격할까 봐 기뻐요."
+    fix_ko: "합격해서 기뻐요."
+    note_vi: "Sai: -(으)ㄹ까 봐 chỉ dùng cho điều đáng lo, không dùng cho điều mong muốn."
+  - ko: "늦을까 봐 빨리 출발하세요."
+    fix_ko: "늦을지도 모르니까 빨리 출발하세요."
+    note_vi: "Sai: vế sau của -(으)ㄹ까 봐 không là mệnh lệnh hay đề nghị. Muốn khuyên dựa trên một khả năng xấu, dùng -(으)ㄹ지도 모르니까."
+  - ko: "비가 오겠을까 봐 우산을 가져왔어요."
+    fix_ko: "비가 올까 봐 우산을 가져왔어요."
+    note_vi: "Sai: không gắn -겠- vào -(으)ㄹ까 봐."
+common_mistakes_vi:
+  - "Dùng cho điều tốt vì tiếng Việt 'sợ rằng' đôi khi dùng đùa với điều mong muốn. -(으)ㄹ까 봐 luôn nói về điều không mong muốn."
+  - "Nhầm với -(으)ㄹ지도 모르다: -(으)ㄹ지도 모르다 chỉ nêu khả năng; -(으)ㄹ까 봐 có cảm giác lo và dẫn tới hành động hay cảm xúc."
+  - "Dùng -(으)ㄹ까 봐 cho việc đã chắc chắn xảy ra. Điều đã rõ ràng thì dùng -아/어서 hoặc -기 때문에."
+  - "Quên -았/었을까 봐 khi lo về việc có thể đã xảy ra rồi (결과가 나빴을까 봐)."
+  - "Đặt mệnh lệnh hoặc đề nghị ở vế sau vì tiếng Việt nói được 'sợ... nên hãy...' (*늦을까 봐 빨리 가세요). Tiếng Hàn đổi sang -(으)ㄹ지도 모르니까."
+  - "Nhầm với -(으)ㄹ까 보다 ở cuối câu, chủ ngữ ngôi thứ nhất: 주말에는 집에서 쉴까 봐요 = 'tôi đang tính nghỉ ở nhà', không phải 'sợ'. Nghĩa 'sợ' cần có vế sau hoặc 걱정이다."
+related: []
+body_md: |
+  **Ý cốt lõi:** *"Sợ rằng... nên..."*. Người nói lo một việc xấu **có thể** xảy ra, nên hành động trước (đề phòng) hoặc thấy lo.
+
+  **Cấu trúc câu quen thuộc:** [nỗi lo] -(으)ㄹ까 봐 + [hành động phòng ngừa hoặc cảm xúc].
+  - 비가 올까 봐 우산을 챙겼어요. (đề phòng)
+  - 실패할까 봐 걱정이에요. (cảm xúc)
+
+  **Liên hệ đề thi:** hay là đáp án của R03–R04 khi gần nghĩa với -(으)ㄹ지도 몰라서. Ở câu điền R01–R02, nhiễu hay là -(으)면 hoặc -더라도.
+refs: []
+status: active
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Cấp 4 là đánh giá của người soạn (có giáo trình xếp ở cấp 3). Khớp tag grammar:-(으)ㄹ까-봐 của r03-0001. Chưa đối chiếu danh sách 문법 chính thức."

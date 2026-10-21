@@ -1,0 +1,69 @@
+id: g-0005
+slug: n-neun-deut-hada
+pattern: "-(으)ㄴ/는 듯하다"
+variants: ["-(으)ㄹ 듯하다", "-(으)ㄴ/는 듯싶다", "-(으)ㄴ/는 듯합니다"]
+meaning_vi: "Dường như, có vẻ như (suy đoán nhẹ nhàng hoặc nêu ý kiến một cách dè dặt, trang trọng)."
+level: 4
+level_basis: editor
+function: conjecture
+compare_group: phong-doan-dua-vao-quan-sat
+form:
+  - host: V
+    attach: "V-는 듯하다 (hiện tại) · V-(으)ㄴ 듯하다 (quá khứ) · V-(으)ㄹ 듯하다 (tương lai, phỏng đoán)"
+    note_vi: "Ví dụ: 가는 듯하다, 간 듯하다, 갈 듯하다."
+  - host: A
+    attach: "A-(으)ㄴ 듯하다 · A-(으)ㄹ 듯하다 · A-았/었던 듯하다"
+    note_vi: "Ví dụ: 바쁜 듯하다, 바쁠 듯하다, 바빴던 듯하다."
+  - host: "N"
+    attach: "N인 듯하다 · N일 듯하다 · N이었던 듯하다"
+    note_vi: "Ví dụ: 학생인 듯하다."
+constraints:
+  register: both
+  polarity: any
+  subject_vi: "Ngôi nào cũng được. Có thể dùng để nói ý kiến cá nhân một cách dè dặt (제 생각에는 ~ 듯합니다). Với cảm giác trực tiếp của chính mình (배고프다, 아프다), nói thẳng tự nhiên hơn."
+  tense_vi: "Có đủ ba thì: -는 (hiện tại), -(으)ㄴ (quá khứ), -(으)ㄹ (tương lai hoặc phỏng đoán). -(으)ㄴ/는 모양이다 cũng có -(으)ㄹ 모양이다, nhưng -(으)ㄹ 듯하다 hợp văn viết, bản tin, dự báo hơn."
+  main_clause_vi: "Đứng ở cuối câu, không có vế sau. Thường kèm căn cứ ở vế đầu (-(으)ㄴ/는 것을 보니, -아/어서)."
+  other_vi: "Trang trọng, hay gặp trong văn viết, bản tin, báo cáo và lời nói lịch sự. Phát âm 듯하다 là [드타다]."
+examples:
+  - ko: "오늘은 구름이 많아서 오후에 비가 올 듯합니다."
+    vi: "Hôm nay nhiều mây nên chiều nay dường như sẽ mưa."
+    note_vi: "-(으)ㄹ 듯하다 dự đoán tương lai, hợp bản tin và dự báo. 비가 올 모양이에요 cũng đúng nhưng nghe như lời nói thường ngày."
+  - ko: "두 사람은 오랫동안 알고 지낸 사이인 듯했다."
+    vi: "Hai người dường như đã quen biết nhau từ lâu."
+  - ko: "제 생각에는 이번 계획이 조금 무리인 듯합니다."
+    vi: "Theo ý tôi, kế hoạch lần này có vẻ hơi quá sức."
+    note_vi: "Dùng để nêu ý kiến dè dặt, lịch sự trong công việc."
+  - ko: "문이 잠긴 것을 보니 아무도 없는 듯하다."
+    vi: "Thấy cửa khóa, có vẻ không có ai ở đó."
+  - ko: "그는 시험 결과에 꽤 만족하는 듯했다."
+    vi: "Anh ấy dường như khá hài lòng với kết quả thi."
+non_examples:
+  - ko: "오늘은 날씨가 좋는 듯하다."
+    fix_ko: "오늘은 날씨가 좋은 듯하다."
+    note_vi: "Sai: 좋다 là tính từ, dùng -(으)ㄴ."
+  - ko: "내일은 비가 올 듯 하다."
+    fix_ko: "내일은 비가 올 듯하다."
+    note_vi: "Sai 띄어쓰기: 듯하다 là một từ (보조 형용사), viết liền. Chỉ viết cách khi 듯 đứng riêng (올 듯 말 듯) hoặc là 듯이 (비가 올 듯이 흐리다)."
+common_mistakes_vi:
+  - "Nghĩ rằng chỉ dùng để đoán về người khác. Thực tế còn là cách nêu ý kiến mềm mỏng của chính mình (제가 보기에는 ~ 듯합니다)."
+  - "Quên -(으)ㄹ: chỉ quen -는/-(으)ㄴ nên không dùng được cho dự đoán tương lai (비가 올 듯하다)."
+  - "Dùng trong lời nói thân mật hằng ngày. Tự nhiên hơn khi dùng trong văn viết và tình huống lịch sự; thân mật thường dùng -나 보다 hoặc -(으)ㄹ 것 같다."
+  - "Chia sai với tính từ (*좋는 듯하다) vì nhầm với -는 động từ hiện tại."
+  - "Viết tách '듯 하다' như hai từ riêng. 듯하다 là một từ, viết liền (올 듯하다)."
+related: [g-0004, g-0006]
+body_md: |
+  **Ý cốt lõi:** nói điều gì đó **một cách dè dặt**, không khẳng định. Tiếng Việt: *dường như, có vẻ như*.
+
+  **Hai cách dùng:**
+  - Suy đoán dựa trên dấu hiệu (như -(으)ㄴ/는 모양이다) nhưng nghe trang trọng hơn.
+  - Nêu ý kiến cá nhân lịch sự (제 생각에는 ... 듯합니다), thường gặp trong báo cáo, thuyết trình.
+
+  **Điểm nổi bật:** dạng tương lai **-(으)ㄹ 듯하다** rất hay xuất hiện trong dự báo thời tiết và tin tức.
+refs: []
+status: active
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Cấp 4 là đánh giá của người soạn (một số danh sách xếp ở cấp 5, reviewer kiểm). Biến thể -(으)ㄴ/는 듯싶다 là kiến thức chung. Chưa đối chiếu danh sách 문법 chính thức."

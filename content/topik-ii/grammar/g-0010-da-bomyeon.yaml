@@ -1,0 +1,64 @@
+id: g-0010
+slug: da-bomyeon
+pattern: "-다 보면"
+variants: ["-다 보니", "-다 보니까"]
+meaning_vi: "Cứ (làm) A mãi/lặp đi lặp lại thì rồi sẽ (dẫn tới) B."
+level: 4
+level_basis: editor
+function: condition
+compare_group: null
+form:
+  - host: V
+    attach: "V-다 보면 (giả định, kết quả sẽ xảy ra) · V-다 보니(까) (kết quả đã nhận ra)"
+    note_vi: "Ví dụ: 하다 보면, 살다 보면, 듣다 보면. -다 보니(까) là cặp dùng khi kết quả đã xảy ra: 매일 듣다 보니 귀가 트였어요."
+constraints:
+  register: both
+  polarity: any
+  subject_vi: "Chủ ngữ hai vế thường giống nhau hoặc là con người nói chung (사람이 살다 보면...)."
+  tense_vi: "Không gắn -았/었-, -겠- vào -다. Vế sau thường ở tương lai hoặc phỏng đoán (-(으)ㄹ 거예요, -게 되다, -아/어지다, -(으)ㄹ 수 있다), hoặc nói điều đúng chung."
+  main_clause_vi: "Vế sau là kết quả hoặc điều sẽ phát hiện ra, tốt hay xấu đều được. Vế sau ở quá khứ thì dùng -다 보니(까)."
+  other_vi: "Chỉ đi với động từ chỉ việc lặp lại hoặc kéo dài (하다, 살다, 듣다, 걷다, 만나다); -다 보면 không đi với tính từ. Riêng -다 보니 đi được với tính từ khi nêu lý do là một trạng thái (회사가 멀다 보니 일찍 나가야 한다)."
+examples:
+  - ko: "한국어는 매일 조금씩 공부하다 보면 어느 순간 실력이 늘어요."
+    vi: "Tiếng Hàn mà ngày nào cũng học một chút thì đến một lúc nào đó trình độ sẽ tăng."
+  - ko: "처음에는 어색해도 자주 만나다 보면 친해질 거예요."
+    vi: "Lúc đầu dù còn ngượng, cứ gặp thường xuyên thì rồi sẽ thân nhau."
+  - ko: "살다 보면 누구나 실수를 하게 된다."
+    vi: "Sống ở đời thì ai rồi cũng có lúc mắc lỗi."
+  - ko: "운동을 하다 보면 기분이 좋아지는 것을 느낄 수 있어요."
+    vi: "Cứ tập thể dục thì bạn sẽ cảm thấy tâm trạng tốt lên."
+  - ko: "이 길을 계속 걷다 보면 작은 공원이 나올 거예요."
+    vi: "Cứ đi mãi con đường này thì sẽ thấy một công viên nhỏ."
+    note_vi: "Không chỉ kết quả trừu tượng: cũng dùng cho 'đi một lúc thì sẽ tới'."
+non_examples:
+  - ko: "어제 공부하다 보면 졸렸어요."
+    fix_ko: "어제 공부하다 보니 졸렸어요."
+    note_vi: "Sai: kết quả đã xảy ra (quá khứ) dùng -다 보니(까), không dùng -다 보면."
+  - ko: "날씨가 춥다 보면 감기에 걸리기 쉬워요."
+    fix_ko: "날씨가 추우면 감기에 걸리기 쉬워요."
+    note_vi: "Sai: 춥다 là tính từ, không phải hành động lặp lại hoặc kéo dài. Dùng -(으)면."
+  - ko: "운동을 했다 보면 건강해질 거예요."
+    fix_ko: "운동을 하다 보면 건강해질 거예요."
+    note_vi: "Sai: không gắn -았/었- (hoặc -겠-) vào -다 của -다 보면."
+common_mistakes_vi:
+  - "Dùng thay cho -(으)면 trong mọi điều kiện. -다 보면 cần hành động **lặp lại hoặc kéo dài**, và kết quả đến dần dần."
+  - "Dùng ở vế sau là quá khứ (*하다 보면 늘었어요). Quá khứ phải là -다 보니(까)."
+  - "Dùng với tính từ (*예쁘다 보면). Chỉ động từ."
+  - "Nhầm với -다가 (đang làm A thì chuyển sang B): -다가 = *đang làm thì*; -다 보면 = *làm mãi thì rồi sẽ*."
+related: []
+body_md: |
+  **Ý cốt lõi:** *"Cứ... mãi thì rồi sẽ..."*. Một hành động được lặp lại hoặc kéo dài, và **sau một thời gian** có kết quả hoặc một phát hiện.
+
+  **Hai dạng cùng nhóm:**
+  - **-다 보면** + tương lai/phỏng đoán: 하다 보면 늘 거예요 (cứ làm thì sẽ tiến bộ).
+  - **-다 보니(까)** + quá khứ: 하다 보니 늘었어요 (làm mãi nên đã tiến bộ).
+
+  **Liên hệ bài viết:** là mẫu hay dùng ở W54 để nêu kết luận có tính quy luật (*살다 보면*, *생각하다 보면*).
+refs: []
+status: active
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Cấp 4 là đánh giá của người soạn. Khớp tag grammar:-다-보면 của w54-0002 (tag đó đã ghi 'chưa đối chiếu', nay đã có điểm tương ứng). Chưa đối chiếu danh sách 문법 chính thức."

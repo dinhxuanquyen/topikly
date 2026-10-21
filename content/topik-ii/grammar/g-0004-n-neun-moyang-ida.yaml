@@ -1,0 +1,68 @@
+id: g-0004
+slug: n-neun-moyang-ida
+pattern: "-(으)ㄴ/는 모양이다"
+variants: ["-(으)ㄴ/는 모양이에요", "-(으)ㄴ/는 모양입니다"]
+meaning_vi: "Có vẻ như, hình như, chắc là (suy đoán từ những gì quan sát được về người hoặc sự việc khác)."
+level: 4
+level_basis: editor
+function: conjecture
+compare_group: phong-doan-dua-vao-quan-sat
+form:
+  - host: V
+    attach: "V-는 모양이다 (hiện tại) · V-(으)ㄴ 모양이다 (quá khứ) · V-(으)ㄹ 모양이다 (sắp xảy ra)"
+    note_vi: "Ví dụ: 먹는 모양이다 (có vẻ đang ăn), 먹은 모양이다 (có vẻ đã ăn), 비가 올 모양이다 (có vẻ sắp mưa)."
+  - host: A
+    attach: "A-(으)ㄴ 모양이다 · A-았/었던 모양이다 (quá khứ)"
+    note_vi: "Ví dụ: 바쁜 모양이다, 바빴던 모양이다. Với 있다/없다 dùng -는 모양이다 (맛있는 모양이다)."
+  - host: "N"
+    attach: "N인 모양이다 · N이었던 모양이다 (quá khứ)"
+    note_vi: "Ví dụ: 학생인 모양이다."
+constraints:
+  register: both
+  polarity: any
+  subject_vi: "Chủ ngữ thường là ngôi thứ ba hoặc sự vật. Không dùng cho hành động có chủ ý hay cảm giác trực tiếp của chính người nói (đã biết rõ), trừ khi vừa tự nhận ra qua dấu hiệu (xem other_vi)."
+  tense_vi: "Hiện tại: -는 (động từ) / -(으)ㄴ (tính từ). Quá khứ: -(으)ㄴ (động từ) hoặc -았/었던 (tính từ, danh từ). Việc sắp xảy ra: -(으)ㄹ 모양이다 (하늘이 흐린 걸 보니 비가 올 모양이다)."
+  main_clause_vi: "Đứng cuối câu (không có vế sau). Thường có vế đầu nêu căn cứ: -는 걸 보니, -는 것을 보면."
+  other_vi: "Người nói suy đoán dựa trên căn cứ nhìn hoặc nghe thấy. Cũng nói được khi vừa tự nhận ra trạng thái của chính mình qua dấu hiệu bên ngoài."
+examples:
+  - ko: "현관에 신발이 없는 걸 보니 동생이 벌써 나간 모양이에요."
+    vi: "Thấy ngoài cửa không có giày, chắc em tôi đã ra ngoài rồi."
+    note_vi: "Căn cứ nhìn thấy (không có giày) rồi suy đoán việc đã xảy ra: động từ quá khứ -(으)ㄴ 모양이다."
+  - ko: "사람들이 줄을 서 있는 걸 보니 이 식당이 인기가 많은 모양이다."
+    vi: "Thấy mọi người xếp hàng, hình như quán này rất đông khách."
+  - ko: "친구가 요즘 계속 전화를 안 받는 걸 보니 많이 바쁜 모양이다."
+    vi: "Dạo này bạn cứ không nghe máy, chắc là bận lắm."
+  - ko: "길이 젖어 있네요. 밤새 비가 내린 모양이에요."
+    vi: "Đường ướt này. Chắc đêm qua mưa rồi."
+  - ko: "아이가 계속 하품을 하는 걸 보니 졸린 모양이다."
+    vi: "Thấy đứa bé cứ ngáp mãi, chắc là buồn ngủ."
+non_examples:
+  - ko: "저는 내일 여행을 가는 모양이에요."
+    fix_ko: "저는 내일 여행을 갈 거예요."
+    note_vi: "Sai: người nói đã biết rõ kế hoạch của chính mình nên không suy đoán."
+  - ko: "제가 직접 먹어 보니까 이 사과는 맛있는 모양이에요."
+    fix_ko: "제가 직접 먹어 보니까 이 사과는 맛있네요."
+    note_vi: "Sai: người nói đã tự ăn và biết chắc vị táo nên không dùng suy đoán. -는 모양이다 chỉ dùng khi đoán qua dấu hiệu bên ngoài (사람들이 많이 사 가는 걸 보니 맛있는 모양이에요)."
+  - ko: "요즘 많이 바쁘는 모양이에요."
+    fix_ko: "요즘 많이 바쁜 모양이에요."
+    note_vi: "Sai: 바쁘다 là tính từ, dùng -(으)ㄴ, không dùng -는."
+common_mistakes_vi:
+  - "Quên chia theo từ loại: dùng -는 với tính từ (*바쁘는 모양이다). Tính từ dùng -(으)ㄴ, động từ hiện tại -는, động từ quá khứ -(으)ㄴ."
+  - "Dùng để nói về mình khi đã biết rõ (kế hoạch, ý định). Mẫu này luôn có một khoảng cách: người nói chỉ đoán dựa trên dấu hiệu."
+  - "Hiểu 모양 là 'hình dáng' (danh từ) và dịch sai thành 'có hình dạng...'. Ở đây 모양이다 mang nghĩa 'có vẻ'."
+  - "Nghĩ rằng 모양이다 không có dạng tương lai nên đổi sang mẫu khác. Có: -(으)ㄹ 모양이다 cho việc sắp xảy ra (비가 올 모양이다); nhưng trong báo cáo, dự báo trang trọng thì -(으)ㄹ 듯하다 hợp hơn."
+related: [g-0005, g-0006]
+body_md: |
+  **Ý cốt lõi:** người nói **nhìn thấy hoặc nghe được dấu hiệu** rồi đoán tình trạng của người khác. Câu thường mở đầu bằng một căn cứ (**-는 걸 보니**, *thấy... nên*), sau đó kết bằng -(으)ㄴ/는 모양이다.
+
+  **Nhớ nhanh:** hiện tại động từ -는, còn lại (tính từ, quá khứ động từ) -(으)ㄴ, việc sắp xảy ra -(으)ㄹ, danh từ N인.
+
+  **So với hai mẫu cùng nhóm:** 모양이다 mô tả trạng thái bên ngoài khá trung tính; -(으)ㄴ/는 듯하다 trang trọng hơn và dùng được cho ý kiến dè dặt; -나 보다 là khẩu ngữ thân mật. Xem nhóm `phong-doan-dua-vao-quan-sat`.
+refs: []
+status: active
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Cấp 4 là đánh giá của người soạn. Sửa 2026-10-21 theo duyệt: thêm -(으)ㄹ 모양이다 (việc sắp xảy ra). Reviewer dẫn 표준국어대사전 mục 모양 ghi '-은/-는/-을 모양이다' [cần đối chiếu nguyên văn]. Chưa đối chiếu danh sách 문법 chính thức."

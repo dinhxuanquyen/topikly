@@ -1,0 +1,64 @@
+id: g-0008
+slug: n-neun-de-do
+pattern: "-(으)ㄴ/는데도"
+variants: ["-(으)ㄴ/는데도 불구하고"]
+meaning_vi: "Mặc dù... nhưng (nhượng bộ trên sự thật đã xảy ra, kết quả trái với kỳ vọng)."
+level: 4
+level_basis: editor
+function: concession
+compare_group: nhuong-bo-cho-du
+form:
+  - host: V
+    attach: "V-는데도 (hiện tại) · V-았/었는데도 (quá khứ)"
+    note_vi: "Ví dụ: 가는데도, 갔는데도. Với 있다/없다: 있는데도, 없는데도."
+  - host: A
+    attach: "A-(으)ㄴ데도 · A-았/었는데도 (quá khứ)"
+    note_vi: "Ví dụ: 비싼데도, 비쌌는데도."
+  - host: "N"
+    attach: "N인데도 · N이었는데도 (quá khứ)"
+    note_vi: "Ví dụ: 학생인데도, 휴일인데도."
+constraints:
+  register: both
+  polarity: any
+  subject_vi: "Chủ ngữ hai vế tự do."
+  tense_vi: "Có thể gắn -았/었- (-았/었는데도). Vế trước là sự thật hiện tại hoặc đã xảy ra, không phải giả định."
+  main_clause_vi: "Vế sau là kết quả trái với kỳ vọng. Thường là câu trần thuật hoặc câu hỏi; không dùng mệnh lệnh hay đề nghị."
+  other_vi: "Vế trước là sự thật. Muốn nhấn mạnh có thể thêm 불구하고 (-(으)ㄴ/는데도 불구하고). Dùng cả văn nói lẫn văn viết."
+examples:
+  - ko: "밤새 공부했는데도 시험 때 외운 내용이 하나도 생각나지 않았다."
+    vi: "Học suốt đêm vậy mà lúc thi tôi chẳng nhớ ra chút gì đã học thuộc."
+  - ko: "그는 한국에 온 지 얼마 안 됐는데도 한국어를 아주 잘해요."
+    vi: "Anh ấy mới đến Hàn chưa lâu mà nói tiếng Hàn rất giỏi."
+  - ko: "날씨가 이렇게 추운데도 사람들이 줄을 서서 기다리고 있다."
+    vi: "Dù trời lạnh thế này mà mọi người vẫn xếp hàng chờ."
+  - ko: "월급이 많은데도 그는 늘 돈이 없다고 말한다."
+    vi: "Lương cao vậy mà anh ấy lúc nào cũng nói không có tiền."
+  - ko: "약을 먹었는데도 열이 내리지 않아요."
+    vi: "Đã uống thuốc rồi mà sốt vẫn không hạ."
+non_examples:
+  - ko: "만약 내일 비가 오는데도 소풍을 갈 거예요."
+    fix_ko: "만약 내일 비가 오더라도 소풍을 갈 거예요."
+    note_vi: "Sai: 만약 và chuyện ngày mai là giả định. Dùng -더라도."
+  - ko: "바쁜데도 꼭 오세요."
+    fix_ko: "바쁘더라도 꼭 오세요."
+    note_vi: "Sai: vế sau là lời mời/mệnh lệnh nên không dùng -(으)ㄴ/는데도. Nhượng bộ mà vế sau là lời khuyên, lời mời thì dùng -더라도."
+common_mistakes_vi:
+  - "Dùng cho việc chưa xảy ra (kế hoạch, dự đoán). -(으)ㄴ/는데도 cần sự thật có thật; chưa xảy ra thì dùng -더라도."
+  - "Chia sai theo từ loại: tính từ phải -(으)ㄴ데도, không dùng -는데도 (*비싸는데도)."
+  - "Nhầm với -(으)ㄴ/는데 (nối câu chung chung, 'nhưng, mà'). -(으)ㄴ/는데도 mới có nghĩa 'mặc dù...' nhấn mạnh sự trái ngược."
+  - "Đặt mệnh lệnh hoặc đề nghị ở vế sau như -더라도."
+related: [g-0007]
+body_md: |
+  **Ý cốt lõi:** *"A đúng là đã xảy ra, vậy mà B vẫn thế."* Vế trước là **sự thật**; vế sau trái với điều ta mong đợi.
+
+  **Dấu hiệu khi làm bài:** có 분명히, 이미, 벌써, 이렇게/그렇게 + tính từ, hoặc sự việc đã xảy ra; vế sau là kết quả bất ngờ (생각나지 않았다, 열이 내리지 않았다).
+
+  **Phân biệt với -더라도:** -(으)ㄴ/는데도 = *đã... mà vẫn* (sự thật); -더라도 = *dù có... thì cũng* (giả định). Xem nhóm `nhuong-bo-cho-du`.
+refs: []
+status: active
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Cấp 4 là đánh giá của người soạn (có thể là 3). Biến thể -(으)ㄴ/는데도 불구하고 là kiến thức chung. Chưa đối chiếu danh sách 문법 chính thức."

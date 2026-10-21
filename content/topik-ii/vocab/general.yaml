@@ -1,0 +1,464 @@
+# Lô từ vựng mẫu: từ dùng chung (trừu tượng, động/tính từ, phó từ). Đặc tả: docs/vocab-grammar-spec.md mục 3.
+batch: general
+program: topik-ii
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+verification_vi: "Tự biên soạn từ kiến thức của người soạn. Chưa mở trang mục từ cho mục nào; 對處 của 대처하다 chỉ thấy qua kết quả tìm kiếm krdict bản tiếng Anh (xem refs, checked: false). Cấp độ là đánh giá của người soạn (level_basis: editor). Reviewer cần kiểm hanja, âm Hán-Việt, cấp độ và phân loại bạn giả (정보, 필요하다, 이익, 발표 là partial; 대처하다, 인정하다, 실수 là full)."
+words:
+  - id: v-00031
+    hangul: 정보
+    hanja: 情報
+    han_viet: tình báo
+    syllables:
+      - { ko: 정, hanja: 情, hv: tình }
+      - { ko: 보, hanja: 報, hv: báo }
+    meaning_vi: "thông tin; dữ liệu"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [media, internet]
+    example_ko: "인터넷에는 믿을 수 없는 정보도 많이 올라온다."
+    example_vi: "Trên mạng cũng có nhiều thông tin không đáng tin được đăng lên."
+    false_friend:
+      kind: partial
+      vi_meaning: "tình báo: tin tức thu thập về đối phương hoặc bí mật quốc gia; hoạt động gián điệp"
+      note_vi: "Chỉ trùng ở nghĩa hẹp 'tin tức tình báo' (정보 기관 = cơ quan tình báo). Nghĩa thông dụng của 정보 là 'thông tin' (정보를 얻다 = có được thông tin). Đừng dịch 정보 là 'tình báo'."
+    collocations:
+      - { ko: "정보를 얻다", vi: "có được thông tin" }
+      - { ko: "개인 정보", vi: "thông tin cá nhân" }
+      - { ko: "정보를 제공하다", vi: "cung cấp thông tin" }
+
+  - id: v-00032
+    hangul: 대처하다
+    hanja: 對處
+    han_viet: đối xử
+    syllables:
+      - { ko: 대, hanja: 對, hv: đối }
+      - { ko: 처, hanja: 處, hv: xử }
+    meaning_vi: "đối phó, ứng phó, xử lý (tình huống, khó khăn)"
+    pos: verb
+    level: 4
+    level_basis: editor
+    topics: [society]
+    example_ko: "갑작스러운 사고에도 침착하게 대처해야 한다."
+    example_vi: "Dù gặp sự cố bất ngờ cũng phải bình tĩnh ứng phó."
+    false_friend:
+      kind: full
+      vi_meaning: "đối xử: cư xử, ăn ở với người khác (đối xử công bằng, đối xử tệ)"
+      note_vi: "Không có nghĩa nào trùng. 대처하다 là ứng phó với một tình huống hay khó khăn, không phải cư xử với người. Muốn nói 'đối xử với ai' dùng 대하다 hoặc 대우하다."
+    collocations:
+      - { ko: "상황에 대처하다", vi: "ứng phó với tình huống" }
+      - { ko: "위기에 대처하다", vi: "đối phó với khủng hoảng" }
+      - { ko: "대처 방안", vi: "phương án ứng phó" }
+    refs:
+      - { src: krdict, entry: "대처하다", checked: false, fields: [hanja] }
+    notes_internal: "Chữ Hán 對處 chỉ thấy qua kết quả tìm kiếm krdict bản tiếng Anh, chưa mở trang mục từ (nên checked: false). Cấp 4 là đánh giá của người soạn. Đã có trong lời giải r35-0001 đã duyệt (đối xử)."
+
+  - id: v-00033
+    hangul: 인정하다
+    hanja: 認定
+    han_viet: nhận định
+    syllables:
+      - { ko: 인, hanja: 認, hv: nhận }
+      - { ko: 정, hanja: 定, hv: định }
+    meaning_vi: "thừa nhận; công nhận"
+    pos: verb
+    level: 4
+    level_basis: editor
+    topics: [society]
+    example_ko: "그는 자신의 잘못을 순순히 인정했다."
+    example_vi: "Anh ấy thừa nhận lỗi của mình một cách thẳng thắn."
+    false_friend:
+      kind: full
+      vi_meaning: "nhận định: đưa ra nhận xét, đánh giá, phán đoán về một sự việc (nhận định tình hình)"
+      note_vi: "Không trùng nghĩa thông dụng. 인정하다 là thừa nhận điều gì đó là đúng hay có thật, hoặc công nhận năng lực, giá trị. 'Nhận định' (đưa ra đánh giá) dịch là 판단하다 hoặc 평가하다."
+    collocations:
+      - { ko: "잘못을 인정하다", vi: "thừa nhận lỗi" }
+      - { ko: "실력을 인정받다", vi: "được công nhận thực lực" }
+      - { ko: "인정을 받다", vi: "được công nhận" }
+    note_vi: "Đồng âm khác chữ: 인정 人情 (nhân tình) = tình người (인정이 많다 = tốt bụng, giàu tình cảm)."
+    notes_internal: "Chọn full vì nghĩa thông dụng không trùng; trong văn bản pháp lý tiếng Việt 'nhận định' đôi khi gần 'xác định'. Reviewer cân nhắc partial."
+
+  - id: v-00034
+    hangul: 이익
+    hanja: 利益
+    han_viet: lợi ích
+    syllables:
+      - { ko: 이, hanja: 利, hv: lợi }
+      - { ko: 익, hanja: 益, hv: ích }
+    meaning_vi: "lợi nhuận, lãi; lợi ích (về vật chất)"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [economy, business]
+    example_ko: "이 계약으로 두 회사 모두 이익을 얻게 되었다."
+    example_vi: "Nhờ hợp đồng này, cả hai công ty đều có lợi."
+    false_friend:
+      kind: partial
+      vi_meaning: "lợi ích: điều có ích cho bản thân hay cộng đồng, không nhất thiết là tiền (lợi ích công cộng)"
+      note_vi: "Trùng 'lợi ích' ở nghĩa điều có lợi (공공의 이익 = lợi ích công cộng). Khác: 이익 rất hay chỉ phần lãi bằng tiền (이익을 내다 = có lãi). Đối nghĩa là 손해 (thiệt hại). Phần 'lợi nhuận' còn có từ riêng 이윤 (利潤)."
+    collocations:
+      - { ko: "이익을 내다", vi: "tạo ra lợi nhuận" }
+      - { ko: "이익을 얻다", vi: "thu được lợi ích" }
+      - { ko: "공공의 이익", vi: "lợi ích công cộng" }
+
+  - id: v-00035
+    hangul: 실수
+    hanja: 失手
+    han_viet: thất thủ
+    syllables:
+      - { ko: 실, hanja: 失, hv: thất }
+      - { ko: 수, hanja: 手, hv: thủ }
+    meaning_vi: "lỗi do sơ ý; sai sót"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [daily-life]
+    example_ko: "중요한 시험에서 작은 실수 때문에 점수를 잃었다."
+    example_vi: "Trong kỳ thi quan trọng, tôi mất điểm chỉ vì một lỗi nhỏ."
+    false_friend:
+      kind: full
+      vi_meaning: "thất thủ: (thành trì, cứ điểm) bị đối phương chiếm mất; thua, để mất vị trí"
+      note_vi: "Không có nghĩa nào trùng. 실수 là lỗi do vô ý hay sơ suất (đọc nhầm, nói nhầm, làm sai). Đừng dịch thành 'thất thủ'."
+    collocations:
+      - { ko: "실수를 하다", vi: "mắc lỗi" }
+      - { ko: "실수로", vi: "do vô ý, lỡ tay" }
+      - { ko: "실수를 반복하다", vi: "lặp lại sai sót" }
+
+  - id: v-00036
+    hangul: 필요하다
+    hanja: 必要
+    han_viet: tất yếu
+    syllables:
+      - { ko: 필, hanja: 必, hv: tất }
+      - { ko: 요, hanja: 要, hv: yếu }
+    meaning_vi: "cần, cần thiết"
+    pos: adjective
+    level: 3
+    level_basis: editor
+    topics: [daily-life]
+    example_ko: "외국에서 살려면 그 나라의 언어를 아는 것이 필요하다."
+    example_vi: "Muốn sống ở nước ngoài thì cần biết ngôn ngữ của nước đó."
+    false_friend:
+      kind: partial
+      vi_meaning: "tất yếu: chắc chắn phải xảy ra, không thể tránh khỏi (quy luật tất yếu, kết quả tất yếu)"
+      note_vi: "Chỉ trùng ở sắc thái 'không thể thiếu' trong vài cụm như 'điều kiện tất yếu'. Khác: 필요하다 là cần, cần có; 'tất yếu' thiên về 'nhất định sẽ xảy ra'. Dịch 필요하다 là 'cần' hoặc 'cần thiết', đừng dịch 'tất yếu'."
+    collocations:
+      - { ko: "돈이 필요하다", vi: "cần tiền" }
+      - { ko: "필요 없다", vi: "không cần" }
+      - { ko: "필요성", vi: "tính cần thiết" }
+
+  - id: v-00037
+    hangul: 발표
+    hanja: 發表
+    han_viet: phát biểu
+    syllables:
+      - { ko: 발, hanja: 發, hv: phát }
+      - { ko: 표, hanja: 表, hv: biểu }
+    meaning_vi: "thuyết trình, trình bày; công bố"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [education, media]
+    example_ko: "내일 수업 시간에 조별로 발표를 해야 해요."
+    example_vi: "Ngày mai trong giờ học, từng nhóm phải thuyết trình."
+    false_friend:
+      kind: partial
+      vi_meaning: "phát biểu: nói ra ý kiến của mình trước người khác (phát biểu ý kiến, phát biểu cảm tưởng)"
+      note_vi: "Trùng 'phát biểu' ở nghĩa nói ra trước đám đông. Khác: 발표 thiên về thuyết trình có chuẩn bị và công bố chính thức (신제품 발표 = ra mắt sản phẩm mới, 결과를 발표하다 = công bố kết quả). Nói một ý kiến trong cuộc họp dùng 발언하다 hoặc 의견을 말하다."
+    collocations:
+      - { ko: "발표를 하다", vi: "thuyết trình" }
+      - { ko: "결과를 발표하다", vi: "công bố kết quả" }
+      - { ko: "발표자", vi: "người thuyết trình" }
+
+  - id: v-00038
+    hangul: 증가하다
+    hanja: 增加
+    han_viet: tăng gia
+    syllables:
+      - { ko: 증, hanja: 增, hv: tăng }
+      - { ko: 가, hanja: 加, hv: gia }
+    meaning_vi: "tăng lên, gia tăng"
+    pos: verb
+    level: 4
+    level_basis: editor
+    topics: [society, population]
+    example_ko: "혼자 사는 사람이 빠르게 증가하고 있다."
+    example_vi: "Số người sống một mình đang tăng nhanh."
+    false_friend: null
+    collocations:
+      - { ko: "급격히 증가하다", vi: "tăng đột ngột" }
+      - { ko: "증가율", vi: "tốc độ tăng" }
+      - { ko: "증가 추세", vi: "xu hướng gia tăng" }
+    note_vi: "Tiếng Việt hay nói 'gia tăng' (đảo thứ tự); 'tăng gia' chỉ còn trong vài cụm như 'tăng gia sản xuất'. Đối nghĩa: 감소하다 (減少 – giảm thiểu) = giảm đi, giảm xuống; khác 'giảm thiểu' tiếng Việt (chủ động làm giảm), nghĩa này tiếng Hàn dùng 줄이다 hoặc 최소화하다."
+
+  - id: v-00039
+    hangul: 해결하다
+    hanja: 解決
+    han_viet: giải quyết
+    syllables:
+      - { ko: 해, hanja: 解, hv: giải }
+      - { ko: 결, hanja: 決, hv: quyết }
+    meaning_vi: "giải quyết"
+    pos: verb
+    level: 3
+    level_basis: editor
+    topics: [society]
+    example_ko: "문제를 해결하려면 먼저 원인부터 찾아야 한다."
+    example_vi: "Muốn giải quyết vấn đề thì trước hết phải tìm nguyên nhân."
+    false_friend: null
+    collocations:
+      - { ko: "문제를 해결하다", vi: "giải quyết vấn đề" }
+      - { ko: "해결책", vi: "giải pháp" }
+      - { ko: "갈등이 해결되다", vi: "mâu thuẫn được giải quyết" }
+
+  - id: v-00040
+    hangul: 극복하다
+    hanja: 克服
+    han_viet: khắc phục
+    syllables:
+      - { ko: 극, hanja: 克, hv: khắc }
+      - { ko: 복, hanja: 服, hv: phục }
+    meaning_vi: "vượt qua, khắc phục (khó khăn, nghịch cảnh)"
+    pos: verb
+    level: 4
+    level_basis: editor
+    topics: [psychology, society]
+    example_ko: "그는 어려운 환경을 극복하고 의사가 되었다."
+    example_vi: "Anh ấy vượt qua hoàn cảnh khó khăn và trở thành bác sĩ."
+    false_friend: null
+    collocations:
+      - { ko: "어려움을 극복하다", vi: "vượt qua khó khăn" }
+      - { ko: "위기를 극복하다", vi: "vượt qua khủng hoảng" }
+      - { ko: "한계를 극복하다", vi: "vượt qua giới hạn" }
+    note_vi: "'Khắc phục khó khăn' = 어려움을 극복하다, dùng giống tiếng Việt. Nhưng 'khắc phục sự cố, lỗi, hậu quả' thì tiếng Hàn không dùng 극복하다 mà dùng 해결하다, 바로잡다, 복구하다 (khôi phục). 극복하다 chỉ dùng cho khó khăn, nghịch cảnh, giới hạn, bệnh tật."
+    notes_internal: "Cấp có thể là 5; reviewer đã nhận xét giữ cấp 4 được."
+
+  - id: v-00041
+    hangul: 제공하다
+    hanja: 提供
+    han_viet: đề cung
+    syllables:
+      - { ko: 제, hanja: 提, hv: đề }
+      - { ko: 공, hanja: 供, hv: cung }
+    meaning_vi: "cung cấp, đưa ra (để người khác dùng)"
+    pos: verb
+    level: 4
+    level_basis: editor
+    topics: [business, public-service]
+    example_ko: "이 호텔은 투숙객에게 무료로 아침 식사를 제공한다."
+    example_vi: "Khách sạn này cung cấp bữa sáng miễn phí cho khách lưu trú."
+    false_friend: null
+    collocations:
+      - { ko: "정보를 제공하다", vi: "cung cấp thông tin" }
+      - { ko: "서비스를 제공하다", vi: "cung cấp dịch vụ" }
+      - { ko: "편의를 제공하다", vi: "tạo thuận tiện" }
+    note_vi: "Tiếng Việt nói 'cung cấp' (供給); tiếng Hàn cũng có 공급 (供給 – cung cấp) nhưng chủ yếu cho hàng hoá, điện, nước (전기를 공급하다, 수요와 공급). 'Cung cấp thông tin, dịch vụ, bữa ăn' dùng 제공하다. 'Đề cung' không dùng trong tiếng Việt."
+
+  - id: v-00042
+    hangul: 복잡하다
+    hanja: 複雜
+    han_viet: phức tạp
+    syllables:
+      - { ko: 복, hanja: 複, hv: phức }
+      - { ko: 잡, hanja: 雜, hv: tạp }
+    meaning_vi: "phức tạp, rối rắm; đông đúc, chen chúc"
+    pos: adjective
+    level: 3
+    level_basis: editor
+    topics: [daily-life]
+    example_ko: "신청 절차가 너무 복잡해서 포기하는 사람도 있다."
+    example_vi: "Thủ tục đăng ký quá phức tạp nên cũng có người bỏ cuộc."
+    false_friend: null
+    collocations:
+      - { ko: "복잡한 문제", vi: "vấn đề phức tạp" }
+      - { ko: "머리가 복잡하다", vi: "đầu óc rối bời" }
+      - { ko: "길이 복잡하다", vi: "đường đông đúc, rối rắm" }
+    note_vi: "Ngoài nghĩa 'phức tạp' giống tiếng Việt, 복잡하다 còn dùng cho nơi đông người chen chúc (지하철이 복잡하다)."
+
+  - id: v-00043
+    hangul: 적절하다
+    hanja: 適切
+    han_viet: thích thiết
+    syllables:
+      - { ko: 적, hanja: 適, hv: thích }
+      - { ko: 절, hanja: 切, hv: thiết }
+    meaning_vi: "thích hợp, phù hợp, vừa đúng"
+    pos: adjective
+    level: 4
+    level_basis: editor
+    topics: [language]
+    example_ko: "발표 주제에 적절한 사례를 찾아야 한다."
+    example_vi: "Phải tìm ví dụ thích hợp với chủ đề thuyết trình."
+    false_friend: null
+    collocations:
+      - { ko: "적절한 방법", vi: "phương pháp thích hợp" }
+      - { ko: "적절히", vi: "một cách thích hợp" }
+      - { ko: "적절하지 않다", vi: "không thích hợp" }
+    note_vi: "'Thích thiết' không dùng trong tiếng Việt; nói 'thích hợp', 'phù hợp'."
+
+  - id: v-00044
+    hangul: 특히
+    hanja: 特
+    han_viet: đặc
+    syllables:
+      - { ko: 특, hanja: 特, hv: đặc }
+    meaning_vi: "đặc biệt, nhất là"
+    pos: adverb
+    level: 3
+    level_basis: editor
+    topics: [language]
+    example_ko: "저는 과일을 좋아하는데, 특히 딸기를 좋아해요."
+    example_vi: "Tôi thích trái cây, nhất là dâu tây."
+    false_friend: null
+    collocations:
+      - { ko: "특히 중요하다", vi: "đặc biệt quan trọng" }
+      - { ko: "특히 눈에 띄는 점은", vi: "điều đặc biệt đáng chú ý là" }
+    note_vi: "Phần 히 là hậu tố thuần Hàn tạo phó từ; chỉ 특 là chữ Hán (特 đặc). Cùng chữ với 특별하다 (đặc biệt)."
+
+  - id: v-00045
+    hangul: 점점
+    hanja: 漸漸
+    han_viet: tiệm tiệm
+    syllables:
+      - { ko: 점, hanja: 漸, hv: tiệm }
+      - { ko: 점, hanja: 漸, hv: tiệm }
+    meaning_vi: "dần dần, ngày càng"
+    pos: adverb
+    level: 3
+    level_basis: editor
+    topics: [language]
+    example_ko: "날씨가 점점 추워지고 있어요."
+    example_vi: "Thời tiết đang lạnh dần."
+    false_friend: null
+    collocations:
+      - { ko: "점점 더", vi: "ngày càng thêm" }
+      - { ko: "점점 -아/어지다", vi: "ngày càng trở nên..." }
+    note_vi: "'Tiệm tiệm' không dùng trong tiếng Việt hiện đại (còn trong 'tiệm tiến'); nói 'dần dần', 'ngày càng'."
+
+  - id: v-00046
+    hangul: 결국
+    hanja: 結局
+    han_viet: kết cục
+    syllables:
+      - { ko: 결, hanja: 結, hv: kết }
+      - { ko: 국, hanja: 局, hv: cục }
+    meaning_vi: "cuối cùng, rốt cuộc"
+    pos: adverb
+    level: 4
+    level_basis: editor
+    topics: [language]
+    example_ko: "여러 번 고민했지만 결국 회사를 그만두기로 했다."
+    example_vi: "Dù đã suy nghĩ nhiều lần nhưng cuối cùng tôi quyết định nghỉ việc."
+    false_friend: null
+    collocations:
+      - { ko: "결국에는", vi: "rốt cuộc thì" }
+      - { ko: "결국 -게 되다", vi: "cuối cùng đã (trở nên, đi đến)..." }
+    note_vi: "'Kết cục' trong tiếng Việt chủ yếu là danh từ (kết cục buồn); 결국 phần lớn dùng như phó từ 'cuối cùng, rốt cuộc'. Cũng dùng làm danh từ 'kết cục, hồi kết' nhưng ít hơn."
+
+  - id: v-00047
+    hangul: 자연스럽다
+    hanja: 自然
+    han_viet: tự nhiên
+    syllables:
+      - { ko: 자, hanja: 自, hv: tự }
+      - { ko: 연, hanja: 然, hv: nhiên }
+    meaning_vi: "tự nhiên (không gượng ép, trôi chảy)"
+    pos: adjective
+    level: 4
+    level_basis: editor
+    topics: [language]
+    example_ko: "외국인인데도 한국어를 아주 자연스럽게 말한다."
+    example_vi: "Dù là người nước ngoài mà anh ấy nói tiếng Hàn rất tự nhiên."
+    false_friend: null
+    collocations:
+      - { ko: "자연스러운 표현", vi: "cách diễn đạt tự nhiên" }
+      - { ko: "자연스럽게", vi: "một cách tự nhiên" }
+    note_vi: "Khác 자연 (thiên nhiên, giới tự nhiên): 자연스럽다 chỉ cảm giác không gượng ép. Phần 스럽다 là hậu tố thuần Hàn tạo tính từ."
+
+  - id: v-00048
+    hangul: 반드시
+    hanja: null
+    han_viet: null
+    meaning_vi: "nhất định, chắc chắn phải"
+    pos: adverb
+    level: 3
+    level_basis: editor
+    topics: [language]
+    example_ko: "약속 시간에는 반드시 와야 합니다."
+    example_vi: "Đến giờ hẹn nhất định phải có mặt."
+    false_friend: null
+    collocations:
+      - { ko: "반드시 -아/어야 하다", vi: "nhất định phải..." }
+      - { ko: "반드시 -는 것은 아니다", vi: "không nhất thiết là..." }
+    note_vi: "Từ thuần Hàn, gần 꼭 nhưng trang trọng hơn. Đừng nhầm với 반듯이 (ngay ngắn), cùng phát âm [반드시]."
+
+  - id: v-00049
+    hangul: 오히려
+    hanja: null
+    han_viet: null
+    meaning_vi: "ngược lại, trái lại; thay vì thế lại"
+    pos: adverb
+    level: 4
+    level_basis: editor
+    topics: [language]
+    example_ko: "도움을 주려고 했는데 오히려 방해가 된 것 같아 미안해요."
+    example_vi: "Tôi định giúp mà hình như lại thành cản trở, xin lỗi bạn."
+    false_friend: null
+    collocations:
+      - { ko: "오히려 잘됐다", vi: "hoá ra lại hay" }
+      - { ko: "오히려 더", vi: "ngược lại còn hơn" }
+    note_vi: "Dùng khi kết quả đi ngược kỳ vọng. Hay xuất hiện ở bài điền từ nối (R19) cạnh 그러나, 반면에."
+
+  - id: v-00050
+    hangul: 꾸준히
+    hanja: null
+    han_viet: null
+    meaning_vi: "đều đặn, kiên trì, bền bỉ"
+    pos: adverb
+    level: 4
+    level_basis: editor
+    topics: [language]
+    example_ko: "외국어는 매일 꾸준히 공부하는 것이 중요하다."
+    example_vi: "Học ngoại ngữ thì việc học đều đặn mỗi ngày là quan trọng."
+    false_friend: null
+    collocations:
+      - { ko: "꾸준히 노력하다", vi: "nỗ lực bền bỉ" }
+      - { ko: "꾸준히 늘다", vi: "tăng đều đặn" }
+
+  - id: v-00051
+    hangul: 어울리다
+    hanja: null
+    han_viet: null
+    meaning_vi: "hợp, hợp với; hòa nhập, chơi cùng"
+    pos: verb
+    level: 4
+    level_basis: editor
+    topics: [daily-life]
+    example_ko: "이 넥타이는 그 양복과 잘 어울려요."
+    example_vi: "Cà vạt này rất hợp với bộ vest đó."
+    false_friend: null
+    collocations:
+      - { ko: "잘 어울리다", vi: "rất hợp" }
+      - { ko: "친구들과 어울리다", vi: "chơi cùng bạn bè, hòa nhập với bạn bè" }
+    note_vi: "Mẫu: A이/가 B에/와 어울리다 (A hợp với B)."
+
+  - id: v-00052
+    hangul: 마련하다
+    hanja: null
+    han_viet: null
+    meaning_vi: "chuẩn bị, lo liệu, sắm sửa; đề ra (biện pháp)"
+    pos: verb
+    level: 4
+    level_basis: editor
+    topics: [daily-life, economy]
+    example_ko: "부모님은 아이의 대학 등록금을 미리 마련해 두었다."
+    example_vi: "Bố mẹ đã lo sẵn học phí đại học cho con từ trước."
+    false_friend: null
+    collocations:
+      - { ko: "돈을 마련하다", vi: "lo liệu tiền" }
+      - { ko: "대책을 마련하다", vi: "đề ra đối sách" }
+      - { ko: "집을 마련하다", vi: "sắm nhà, tậu nhà" }

@@ -1,0 +1,98 @@
+# Bảng âm tiết Hán-Hàn dùng chung (nguồn của bảng hanja_syllables).
+# Khoá = (ko, hanja). Một chữ Hán -> một âm Hàn -> một âm Hán-Việt mặc định (hv); âm Việt khác để ở alt_hv.
+# Đồng âm khác chữ (사 社/事, 수 手/收/輸, 경 經/境/競...) là các dòng riêng.
+# Chữ Hán phồn thể theo 표준국어대사전 (vd. 敎). Đặc tả: docs/vocab-grammar-spec.md mục 4.
+# Soạn bởi hanviet-lexicographer, chưa duyệt (reviewed_by: null).
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+syllables:
+  - { ko: 가, hanja: 加, hv: gia, alt_hv: [], meaning_vi: "thêm vào, cộng thêm" }
+  - { ko: 가, hanja: 價, hv: giá, alt_hv: [], meaning_vi: "giá cả, giá trị" }
+  - { ko: 거, hanja: 去, hv: khứ, alt_hv: [], meaning_vi: "đi, rời đi" }
+  - { ko: 결, hanja: 決, hv: quyết, alt_hv: [], meaning_vi: "quyết định, dứt khoát" }
+  - { ko: 결, hanja: 結, hv: kết, alt_hv: [], meaning_vi: "buộc, kết lại, kết thúc" }
+  - { ko: 경, hanja: 境, hv: cảnh, alt_hv: [], meaning_vi: "ranh giới, cõi, hoàn cảnh" }
+  - { ko: 경, hanja: 經, hv: kinh, alt_hv: [], meaning_vi: "đi qua, trải qua, kinh điển" }
+  - { ko: 경, hanja: 競, hv: cạnh, alt_hv: [], meaning_vi: "đua tranh" }
+  - { ko: 고, hanja: 故, hv: cố, alt_hv: [], meaning_vi: "cũ, nguyên cớ, việc bất ngờ" }
+  - { ko: 공, hanja: 供, hv: cung, alt_hv: [cúng], meaning_vi: "dâng, cung cấp" }
+  - { ko: 공, hanja: 攻, hv: công, alt_hv: [], meaning_vi: "đánh, chuyên tâm nghiên cứu" }
+  - { ko: 교, hanja: 敎, hv: giáo, alt_hv: [], meaning_vi: "dạy bảo" }
+  - { ko: 구, hanja: 口, hv: khẩu, alt_hv: [], meaning_vi: "miệng, cửa, người (nhân khẩu)" }
+  - { ko: 국, hanja: 局, hv: cục, alt_hv: [], meaning_vi: "cuộc, bộ phận, tình thế" }
+  - { ko: 극, hanja: 克, hv: khắc, alt_hv: [], meaning_vi: "thắng, vượt qua" }
+  - { ko: 금, hanja: 金, hv: kim, alt_hv: [], meaning_vi: "vàng, kim loại, tiền" }
+  - { ko: 기, hanja: 氣, hv: khí, alt_hv: [], meaning_vi: "hơi, khí" }
+  - { ko: 대, hanja: 對, hv: đối, alt_hv: [], meaning_vi: "hướng về, đối diện, đáp lại" }
+  - { ko: 래, hanja: 來, hv: lai, alt_hv: [], meaning_vi: "đến" }
+  - { ko: 무, hanja: 務, hv: vụ, alt_hv: [], meaning_vi: "việc, nhiệm vụ" }
+  - { ko: 물, hanja: 物, hv: vật, alt_hv: [], meaning_vi: "đồ vật, sự vật" }
+  - { ko: 면, hanja: 面, hv: diện, alt_hv: [], meaning_vi: "mặt, bề mặt" }
+  - { ko: 발, hanja: 發, hv: phát, alt_hv: [], meaning_vi: "phát ra, khởi sự" }
+  - { ko: 방, hanja: 防, hv: phòng, alt_hv: [], meaning_vi: "ngăn ngừa" }
+  - { ko: 보, hanja: 報, hv: báo, alt_hv: [], meaning_vi: "báo cho biết, tin tức" }
+  - { ko: 복, hanja: 服, hv: phục, alt_hv: [], meaning_vi: "chịu theo, quần áo, uống (thuốc)" }
+  - { ko: 복, hanja: 複, hv: phức, alt_hv: [], meaning_vi: "kép, nhiều lớp" }
+  - { ko: 사, hanja: 事, hv: sự, alt_hv: [], meaning_vi: "việc" }
+  - { ko: 사, hanja: 社, hv: xã, alt_hv: [], meaning_vi: "đền thần đất, tổ chức, đoàn thể" }
+  - { ko: 산, hanja: 産, hv: sản, alt_hv: [], meaning_vi: "sinh ra, sản xuất" }
+  - { ko: 상, hanja: 狀, hv: trạng, alt_hv: [], meaning_vi: "hình dạng, tình trạng" }
+  - { ko: 수, hanja: 手, hv: thủ, alt_hv: [], meaning_vi: "tay" }
+  - { ko: 수, hanja: 收, hv: thu, alt_hv: [], meaning_vi: "thu, nhận vào" }
+  - { ko: 수, hanja: 輸, hv: thâu, alt_hv: [], meaning_vi: "vận chuyển, đưa đi", notes_internal: "Đã bỏ alt_hv 'du': chưa đối chiếu được, Thiều Chửu chỉ ghi 'thâu' (reviewer 2026-10-21). Thêm lại nếu có nguồn." }
+  - { ko: 술, hanja: 術, hv: thuật, alt_hv: [], meaning_vi: "kỹ thuật, phương pháp" }
+  - { ko: 실, hanja: 失, hv: thất, alt_hv: [], meaning_vi: "mất, sai sót" }
+  - { ko: 양, hanja: 養, hv: dưỡng, alt_hv: [], meaning_vi: "nuôi dưỡng" }
+  - { ko: 업, hanja: 業, hv: nghiệp, alt_hv: [], meaning_vi: "nghề, công việc, sự nghiệp" }
+  - { ko: 연, hanja: 然, hv: nhiên, alt_hv: [], meaning_vi: "như thế, đúng vậy" }
+  - { ko: 염, hanja: 染, hv: nhiễm, alt_hv: [], meaning_vi: "nhuộm, lây nhiễm" }
+  - { ko: 영, hanja: 營, hv: doanh, alt_hv: [dinh], meaning_vi: "xây dựng, kinh doanh, doanh trại" }
+  - { ko: 예, hanja: 豫, hv: dự, alt_hv: [], meaning_vi: "trước, sẵn" }
+  - { ko: 오, hanja: 汚, hv: ô, alt_hv: [], meaning_vi: "bẩn, dơ" }
+  - { ko: 요, hanja: 要, hv: yếu, alt_hv: [yêu], meaning_vi: "cần, cốt yếu, quan trọng" }
+  - { ko: 용, hanja: 用, hv: dụng, alt_hv: [], meaning_vi: "dùng" }
+  - { ko: 원, hanja: 源, hv: nguyên, alt_hv: [], meaning_vi: "nguồn" }
+  - { ko: 유, hanja: 流, hv: lưu, alt_hv: [], meaning_vi: "chảy, lan truyền" }
+  - { ko: 육, hanja: 育, hv: dục, alt_hv: [], meaning_vi: "nuôi, dạy dỗ" }
+  - { ko: 의, hanja: 議, hv: nghị, alt_hv: [], meaning_vi: "bàn bạc" }
+  - { ko: 이, hanja: 利, hv: lợi, alt_hv: [], meaning_vi: "có lợi, lợi nhuận, sắc bén" }
+  - { ko: 익, hanja: 益, hv: ích, alt_hv: [], meaning_vi: "thêm, có ích" }
+  - { ko: 인, hanja: 人, hv: nhân, alt_hv: [], meaning_vi: "người" }
+  - { ko: 인, hanja: 認, hv: nhận, alt_hv: [], meaning_vi: "nhận ra, thừa nhận" }
+  - { ko: 임, hanja: 任, hv: nhiệm, alt_hv: [], meaning_vi: "giao phó, gánh vác" }
+  - { ko: 입, hanja: 入, hv: nhập, alt_hv: [], meaning_vi: "vào" }
+  - { ko: 자, hanja: 自, hv: tự, alt_hv: [], meaning_vi: "tự mình, từ" }
+  - { ko: 자, hanja: 資, hv: tư, alt_hv: [], meaning_vi: "vốn, của cải, vật liệu", notes_internal: "Đã bỏ alt_hv 'tài' theo duyệt 2026-10-21: 'tài nguyên' tiếng Việt ứng với chữ 財, không phải âm khác của 資. [cần đối chiếu từ điển Hán-Việt]" }
+  - { ko: 잡, hanja: 雜, hv: tạp, alt_hv: [], meaning_vi: "pha trộn, lẫn lộn" }
+  - { ko: 장, hanja: 場, hv: trường, alt_hv: [], meaning_vi: "nơi, bãi, chỗ" }
+  - { ko: 장, hanja: 獎, hv: tưởng, alt_hv: [], meaning_vi: "khen thưởng, khuyến khích" }
+  - { ko: 재, hanja: 再, hv: tái, alt_hv: [], meaning_vi: "lại, lần nữa" }
+  - { ko: 쟁, hanja: 爭, hv: tranh, alt_hv: [], meaning_vi: "giành, tranh đấu" }
+  - { ko: 적, hanja: 適, hv: thích, alt_hv: [], meaning_vi: "vừa vặn, hợp" }
+  - { ko: 전, hanja: 專, hv: chuyên, alt_hv: [], meaning_vi: "chuyên về, riêng" }
+  - { ko: 절, hanja: 切, hv: thiết, alt_hv: [thế], meaning_vi: "cắt, sát, thiết tha" }
+  - { ko: 접, hanja: 接, hv: tiếp, alt_hv: [], meaning_vi: "nối, tiếp xúc, đón" }
+  - { ko: 점, hanja: 漸, hv: tiệm, alt_hv: [tiêm], meaning_vi: "dần dần" }
+  - { ko: 정, hanja: 定, hv: định, alt_hv: [], meaning_vi: "định, ổn định" }
+  - { ko: 정, hanja: 情, hv: tình, alt_hv: [], meaning_vi: "tình cảm, tình hình" }
+  - { ko: 제, hanja: 提, hv: đề, alt_hv: [], meaning_vi: "nâng lên, đưa ra" }
+  - { ko: 제, hanja: 濟, hv: tế, alt_hv: [], meaning_vi: "cứu giúp, qua sông, nên việc" }
+  - { ko: 증, hanja: 症, hv: chứng, alt_hv: [], meaning_vi: "bệnh chứng" }
+  - { ko: 증, hanja: 增, hv: tăng, alt_hv: [], meaning_vi: "thêm, nhiều lên" }
+  - { ko: 직, hanja: 職, hv: chức, alt_hv: [], meaning_vi: "chức vụ, nghề" }
+  - { ko: 처, hanja: 處, hv: xử, alt_hv: [xứ], meaning_vi: "xử lý, nơi chốn" }
+  - { ko: 책, hanja: 責, hv: trách, alt_hv: [], meaning_vi: "trách nhiệm, đòi hỏi" }
+  - { ko: 출, hanja: 出, hv: xuất, alt_hv: [], meaning_vi: "ra, đưa ra" }
+  - { ko: 특, hanja: 特, hv: đặc, alt_hv: [], meaning_vi: "riêng biệt, đặc biệt" }
+  - { ko: 표, hanja: 表, hv: biểu, alt_hv: [], meaning_vi: "bày ra, bên ngoài" }
+  - { ko: 필, hanja: 必, hv: tất, alt_hv: [], meaning_vi: "ắt hẳn, nhất định" }
+  - { ko: 학, hanja: 學, hv: học, alt_hv: [], meaning_vi: "học" }
+  - { ko: 해, hanja: 解, hv: giải, alt_hv: [], meaning_vi: "cởi, gỡ, hiểu rõ" }
+  - { ko: 행, hanja: 行, hv: hành, alt_hv: [hạnh, hàng], meaning_vi: "đi, làm, lưu thông" }
+  - { ko: 환, hanja: 環, hv: hoàn, alt_hv: [], meaning_vi: "vòng, bao quanh" }
+  - { ko: 활, hanja: 活, hv: hoạt, alt_hv: [], meaning_vi: "sống, linh hoạt" }
+  - { ko: 회, hanja: 會, hv: hội, alt_hv: [], meaning_vi: "gặp gỡ, hội họp" }
+  - { ko: 후, hanja: 候, hv: hậu, alt_hv: [], meaning_vi: "thời tiết, đợi, trạng thái" }

@@ -1,0 +1,72 @@
+id: g-0003
+slug: n-neun-tat-e
+pattern: "-(으)ㄴ/는 탓에"
+variants: ["-(으)ㄴ/는 탓으로", "-(으)ㄴ/는 탓이다"]
+meaning_vi: "Vì/do A (bị quy là nguyên nhân, lỗi của A) nên có kết quả không tốt B."
+level: 4
+level_basis: editor
+function: cause
+compare_group: nguyen-nhan-ket-qua-xau
+form:
+  - host: V
+    attach: "V-는 탓에 (hiện tại, thói quen) · V-(으)ㄴ 탓에 (quá khứ) · V-았/었던 탓에"
+    note_vi: "Ví dụ: 먹는 탓에, 먹은 탓에."
+  - host: A
+    attach: "A-(으)ㄴ 탓에 · A-았/었던 탓에"
+    note_vi: "Ví dụ: 좁은 탓에, 비싼 탓에. Riêng 있다/없다 (kể cả 재미있다, 맛없다) dùng -는: 돈이 없는 탓에."
+  - host: "N"
+    attach: "N인 탓에 · N 탓에"
+    note_vi: "Ví dụ: 초보인 탓에, 날씨 탓에, 불경기 탓에. Cuối câu có thể là N 탓이다 / -(으)ㄴ/는 탓이다."
+constraints:
+  register: both
+  polarity: negative
+  subject_vi: "Hai vế có thể khác chủ ngữ."
+  tense_vi: "Vế trước dùng -는 (động từ hiện tại, thường xuyên) hoặc -(으)ㄴ / -았/었던 (quá khứ); không gắn -겠- vào trước 탓. Vế sau thường ở quá khứ hoặc hiện tại; vẫn dùng được phỏng đoán về hệ quả (-(으)ㄹ 것이다, -(으)ㄹ 것 같다), nhưng không dùng ý chí, mệnh lệnh, đề nghị."
+  main_clause_vi: "Vế sau là kết quả không tốt. Người nói quy trách nhiệm cho nguyên nhân. Không dùng mệnh lệnh hoặc đề nghị."
+  other_vi: "Đi được với động từ, tính từ, danh từ. Nguyên nhân có thể là trạng thái kéo dài (집이 좁은 탓에), không cần bất ngờ. Dùng nhiều trong văn viết và báo chí."
+examples:
+  - ko: "집이 좁은 탓에 손님을 초대하기가 어렵다."
+    vi: "Vì nhà chật nên khó mời khách đến chơi."
+    note_vi: "Nguyên nhân là trạng thái (tính từ): -느라고 và -는 바람에 không dùng được."
+  - ko: "최근 비가 거의 내리지 않은 탓에 농작물 피해가 커졌다."
+    vi: "Do gần đây hầu như không mưa nên thiệt hại mùa màng tăng lên."
+  - ko: "늦게까지 게임을 한 탓에 오늘 아침에 일어나지 못했다."
+    vi: "Vì chơi game đến khuya nên sáng nay tôi không dậy nổi."
+  - ko: "경험이 부족한 탓에 같은 실수를 여러 번 했다."
+    vi: "Vì thiếu kinh nghiệm nên tôi mắc cùng một lỗi nhiều lần."
+  - ko: "불경기 탓에 문을 닫는 가게가 늘고 있다."
+    vi: "Vì kinh tế ế ẩm nên ngày càng nhiều cửa hàng đóng cửa."
+    note_vi: "Danh từ + 탓에 không cần -인."
+non_examples:
+  - ko: "열심히 공부한 탓에 합격했다."
+    fix_ko: "열심히 공부한 덕분에 합격했다."
+    note_vi: "Sai: kết quả tốt không dùng 탓. Nguyên nhân dẫn đến kết quả tốt dùng 덕분에 (nhờ)."
+  - ko: "길이 막히는 탓에 서두릅시다."
+    fix_ko: "길이 막히니까 서두릅시다."
+    note_vi: "Sai: vế sau là đề nghị. Dùng -(으)니까."
+  - ko: "집이 좁는 탓에 불편하다."
+    fix_ko: "집이 좁은 탓에 불편하다."
+    note_vi: "Sai: tính từ dùng -(으)ㄴ, không dùng -는."
+common_mistakes_vi:
+  - "Dùng cho kết quả tốt vì tiếng Việt 'tại vì' trung tính. 탓 luôn mang ý đổ lỗi; muốn nói 'nhờ' dùng 덕분에."
+  - "Chia sai với tính từ: tính từ là -(으)ㄴ 탓에 (좁은 탓에), không phải -는 탓에. -는 chỉ dành cho động từ hiện tại và 있다/없다 (돈이 없는 탓에)."
+  - "Nhầm với -는 바람에: 탓에 không đòi hỏi sự bất ngờ và đi được với tính từ, danh từ."
+  - "Dùng trong lời nói thân mật với bạn bè để bày tỏ nguyên nhân thông thường. 탓에 nghe như đang trách cứ, nên tự nhiên hơn khi dùng trong văn viết hoặc khi muốn nhấn mạnh nguyên nhân."
+related: [g-0001, g-0002]
+body_md: |
+  **Ý cốt lõi:** chỉ ra **thủ phạm** của một kết quả xấu: *tại nhà chật nên khó mời khách*. Hay dịch là **"tại"**, **"do"** (mang sắc thái đổ lỗi).
+
+  **Khác hai mẫu còn lại:**
+  - Đi được với tính từ và danh từ, không cần việc bất ngờ như -는 바람에.
+  - Hai vế có thể khác chủ ngữ, không giống -느라고.
+  - Rất hay gặp trong tin tức và văn viết (불경기 탓에, 가뭄 탓에).
+
+  **Cặp đối lập:** 탓에 (kết quả xấu) ↔ 덕분에 (kết quả tốt).
+refs: []
+status: active
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Cấp 4 là đánh giá của người soạn; nhiều danh sách xếp -(으)ㄴ/는 탓에 ở cấp 5, reviewer kiểm. Variants -(으)ㄴ/는 탓으로 / -탓이다 là kiến thức chung, chưa đối chiếu nguồn. Nhận xét về văn nói/văn viết ở common_mistakes_vi (mục cuối) là cảm quan của người soạn."

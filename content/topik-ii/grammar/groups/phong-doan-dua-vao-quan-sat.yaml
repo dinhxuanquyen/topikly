@@ -1,0 +1,126 @@
+slug: phong-doan-dua-vao-quan-sat
+title_vi: "Phỏng đoán dựa trên điều quan sát được: -(으)ㄴ/는 모양이다 / -(으)ㄴ/는 듯하다 / -나 보다"
+function: conjecture
+level: 3
+members: [g-0004, g-0005, g-0006]
+summary_vi: |
+  Cả ba đều dịch là "có vẻ, hình như, chắc là" và đều là suy đoán của người nói dựa trên căn cứ nhìn hoặc nghe thấy. Khác nhau chủ yếu ở **văn phong** và **mức dùng được cho ý kiến cá nhân**: -나 보다 là khẩu ngữ thân mật, -(으)ㄴ/는 모양이다 trung tính và mô tả, -(으)ㄴ/는 듯하다 trang trọng, hợp văn viết và dự báo (-(으)ㄹ 듯하다). Cả ba đều không dùng cho kế hoạch, ý định của chính người nói. Riêng khi người nói vừa nhận ra điều về chính mình qua dấu hiệu, -나 보다 và -(으)ㄴ/는 모양이다 vẫn dùng được (깜빡 잠든 걸 보니 내가 많이 피곤했나 봐).
+compare_table:
+  columns: ["-(으)ㄴ/는 모양이다", "-(으)ㄴ/는 듯하다", "-나 보다"]
+  rows:
+    - criterion_key: meaning
+      criterion: "Nghĩa cốt lõi"
+      cells:
+        - "Nhìn tình hình bên ngoài rồi đoán, có vẻ là..."
+        - "Dường như...; đoán hoặc nêu ý kiến dè dặt"
+        - "Chắc là...; vừa nhận ra dấu hiệu rồi đoán"
+    - criterion_key: other
+      criterion: "Căn cứ"
+      cells:
+        - "Dấu hiệu quan sát được (thường có -는 걸 보니)"
+        - "Dấu hiệu hoặc phán đoán của người nói, không cần căn cứ rõ"
+        - "Dấu hiệu vừa nhìn hoặc nghe thấy"
+    - criterion_key: pos
+      criterion: "Loại từ đi kèm"
+      cells:
+        - "V -는/-(으)ㄴ/-(으)ㄹ · A -(으)ㄴ · N인 (있다/없다: -는)"
+        - "V -는/-(으)ㄴ/-(으)ㄹ · A -(으)ㄴ/-(으)ㄹ · N인/N일"
+        - "V và 있다/없다 -나 · A -(으)ㄴ가 · N인가"
+    - criterion_key: subject
+      criterion: "Chủ ngữ"
+      cells:
+        - "Ngôi thứ ba, sự vật; ngôi thứ nhất chỉ khi vừa tự nhận ra qua dấu hiệu (제가 잘못 들었나 봐요)"
+        - "Ngôi nào cũng được; dùng được cho ý kiến của chính mình"
+        - "Ngôi thứ ba, sự vật; ngôi thứ nhất chỉ khi vừa tự nhận ra qua dấu hiệu (제가 잘못 들었나 봐요)"
+    - criterion_key: tense
+      criterion: "Thì"
+      cells:
+        - "Hiện tại, quá khứ và việc sắp xảy ra (-(으)ㄹ 모양이다)"
+        - "Có đủ hiện tại, quá khứ, tương lai (-(으)ㄹ 듯하다)"
+        - "Hiện tại và quá khứ (-았/었나 보다); việc sắp tới trong khẩu ngữ: -(으)ㄹ 건가 보다, -(으)려나 보다"
+    - criterion_key: main_clause
+      criterion: "Vế sau"
+      cells:
+        - "Đứng cuối câu, không có vế sau"
+        - "Đứng cuối câu, không có vế sau"
+        - "Đứng cuối câu, không có vế sau"
+    - criterion_key: nuance
+      criterion: "Sắc thái"
+      cells:
+        - "Mô tả trung tính, có vẻ khách quan"
+        - "Dè dặt, lịch sự, hơi nặng tính văn bản"
+        - "Thân mật, nhẹ nhàng, có sắc thái 'à, ra là...'"
+    - criterion_key: register
+      criterion: "Văn nói / văn viết"
+      cells:
+        - "Cả hai"
+        - "Văn viết và lời nói lịch sự (báo cáo, tin tức, dự báo)"
+        - "Chủ yếu văn nói thân mật"
+    - criterion_key: other
+      criterion: "Dạng kết thúc quen dùng"
+      cells:
+        - "-(으)ㄴ/는 모양이에요 / -(으)ㄴ/는 모양입니다"
+        - "-(으)ㄴ/는 듯해요 / -(으)ㄴ/는 듯합니다"
+        - "-나 봐요 / -(으)ㄴ가 봐요"
+contrast_examples:
+  - situation_vi: "Bạn không nghe máy, người nói đoán là bạn đang ngủ."
+    items:
+      - member: g-0004
+        ko: "친구가 전화를 안 받는 걸 보니 자는 모양이에요."
+        vi: "Thấy bạn không nghe máy, chắc là đang ngủ."
+        ok: true
+        note_vi: "Có căn cứ rõ (không nghe máy), mô tả trung tính."
+      - member: g-0005
+        ko: "친구는 아직 자는 듯합니다."
+        vi: "Bạn dường như vẫn đang ngủ."
+        ok: true
+        note_vi: "Dè dặt, lịch sự hơn; hợp khi nói với người trên hoặc ở nơi trang trọng."
+      - member: g-0006
+        ko: "친구가 아직 자나 봐요."
+        vi: "Chắc bạn vẫn đang ngủ."
+        ok: true
+        note_vi: "Thân mật, nói tự nhiên với bạn bè hoặc đồng nghiệp."
+  - situation_vi: "Nêu ý kiến thận trọng trong báo cáo: tiêu dùng có thể giảm."
+    items:
+      - member: g-0005
+        ko: "이번 조사 결과를 보면 앞으로 소비가 줄어들 듯하다."
+        vi: "Nhìn kết quả khảo sát lần này, về sau tiêu dùng dường như sẽ giảm."
+        ok: true
+        note_vi: "Dùng -(으)ㄹ 듯하다 cho dự đoán tương lai, hợp văn viết."
+      - member: g-0004
+        ko: "이번 조사 결과를 보면 앞으로 소비가 줄어드는 모양이다."
+        vi: "Nhìn kết quả khảo sát lần này, về sau tiêu dùng có vẻ sẽ giảm."
+        ok: false
+        note_vi: "Sai: có 앞으로 (tương lai) mà dùng dạng hiện tại -는 모양이다. Dạng tương lai là -(으)ㄹ 모양이다, nhưng đây là suy đoán qua dấu hiệu bên ngoài nên vẫn kém hợp với kết luận phân tích trong báo cáo; -(으)ㄹ 듯하다 tự nhiên nhất."
+      - member: g-0006
+        ko: "이번 조사 결과를 보면 앞으로 소비가 줄어드나 봐요."
+        vi: "Nhìn kết quả khảo sát lần này, chắc về sau tiêu dùng sẽ giảm."
+        ok: false
+        note_vi: "Sai: -나 보다 là khẩu ngữ, không hợp báo cáo; dạng -나 봐요 ở đây cũng là hiện tại, không diễn đạt dự đoán tương lai."
+  - situation_vi: "Nói về kế hoạch của chính mình: ngày mai đi Busan."
+    items:
+      - member: g-0004
+        ko: "저는 내일 부산에 가는 모양이에요."
+        vi: "Ngày mai tôi chắc đi Busan."
+        ok: false
+        note_vi: "Sai: người nói biết rõ kế hoạch của mình nên không suy đoán."
+      - member: g-0006
+        ko: "저는 내일 부산에 가나 봐요."
+        vi: "Ngày mai tôi chắc đi Busan."
+        ok: false
+        note_vi: "Sai như trên. Muốn nói kế hoạch dùng -(으)ㄹ 거예요 / -(으)ㄹ 예정이에요."
+decision_tips_vi:
+  - "Có -는 걸 보니 và đoán về người khác: cả ba đều có thể đúng. Nhìn tiếp vào văn phong để chọn."
+  - "Hội thoại thân mật hoặc đáp lời bạn bè: -나 보다."
+  - "Văn bản trang trọng, báo cáo, dự báo tương lai: -(으)ㄴ/는 듯하다, nhất là -(으)ㄹ 듯하다."
+  - "Câu nói về kế hoạch, ý định của chính người nói thì loại cả ba mẫu (riêng việc vừa tự nhận ra về mình qua dấu hiệu thì -나 보다 / -(으)ㄴ/는 모양이다 vẫn dùng được)."
+  - "Kiểm tra từ loại: tính từ dùng -(으)ㄴ ở cả ba mẫu (riêng -나 보다 là -(으)ㄴ가 보다)."
+topik_traps_vi:
+  - "R03–R04: đáp án đúng là mẫu cùng nghĩa suy đoán (-나 보다 ≈ -(으)ㄴ/는 모양이다), nhiễu hay là -(으)ㄹ 거예요, -(으)려고 (ý định) hoặc -(으)ㄹ까 봐 (lo lắng) có hình thức gần giống."
+  - "Từ loại: nhiễu hay cho tính từ chia sai (-는 모양이다, -나 보다) để thử người học."
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Nhóm gồm g-0004, g-0005, g-0006. Sửa 2026-10-21 theo duyệt: -(으)ㄹ 모양이다 có tồn tại (summary, hàng Thì, tình huống 2), cách dùng ngôi thứ nhất khi tự nhận ra, note_vi ok:false bắt đầu 'Sai:', dạng kết thúc theo pattern §5.1, thêm criterion_key. Phần tả sắc thái dựa trên kinh nghiệm ngữ pháp của người soạn; reviewer đã duyệt phân biệt văn phong. Khẳng định về R03–R04 là mô tả chung, không trích từ đề thật."

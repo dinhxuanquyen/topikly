@@ -1,0 +1,111 @@
+slug: nhuong-bo-cho-du
+title_vi: "Nhượng bộ: -더라도 (giả định) / -(으)ㄴ/는데도 (sự thật)"
+function: concession
+level: 4
+members: [g-0007, g-0008]
+summary_vi: |
+  Cả hai đều dịch là "dù, mặc dù" và vế sau không bị vế trước ảnh hưởng. Khác ở **vế trước có thật hay chỉ là giả định**. -더라도 nói về điều **chưa xảy ra hoặc chưa chắc** (cho dù có... đi nữa), vế sau tự do kể cả mệnh lệnh. -(으)ㄴ/는데도 nói về **sự thật đã có**, vế sau là kết quả trái kỳ vọng và không dùng mệnh lệnh.
+compare_table:
+  columns: ["-더라도", "-(으)ㄴ/는데도"]
+  rows:
+    - criterion_key: meaning
+      criterion: "Nghĩa cốt lõi"
+      cells:
+        - "Cho dù A có xảy ra đi nữa thì B vẫn vậy"
+        - "A đã xảy ra rồi mà B vẫn trái kỳ vọng"
+    - criterion_key: other
+      criterion: "Vế trước là gì"
+      cells:
+        - "Giả định, chưa xảy ra hoặc chưa biết"
+        - "Sự thật đang xảy ra hoặc đã xảy ra"
+    - criterion_key: pos
+      criterion: "Loại từ đi kèm"
+      cells:
+        - "V, A: -더라도 · N: N(이)더라도"
+        - "V: -는데도 · A: -(으)ㄴ데도 · N: N인데도"
+    - criterion_key: subject
+      criterion: "Chủ ngữ hai vế"
+      cells:
+        - "Tự do"
+        - "Tự do"
+    - criterion_key: tense
+      criterion: "Thì"
+      cells:
+        - "Không -겠-; -았/었더라도 cho giả định ngược quá khứ"
+        - "Gắn -았/었- được (-았/었는데도)"
+    - criterion_key: main_clause
+      criterion: "Mệnh lệnh / đề nghị ở vế sau"
+      cells:
+        - "Dùng được"
+        - "Không dùng"
+    - criterion_key: nuance
+      criterion: "Sắc thái"
+      cells:
+        - "Quyết tâm, nhấn mạnh, lời khuyên"
+        - "Ngạc nhiên, trách móc, nhận xét kết quả bất ngờ"
+    - criterion_key: register
+      criterion: "Văn nói / văn viết"
+      cells:
+        - "Cả hai"
+        - "Cả hai"
+    - criterion_key: other
+      criterion: "Dấu hiệu nhận ra trong đề"
+      cells:
+        - "아무리, 만약, 혹시; kế hoạch, lời khuyên"
+        - "Sự việc đã xảy ra; vế sau là kết quả bất ngờ"
+contrast_examples:
+  - situation_vi: "Chuyện trời mưa."
+    items:
+      - member: g-0007
+        ko: "내일 비가 오더라도 경기는 열립니다."
+        vi: "Dù ngày mai trời có mưa, trận đấu vẫn diễn ra."
+        ok: true
+        note_vi: "Mưa ngày mai chưa xảy ra: giả định."
+      - member: g-0008
+        ko: "지금 비가 오는데도 경기는 계속되고 있습니다."
+        vi: "Dù bây giờ đang mưa, trận đấu vẫn đang tiếp tục."
+        ok: true
+        note_vi: "Đang mưa thật: sự thật."
+      - member: g-0007
+        ko: "지금 비가 오더라도 경기는 계속되고 있습니다."
+        vi: "Dù bây giờ đang mưa, trận đấu vẫn đang tiếp tục."
+        ok: false
+        note_vi: "Sai: mưa lúc này đã là sự thật nên không dùng giả định -더라도."
+  - situation_vi: "Vế sau là lời khuyên."
+    items:
+      - member: g-0007
+        ko: "힘들더라도 끝까지 해 보세요."
+        vi: "Dù vất vả cũng hãy thử làm đến cùng."
+        ok: true
+        note_vi: "Vế sau mệnh lệnh: chỉ -더라도 làm được."
+      - member: g-0008
+        ko: "힘든데도 끝까지 해 보세요."
+        vi: "Dù vất vả cũng hãy thử làm đến cùng."
+        ok: false
+        note_vi: "Sai: -(으)ㄴ/는데도 không đi với mệnh lệnh."
+  - situation_vi: "Nhận xét một kết quả bất ngờ đã xảy ra."
+    items:
+      - member: g-0008
+        ko: "많이 먹었는데도 아직 배가 고파요."
+        vi: "Đã ăn nhiều rồi mà vẫn còn đói."
+        ok: true
+        note_vi: "Ăn nhiều là sự thật; kết quả (vẫn đói) trái kỳ vọng."
+      - member: g-0007
+        ko: "많이 먹었더라도 아직 배가 고파요."
+        vi: "Đã ăn nhiều rồi mà vẫn còn đói."
+        ok: false
+        note_vi: "Sai: -았/었더라도 là giả định về quá khứ (nếu đã ăn nhiều thì...), không dùng để kể sự thật vừa xảy ra."
+decision_tips_vi:
+  - "Hỏi: vế trước đã xảy ra chưa? Đã xảy ra: -(으)ㄴ/는데도. Chưa xảy ra hoặc chỉ là giả định: -더라도."
+  - "Có 아무리, 만약, 혹시 hoặc vế sau là lời khuyên, quyết tâm: -더라도."
+  - "Vế sau nêu kết quả bất ngờ (không hợp lý) của một việc đã làm: -(으)ㄴ/는데도."
+  - "-더라도 không gắn -겠- vào vế trước."
+topik_traps_vi:
+  - "R01–R02: câu gốc có 만약 hoặc nói về tương lai; nhiễu là -(으)ㄴ/는데도 (đúng hình thức nhưng sai nghĩa vì đòi sự thật)."
+  - "R03–R04: -더라도 hay được cho cặp với -아/어도, -(으)ㄹ지라도 làm đáp án; -(으)ㄴ/는데도 hay được cho cặp với -(으)ㅁ에도 (불구하고) hoặc -아/어도 (khi vế trước là sự thật)."
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Nhóm gồm 2 điểm g-0007, g-0008. Có thể mở rộng thêm -아/어도 (cấp thấp hơn) và -(으)ㄹ지라도 (cấp cao hơn) khi soạn tiếp. Khẳng định trong topik_traps_vi về R01-R04 là mô tả chung của người soạn, không trích từ đề thật; -(으)ㄹ지라도 chưa có điểm ngữ pháp trong repo."

@@ -1,0 +1,73 @@
+id: g-0006
+slug: na-boda
+pattern: "-나 보다"
+variants: ["-(으)ㄴ가 보다", "-나 봐요", "-(으)ㄴ가 봐요"]
+meaning_vi: "Chắc là, hình như (suy đoán từ điều vừa nhìn thấy hoặc nhận ra; khẩu ngữ thân mật)."
+level: 3
+level_basis: editor
+function: conjecture
+compare_group: phong-doan-dua-vao-quan-sat
+form:
+  - host: V
+    attach: "V-나 보다 (hiện tại) · V-았/었나 보다 (quá khứ)"
+    note_vi: "Ví dụ: 자나 보다, 잤나 보다. Với 있다/없다 cũng dùng -나 보다: 맛있나 보다."
+  - host: A
+    attach: "A-(으)ㄴ가 보다 · A-았/었나 보다 (quá khứ)"
+    note_vi: "Ví dụ: 바쁜가 보다, 바빴나 보다."
+  - host: "N"
+    attach: "N인가 보다 · N이었나 보다 (quá khứ)"
+    note_vi: "Ví dụ: 학생인가 보다. Dạng lịch sự: -나 봐요, -(으)ㄴ가 봐요."
+constraints:
+  register: spoken
+  polarity: any
+  subject_vi: "Chủ ngữ thường là ngôi thứ ba hoặc sự vật. Không dùng cho kế hoạch, ý định hay điều người nói đã biết rõ. Ngôi thứ nhất dùng được khi người nói vừa nhận ra điều về chính mình qua dấu hiệu (제가 잘못 들었나 봐요, 내가 많이 피곤했나 봐)."
+  tense_vi: "Quá khứ dùng -았/었나 보다. Không gắn -겠- trước 보다. Việc sắp tới trong khẩu ngữ: -(으)ㄹ 건가 보다, -(으)려나 보다 (비가 오려나 봐요)."
+  main_clause_vi: "Đứng cuối câu, thường sau một câu nêu điều vừa nhìn thấy hoặc nghe thấy. Không có vế sau."
+  other_vi: "Khẩu ngữ, thân mật; ít dùng trong văn viết trang trọng. Hay có sắc thái 'vừa nhận ra'."
+examples:
+  - ko: "친구가 전화를 안 받네요. 아직 자나 봐요."
+    vi: "Bạn không nghe máy này. Chắc vẫn còn đang ngủ."
+  - ko: "저 가게 앞에 사람이 많네. 맛집인가 봐."
+    vi: "Trước cửa hàng kia đông người ghê. Chắc là quán ngon."
+    note_vi: "Dạng thân mật (bỏ -요), danh từ + -인가 보다."
+  - ko: "아침부터 계속 기침을 하는 걸 보니 감기에 걸렸나 봐요."
+    vi: "Từ sáng ho suốt, chắc là bị cảm rồi."
+  - ko: "선생님이 오늘 기분이 좋으신가 봐요. 계속 웃으세요."
+    vi: "Hôm nay thầy chắc vui lắm. Thầy cười suốt."
+    note_vi: "Tính từ + -(으)ㄴ가 보다, kết hợp kính ngữ -(으)시-."
+  - ko: "불이 꺼져 있는 걸 보니 다들 퇴근했나 봐요."
+    vi: "Thấy đèn tắt, chắc mọi người đã về hết rồi."
+non_examples:
+  - ko: "저는 내일 부산에 가나 봐요."
+    fix_ko: "저는 내일 부산에 갈 거예요."
+    note_vi: "Sai: kế hoạch của chính người nói thì không suy đoán."
+  - ko: "요즘 많이 바쁘나 봐요."
+    fix_ko: "요즘 많이 바쁜가 봐요."
+    note_vi: "Sai: tính từ dùng -(으)ㄴ가 보다, không dùng -나 보다."
+  - ko: "조사 결과에 따르면 이번 사업의 성공 여부는 불투명한가 봅니다."
+    fix_ko: "조사 결과에 따르면 이번 사업의 성공 여부는 불투명한 듯합니다."
+    note_vi: "Không hợp văn phong: câu trình bày kết quả khảo sát (조사 결과에 따르면) là văn bản trang trọng, còn -나 보다 là khẩu ngữ, suy đoán theo cảm nhận; dùng -(으)ㄴ/는 듯하다."
+common_mistakes_vi:
+  - "Dùng -나 보다 cho tính từ (*바쁘나 보다). Tính từ dùng -(으)ㄴ가 보다; chỉ 있다/없다 (맛있다, 재미없다) đi với -나."
+  - "Dùng để nói về ý định của mình, vì tiếng Việt 'chắc là' nói được về mình. Tiếng Hàn dùng -(으)ㄹ 거예요."
+  - "Dùng trong bài viết hoặc báo cáo trang trọng. Mẫu này là khẩu ngữ."
+  - "Hiểu 보다 theo nghĩa 'xem, nhìn' rồi dịch thành 'tôi thấy...' như thể người nói khẳng định. Ở đây 보다 là động từ phụ trợ chỉ suy đoán: dịch 'chắc là, hình như, xem ra'."
+related: [g-0004, g-0005]
+body_md: |
+  **Ý cốt lõi:** vừa **nhận ra** một dấu hiệu rồi đoán: *Ơ, chắc là...*. Rất hay thấy trong hội thoại, nên cũng là mẫu quen thuộc ở phần Nghe.
+
+  **Cách chia dễ nhớ:**
+  - Động từ và 있다/없다: **-나 보다**.
+  - Tính từ: **-(으)ㄴ가 보다**.
+  - Danh từ: **N인가 보다**.
+  - Quá khứ: **-았/었나 보다** cho cả ba.
+
+  **Mẹo đề thi:** ở R03–R04, -나 보다 ≈ -(으)ㄴ/는 모양이다 ≈ -(으)ㄴ/는 것 같다 (suy đoán). Đừng chọn -(으)ㄹ 거예요 (ý định/dự đoán của người nói).
+refs: []
+status: active
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Cấp 3 là đánh giá của người soạn (có giáo trình xếp ở cấp 4), reviewer kiểm. Quy tắc 있다/없다 đi với -나 là kiến thức ngữ pháp chung. Chưa đối chiếu danh sách 문법 chính thức."

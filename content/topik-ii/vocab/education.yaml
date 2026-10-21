@@ -1,0 +1,74 @@
+# Lô từ vựng mẫu: giáo dục. Đặc tả: docs/vocab-grammar-spec.md mục 3.
+batch: education
+program: topik-ii
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+verification_vi: "Tự biên soạn từ kiến thức của người soạn. Chưa mở trang mục từ krdict/표준국어대사전 cho từng từ. Cấp độ là đánh giá của người soạn (level_basis: editor). Reviewer cần kiểm dạng chữ Hán 敎 và cấp độ."
+words:
+  - id: v-00024
+    hangul: 교육
+    hanja: 敎育
+    han_viet: giáo dục
+    syllables:
+      - { ko: 교, hanja: 敎, hv: giáo }
+      - { ko: 육, hanja: 育, hv: dục }
+    meaning_vi: "giáo dục; việc dạy dỗ, đào tạo"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [education]
+    example_ko: "아이들에게는 어릴 때부터 올바른 경제 교육이 필요하다."
+    example_vi: "Trẻ em cần được giáo dục kinh tế đúng đắn ngay từ nhỏ."
+    false_friend: null
+    collocations:
+      - { ko: "교육을 받다", vi: "được giáo dục, được đào tạo" }
+      - { ko: "교육비", vi: "chi phí giáo dục" }
+      - { ko: "교육 제도", vi: "chế độ giáo dục" }
+    note_vi: "Chữ 敎 là dạng dùng trong từ điển Hàn. Tiếng Trung và phần lớn từ điển Hán-Việt in dạng 教. Hai dạng là cùng một chữ."
+    notes_internal: "Dạng 敎 theo 표준국어대사전. Nếu về sau chọn dạng 教 thì đổi đồng loạt trong bảng âm tiết và mọi từ."
+
+  - id: v-00025
+    hangul: 전공
+    hanja: 專攻
+    han_viet: chuyên công
+    syllables:
+      - { ko: 전, hanja: 專, hv: chuyên }
+      - { ko: 공, hanja: 攻, hv: công }
+    meaning_vi: "chuyên ngành, ngành học chính; việc theo học chuyên ngành"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [education, university]
+    example_ko: "저는 대학에서 경영학을 전공했습니다."
+    example_vi: "Tôi đã học chuyên ngành quản trị kinh doanh ở đại học."
+    false_friend: null
+    collocations:
+      - { ko: "전공을 바꾸다", vi: "đổi chuyên ngành" }
+      - { ko: "전공 과목", vi: "môn chuyên ngành" }
+      - { ko: "전공자", vi: "người học chuyên ngành" }
+    note_vi: "'Chuyên công' không dùng trong tiếng Việt; nói 'chuyên ngành'. 전공하다 = học chuyên ngành, theo học ngành."
+
+  - id: v-00026
+    hangul: 장학금
+    hanja: 獎學金
+    han_viet: tưởng học kim
+    syllables:
+      - { ko: 장, hanja: 獎, hv: tưởng }
+      - { ko: 학, hanja: 學, hv: học }
+      - { ko: 금, hanja: 金, hv: kim }
+    meaning_vi: "học bổng"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [education, university]
+    example_ko: "성적이 우수한 학생에게는 장학금이 지급된다."
+    example_vi: "Học sinh có thành tích xuất sắc sẽ được cấp học bổng."
+    false_friend: null
+    collocations:
+      - { ko: "장학금을 받다", vi: "nhận học bổng" }
+      - { ko: "장학금을 신청하다", vi: "đăng ký xin học bổng" }
+      - { ko: "장학생", vi: "sinh viên có học bổng" }
+    note_vi: "Tiếng Việt dùng chữ khác cho cùng nghĩa: 'học bổng' (學俸), không nói 'tưởng học kim'."
