@@ -4,6 +4,9 @@ import { SKILLS } from "@/components/config/taxonomy";
 import { t } from "@/components/i18n";
 import { LinkCard } from "@/components/placeholder/link-card";
 import { PlaceholderPage } from "@/components/placeholder/placeholder-page";
+import { PracticePageShell } from "@/components/practice/page-shell";
+import { PracticeTypeCard } from "@/components/practice/practice-type-card";
+import { getPracticeTypes } from "@/lib/practice/queries";
 
 /** Cố ý blocking để segment lạ trả 404: xem ghi chú ở app/[program]/layout.tsx. */
 export const instant = false;
@@ -26,27 +29,65 @@ export default async function PracticeSkillPage({ params }: Props) {
   const program = requireProgram(programSlug);
   const skill = requireSkill(skillSlug);
   const skillName = t.skills[skill.slug].name;
+  const breadcrumb = [
+    { label: program.name, href: `/${program.slug}` },
+    { label: t.practice.title, href: `/${program.slug}/luyen-tap` },
+    { label: skillName },
+  ];
+
+  // Viết (tự luận) chưa thuộc phạm vi luyện trắc nghiệm theo dạng: giữ khung "đang xây dựng".
+  if (skill.code === "writing") {
+    return (
+      <PlaceholderPage
+        breadcrumb={breadcrumb}
+        title={t.practiceSkill.title(skillName)}
+        description={t.practiceSkill.description(skillName)}
+        planned={t.practiceSkill.planned}
+      >
+        <section aria-labelledby="sample-type-heading">
+          <h2 id="sample-type-heading" className="mb-3 text-sm font-semibold text-muted-foreground">
+            {t.practiceSkill.sampleTypeHeading}
+          </h2>
+          <LinkCard
+            href={`/${program.slug}/luyen-tap/${skill.slug}/${skill.sampleType}`}
+            title={t.practiceType.title(skill.sampleType)}
+          />
+        </section>
+      </PlaceholderPage>
+    );
+  }
+
+  const types = await getPracticeTypes(program.slug, skill.code);
 
   return (
-    <PlaceholderPage
-      breadcrumb={[
-        { label: program.name, href: `/${program.slug}` },
-        { label: t.practice.title, href: `/${program.slug}/luyen-tap` },
-        { label: skillName },
-      ]}
+    <PracticePageShell
+      wide
+      breadcrumb={breadcrumb}
       title={t.practiceSkill.title(skillName)}
       description={t.practiceSkill.description(skillName)}
-      planned={t.practiceSkill.planned}
     >
-      <section aria-labelledby="sample-type-heading">
-        <h2 id="sample-type-heading" className="mb-3 text-sm font-semibold text-muted-foreground">
-          {t.practiceSkill.sampleTypeHeading}
+      <section aria-labelledby="types-heading">
+        <h2 id="types-heading" className="mb-1 text-sm font-semibold text-muted-foreground">
+          {t.practiceSkill.typesHeading}
         </h2>
-        <LinkCard
-          href={`/${program.slug}/luyen-tap/${skill.slug}/${skill.sampleType}`}
-          title={t.practiceType.title(skill.sampleType)}
-        />
+        <p className="mb-3 text-xs text-muted-foreground">{t.practiceSkill.guestNote}</p>
+        {types.length === 0 ? (
+          <p className="rounded-xl border border-dashed border-border bg-muted/40 p-4 text-sm">
+            {t.practiceSkill.empty}
+          </p>
+        ) : (
+          <ul
+            aria-label={t.practiceSkill.typeListLabel(skillName)}
+            className="grid gap-3 sm:grid-cols-2"
+          >
+            {types.map((type) => (
+              <li key={type.type_code}>
+                <PracticeTypeCard program={program.slug} skillSlug={skill.slug} type={type} />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
-    </PlaceholderPage>
+    </PracticePageShell>
   );
 }
