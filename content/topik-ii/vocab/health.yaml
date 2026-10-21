@@ -1,0 +1,98 @@
+# Lô từ vựng mẫu: sức khoẻ. Đặc tả: docs/vocab-grammar-spec.md mục 3.
+batch: health
+program: topik-ii
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+verification_vi: "Tự biên soạn từ kiến thức của người soạn. Chưa mở trang mục từ krdict/표준국어대사전 cho từng từ. Cấp độ là đánh giá của người soạn (level_basis: editor). Cảnh báo 예방 / 예비 cùng khớp lời giải đã duyệt ở r07-0001."
+words:
+  - id: v-00027
+    hangul: 증상
+    hanja: 症狀
+    han_viet: chứng trạng
+    syllables:
+      - { ko: 증, hanja: 症, hv: chứng }
+      - { ko: 상, hanja: 狀, hv: trạng }
+    meaning_vi: "triệu chứng"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [health, medicine]
+    example_ko: "감기 증상이 있으면 병원에 가 보는 것이 좋다."
+    example_vi: "Nếu có triệu chứng cảm thì nên đi bệnh viện khám."
+    false_friend: null
+    collocations:
+      - { ko: "증상이 나타나다", vi: "triệu chứng xuất hiện" }
+      - { ko: "증상이 심해지다", vi: "triệu chứng nặng lên" }
+      - { ko: "초기 증상", vi: "triệu chứng ban đầu" }
+    note_vi: "Tiếng Việt nói 'triệu chứng'; 'chứng trạng' rất ít gặp."
+
+  - id: v-00028
+    hangul: 영양
+    hanja: 營養
+    han_viet: dinh dưỡng
+    syllables:
+      - { ko: 영, hanja: 營, hv: dinh }
+      - { ko: 양, hanja: 養, hv: dưỡng }
+    meaning_vi: "dinh dưỡng"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [health, food]
+    example_ko: "아침을 거르면 영양 균형이 깨지기 쉽다."
+    example_vi: "Bỏ bữa sáng thì dễ làm mất cân bằng dinh dưỡng."
+    false_friend: null
+    collocations:
+      - { ko: "영양소", vi: "chất dinh dưỡng" }
+      - { ko: "영양가", vi: "giá trị dinh dưỡng" }
+      - { ko: "영양이 풍부하다", vi: "giàu dinh dưỡng" }
+    note_vi: "Chữ 營 trong từ này đọc 'dinh' (dinh dưỡng). Âm thông dụng khác của chữ là 'doanh' (經營 kinh doanh)."
+
+  - id: v-00029
+    hangul: 수술
+    hanja: 手術
+    han_viet: thủ thuật
+    syllables:
+      - { ko: 수, hanja: 手, hv: thủ }
+      - { ko: 술, hanja: 術, hv: thuật }
+    meaning_vi: "phẫu thuật, ca mổ"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [health, medicine]
+    example_ko: "할아버지는 다음 주에 무릎 수술을 받으실 예정이다."
+    example_vi: "Tuần sau ông sẽ được phẫu thuật đầu gối."
+    false_friend:
+      kind: partial
+      vi_meaning: "thủ thuật: kỹ xảo, mánh khéo (thủ thuật máy tính); trong y khoa là can thiệp nhỏ bằng tay hoặc dụng cụ"
+      note_vi: "Trùng 'thủ thuật' ở chỗ là thao tác y khoa bằng tay hoặc dụng cụ. Khác: 수술 là phẫu thuật, mổ (kể cả đại phẫu), còn 'thủ thuật' tiếng Việt thường chỉ việc nhỏ hơn hoặc mánh khéo; dịch 수술 là 'thủ thuật' sẽ làm nhẹ đi mức độ. Nói 'phẫu thuật' hoặc 'ca mổ'."
+    collocations:
+      - { ko: "수술을 받다", vi: "được phẫu thuật" }
+      - { ko: "수술을 하다", vi: "thực hiện phẫu thuật" }
+      - { ko: "수술실", vi: "phòng mổ" }
+    notes_internal: "Phân loại partial hay full cần reviewer cân nhắc (y khoa Việt Nam dùng 'thủ thuật' cho can thiệp nhỏ)."
+
+  - id: v-00030
+    hangul: 예방
+    hanja: 豫防
+    han_viet: dự phòng
+    syllables:
+      - { ko: 예, hanja: 豫, hv: dự }
+      - { ko: 방, hanja: 防, hv: phòng }
+    meaning_vi: "phòng ngừa (bệnh tật, tai nạn)"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [health, medicine]
+    example_ko: "해마다 가을이 되면 독감 예방 접종을 받는다."
+    example_vi: "Năm nào cứ đến mùa thu là tôi tiêm phòng cúm."
+    false_friend:
+      kind: partial
+      vi_meaning: "dự phòng: để sẵn phòng khi cần (lốp dự phòng, quỹ dự phòng); y tế dự phòng"
+      note_vi: "Trùng 'dự phòng' ở nghĩa phòng ngừa bệnh (y tế dự phòng = 예방 의학). Khác ở nghĩa 'để sẵn khi cần' (lốp dự phòng): tiếng Hàn dùng 예비 (豫備 – dự bị)."
+    collocations:
+      - { ko: "예방 접종", vi: "tiêm phòng" }
+      - { ko: "사고를 예방하다", vi: "phòng tránh tai nạn" }
+      - { ko: "예방법", vi: "cách phòng ngừa" }

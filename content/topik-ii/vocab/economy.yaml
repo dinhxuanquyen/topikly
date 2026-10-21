@@ -1,0 +1,115 @@
+# Lô từ vựng mẫu: kinh tế. Đặc tả: docs/vocab-grammar-spec.md mục 3.
+batch: economy
+program: topik-ii
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+verification_vi: "Tự biên soạn từ kiến thức của người soạn. Chưa mở trang mục từ krdict/표준국어대사전 cho từng từ. Cấp độ là đánh giá của người soạn (level_basis: editor). Hai từ 수입 (收入 / 輸入) là đồng âm khác chữ Hán, cần reviewer kiểm cả hai."
+words:
+  - id: v-00013
+    hangul: 경제
+    hanja: 經濟
+    han_viet: kinh tế
+    syllables:
+      - { ko: 경, hanja: 經, hv: kinh }
+      - { ko: 제, hanja: 濟, hv: tế }
+    meaning_vi: "kinh tế; (경제적이다) tiết kiệm, có lợi về chi phí"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [economy]
+    example_ko: "경제가 어려울수록 가계 지출을 줄이는 사람이 많아진다."
+    example_vi: "Kinh tế càng khó khăn thì càng có nhiều người cắt giảm chi tiêu gia đình."
+    false_friend: null
+    collocations:
+      - { ko: "경제 성장", vi: "tăng trưởng kinh tế" }
+      - { ko: "경제가 어렵다", vi: "kinh tế khó khăn" }
+      - { ko: "경제적이다", vi: "mang tính kinh tế; tiết kiệm" }
+    note_vi: "Chữ 濟 (tế) nghĩa gốc là 'cứu giúp'. Từ 經濟 vốn rút từ ý 'trị nước, cứu giúp dân' (經世濟民 kinh thế tế dân) trước khi mang nghĩa 'kinh tế' hiện đại."
+    notes_internal: "Câu note_vi về nguồn gốc 經世濟民 là kiến thức chung của người soạn, chưa đối chiếu nguồn; reviewer kiểm hoặc xoá."
+
+  - id: v-00014
+    hangul: 물가
+    hanja: 物價
+    han_viet: vật giá
+    syllables:
+      - { ko: 물, hanja: 物, hv: vật }
+      - { ko: 가, hanja: 價, hv: giá }
+    meaning_vi: "mức giá chung; vật giá"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [economy, consumer]
+    example_ko: "물가가 계속 오르면서 생활비 부담이 커지고 있다."
+    example_vi: "Vật giá cứ tăng nên gánh nặng chi phí sinh hoạt ngày càng lớn."
+    false_friend: null
+    collocations:
+      - { ko: "물가가 오르다", vi: "vật giá tăng" }
+      - { ko: "물가 상승", vi: "giá cả leo thang" }
+      - { ko: "물가를 안정시키다", vi: "ổn định giá cả" }
+    note_vi: "Chỉ mức giá chung của nhiều mặt hàng; giá của một món là 가격."
+
+  - id: v-00015
+    hangul: 경쟁
+    hanja: 競爭
+    han_viet: cạnh tranh
+    syllables:
+      - { ko: 경, hanja: 競, hv: cạnh }
+      - { ko: 쟁, hanja: 爭, hv: tranh }
+    meaning_vi: "cạnh tranh; thi đua tranh giành"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [economy, business]
+    example_ko: "두 회사는 신제품을 두고 치열하게 경쟁하고 있다."
+    example_vi: "Hai công ty đang cạnh tranh gay gắt xoay quanh sản phẩm mới."
+    false_friend: null
+    collocations:
+      - { ko: "경쟁이 치열하다", vi: "cạnh tranh gay gắt" }
+      - { ko: "경쟁에서 이기다", vi: "thắng trong cạnh tranh" }
+      - { ko: "경쟁력", vi: "sức cạnh tranh" }
+
+  - id: v-00016
+    hangul: 수입
+    hanja: 收入
+    han_viet: thu nhập
+    syllables:
+      - { ko: 수, hanja: 收, hv: thu }
+      - { ko: 입, hanja: 入, hv: nhập }
+    meaning_vi: "thu nhập; khoản thu"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [economy]
+    example_ko: "수입이 늘어난 만큼 지출도 늘었다."
+    example_vi: "Thu nhập tăng bao nhiêu thì chi tiêu cũng tăng bấy nhiêu."
+    false_friend: null
+    collocations:
+      - { ko: "수입이 늘다", vi: "thu nhập tăng" }
+      - { ko: "고정 수입", vi: "thu nhập cố định" }
+      - { ko: "수입원", vi: "nguồn thu nhập" }
+    note_vi: "Đồng âm với 수입 輸入 (nhập khẩu, v-00017). Hai chữ khác nhau: 收 (thu) và 輸 (thâu). Gặp 'thu nhập' thì là 收入, còn 'nhập khẩu' là 輸入."
+
+  - id: v-00017
+    hangul: 수입
+    hanja: 輸入
+    han_viet: thâu nhập
+    syllables:
+      - { ko: 수, hanja: 輸, hv: thâu }
+      - { ko: 입, hanja: 入, hv: nhập }
+    meaning_vi: "nhập khẩu"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [economy, business]
+    example_ko: "우리나라는 에너지의 대부분을 수입에 의존한다."
+    example_vi: "Phần lớn năng lượng của nước ta phải nhập khẩu."
+    false_friend: null
+    collocations:
+      - { ko: "수입하다", vi: "nhập khẩu" }
+      - { ko: "수입품", vi: "hàng nhập khẩu" }
+      - { ko: "수입에 의존하다", vi: "phụ thuộc vào nhập khẩu" }
+    note_vi: "Đồng âm với 수입 收入 (thu nhập, v-00016). 'Thâu nhập' không có trong tiếng Việt hiện đại; nói 'nhập khẩu'. Đối nghĩa 수출 輸出 (xuất khẩu) cùng chữ 輸."
+    notes_internal: "Âm 'thâu' của 輸; đã bỏ alt_hv 'du' khỏi bảng âm tiết vì chưa đối chiếu được (Thiều Chửu chỉ ghi 'thâu'), thêm lại nếu có nguồn. Từ này không để false_friend vì 'thâu nhập' không phải từ Việt thông dụng (chỉ là bẫy âm gần 'thu nhập')."

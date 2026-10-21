@@ -1,0 +1,64 @@
+id: g-0007
+slug: deora-do
+pattern: "-더라도"
+variants: ["-았/었더라도"]
+meaning_vi: "Dù cho... đi nữa, cho dù... thì (nhượng bộ giả định: việc A chưa chắc xảy ra hoặc không có thật, vế sau vẫn không đổi)."
+level: 4
+level_basis: editor
+function: concession
+compare_group: nhuong-bo-cho-du
+form:
+  - host: V
+    attach: "V-더라도 · V-았/었더라도 (giả định về quá khứ)"
+    note_vi: "Ví dụ: 가더라도, 갔더라도."
+  - host: A
+    attach: "A-더라도 · A-았/었더라도"
+    note_vi: "Ví dụ: 비싸더라도, 비쌌더라도."
+  - host: "N"
+    attach: "N(이)더라도"
+    note_vi: "Ví dụ: 학생이더라도, 휴일이더라도."
+constraints:
+  register: both
+  polarity: any
+  subject_vi: "Chủ ngữ hai vế tự do."
+  tense_vi: "Không gắn -겠- vào -더라도. Dạng -았/었더라도 dùng cho giả định ngược với quá khứ (어제 갔더라도 ~ 결과는 같았을 거예요)."
+  main_clause_vi: "Vế sau tự do, dùng được cả mệnh lệnh, đề nghị, ý chí (끝까지 포기하지 마세요). Nội dung vế sau vẫn đúng bất kể vế trước."
+  other_vi: "Vế trước là giả định, chưa xảy ra hoặc chưa biết. Hay đi với 아무리, 만약, 혹시. Đã là sự thật hiển nhiên thì dùng -(으)ㄴ/는데도."
+examples:
+  - ko: "비가 오더라도 내일 소풍은 예정대로 갑니다."
+    vi: "Dù trời có mưa, buổi dã ngoại ngày mai vẫn đi theo kế hoạch."
+  - ko: "아무리 바쁘더라도 아침은 꼭 챙겨 드세요."
+    vi: "Dù bận đến mấy, hãy nhớ ăn sáng nhé."
+    note_vi: "아무리 ... -더라도 là mẫu rất hay gặp. Vế sau là mệnh lệnh/đề nghị được phép."
+  - ko: "실패하더라도 포기하지 말고 다시 도전해 보세요."
+    vi: "Dù có thất bại cũng đừng bỏ cuộc, hãy thử thách lại."
+  - ko: "가격이 조금 비싸더라도 품질이 좋은 제품을 사고 싶어요."
+    vi: "Dù giá hơi đắt, tôi vẫn muốn mua sản phẩm chất lượng tốt."
+  - ko: "내가 없더라도 걱정하지 말고 먼저 시작하세요."
+    vi: "Dù tôi không có mặt cũng đừng lo, cứ bắt đầu trước đi."
+non_examples:
+  - ko: "어제 비가 왔더라도 소풍을 갔어요."
+    fix_ko: "어제 비가 왔는데도 소풍을 갔어요."
+    note_vi: "Sai: trời mưa hôm qua là sự thật, không phải giả định. Dùng -(으)ㄴ/는데도."
+  - ko: "지금 비가 오더라도 경기가 계속되고 있어요."
+    fix_ko: "지금 비가 오는데도 경기가 계속되고 있어요."
+    note_vi: "Sai: đang mưa thật và trận đấu đang diễn ra, đều là sự thật."
+common_mistakes_vi:
+  - "Dùng -더라도 cho sự thật đã xảy ra vì tiếng Việt 'dù' dùng cho cả hai. Sự thật đã có thì dùng -(으)ㄴ/는데도, giả định thì -더라도."
+  - "Gắn -겠- (*비가 오겠더라도). Không dùng -겠- trước -더라도."
+  - "Dùng -아/어도 và -더라도 như nhau. -더라도 mạnh và nghiêng về giả định hơn; -아/어도 trung tính hơn, dùng được cả điều kiện thông thường."
+related: [g-0008]
+body_md: |
+  **Ý cốt lõi:** *"Cứ cho là A xảy ra đi, kết quả B cũng không đổi."* Vế trước là **giả định**, không phải sự thật đã có.
+
+  **Nhớ nhanh:** 아무리, 만약, 혹시 trong câu thường đi với -더라도. Vế sau tự do, có thể là lời khuyên hoặc quyết tâm.
+
+  **Phân biệt với -(으)ㄴ/는데도:** -더라도 = *nếu... thì cũng*; -(으)ㄴ/는데도 = *đã... mà vẫn* (sự thật). Xem nhóm `nhuong-bo-cho-du`.
+refs: []
+status: active
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Cấp 4 là đánh giá của người soạn. Nhận định về -아/어도 là so sánh sắc thái, chưa đối chiếu nguồn."

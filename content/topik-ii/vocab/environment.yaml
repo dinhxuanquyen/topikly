@@ -1,0 +1,136 @@
+# Lô từ vựng mẫu: môi trường. Đặc tả: docs/vocab-grammar-spec.md mục 3.
+batch: environment
+program: topik-ii
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+verification_vi: "Tự biên soạn từ kiến thức của người soạn. Chưa mở trang mục từ krdict/표준국어대사전 cho từng từ. Cấp độ là đánh giá của người soạn (level_basis: editor). Reviewer cần kiểm hanja, âm Hán-Việt (đặc biệt 자원 資源 đọc 'tư nguyên', người dùng quyết nếu muốn giữ 'tài nguyên'), cấp độ."
+words:
+  - id: v-00007
+    hangul: 환경
+    hanja: 環境
+    han_viet: hoàn cảnh
+    syllables:
+      - { ko: 환, hanja: 環, hv: hoàn }
+      - { ko: 경, hanja: 境, hv: cảnh }
+    meaning_vi: "môi trường; hoàn cảnh (sống, học tập)"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [environment, society]
+    example_ko: "우리는 환경을 보호하기 위해 일회용품을 줄이기로 했다."
+    example_vi: "Chúng tôi quyết định giảm đồ dùng một lần để bảo vệ môi trường."
+    false_friend:
+      kind: partial
+      vi_meaning: "hoàn cảnh: tình huống, điều kiện cụ thể mà một người gặp phải (hoàn cảnh gia đình, hoàn cảnh khó khăn)"
+      note_vi: "Trùng 'hoàn cảnh' ở nghĩa điều kiện xung quanh con người (가정환경 = hoàn cảnh gia đình, 어려운 환경 = hoàn cảnh khó khăn). Khác: nghĩa thông dụng nhất của 환경 là 'môi trường' (환경 오염 = ô nhiễm môi trường), nghĩa này tiếng Việt không dùng 'hoàn cảnh'."
+    collocations:
+      - { ko: "환경 오염", vi: "ô nhiễm môi trường" }
+      - { ko: "환경을 보호하다", vi: "bảo vệ môi trường" }
+      - { ko: "가정환경", vi: "hoàn cảnh gia đình" }
+      - { ko: "환경에 적응하다", vi: "thích nghi với môi trường" }
+
+  - id: v-00008
+    hangul: 오염
+    hanja: 汚染
+    han_viet: ô nhiễm
+    syllables:
+      - { ko: 오, hanja: 汚, hv: ô }
+      - { ko: 염, hanja: 染, hv: nhiễm }
+    meaning_vi: "ô nhiễm"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [environment]
+    example_ko: "공장 폐수 때문에 강물이 심하게 오염되었다."
+    example_vi: "Nước sông bị ô nhiễm nặng vì nước thải của nhà máy."
+    false_friend: null
+    collocations:
+      - { ko: "대기 오염", vi: "ô nhiễm không khí" }
+      - { ko: "오염이 심각하다", vi: "ô nhiễm nghiêm trọng" }
+      - { ko: "오염되다", vi: "bị ô nhiễm" }
+    notes_internal: "Hanja 汚 (không phải 污) theo dạng 표준국어대사전; reviewer kiểm."
+
+  - id: v-00009
+    hangul: 자원
+    hanja: 資源
+    han_viet: tư nguyên
+    syllables:
+      - { ko: 자, hanja: 資, hv: tư }
+      - { ko: 원, hanja: 源, hv: nguyên }
+    meaning_vi: "tài nguyên; nguồn lực"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [environment, economy]
+    example_ko: "자원이 부족한 나라일수록 기술 개발이 중요하다."
+    example_vi: "Nước càng thiếu tài nguyên thì phát triển kỹ thuật càng quan trọng."
+    false_friend: null
+    collocations:
+      - { ko: "천연자원", vi: "tài nguyên thiên nhiên" }
+      - { ko: "자원을 아끼다", vi: "tiết kiệm tài nguyên" }
+      - { ko: "자원이 풍부하다", vi: "giàu tài nguyên" }
+    note_vi: "Âm Hán-Việt là 'tư nguyên' (資 = tư, như 資本 tư bản). Tiếng Việt nói 'tài nguyên' cho cùng nghĩa, với chữ 財 (tài) khác chữ 資, nên hai âm gần nhau, dễ nhớ. Cũng đừng nhầm 자원 資源 với 자원 自願 (tự nguyện) trong 자원봉사."
+    notes_internal: "Sửa theo duyệt 2026-10-21 và quyết định của điều phối: han_viet 'tư nguyên', 資 hv 'tư', bỏ 'tài' khỏi alt_hv của 資. [cần đối chiếu từ điển Hán-Việt] — người dùng quyết nếu muốn giữ 'tài nguyên' (khi đó phải thêm lại alt_hv và nêu rõ đó là cách nói quen của riêng từ này)."
+
+  - id: v-00010
+    hangul: 기후
+    hanja: 氣候
+    han_viet: khí hậu
+    syllables:
+      - { ko: 기, hanja: 氣, hv: khí }
+      - { ko: 후, hanja: 候, hv: hậu }
+    meaning_vi: "khí hậu"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [environment, nature]
+    example_ko: "기후 변화로 여름이 점점 길어지고 있다."
+    example_vi: "Do biến đổi khí hậu, mùa hè đang dài ra dần."
+    false_friend: null
+    collocations:
+      - { ko: "기후 변화", vi: "biến đổi khí hậu" }
+      - { ko: "기후가 온난하다", vi: "khí hậu ôn hòa, ấm áp" }
+      - { ko: "기후에 적응하다", vi: "thích nghi với khí hậu" }
+
+  - id: v-00011
+    hangul: 재활용
+    hanja: 再活用
+    han_viet: tái hoạt dụng
+    syllables:
+      - { ko: 재, hanja: 再, hv: tái }
+      - { ko: 활, hanja: 活, hv: hoạt }
+      - { ko: 용, hanja: 用, hv: dụng }
+    meaning_vi: "tái chế; tái sử dụng"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [environment]
+    example_ko: "플라스틱 병은 따로 모아서 버려야 재활용할 수 있다."
+    example_vi: "Chai nhựa phải gom riêng khi bỏ thì mới tái chế được."
+    false_friend: null
+    collocations:
+      - { ko: "재활용품", vi: "đồ tái chế" }
+      - { ko: "재활용하다", vi: "tái chế; tái sử dụng" }
+      - { ko: "재활용 쓰레기", vi: "rác tái chế" }
+    note_vi: "'Tái hoạt dụng' không dùng trong tiếng Việt; nói 'tái chế' hoặc 'tái sử dụng'. Hay đi cùng 분리수거 (phân loại rác để thu gom)."
+
+  - id: v-00012
+    hangul: 쓰레기
+    hanja: null
+    han_viet: null
+    meaning_vi: "rác"
+    pos: noun
+    level: 2
+    level_basis: editor
+    topics: [environment, daily-life]
+    example_ko: "쓰레기는 정해진 날에 정해진 곳에 버려야 합니다."
+    example_vi: "Rác phải được bỏ vào đúng ngày, đúng chỗ đã quy định."
+    false_friend: null
+    collocations:
+      - { ko: "쓰레기를 버리다", vi: "vứt rác" }
+      - { ko: "쓰레기통", vi: "thùng rác" }
+      - { ko: "음식물 쓰레기", vi: "rác thực phẩm" }
+    notes_internal: "Hạ cấp 2 theo duyệt 2026-10-21; cần đối chiếu krdict trước khi đổi level_basis."

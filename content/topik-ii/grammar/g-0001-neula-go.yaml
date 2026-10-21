@@ -1,0 +1,65 @@
+id: g-0001
+slug: neula-go
+pattern: "-느라고"
+variants: ["-느라"]
+meaning_vi: "Vì mải làm việc A nên (mất thời gian, sức lực) không làm được việc B hoặc dẫn đến kết quả không tốt."
+level: 4
+level_basis: editor
+function: cause
+compare_group: nguyen-nhan-ket-qua-xau
+form:
+  - host: V
+    attach: "V-느라고 (gốc động từ + -느라고, có hay không có patchim đều giống nhau)"
+    note_vi: "Động từ có patchim ㄹ thì ㄹ rụng: 만들다 → 만드느라고, 놀다 → 노느라고."
+constraints:
+  register: both
+  polarity: negative
+  subject_vi: "Chủ ngữ hai vế phải giống nhau (người làm hành động A cũng là người gặp kết quả B)."
+  tense_vi: "Không gắn -았/었-, -겠- vào trước -느라고. Thì của câu do vế sau quyết định (thường quá khứ hoặc hiện tại)."
+  main_clause_vi: "Vế sau là kết quả không tốt hoặc việc khác không làm được (못 -, 늦다, 힘들다, 정신이 없다). Không dùng mệnh lệnh (-(으)세요) hay đề nghị (-(으)ㅂ시다, -자)."
+  other_vi: "Chỉ đi với động từ chỉ hành động có chủ ý, tốn thời gian hoặc công sức. Không đi với tính từ và -이다. Dùng cả văn nói lẫn văn viết; dạng rút gọn -느라 rất hay gặp (준비하느라 바쁘다). Hay gặp trong lời cảm ơn, hỏi thăm: 오시느라 수고하셨습니다."
+examples:
+  - ko: "어젯밤에 보고서를 쓰느라고 잠을 못 잤어요."
+    vi: "Tối qua tôi mải viết báo cáo nên không ngủ được."
+  - ko: "친구를 기다리느라고 수업에 늦었어요."
+    vi: "Tôi mải đợi bạn nên đến lớp trễ."
+  - ko: "요즘 이사 준비를 하느라고 정신이 하나도 없어요."
+    vi: "Dạo này tôi bận chuẩn bị chuyển nhà nên đầu óc quay cuồng."
+    note_vi: "정신이 없다 = bận rộn, rối bời. Mẫu rất hay gặp với -느라고."
+  - ko: "아이들을 돌보느라고 제 건강에는 신경을 쓰지 못했습니다."
+    vi: "Mải chăm sóc các con nên tôi không để ý đến sức khỏe của bản thân."
+  - ko: "시험 공부를 하느라고 동아리 모임에 가지 못했어요."
+    vi: "Mải ôn thi nên tôi không đi sinh hoạt câu lạc bộ được."
+non_examples:
+  - ko: "비가 오느라고 소풍을 못 갔어요."
+    fix_ko: "비가 오는 바람에 소풍을 못 갔어요."
+    note_vi: "Sai: 비 (mưa) không phải hành động có chủ ý của người nói, và hai vế khác chủ ngữ. Dùng -는 바람에."
+  - ko: "피곤하느라고 일찍 잤어요."
+    fix_ko: "피곤해서 일찍 잤어요."
+    note_vi: "Sai: 피곤하다 là tính từ, không đi với -느라고. Dùng -아/어서."
+  - ko: "밤늦게까지 일했느라고 피곤해요."
+    fix_ko: "밤늦게까지 일하느라고 피곤해요."
+    note_vi: "Sai: không gắn -았/었- vào trước -느라고."
+common_mistakes_vi:
+  - "Dịch máy móc 'vì' thành -느라고 cho mọi nguyên nhân. -느라고 chỉ ứng với 'vì mải (làm)...': chủ ngữ (người nói hoặc người khác) đang bận làm việc A nên không làm được việc B."
+  - "Dùng khi hai vế khác chủ ngữ (비가 오느라고, 아이가 우느라고...). Khác chủ ngữ phải dùng -는 바람에 hoặc -아/어서."
+  - "Gắn thì quá khứ -았/었느라고 vì tiếng Việt có 'đã'. Thì chỉ thể hiện ở vế sau."
+  - "Dùng cho kết quả tốt (열심히 공부하느라고 합격했어요). Kết quả tốt dùng -아/어서 hoặc -(으)니까."
+related: [g-0002, g-0003]
+body_md: |
+  **Ý cốt lõi:** hành động A chiếm hết thời gian hoặc sức lực của bạn, nên bạn không có đủ cho việc B. Người học hay nhớ bằng chữ **"mải"** trong tiếng Việt: *mải viết báo cáo nên không ngủ được*.
+
+  **Ba dấu hiệu nhận ra khi làm bài:**
+  - Chủ ngữ hai vế là cùng một người (có thể là người nói hoặc người khác: 동생은 게임하느라고 숙제를 못 했다).
+  - Vế trước là động từ chỉ việc đang làm (쓰다, 기다리다, 준비하다...).
+  - Vế sau là điều không được như ý (못, 늦다, 정신이 없다).
+
+  **Liên hệ đề thi:** ở R01–R04, -느라고 hay bị đặt cạnh -는 바람에 và -는 탓에 làm phương án nhiễu. Xem bảng so sánh ở nhóm `nguyen-nhan-ket-qua-xau`.
+refs: []
+status: active
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+notes_internal: "Cấp 4 là đánh giá của người soạn (nhiều giáo trình xếp -느라고 ở cấp 3-4). Câu 'có hay không có patchim đều giống nhau' và quy tắc ㄹ rụng là kiến thức ngữ pháp chung. Chưa đối chiếu danh sách 문법 chính thức."

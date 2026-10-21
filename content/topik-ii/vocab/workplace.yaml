@@ -1,0 +1,140 @@
+# Lô từ vựng mẫu: công việc. Đặc tả: docs/vocab-grammar-spec.md mục 3.
+batch: workplace
+program: topik-ii
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+verification_vi: "Tự biên soạn từ kiến thức của người soạn. Chưa mở trang mục từ krdict/표준국어대사전 cho từng từ. Cấp độ là đánh giá của người soạn (level_basis: editor). Hai bạn giả partial (업무, 회의) cần reviewer xác nhận phân loại; 거래 để null vì âm 'khứ lai' không dùng trong tiếng Việt."
+words:
+  - id: v-00018
+    hangul: 업무
+    hanja: 業務
+    han_viet: nghiệp vụ
+    syllables:
+      - { ko: 업, hanja: 業, hv: nghiệp }
+      - { ko: 무, hanja: 務, hv: vụ }
+    meaning_vi: "công việc, nhiệm vụ (ở cơ quan, công ty)"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [workplace, career]
+    example_ko: "신입 사원은 먼저 업무에 익숙해져야 한다."
+    example_vi: "Nhân viên mới trước hết phải làm quen với công việc."
+    false_friend:
+      kind: partial
+      vi_meaning: "nghiệp vụ: chuyên môn, kỹ năng của một ngành nghề (nghiệp vụ ngân hàng, nghiệp vụ kế toán)"
+      note_vi: "Trùng 'nghiệp vụ' ở nghĩa công việc chuyên môn của một ngành (은행 업무 = nghiệp vụ ngân hàng). Khác: 업무 chỉ chung công việc, nhiệm vụ phải làm (업무가 많다 = nhiều việc), còn 'nghiệp vụ' tiếng Việt thiên về kỹ năng, chuyên môn nên không dùng cho nghĩa 'nhiều việc'."
+    collocations:
+      - { ko: "업무를 맡다", vi: "đảm nhận công việc" }
+      - { ko: "업무가 많다", vi: "nhiều việc" }
+      - { ko: "업무 시간", vi: "giờ làm việc" }
+
+  - id: v-00019
+    hangul: 회의
+    hanja: 會議
+    han_viet: hội nghị
+    syllables:
+      - { ko: 회, hanja: 會, hv: hội }
+      - { ko: 의, hanja: 議, hv: nghị }
+    meaning_vi: "cuộc họp, buổi họp"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [workplace]
+    example_ko: "오후에 팀 회의가 있어서 약속을 다음 주로 미뤘어요."
+    example_vi: "Buổi chiều có họp nhóm nên tôi dời cuộc hẹn sang tuần sau."
+    false_friend:
+      kind: partial
+      vi_meaning: "hội nghị: cuộc họp quy mô lớn, trang trọng (hội nghị quốc tế, hội nghị thượng đỉnh)"
+      note_vi: "Trùng 'hội nghị' ở nghĩa cuộc họp để bàn bạc. Khác: 회의 dùng cả cho cuộc họp nhỏ hằng ngày (팀 회의, 가족 회의), còn 'hội nghị' tiếng Việt thường chỉ cuộc họp lớn; cuộc họp thường tiếng Việt nói 'họp'."
+    collocations:
+      - { ko: "회의를 하다", vi: "họp" }
+      - { ko: "회의에 참석하다", vi: "tham dự cuộc họp" }
+      - { ko: "회의실", vi: "phòng họp" }
+    note_vi: "Đồng âm khác chữ Hán: 회의 懷疑 (hoài nghi) = nghi ngờ (회의적이다 = hoài nghi, bi quan)."
+
+  - id: v-00020
+    hangul: 거래
+    hanja: 去來
+    han_viet: khứ lai
+    syllables:
+      - { ko: 거, hanja: 去, hv: khứ }
+      - { ko: 래, hanja: 來, hv: lai }
+    meaning_vi: "giao dịch; mua bán, làm ăn"
+    pos: noun
+    level: 4
+    level_basis: editor
+    topics: [business, economy]
+    example_ko: "그 회사와는 십 년 넘게 거래해 왔다."
+    example_vi: "Chúng tôi đã giao dịch với công ty đó hơn mười năm rồi."
+    false_friend: null
+    collocations:
+      - { ko: "거래처", vi: "đối tác, khách hàng làm ăn" }
+      - { ko: "거래를 끊다", vi: "chấm dứt giao dịch" }
+      - { ko: "은행 거래", vi: "giao dịch ngân hàng" }
+    note_vi: "'Khứ lai' không dùng trong tiếng Việt hiện đại; nói 'giao dịch', 'làm ăn' (거래처 = đối tác làm ăn). Ngược lại, 'giao dịch' tiếng Việt viết bằng chữ 交易, nhưng 교역 trong tiếng Hàn chủ yếu là buôn bán giữa các nước; giao dịch thông thường vẫn là 거래."
+    notes_internal: "Đổi false_friend từ full sang null theo duyệt 2026-10-21 (âm 'khứ lai' không dùng trong tiếng Việt hiện đại, thuộc loại như 고장, 직장). Câu về 교역 là kiến thức người soạn, reviewer đã xác nhận đúng."
+
+  - id: v-00021
+    hangul: 직장
+    hanja: 職場
+    han_viet: chức trường
+    syllables:
+      - { ko: 직, hanja: 職, hv: chức }
+      - { ko: 장, hanja: 場, hv: trường }
+    meaning_vi: "nơi làm việc; công việc có lương"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [workplace, career]
+    example_ko: "그는 대학을 졸업하자마자 직장을 구했다."
+    example_vi: "Anh ấy vừa tốt nghiệp đại học là tìm được việc làm ngay."
+    false_friend: null
+    collocations:
+      - { ko: "직장을 구하다", vi: "tìm việc làm" }
+      - { ko: "직장인", vi: "người đi làm công ăn lương" }
+      - { ko: "직장 생활", vi: "cuộc sống đi làm" }
+    note_vi: "'Chức trường' không dùng trong tiếng Việt; nói 'nơi làm việc', 'cơ quan', 'việc làm'."
+
+  - id: v-00022
+    hangul: 면접
+    hanja: 面接
+    han_viet: diện tiếp
+    syllables:
+      - { ko: 면, hanja: 面, hv: diện }
+      - { ko: 접, hanja: 接, hv: tiếp }
+    meaning_vi: "phỏng vấn (khi xin việc hoặc xét tuyển); thi vấn đáp"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [career, education]
+    example_ko: "면접 전날에는 일찍 자는 것이 좋다."
+    example_vi: "Hôm trước ngày phỏng vấn thì nên đi ngủ sớm."
+    false_friend: null
+    collocations:
+      - { ko: "면접을 보다", vi: "đi phỏng vấn" }
+      - { ko: "면접관", vi: "người phỏng vấn" }
+      - { ko: "면접시험", vi: "thi phỏng vấn, thi vấn đáp" }
+    note_vi: "'Diện tiếp' không dùng trong tiếng Việt. 면접 là buổi người xin việc hoặc xin học được hỏi trực tiếp, khác 인터뷰 (phỏng vấn báo chí, người được hỏi nói cho công chúng)."
+
+  - id: v-00023
+    hangul: 책임
+    hanja: 責任
+    han_viet: trách nhiệm
+    syllables:
+      - { ko: 책, hanja: 責, hv: trách }
+      - { ko: 임, hanja: 任, hv: nhiệm }
+    meaning_vi: "trách nhiệm"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [workplace, ethics]
+    example_ko: "실수를 했으면 책임을 지는 것이 당연합니다."
+    example_vi: "Đã mắc lỗi thì chịu trách nhiệm là điều đương nhiên."
+    false_friend: null
+    collocations:
+      - { ko: "책임을 지다", vi: "chịu trách nhiệm" }
+      - { ko: "책임감", vi: "tinh thần trách nhiệm" }
+      - { ko: "책임을 맡다", vi: "đảm nhận trách nhiệm" }
