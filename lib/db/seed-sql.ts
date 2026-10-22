@@ -29,6 +29,7 @@ function storedConfig(program: ProgramConfig) {
     manuscript: program.manuscript,
     writing_sample_limits: program.writing_sample_limits,
     multi_trap_exempt_subskills: program.multi_trap_exempt_subskills,
+    exam_blueprints: program.exam_blueprints,
     type_groups: program.type_groups,
   };
 }

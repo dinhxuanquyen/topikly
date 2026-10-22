@@ -17,6 +17,7 @@ import { topikII, type ProgramConfig } from "@/lib/db/programs";
 const VALID_ROOT = path.resolve(__dirname, "../fixtures/content/valid");
 
 const R19 = "topik-ii/practice/R19/r19-0001.yaml";
+const R10 = "topik-ii/practice/R10/r10-0001.yaml";
 const L09 = "topik-ii/practice/L09/l09-0001.yaml";
 const W52 = "topik-ii/practice/W52/w52-0001.yaml";
 const W53 = "topik-ii/practice/W53/w53-0001.yaml";
@@ -104,20 +105,31 @@ describe("ví dụ hợp lệ (content-spec 5.10)", () => {
     expect(hasWarning(r, "pair_with", "r20-0001")).toBe(true);
   });
 
-  it("file ngoài practice/ (exams, vocab…) được bỏ qua", () => {
+  it("file ngoài practice/ và exams/ (vocab, strategies…) được bỏ qua", () => {
     const r = validateContent([
       {
         file: "topik-ii/vocab/vocab-sample.yaml",
         text: readFixture("topik-ii/vocab/vocab-sample.yaml"),
       },
-      {
-        file: "topik-ii/exams/exam-sample.yaml",
-        text: readFixture("topik-ii/exams/exam-sample.yaml"),
-      },
+      { file: "topik-ii/strategies/ghi-chu.yaml", text: "id: chien-luoc-01" },
     ]);
     expect(r.filesSkipped).toBe(2);
     expect(r.filesChecked).toBe(0);
+    expect(r.examsChecked).toBe(0);
     expect(r.issues).toEqual([]);
+  });
+
+  it("file đề thi (exams/) được kiểm riêng, không tính là file câu hỏi", () => {
+    const r = validateContent([
+      { file: R10, text: readFixture(R10) },
+      {
+        file: "topik-ii/exams/mini/doc-sample.yaml",
+        text: readFixture("topik-ii/exams/mini/doc-sample.yaml"),
+      },
+    ]);
+    expect(r.errorCount).toBe(0);
+    expect(r.filesChecked).toBe(1);
+    expect(r.examsChecked).toBe(1);
   });
 
   it("bài mẫu W53 trong fixture khớp cách đếm 5.7 (240 và 272, theo spec v0.3)", () => {

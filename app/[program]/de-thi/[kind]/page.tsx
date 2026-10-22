@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { requireExamKind, requireProgram } from "@/components/config/route-guards";
 import { EXAM_KINDS } from "@/components/config/taxonomy";
 import { t } from "@/components/i18n";
-import { LinkCard } from "@/components/placeholder/link-card";
+import { ExamList } from "@/components/exam/exam-list";
 import { PlaceholderPage } from "@/components/placeholder/placeholder-page";
+import { PracticePageShell } from "@/components/practice/page-shell";
+import { getExams } from "@/lib/exam/queries";
 
 /** Cố ý blocking để segment lạ trả 404: xem ghi chú ở app/[program]/layout.tsx. */
 export const instant = false;
@@ -26,27 +28,50 @@ export default async function ExamKindPage({ params }: Props) {
   const program = requireProgram(programSlug);
   const kind = requireExamKind(kindSlug);
   const kindName = t.examKinds[kind.slug].name;
+  const breadcrumb = [
+    { label: program.name, href: `/${program.slug}` },
+    { label: t.exams.title, href: `/${program.slug}/de-thi` },
+    { label: kindName },
+  ];
+
+  const exams = await getExams(program.slug, kind.slug);
+
+  // Loại đề chưa có đề thật: giữ trạng thái "sắp có".
+  if (exams.length === 0) {
+    return (
+      <PlaceholderPage
+        breadcrumb={breadcrumb}
+        title={t.examKind.title(kindName)}
+        description={t.examKinds[kind.slug].summary}
+        planned={t.examKind.planned}
+        statusVariant="soon"
+      >
+        <p className="rounded-xl border border-dashed border-border bg-muted/40 p-4 text-sm">
+          {t.examKind.comingSoon}
+        </p>
+      </PlaceholderPage>
+    );
+  }
 
   return (
-    <PlaceholderPage
-      breadcrumb={[
-        { label: program.name, href: `/${program.slug}` },
-        { label: t.exams.title, href: `/${program.slug}/de-thi` },
-        { label: kindName },
-      ]}
+    <PracticePageShell
+      wide
+      breadcrumb={breadcrumb}
       title={t.examKind.title(kindName)}
       description={t.examKinds[kind.slug].summary}
-      planned={t.examKind.planned}
     >
-      <section aria-labelledby="sample-exam-heading">
-        <h2 id="sample-exam-heading" className="mb-3 text-sm font-semibold text-muted-foreground">
-          {t.examKind.sampleHeading}
+      <section aria-labelledby="exam-list-heading">
+        <h2 id="exam-list-heading" className="mb-1 text-sm font-semibold text-muted-foreground">
+          {t.examKind.listHeading}
         </h2>
-        <LinkCard
-          href={`/${program.slug}/de-thi/${kind.slug}/${kind.sampleExamId}`}
-          title={t.examKind.examLabel(kind.sampleExamId)}
+        <p className="mb-3 text-xs text-muted-foreground">{t.examKind.guestNote}</p>
+        <ExamList
+          program={program.slug}
+          kind={kind.slug}
+          exams={exams}
+          label={t.examKind.listLabel(kindName)}
         />
       </section>
-    </PlaceholderPage>
+    </PracticePageShell>
   );
 }

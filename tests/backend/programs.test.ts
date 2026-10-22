@@ -3,6 +3,7 @@ import { TYPE_CODE_REGEX } from "@/lib/db/content-validation";
 import {
   findProgram,
   findQuestionType,
+  getExamBlueprint,
   getProgram,
   listPrograms,
   SKILLS,
@@ -126,6 +127,59 @@ describe("topik-ii: cấu hình chương trình", () => {
   it("danh mục trap có 18 mã không trùng (gồm concession_point)", () => {
     expect(topikII.traps).toHaveLength(18);
     expect(new Set(topikII.traps.map((t) => t.code)).size).toBe(18);
+  });
+});
+
+describe("topik-ii: cấu trúc đề rút gọn và lệnh nhóm", () => {
+  it("Mini Đọc là dữ liệu cấu hình: 20 câu, 30 phút", () => {
+    expect(topikII.exam_blueprints.mini?.reading).toEqual({
+      question_count: 20,
+      duration_sec: 30 * 60,
+    });
+    expect(getExamBlueprint(topikII, "mini", "reading")).toEqual({
+      question_count: 20,
+      duration_sec: 1800,
+    });
+  });
+
+  it("Full (và loại không khai báo) lấy theo sections của chương trình", () => {
+    expect(getExamBlueprint(topikII, "full", "reading")).toEqual({
+      question_count: 50,
+      duration_sec: 70 * 60,
+    });
+    expect(getExamBlueprint(topikII, "full", "listening")).toEqual({
+      question_count: 50,
+      duration_sec: 60 * 60,
+    });
+    expect(getExamBlueprint(topikII, "hard", "reading")?.question_count).toBe(50);
+    // Mini chưa khai báo Nghe -> rơi về sections (không bịa số liệu riêng)
+    expect(getExamBlueprint(topikII, "mini", "listening")?.question_count).toBe(50);
+    expect(getExamBlueprint(topikII, "full", "speaking")).toBeUndefined();
+  });
+
+  it("mọi nhóm dạng Đọc có instruction_ko dạng mẫu bắt đầu bằng ※ [{from}~{to}]", () => {
+    const reading = topikII.type_groups.filter((g) => g.skill === "reading");
+    expect(reading).toHaveLength(18);
+    for (const g of reading) {
+      expect(g.instruction_ko, g.group).toMatch(/^※ \[\{from\}~\{to\}\] \S/);
+    }
+  });
+
+  it("lệnh nhóm theo content-spec 4.5; cặp/bộ dùng chung 'đọc và trả lời'", () => {
+    const by = (g: string) => topikII.type_groups.find((x) => x.group === g)!;
+    expect(by("R39-41").instruction_ko).toBe(
+      "※ [{from}~{to}] 다음 글에서 <보기>의 문장이 들어가기에 가장 알맞은 곳을 고르십시오.",
+    );
+    expect(by("R13-15").instruction_ko).toContain("다음을 순서대로 맞게 배열한 것을 고르십시오.");
+    for (const g of topikII.type_groups.filter((x) => x.skill === "reading" && x.paired)) {
+      expect(g.instruction_ko).toBe("※ [{from}~{to}] 다음을 읽고 물음에 답하십시오.");
+    }
+  });
+
+  it("Nghe và Viết chưa có instruction_ko (tuỳ chọn)", () => {
+    for (const g of topikII.type_groups.filter((x) => x.skill !== "reading")) {
+      expect(g.instruction_ko).toBeUndefined();
+    }
   });
 });
 

@@ -1,0 +1,8 @@
+# Đề mẫu hợp lệ (draft) cho test validator: chỉ tham chiếu câu có trong fixtures.
+id: doc-sample
+kind: mini
+title: "Mini test Đọc mẫu"
+status: draft
+sections:
+  - skill: reading
+    questions: [r10-0001]

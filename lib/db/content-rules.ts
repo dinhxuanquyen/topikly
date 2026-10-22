@@ -218,3 +218,57 @@ export function analyzeAnswerLabels(labels: readonly number[], minCycle = 4): La
   }
   return { maxRun, runEnd };
 }
+
+// ------------------------------------------------------------------ nhãn đúng của ĐỀ LẮP RÁP
+
+/** Từ bao nhiêu câu trở lên mới kiểm phân bố ~25% mỗi nhãn (ít hơn thì tỉ lệ vô nghĩa). */
+export const MIN_QUESTIONS_FOR_LABEL_DISTRIBUTION = 8;
+
+/** Độ lệch cho phép so với 25% mỗi nhãn: 10 điểm phần trăm số câu, tối thiểu 1 câu. */
+export const LABEL_SHARE_TOLERANCE = 0.1;
+
+/**
+ * Luật nhãn đúng của đề lắp ráp (content-spec §4.1), chạy trên dãy chỉ số đáp án (0–3) theo thứ tự
+ * câu TRONG MỘT PHẦN THI: (1) mỗi nhãn khoảng 25%; (2) không quá 3 câu liền cùng nhãn;
+ * (3) không có chu kỳ lặp nhãn dài từ 4 trở lên lặp lại liền nhau. Trả về danh sách vi phạm
+ * (rỗng = đạt); nơi gọi quyết định lỗi hay cảnh báo theo trạng thái đề.
+ */
+export function checkExamLabelRules(
+  correctIndexes: readonly number[],
+  labels: readonly string[] = ["①", "②", "③", "④"],
+): RuleProblem[] {
+  const problems: RuleProblem[] = [];
+  const n = correctIndexes.length;
+  if (n === 0) return problems;
+
+  if (n >= MIN_QUESTIONS_FOR_LABEL_DISTRIBUTION) {
+    const expected = n / labels.length;
+    const tolerance = Math.max(1, Math.round(n * LABEL_SHARE_TOLERANCE));
+    labels.forEach((label, i) => {
+      const count = correctIndexes.filter((x) => x === i).length;
+      if (Math.abs(count - expected) > tolerance) {
+        problems.push({
+          path: "",
+          message: `nhãn đúng ${label} có ${count}/${n} câu (${Math.round((count / n) * 100)}%), lệch quá xa mức ~25% (cho phép ${Math.max(0, Math.ceil(expected - tolerance))}–${Math.floor(expected + tolerance)} câu)`,
+        });
+      }
+    });
+  }
+
+  const result = analyzeAnswerLabels(correctIndexes);
+  if (result.maxRun > 3) {
+    const end = result.runEnd;
+    problems.push({
+      path: "",
+      message: `${result.maxRun} câu liền nhau (câu ${end - result.maxRun + 2}–${end + 1} trong phần) cùng nhãn đúng ${labels[correctIndexes[end]!]} (không quá 3)`,
+    });
+  }
+  if (result.cycle) {
+    const { length, start } = result.cycle;
+    problems.push({
+      path: "",
+      message: `chuỗi nhãn đúng dài ${length} (câu ${start + 1}–${start + length}) lặp lại liền nhau ngay sau đó (chu kỳ lặp nhãn); hãy xáo thứ tự câu`,
+    });
+  }
+  return problems;
+}

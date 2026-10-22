@@ -294,19 +294,150 @@ export const vi = {
   examKind: {
     title: (kind: string) => `Đề thi ${kind}`,
     planned: ["Danh sách đề thuộc loại này, kèm trạng thái đã làm và điểm gần nhất."],
-    sampleHeading: "Ví dụ một đề",
-    examLabel: (id: string) => `Đề ${id}`,
+    listHeading: "Chọn đề",
+    listLabel: (kind: string) => `Danh sách đề ${kind}`,
+    comingSoon:
+      "Loại đề này đang được biên soạn. Trong lúc chờ, bạn có thể luyện từng dạng câu hoặc làm Mini test.",
+    guestNote:
+      "Chế độ khách: bài làm dở và điểm các lần làm được lưu tạm trên thiết bị này, chuyển lên tài khoản khi bạn đăng ký.",
+  },
+
+  examCard: {
+    sampleBadge: "Đề mẫu",
+    sampleNote: "Đề mẫu đang chờ duyệt nội dung, dùng để thử trình làm bài.",
+    questionCount: (n: number) => `${n} câu`,
+    minutes: (n: number) => `${n} phút`,
+    skillNames: { reading: "Đọc", listening: "Nghe" },
+    statusNew: "Chưa làm",
+    statusDraft: "Đang làm dở",
+    statusLatest: (score: number, max: number, level: string, estimate: boolean) =>
+      `Lần gần nhất: ${score}/${max} · ${level}${estimate ? " (ước lượng)" : ""}`,
+    attempts: (n: number) => `${n} lần làm`,
   },
 
   exam: {
-    title: (kind: string, id: string) => `${kind} · Đề ${id}`,
-    description: (kind: string) =>
-      `Trình làm bài thi ${kind} sẽ nằm ở đây, mô phỏng đúng thời gian và quy chế phòng thi.`,
-    planned: [
-      "Đồng hồ đếm ngược theo từng phần thi.",
-      "Không lộ đáp án trước khi nộp bài.",
-      "Audio phát đúng một lần, không tua.",
-    ],
+    title: (kind: string, title: string) => `${kind} · ${title}`,
+    regionLabel: "Trình làm đề thi",
+  },
+
+  examIntro: {
+    heading: "Trước khi bắt đầu",
+    summary: (questions: number, minutes: number) => `${questions} câu · ${minutes} phút`,
+    sectionLine: (skill: string, questions: number, minutes: number) =>
+      `${skill}: ${questions} câu, ${minutes} phút`,
+    rulesHeading: "Quy chế làm bài",
+    rules: {
+      timer: (minutes: number) =>
+        `Thời gian làm bài là ${minutes} phút. Đồng hồ chạy ngay khi bạn bấm Bắt đầu và vẫn chạy nếu bạn tải lại trang.`,
+      autoSubmit: "Hết giờ, bài được tự động nộp với những câu bạn đã chọn.",
+      noAnswers:
+        "Đáp án và lời giải chỉ hiện sau khi nộp bài. Bạn có thể đổi hoặc bỏ chọn đáp án và đánh dấu câu để xem lại bất cứ lúc nào trước khi nộp.",
+      blank: "Mỗi câu chỉ có một đáp án đúng. Câu bỏ trống tính là sai, không bị trừ điểm.",
+      guest: "Tiến độ làm dở được lưu tạm trên thiết bị này, không cần tài khoản.",
+    },
+    estimateNote:
+      "Mini test chỉ có một kỹ năng nên cấp hiển thị ở kết quả là ước lượng, quy đổi lên thang điểm tổng.",
+    start: "Bắt đầu làm bài",
+    loading: "Đang kiểm tra bài làm dở…",
+    lastResult: "Kết quả lần gần nhất",
+    viewLastResult: "Xem kết quả lần gần nhất",
+  },
+
+  examRun: {
+    timerLabel: "Thời gian còn lại",
+    progress: (done: number, total: number) => `Đã làm ${done}/${total}`,
+    progressLabel: (done: number, total: number) => `Đã làm ${done} trên ${total} câu`,
+    submit: "Nộp bài",
+    submitting: "Đang nộp bài…",
+    navToggle: "Bảng câu hỏi",
+    navLabel: "Bảng số câu",
+    gotoQuestion: (n: number, status: string) => `Câu ${n}${status ? `, ${status}` : ""}`,
+    statusAnswered: "đã làm",
+    statusUnanswered: "chưa làm",
+    statusMarked: "đã đánh dấu",
+    statusCurrent: "đang xem",
+    legendAnswered: "Đã làm",
+    legendUnanswered: "Chưa làm",
+    legendMarked: "Đánh dấu",
+    blockHeading: (first: number, last: number) =>
+      first === last ? `Câu ${first}` : `Câu ${first}–${last}`,
+    sectionPrefix: (skill: string) => `Phần ${skill}`,
+    questionHeading: (n: number) => `Câu ${n}`,
+    choicesLabel: (n: number) => `Câu ${n}: chọn đáp án`,
+    choiceHint: "Dùng phím mũi tên hoặc phím 1 đến 4 để chọn đáp án của câu đang xem.",
+    clear: "Bỏ chọn",
+    mark: "Đánh dấu",
+    unmark: "Bỏ đánh dấu",
+    markHelp: "Đánh dấu câu để xem lại trước khi nộp",
+    prevBlock: "Nhóm câu trước",
+    nextBlock: "Nhóm câu sau",
+    warn5: "Còn 5 phút. Hãy kiểm tra lại các câu chưa làm.",
+    warn1: "Chỉ còn 1 phút. Bài sẽ tự động nộp khi hết giờ.",
+    timeUp: "Đã hết giờ, đang nộp bài…",
+    timeUpFailed: "Đã hết giờ nhưng chưa nộp được bài. Bài làm của bạn vẫn được giữ.",
+    resumed: "Đã khôi phục bài làm dở. Đồng hồ vẫn tính từ lúc bạn bắt đầu.",
+    saveFailed:
+      "Không lưu tạm được bài làm trên thiết bị này (có thể do chế độ riêng tư). Đừng tải lại trang.",
+    confirm: {
+      title: "Nộp bài?",
+      blank: (n: number) => `Còn ${n} câu bỏ trống, sẽ tính là sai.`,
+      allAnswered: "Bạn đã chọn đáp án cho tất cả các câu.",
+      marked: (n: number) => `Bạn đang đánh dấu ${n} câu để xem lại.`,
+      final: "Sau khi nộp bạn không thể sửa đáp án.",
+      back: "Quay lại làm bài",
+      yes: "Nộp bài",
+    },
+    errors: {
+      network:
+        "Không kết nối được tới máy chủ. Bài làm của bạn vẫn được giữ, hãy kiểm tra mạng rồi thử lại.",
+      server: "Máy chủ chưa chấm được bài. Bài làm của bạn vẫn được giữ, hãy thử lại sau ít phút.",
+      retry: "Thử lại nộp bài",
+    },
+  },
+
+  examResult: {
+    heading: "Kết quả bài làm",
+    scoreLabel: "Điểm",
+    scoreOf: (score: number, max: number) => `${score}/${max}`,
+    levelLabel: "Cấp",
+    estimate: "ước lượng",
+    estimateNote: (compared: number, max: number) =>
+      `Cấp chỉ là ước lượng: điểm phần Đọc được quy đổi lên thang tổng, tương đương ${compared}/${max} điểm.`,
+    notEstimate: (compared: number, max: number) => `Tổng điểm so ngưỡng cấp: ${compared}/${max}.`,
+    nextLevel: (points: number, max: number, label: string) =>
+      `Cần thêm ${points} điểm (thang ${max}) để lên ${label}.`,
+    topLevel: "Bạn đã ở cấp cao nhất.",
+    timeSpent: (clock: string) => `Thời gian làm bài: ${clock}`,
+    timedOut: "Bài được tự động nộp vì hết giờ.",
+    sectionsHeading: "Kết quả theo phần",
+    sectionColumns: { skill: "Phần", correct: "Đúng/tổng", blank: "Bỏ trống", score: "Điểm" },
+    groupHeading: "Theo nhóm dạng câu",
+    groupHint: "Chọn nhóm dạng còn yếu để luyện tiếp.",
+    group: (code: string) => `Nhóm ${code}`,
+    ratio: (correct: number, total: number, percent: number) =>
+      `${correct}/${total} câu · ${percent}%`,
+    practiceType: "Luyện dạng này",
+    practiceTypeLabel: (name: string) => `Luyện dạng này: ${name}`,
+    noPractice: "Chưa có câu luyện cho nhóm này",
+    subskillHeading: "Theo kỹ năng con",
+    subskillHint: "Sắp xếp từ kỹ năng yếu nhất.",
+    reviewHeading: "Xem lại từng câu",
+    filterLabel: "Lọc câu",
+    filterAll: "Tất cả",
+    filterWrong: "Sai",
+    filterBlank: "Bỏ trống",
+    filterCount: (label: string, n: number) => `${label} (${n})`,
+    filterEmpty: "Không có câu nào trong mục này.",
+    reviewItem: (n: number, code: string) => `Câu ${n} · ${code}`,
+    verdict: { correct: "Đúng", wrong: "Sai", blank: "Bỏ trống" },
+    yourAnswer: (label: string) => `Bạn chọn ${label}`,
+    blankAnswer: "Bạn bỏ trống",
+    correctIs: (label: string) => `Đáp án đúng ${label}`,
+    explanation: "Lời giải",
+    retry: "Làm lại đề",
+    backToList: "Về danh sách đề",
+    saved: "Kết quả được lưu tạm trên thiết bị này (chế độ khách).",
+    unsaved: "Không lưu được kết quả trên thiết bị này (có thể do chế độ riêng tư).",
   },
 
   upgrade: {

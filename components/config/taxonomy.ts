@@ -14,10 +14,10 @@ export type SkillCode = (typeof SKILLS)[number]["code"];
 export type Skill = (typeof SKILLS)[number];
 
 export const EXAM_KINDS = [
-  { slug: "full", sampleExamId: "01" },
-  { slug: "mini", sampleExamId: "01" },
-  { slug: "hard", sampleExamId: "01" },
-  { slug: "ibt", sampleExamId: "01" },
+  { slug: "full" },
+  { slug: "mini" },
+  { slug: "hard" },
+  { slug: "ibt" },
 ] as const;
 
 export type ExamKindSlug = (typeof EXAM_KINDS)[number]["slug"];
