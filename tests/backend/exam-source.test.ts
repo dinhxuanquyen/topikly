@@ -26,9 +26,20 @@ const DOC_01_IDS = [
   "r10-0001",
   "r14-0001",
   "r17-0001",
+  "r19-0001",
+  "r20-0001",
+  "r23-0001",
+  "r24-0001",
   "r26-0001",
+  "r29-0001",
+  "r33-0001",
   "r35-0001",
   "r40-0001",
+  "r44-0001",
+  "r45-0001",
+  "r48-0001",
+  "r49-0001",
+  "r50-0001",
 ];
 
 const FORBIDDEN_KEYS = [
@@ -80,11 +91,11 @@ describe("exam/source: đề mẫu thật content/topik-ii/exams/mini/doc-01", (
         id: "doc-01",
         program: "topik-ii",
         kind: "mini",
-        title: "Mini test Đọc 01 (đề mẫu)",
+        title: "Mini test Đọc 01",
         status: "draft",
         skills: ["reading"],
-        question_count: 9,
-        duration_sec: 900, // override trong file đề
+        question_count: 20,
+        duration_sec: 1800, // không override: lấy blueprint mini.reading
       },
     ]);
     expect(listExams("topik-ii", "mini")).toHaveLength(1);
@@ -100,32 +111,36 @@ describe("exam/source: đề mẫu thật content/topik-ii/exams/mini/doc-01", (
     expect(section).toMatchObject({
       skill: "reading",
       order: 1,
-      duration_sec: 900,
-      question_count: 9,
+      duration_sec: 1800,
+      question_count: 20,
       max_score: 100,
     });
 
     const numbers = section.blocks.flatMap((b) => b.questions.map((q) => q.number));
-    expect(numbers).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    expect(numbers).toEqual(Array.from({ length: 20 }, (_, i) => i + 1));
     expect(section.blocks.flatMap((b) => b.questions.map((q) => q.question.id))).toEqual(
       DOC_01_IDS,
     );
-    expect(section.blocks.map((b) => b.type_group)).toEqual([
-      "R01-2",
-      "R03-4",
-      "R05-8",
-      "R09-12",
-      "R13-15",
-      "R16-18",
-      "R25-27",
-      "R35-38",
-      "R39-41",
+    // [nhóm dạng, số đầu, số cuối, dùng chung ngữ liệu]
+    expect(
+      section.blocks.map((b) => [b.type_group, b.first_number, b.last_number, b.shared_material]),
+    ).toEqual([
+      ["R01-2", 1, 1, false],
+      ["R03-4", 2, 2, false],
+      ["R05-8", 3, 3, false],
+      ["R09-12", 4, 4, false],
+      ["R13-15", 5, 5, false],
+      ["R16-18", 6, 6, false],
+      ["R19-20", 7, 8, true],
+      ["R23-24", 9, 10, true],
+      ["R25-27", 11, 11, false],
+      ["R28-31", 12, 12, false],
+      ["R32-34", 13, 13, false],
+      ["R35-38", 14, 14, false],
+      ["R39-41", 15, 15, false],
+      ["R44-45", 16, 17, true],
+      ["R48-50", 18, 20, true],
     ]);
-    for (const [i, block] of section.blocks.entries()) {
-      expect(block.first_number).toBe(i + 1);
-      expect(block.last_number).toBe(i + 1);
-      expect(block.shared_material).toBe(false);
-    }
   });
 
   it("lệnh nhóm lấy từ cấu hình, đã thay số câu thật (khối một câu: [n])", () => {
@@ -134,9 +149,10 @@ describe("exam/source: đề mẫu thật content/topik-ii/exams/mini/doc-01", (
     expect(blocks[3]!.instruction_ko).toBe(
       "※ [4] 다음 글 또는 그래프의 내용과 같은 것을 고르십시오.",
     );
-    expect(blocks[8]!.instruction_ko).toBe(
-      "※ [9] 다음 글에서 <보기>의 문장이 들어가기에 가장 알맞은 곳을 고르십시오.",
+    expect(blocks[12]!.instruction_ko).toBe(
+      "※ [15] 다음 글에서 <보기>의 문장이 들어가기에 가장 알맞은 곳을 고르십시오.",
     );
+    expect(blocks[14]!.instruction_ko).toBe("※ [18~20] 다음을 읽고 물음에 답하십시오.");
     for (const b of blocks) expect(b.instruction_ko).not.toMatch(/[{}]/);
   });
 
@@ -147,10 +163,10 @@ describe("exam/source: đề mẫu thật content/topik-ii/exams/mini/doc-01", (
     expect(JSON.stringify(exam)).not.toContain("explanation_vi");
   });
 
-  it("FullExam có đáp án: nhãn đúng của chuỗi mẫu là ②④①③②④①③②", () => {
+  it("FullExam có đáp án: nhãn đúng theo thứ tự đề là ②④①③②④③①④③①②④③②①④③①②", () => {
     const full = getFullExam("topik-ii", "mini", "doc-01")!;
     const labels = full.sections[0]!.questions.map((q) => q.question.correctLabel);
-    expect(labels.join("")).toBe("②④①③②④①③②");
+    expect(labels.join("")).toBe("②④①③②④③①④③①②④③②①④③①②");
     expect(full.sections[0]!.questions.map((q) => q.type_group)[0]).toBe("R01-2");
   });
 
@@ -280,10 +296,11 @@ describe("exam/source: đề trong thư mục tạm", () => {
   };
 
   it("đề published vi phạm luật nhãn đúng bị loại (có console.warn); draft cùng nội dung vẫn hiện", () => {
-    const published = DOC_01.replace(/^id: doc-01$/m, "id: doc-02").replace(
-      /^status: draft$/m,
-      "status: published",
-    );
+    // Dồn r03, r17, r33 (đều ④) lên trước r23 (④) => 4 câu liền cùng nhãn ④.
+    const published = DOC_01.replace(/^id: doc-01$/m, "id: doc-02")
+      .replace(/^status: draft$/m, "status: published")
+      .replace(/^\s+- r(03|17|33)-0001\n/gm, "")
+      .replace(/^(\s+)- r23-0001$/m, "$1- r03-0001\n$1- r17-0001\n$1- r33-0001\n$1- r23-0001");
     const root = tempRoot({ "mini/doc-01.yaml": DOC_01, "mini/doc-02.yaml": published });
     withRoot(root, () => {
       const list = listExams("topik-ii", undefined, { contentRoot: root });
@@ -322,13 +339,20 @@ describe("exam/source: đề trong thư mục tạm", () => {
     });
   });
 
-  it("thời gian phần lấy blueprint khi file đề không override", () => {
-    const noOverride = DOC_01.replace(/^\s+duration_sec: 900\n/m, "");
-    expect(noOverride).not.toMatch(/^\s+duration_sec:/m);
-    const root = tempRoot({ "mini/doc-01.yaml": noOverride });
+  it("thời gian phần lấy blueprint khi file đề không override; có duration_sec thì ghi đè", () => {
+    expect(DOC_01).not.toMatch(/^\s+duration_sec:/m);
+    const override = DOC_01.replace(/^id: doc-01$/m, "id: doc-04").replace(
+      /^(\s+)- skill: reading$/m,
+      "$1- skill: reading\n$1  duration_sec: 900",
+    );
+    expect(override).toMatch(/^\s+duration_sec: 900$/m);
+    const root = tempRoot({ "mini/doc-01.yaml": DOC_01, "mini/doc-04.yaml": override });
     withRoot(root, () => {
-      const [exam] = listExams("topik-ii", undefined, { contentRoot: root });
-      expect(exam!.duration_sec).toBe(topikII.exam_blueprints.mini!.reading!.duration_sec);
+      const exams = listExams("topik-ii", undefined, { contentRoot: root });
+      expect(exams.find((e) => e.id === "doc-01")!.duration_sec).toBe(
+        topikII.exam_blueprints.mini!.reading!.duration_sec,
+      );
+      expect(exams.find((e) => e.id === "doc-04")!.duration_sec).toBe(900);
     });
   });
 });

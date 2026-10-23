@@ -22,9 +22,20 @@ const CORRECT: Record<string, string> = {
   "r10-0001": "③",
   "r14-0001": "②",
   "r17-0001": "④",
+  "r19-0001": "③",
+  "r20-0001": "①",
+  "r23-0001": "④",
+  "r24-0001": "③",
   "r26-0001": "①",
+  "r29-0001": "②",
+  "r33-0001": "④",
   "r35-0001": "③",
   "r40-0001": "②",
+  "r44-0001": "①",
+  "r45-0001": "④",
+  "r48-0001": "③",
+  "r49-0001": "①",
+  "r50-0001": "②",
 };
 
 function post(body: unknown, raw = false): Promise<Response> {
@@ -59,18 +70,18 @@ describe("POST /api/exam/submit", () => {
       examId: "doc-01",
       program: "topik-ii",
       kind: "mini",
-      title: "Mini test Đọc 01 (đề mẫu)",
+      title: "Mini test Đọc 01",
       timeSpentMs: 600_000,
       timedOut: false,
       total_score: 100,
       total_max_score: 100,
     });
     expect(r.sections).toEqual([
-      { skill: "reading", correct: 9, total: 9, unanswered: 0, score: 100, max_score: 100 },
+      { skill: "reading", correct: 20, total: 20, unanswered: 0, score: 100, max_score: 100 },
     ]);
     expect(r.level).toMatchObject({ level: 6, compared_score: 300, is_estimate: true });
-    expect(r.questions).toHaveLength(9);
-    expect(r.questions.map((q) => q.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    expect(r.questions).toHaveLength(20);
+    expect(r.questions.map((q) => q.number)).toEqual(Array.from({ length: 20 }, (_, i) => i + 1));
     expect(r.questions[0]).toMatchObject({
       questionId: "r01-0001",
       correct: true,
@@ -78,7 +89,7 @@ describe("POST /api/exam/submit", () => {
       type_group: "R01-2",
     });
     expect(r.questions[0]!.explanation_vi.length).toBeGreaterThan(0);
-    expect(r.by_type_group).toHaveLength(9);
+    expect(r.by_type_group).toHaveLength(15);
     expect(r.by_subskill.length).toBeGreaterThan(0);
     expect(typeof r.submittedAt).toBe("number");
   });
@@ -92,7 +103,7 @@ describe("POST /api/exam/submit", () => {
     expect(res.status).toBe(200);
     const r = (await res.json()) as ExamResult;
     expect(r.timedOut).toBe(true);
-    expect(r.sections[0]).toMatchObject({ correct: 1, total: 9, unanswered: 7 });
+    expect(r.sections[0]).toMatchObject({ correct: 1, total: 20, unanswered: 18 });
     expect(r.questions.find((q) => q.questionId === "r01-0001")).toMatchObject({
       correct: false,
       selectedLabel: "①",
@@ -178,7 +189,7 @@ describe("exam/queries (hàm 'use cache' cho server component)", () => {
 
   it("getExam trả PublicExam không đáp án, hoặc null", async () => {
     const exam = await getExam("topik-ii", "mini", "doc-01");
-    expect(exam?.sections[0]?.blocks).toHaveLength(9);
+    expect(exam?.sections[0]?.blocks).toHaveLength(15);
     const text = JSON.stringify(exam);
     for (const key of ['"correct"', '"note_vi"', '"trap"', '"explanation_vi"']) {
       expect(text).not.toContain(key);

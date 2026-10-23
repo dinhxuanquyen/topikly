@@ -340,22 +340,37 @@ describe("validateExamFile: draft cảnh báo, published chặn", () => {
 describe("validateContent: file đề trong content/", () => {
   const SAMPLE = "topik-ii/exams/mini/doc-01.yaml";
 
-  it("đề mẫu doc-01 với câu thật: không lỗi, cảnh báo thiếu câu và chu kỳ nhãn", () => {
-    const files = [...DOC_01_QUESTIONS.map(real), real(SAMPLE)];
-    const r = validateContent(files);
+  it("đề doc-01 với câu thật: đủ 20 câu, đạt luật nhãn, kể cả khi published", () => {
+    const r = validateContent([...DOC_01_QUESTIONS.map(real), real(SAMPLE)]);
     expect(r.errorCount).toBe(0);
     expect(r.examsChecked).toBe(1);
-    const examIssues = r.issues.filter((i) => i.file === SAMPLE);
-    expect(examIssues.map((i) => i.code)).toEqual(["question-count", "label-rule"]);
-    expect(examIssues.every((i) => i.severity === "warning")).toBe(true);
-    expect(examIssues[0]!.message).toMatch(/9 câu.*20/);
-    expect(examIssues[1]!.message).toMatch(/chu kỳ lặp/);
-  });
+    expect(r.issues.filter((i) => i.file === SAMPLE)).toEqual([]);
 
-  it("cùng đề nhưng status published: hai vi phạm thành lỗi", () => {
     const published = {
       file: SAMPLE,
       text: real(SAMPLE).text.replace(/^status: draft$/m, "status: published"),
+    };
+    const p = validateContent([...DOC_01_QUESTIONS.map(real), published]);
+    expect(p.errorCount).toBe(0);
+    expect(p.issues.filter((i) => i.file === SAMPLE)).toEqual([]);
+  });
+
+  it("thiếu câu và dãy nhãn liền: draft chỉ cảnh báo, published thành lỗi", () => {
+    // Bỏ r01 (19/20 câu) và dồn r03, r17, r33 (đều ④) lên trước r23 (④) => 4 câu liền nhãn ④.
+    const broken = real(SAMPLE)
+      .text.replace(/^\s+- r(01|03|17|33)-0001\n/gm, "")
+      .replace(/^(\s+)- r23-0001$/m, "$1- r03-0001\n$1- r17-0001\n$1- r33-0001\n$1- r23-0001");
+    const draft = validateContent([...DOC_01_QUESTIONS.map(real), { file: SAMPLE, text: broken }]);
+    expect(draft.errorCount).toBe(0);
+    const draftIssues = draft.issues.filter((i) => i.file === SAMPLE);
+    expect(draftIssues.map((i) => i.code)).toEqual(["question-count", "label-rule"]);
+    expect(draftIssues.every((i) => i.severity === "warning")).toBe(true);
+    expect(draftIssues[0]!.message).toMatch(/19 câu.*20/);
+    expect(draftIssues[1]!.message).toMatch(/4 câu liền nhau/);
+
+    const published = {
+      file: SAMPLE,
+      text: broken.replace(/^status: draft$/m, "status: published"),
     };
     const r = validateContent([...DOC_01_QUESTIONS.map(real), published]);
     expect(
@@ -406,7 +421,18 @@ const DOC_01_QUESTIONS = [
   "topik-ii/practice/R10/r10-0001.yaml",
   "topik-ii/practice/R14/r14-0001.yaml",
   "topik-ii/practice/R17/r17-0001.yaml",
+  "topik-ii/practice/R19/r19-0001.yaml",
+  "topik-ii/practice/R20/r20-0001.yaml",
+  "topik-ii/practice/R23/r23-0001.yaml",
+  "topik-ii/practice/R24/r24-0001.yaml",
   "topik-ii/practice/R26/r26-0001.yaml",
+  "topik-ii/practice/R29/r29-0001.yaml",
+  "topik-ii/practice/R33/r33-0001.yaml",
   "topik-ii/practice/R35/r35-0001.yaml",
   "topik-ii/practice/R40/r40-0001.yaml",
+  "topik-ii/practice/R44/r44-0001.yaml",
+  "topik-ii/practice/R45/r45-0001.yaml",
+  "topik-ii/practice/R48/r48-0001.yaml",
+  "topik-ii/practice/R49/r49-0001.yaml",
+  "topik-ii/practice/R50/r50-0001.yaml",
 ];

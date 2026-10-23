@@ -1,14 +1,14 @@
 import { expect, test, type APIRequestContext, type Locator, type Page } from "@playwright/test";
 
 /**
- * E2E Mini test Đọc (đề mẫu doc-01, 9 câu, 15 phút) ở chế độ khách: danh sách -> giới thiệu -> làm
+ * E2E Mini test Đọc (đề mẫu doc-01, 20 câu, 30 phút) ở chế độ khách: danh sách -> giới thiệu -> làm
  * bài (đồng hồ, bảng số câu, đánh dấu) -> nộp -> kết quả; tải lại giữa chừng; hết giờ tự nộp;
  * không lộ đáp án trước khi nộp. Bản nháp và kết quả lưu IndexedDB "topikly-exam"; mỗi test dùng
  * browser context mới nên luôn bắt đầu sạch.
  *
  * Đáp án đúng KHÔNG hard-code: lấy một lần từ POST /api/exam/submit với bài trống (server trả
  * correctLabel cho từng câu). Nhờ vậy đổi nội dung đề mẫu không làm vỡ test. Điểm kỳ vọng theo
- * công thức trong lib/exam/score.ts: round(đúng/9 × 100), cấp so ngưỡng sau khi chiếu lên thang 300
+ * công thức trong lib/exam/score.ts: round(đúng/20 × 100), cấp so ngưỡng sau khi chiếu lên thang 300
  * (3급 từ 120, 4급 từ 150, 5급 từ 190, 6급 từ 230).
  */
 
@@ -16,8 +16,8 @@ const PROGRAM = "topik-ii";
 const LIST_URL = `/${PROGRAM}/de-thi/mini`;
 const EXAM_URL = `/${PROGRAM}/de-thi/mini/doc-01`;
 const SUBMIT_URL = "/api/exam/submit";
-const TOTAL = 9;
-const DURATION_SEC = 900;
+const TOTAL = 20;
+const DURATION_SEC = 1800;
 
 // ------------------------------------------------------------------ sự thật từ server
 
@@ -180,8 +180,8 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     const card = page.getByRole("link", { name: /Mini test Đọc 01/ });
     await expect(card).toBeVisible();
     await expect(card).toContainText("Đề mẫu");
-    await expect(card).toContainText("9 câu");
-    await expect(card).toContainText("15 phút");
+    await expect(card).toContainText(`${TOTAL} câu`);
+    await expect(card).toContainText("30 phút");
     await expect(card).toContainText("Đọc");
     await expect(card).toContainText("Chưa làm"); // sau khi đọc xong IndexedDB
 
@@ -191,18 +191,18 @@ test.describe("Mini test Đọc — chế độ khách", () => {
 
     // Màn giới thiệu: số câu/thời gian/quy chế, ghi chú đề mẫu và ước lượng cấp.
     const intro = page.getByRole("region", { name: "Trước khi bắt đầu" });
-    await expect(intro).toContainText("9 câu · 15 phút");
-    await expect(intro).toContainText("Thời gian làm bài là 15 phút");
+    await expect(intro).toContainText(`${TOTAL} câu · 30 phút`);
+    await expect(intro).toContainText("Thời gian làm bài là 30 phút");
     await expect(intro).toContainText("Đề mẫu đang chờ duyệt nội dung");
     await expect(intro).toContainText("cấp hiển thị ở kết quả là ước lượng");
     await expect(timer(page)).toHaveCount(0); // đồng hồ chưa chạy khi chưa bấm Bắt đầu
 
     await startButton(page).click();
     await expect(timer(page)).toBeVisible();
-    // 9 câu, câu 1 hiển thị, khối đầu có lệnh tiếng Hàn.
+    // Câu 1 hiển thị, khối đầu có lệnh tiếng Hàn.
     await expect(page.getByRole("heading", { level: 2, name: /^Câu 1/ })).toBeVisible();
     await expect(runner(page).locator('p[lang="ko"]').first()).toContainText(/[가-힣]/);
-    await expect(page.getByText("Đã làm 0/9")).toBeVisible();
+    await expect(page.getByText(`Đã làm 0/${TOTAL}`)).toBeVisible();
     expect(await remainingSeconds(page)).toBeGreaterThan(DURATION_SEC - 30);
   });
 
@@ -231,7 +231,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     await expect(startButton(page)).toBeEnabled();
     await startButton(page).click();
     await expect(timer(page)).toBeVisible();
-    // Duyệt hết 9 câu để mọi khối đã được render.
+    // Duyệt hết các câu để mọi khối đã được render.
     for (let n = 1; n <= TOTAL; n++) await gotoQuestion(page, n);
 
     // Tải thêm trực tiếp HTML và luồng RSC của trang đề (không qua trình duyệt).
@@ -272,11 +272,11 @@ test.describe("Mini test Đọc — chế độ khách", () => {
 
     // Đáp án hiện đúng, đổi và bỏ chọn được.
     await pick(page, 1, truth.correctOf(1));
-    await expect(page.getByText("Đã làm 1/9")).toBeVisible();
+    await expect(page.getByText(`Đã làm 1/${TOTAL}`)).toBeVisible();
     await pick(page, 1, truth.wrongOf(1));
     await expect(radio(page, 1, truth.correctOf(1))).not.toBeChecked();
     await page.getByRole("button", { name: "Bỏ chọn" }).click();
-    await expect(page.getByText("Đã làm 0/9")).toBeVisible();
+    await expect(page.getByText(`Đã làm 0/${TOTAL}`)).toBeVisible();
 
     await pick(page, 1, truth.correctOf(1));
     await answer(page, 3, truth.wrongOf(3));
@@ -301,7 +301,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
       "aria-current",
       "step",
     );
-    await expect(page.getByText("Đã làm 3/9")).toBeVisible();
+    await expect(page.getByText(`Đã làm 3/${TOTAL}`)).toBeVisible();
 
     // Điều hướng khối bằng nút Trước/Sau.
     await nav.getByRole("button", { name: /^Câu 7\b/ }).click();
@@ -318,11 +318,11 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     await expect(timer(page)).toBeVisible();
     await expect(page.getByText("Đã khôi phục bài làm dở")).toBeVisible();
     const afterReload = await remainingSeconds(page);
-    expect(afterReload, "đồng hồ không được reset về 15:00 sau khi tải lại").toBeLessThan(
+    expect(afterReload, "đồng hồ không được reset về 30:00 sau khi tải lại").toBeLessThan(
       DURATION_SEC,
     );
     expect(afterReload).toBeGreaterThan(DURATION_SEC - 120);
-    await expect(page.getByText("Đã làm 3/9")).toBeVisible();
+    await expect(page.getByText(`Đã làm 3/${TOTAL}`)).toBeVisible();
 
     await gotoQuestion(page, 1);
     await expect(radio(page, 1, truth.correctOf(1))).toBeChecked();
@@ -334,14 +334,14 @@ test.describe("Mini test Đọc — chế độ khách", () => {
       page.getByRole("article", { name: "Câu 5" }).getByRole("button", { name: "Bỏ đánh dấu" }),
     ).toHaveAttribute("aria-pressed", "true");
 
-    // Tải lại lần 2 sau khi "đã làm 3 phút": đồng hồ phải khoảng 12:00, không phải 15:00.
+    // Tải lại lần 2 sau khi "đã làm 3 phút": đồng hồ phải khoảng 27:00, không phải 30:00.
     await shiftDraftStart(page, 180_000);
     await page.reload();
     await expect(timer(page)).toBeVisible();
     const afterShift = await remainingSeconds(page);
     expect(afterShift).toBeLessThanOrEqual(DURATION_SEC - 180);
     expect(afterShift).toBeGreaterThan(DURATION_SEC - 180 - 120);
-    await expect(page.getByText("Đã làm 3/9")).toBeVisible();
+    await expect(page.getByText(`Đã làm 3/${TOTAL}`)).toBeVisible();
 
     // Danh sách hiển thị "Đang làm dở".
     await page.goto(LIST_URL);
@@ -355,11 +355,11 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     const truth = await fetchTruth(request);
     await startExam(page);
 
-    // Câu 1-5 đúng, câu 6 sai, câu 7-9 bỏ trống => 5/9 đúng => 56/100 => 168/300 => 4급 (ước lượng).
-    for (let n = 1; n <= 5; n++) await answer(page, n, truth.correctOf(n));
-    await answer(page, 6, truth.wrongOf(6));
+    // Câu 1-12 đúng, câu 13 sai, câu 14-20 bỏ trống => 12/20 đúng => 60/100 => 180/300 => 4급 (ước lượng).
+    for (let n = 1; n <= 12; n++) await answer(page, n, truth.correctOf(n));
+    await answer(page, 13, truth.wrongOf(13));
     await page
-      .getByRole("article", { name: "Câu 6" })
+      .getByRole("article", { name: "Câu 13" })
       .getByRole("button", { name: "Đánh dấu" })
       .click();
 
@@ -367,12 +367,12 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     await submitButton(page).click();
     const confirm = dialog(page);
     await expect(confirm).toBeVisible();
-    await expect(confirm).toContainText("Còn 3 câu bỏ trống");
+    await expect(confirm).toContainText("Còn 7 câu bỏ trống");
     await expect(confirm).toContainText("đánh dấu 1 câu");
     await confirm.getByRole("button", { name: "Quay lại làm bài" }).click();
     await expect(confirm).toHaveCount(0);
     await expect(resultHeading(page)).toHaveCount(0);
-    await expect(page.getByText("Đã làm 6/9")).toBeVisible();
+    await expect(page.getByText(`Đã làm 13/${TOTAL}`)).toBeVisible();
 
     // Nộp thật: bắt response API để kiểm tra body gửi đi.
     await submitButton(page).click();
@@ -386,30 +386,30 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     };
     expect(sent.timedOut).toBe(false);
     expect(Object.keys(sent.answers)).toHaveLength(TOTAL);
-    expect(Object.values(sent.answers).filter((v) => v === null)).toHaveLength(3);
+    expect(Object.values(sent.answers).filter((v) => v === null)).toHaveLength(7);
 
     await expect(resultHeading(page)).toBeVisible();
     await expect(resultHeading(page)).toBeFocused();
 
     // Điểm /100, cấp kèm chữ "ước lượng".
     const summary = page.getByRole("region", { name: "Kết quả bài làm" });
-    await expect(summary).toContainText("56/100");
+    await expect(summary).toContainText("60/100");
     await expect(summary).toContainText("Cấp (ước lượng)");
     await expect(summary).toContainText("4급");
     await expect(summary).toContainText("Cấp chỉ là ước lượng");
-    await expect(summary).toContainText("tương đương 168/300");
+    await expect(summary).toContainText("tương đương 180/300");
     await expect(summary).toContainText("Thời gian làm bài: ");
     await expect(summary).not.toContainText("Bài được tự động nộp vì hết giờ");
     await expect(page.getByText("Kết quả được lưu tạm trên thiết bị này")).toBeVisible();
 
-    // Bảng theo phần: Đọc 5/9, bỏ trống 3, 56/100.
+    // Bảng theo phần: Đọc 12/20, bỏ trống 7, 60/100.
     const sections = page.getByRole("table", { name: "Kết quả theo phần" });
     const readingRow = sections.getByRole("row", { name: /Đọc/ });
-    await expect(readingRow).toContainText("5/9");
-    await expect(readingRow).toContainText("56/100");
-    await expect(readingRow.getByRole("cell").nth(1)).toHaveText("3");
+    await expect(readingRow).toContainText(`12/${TOTAL}`);
+    await expect(readingRow).toContainText("60/100");
+    await expect(readingRow.getByRole("cell").nth(1)).toHaveText("7");
 
-    // Bảng theo nhóm dạng: tổng số câu các nhóm = 9, mỗi nhóm có thanh + phần trăm.
+    // Bảng theo nhóm dạng: tổng số câu các nhóm = TOTAL, mỗi nhóm có thanh + phần trăm.
     const groups = page.getByRole("list", { name: "Theo nhóm dạng câu" });
     const rows = groups.getByRole("listitem");
     expect(await rows.count()).toBeGreaterThan(1);
@@ -426,8 +426,8 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     await expect(wrongItems).toHaveCount(1);
     await expect(page.locator('li[data-verdict="correct"]')).toHaveCount(0);
     const wrongItem = wrongItems.first();
-    await expect(wrongItem).toContainText("Câu 6");
-    await expect(wrongItem).toContainText(`Đáp án đúng ${truth.correctOf(6)}`);
+    await expect(wrongItem).toContainText("Câu 13");
+    await expect(wrongItem).toContainText(`Đáp án đúng ${truth.correctOf(13)}`);
     await wrongItem.getByRole("button").first().click();
     await expect(wrongItem.getByRole("heading", { level: 4, name: "Lời giải" })).toBeVisible();
     const explanation = wrongItem
@@ -435,9 +435,9 @@ test.describe("Mini test Đọc — chế độ khách", () => {
       .locator("..");
     expect(((await explanation.textContent()) ?? "").length).toBeGreaterThan(40);
 
-    await page.getByRole("button", { name: "Bỏ trống (3)" }).click();
-    await expect(page.locator('li[data-verdict="blank"]')).toHaveCount(3);
-    await page.getByRole("button", { name: "Tất cả (9)" }).click();
+    await page.getByRole("button", { name: "Bỏ trống (7)" }).click();
+    await expect(page.locator('li[data-verdict="blank"]')).toHaveCount(7);
+    await page.getByRole("button", { name: `Tất cả (${TOTAL})` }).click();
     await expect(page.locator("li[data-verdict]")).toHaveCount(TOTAL);
 
     // Về danh sách: thẻ hiện kết quả gần nhất; bản nháp đã bị xóa.
@@ -445,7 +445,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     await page.getByRole("link", { name: "Về danh sách đề" }).click();
     await expect(page).toHaveURL(/\/de-thi\/mini$/);
     const card = page.getByRole("link", { name: /Mini test Đọc 01/ });
-    await expect(card).toContainText("Lần gần nhất: 56/100 · 4급 (ước lượng)");
+    await expect(card).toContainText("Lần gần nhất: 60/100 · 4급 (ước lượng)");
     await expect(card).toContainText("1 lần làm");
 
     // Vào lại đề: có nút xem kết quả lần gần nhất và không còn "khôi phục bài làm dở".
@@ -453,7 +453,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     await expect(startButton(page)).toBeEnabled();
     await expect(page.getByRole("button", { name: "Xem kết quả lần gần nhất" })).toBeVisible();
     await page.getByRole("button", { name: "Xem kết quả lần gần nhất" }).click();
-    await expect(page.getByRole("region", { name: "Kết quả bài làm" })).toContainText("56/100");
+    await expect(page.getByRole("region", { name: "Kết quả bài làm" })).toContainText("60/100");
   });
 
   test('Kết quả: link "Luyện dạng này" dẫn đúng trang luyện tập', async ({ page, request }) => {
@@ -462,7 +462,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     // Chỉ làm sai câu 6 (nhóm của nó phải có link luyện tập đúng dạng của câu đó).
     await answer(page, 6, truth.wrongOf(6));
     await submitButton(page).click();
-    await expect(dialog(page)).toContainText("Còn 8 câu bỏ trống");
+    await expect(dialog(page)).toContainText(`Còn ${TOTAL - 1} câu bỏ trống`);
     await dialog(page).getByRole("button", { name: "Nộp bài" }).click();
     await expect(resultHeading(page)).toBeVisible();
     await expect(page.getByRole("region", { name: "Kết quả bài làm" })).toContainText("0/100");
@@ -489,7 +489,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     await expect(page.getByRole("region", { name: "Trình làm bài" })).toBeVisible();
   });
 
-  test("Hết giờ: tự nộp khi đồng hồ về 0 (tua 15 phút bằng page.clock)", async ({
+  test("Hết giờ: tự nộp khi đồng hồ về 0 (tua 30 phút bằng page.clock)", async ({
     page,
     request,
   }) => {
@@ -502,7 +502,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     const requestPromise = page.waitForRequest(
       (r) => r.url().endsWith(SUBMIT_URL) && r.method() === "POST",
     );
-    await page.clock.fastForward("15:00");
+    await page.clock.fastForward("30:00");
 
     const apiRequest = await requestPromise;
     const sent = apiRequest.postDataJSON() as { timedOut: boolean; timeSpentMs: number };
@@ -512,7 +512,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     await expect(resultHeading(page)).toBeVisible();
     const summary = page.getByRole("region", { name: "Kết quả bài làm" });
     await expect(summary).toContainText("Bài được tự động nộp vì hết giờ");
-    await expect(summary).toContainText("22/100"); // 2/9 => round(22.2)
+    await expect(summary).toContainText("10/100"); // 2/20
     await expect(summary).toContainText("Cấp (ước lượng)");
     await expect(summary).toContainText("Chưa đạt cấp");
     // Không hộp xác nhận nào hiện ra khi tự nộp.
@@ -531,7 +531,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     await expect(page.getByRole("region", { name: "Kết quả bài làm" })).toContainText(
       "Bài được tự động nộp vì hết giờ",
     );
-    await expect(page.getByRole("region", { name: "Kết quả bài làm" })).toContainText("11/100");
+    await expect(page.getByRole("region", { name: "Kết quả bài làm" })).toContainText("5/100"); // 1/20
   });
 
   test("Đồng hồ và nút Nộp bài luôn nhìn thấy (kể cả khi cuộn), không tràn ngang", async ({
@@ -603,7 +603,7 @@ test.describe("Mini test Đọc — chế độ khách", () => {
     // Vùng, đồng hồ, bảng số câu, tiến độ có nhãn.
     await expect(runner(page)).toBeVisible();
     await expect(page.getByRole("timer")).toContainText("Thời gian còn lại");
-    await expect(page.getByLabel("Đã làm 0 trên 9 câu")).toBeVisible();
+    await expect(page.getByLabel(`Đã làm 0 trên ${TOTAL} câu`)).toBeVisible();
     await expect(page.getByRole("button", { name: "Bảng câu hỏi" })).toHaveAttribute(
       "aria-expanded",
       "false",
@@ -675,15 +675,18 @@ test.describe("Mini test Đọc — chế độ khách", () => {
       };
     };
 
-    // [đúng, điểm/100, điểm so ngưỡng /300, cấp]
+    // [đúng, điểm/100, điểm so ngưỡng /300, cấp] — 20 câu: mỗi câu 5 điểm, sát từng ngưỡng cấp.
     const cases: [number, number, number, string][] = [
       [0, 0, 0, "Chưa đạt cấp"],
-      [3, 33, 99, "Chưa đạt cấp"],
-      [4, 44, 132, "3급"],
-      [5, 56, 168, "4급"],
-      [6, 67, 201, "5급"],
-      [7, 78, 234, "6급"],
-      [9, 100, 300, "6급"],
+      [7, 35, 105, "Chưa đạt cấp"],
+      [8, 40, 120, "3급"],
+      [9, 45, 135, "3급"],
+      [10, 50, 150, "4급"],
+      [12, 60, 180, "4급"],
+      [13, 65, 195, "5급"],
+      [15, 75, 225, "5급"],
+      [16, 80, 240, "6급"],
+      [20, 100, 300, "6급"],
     ];
     for (const [correct, score, compared, label] of cases) {
       const result = await submit(correct);

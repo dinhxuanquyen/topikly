@@ -1,15 +1,16 @@
-# Đề mẫu Mini test Đọc (status: draft) để dựng và thử trình làm bài. CHƯA phải đề phát hành.
-# Còn thiếu so với cấu hình Mini Đọc (20 câu) và phân bố nhãn đúng chưa đạt luật đề lắp ráp
-# (chuỗi ②④①③②④①③② là chu kỳ lặp). Khi chuyển sang `published` cần đủ câu và xáo lại thứ tự.
-# Không đưa r47-0001: thuộc bộ r46-47-0001 mà chưa có câu R46.
-# Định dạng file đề: xem comment đầu lib/exam/source.ts.
+# Mini test Đọc 01 (status: draft). Đã đủ 20 câu theo blueprint mini.reading (20 câu / 30 phút,
+# lấy thời gian từ blueprint nên không ghi duration_sec). Thứ tự câu đã xếp để đạt luật nhãn đúng
+# của đề lắp ráp (chuỗi ②④①③②④③①④③①②④③②①④③①②: mỗi nhãn 5 câu, không có hai câu liền nhau
+# cùng nhãn, không có chu kỳ lặp); các câu cùng bộ đứng liền nhau, type_code tăng dần.
+# Chờ duyệt nội dung: chỉ chuyển sang `published` khi mọi câu trong đề đã có reviewed_by.
+# Không dùng r47-0001: bộ r46-47-0001 còn chờ chốt dạng câu R46 (Phụ lục A11 của content-spec).
+# Định dạng file đề: xem docs/content-spec.md mục 5.1, tiểu mục "Định dạng file đề thi".
 id: doc-01
 kind: mini
 title: "Mini test Đọc 01"
 status: draft
 sections:
   - skill: reading
-    duration_sec: 900
     questions:
       - r01-0001
       - r03-0001
@@ -17,6 +18,17 @@ sections:
       - r10-0001
       - r14-0001
       - r17-0001
+      - r19-0001
+      - r20-0001
+      - r23-0001
+      - r24-0001
       - r26-0001
+      - r29-0001
+      - r33-0001
       - r35-0001
       - r40-0001
+      - r44-0001
+      - r45-0001
+      - r48-0001
+      - r49-0001
+      - r50-0001

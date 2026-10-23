@@ -45,10 +45,10 @@ function collectKeys(value: unknown, keys = new Set<string>()): Set<string> {
 afterEach(() => clearPracticeCache());
 
 describe("practice/source: dữ liệu thật content/topik-ii", () => {
-  it("liệt kê đúng 20 dạng trắc nghiệm (10 Đọc + 10 Nghe), bỏ Viết", () => {
+  it("liệt kê đúng 31 dạng trắc nghiệm (21 Đọc + 10 Nghe), bỏ Viết", () => {
     const all = listPracticeTypes("topik-ii");
-    expect(all).toHaveLength(20);
-    expect(all.filter((t) => t.skill === "reading")).toHaveLength(10);
+    expect(all).toHaveLength(31);
+    expect(all.filter((t) => t.skill === "reading")).toHaveLength(21);
     expect(all.filter((t) => t.skill === "listening")).toHaveLength(10);
     expect(all.some((t) => t.type_code.startsWith("W"))).toBe(false);
     expect(all.every((t) => t.question_count >= 1)).toBe(true);
@@ -57,7 +57,7 @@ describe("practice/source: dữ liệu thật content/topik-ii", () => {
 
   it("lọc theo kỹ năng và trả tên dạng, nhóm dạng", () => {
     const reading = listPracticeTypes("topik-ii", "reading");
-    expect(reading).toHaveLength(10);
+    expect(reading).toHaveLength(21);
     expect(reading.every((t) => t.skill === "reading" && t.type_code.startsWith("R"))).toBe(true);
     const r40 = reading.find((t) => t.type_code === "R40");
     expect(r40).toBeDefined();
@@ -104,7 +104,7 @@ describe("practice/source: dữ liệu thật content/topik-ii", () => {
 
   it("KHÔNG lộ đáp án, lời giải hay metadata nội bộ trên toàn bộ câu thật", () => {
     const questions = allQuestions();
-    expect(questions).toHaveLength(20);
+    expect(questions).toHaveLength(31);
     for (const q of questions) {
       const json = JSON.stringify(q);
       const full = getFullQuestion("topik-ii", q.id)!;

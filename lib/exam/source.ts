@@ -8,7 +8,7 @@
  * Server component không gọi trực tiếp mà gọi các hàm "use cache" ở ./queries.ts.
  *
  * ============================================================================================
- * ĐỊNH DẠNG FILE ĐỀ  (backend chốt theo content-spec mục 5.1; content-designer cập nhật spec)
+ * ĐỊNH DẠNG FILE ĐỀ  (bản đầy đủ: docs/content-spec.md mục 5.1 "Định dạng file đề thi"; sửa thì sửa cả hai)
  * ============================================================================================
  * Đường dẫn:  content/<program>/exams/<kind>/<id>.yaml
  *   - <program>  slug chương trình, ví dụ topik-ii
@@ -41,8 +41,7 @@
  *   status: draft
  *   sections:
  *     - skill: reading
- *       duration_sec: 900
- *       questions: [r01-0001, r03-0001, r07-0001]
+ *       questions: [r01-0001, r03-0001, r07-0001]   # thời gian lấy từ blueprint
  *
  * Ràng buộc (kiểm bởi `npm run validate:content`, lib/db/exam-validation.ts):
  *   - mọi id câu phải tồn tại, đúng kỹ năng của phần, không trùng trong đề;

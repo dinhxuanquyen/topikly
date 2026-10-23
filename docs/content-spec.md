@@ -1,6 +1,6 @@
 # Đặc tả biên soạn nội dung TOPIK II (content-spec)
 
-> **Phiên bản 0.3 · 2026-10-20** · Chủ sở hữu: `topik-content-designer` · Người dùng (product owner) duyệt cuối. Lịch sử thay đổi: xem [Phụ lục B](#phụ-lục-b--lịch-sử-thay-đổi).
+> **Phiên bản 0.3.1 · 2026-10-23** · Chủ sở hữu: `topik-content-designer` · Người dùng (product owner) duyệt cuối. Lịch sử thay đổi: xem [Phụ lục B](#phụ-lục-b--lịch-sử-thay-đổi).
 > Đầu ra Giai đoạn 0 theo [02 · Lộ trình](02-lo-trinh-trien-khai.md#giai-đoạn-0--nền-móng-2-tuần). Dựa trên [01 · Phân tích chuyên môn](01-phan-tich-chuyen-mon.md) mục 2, mô hình dữ liệu ở [README mục 6](../README.md#6-mô-hình-dữ-liệu) và mẫu YAML ở [README mục 7](../README.md#7-cấu-trúc-thư-mục-dự-kiến).
 >
 > Ai dùng tài liệu này:
@@ -646,8 +646,69 @@ ví dụ: content/topik-ii/practice/R39/r39-0001.yaml
 - `id` = `<type_code viết thường>-<serial 4 chữ số>`. Regex: `^[lrw][0-9]{2}-[0-9]{4}$`. Tiền tố của `id` phải trùng `type_code`.
 - Serial tăng dần trong từng `type_code`. **Không tái dùng** id của câu đã xoá. Câu trong một bộ dùng chung serial (mục 1.3).
 - Chương trình thi lấy từ đường dẫn (`topik-ii`). Trường `program` là tuỳ chọn, nếu có thì phải khớp đường dẫn.
-- Đề thi (`content/topik-ii/exams/`) tham chiếu tới id câu hỏi. Định dạng file đề do backend-engineer chốt cùng script import.
+- Đề thi (`content/topik-ii/exams/`) tham chiếu tới id câu hỏi. Định dạng file đề: xem [tiểu mục ngay dưới](#định-dạng-file-đề-thi).
 - Mã hoá UTF-8, Hangul dạng NFC, xuống dòng LF.
+
+#### Định dạng file đề thi
+
+Định dạng do backend-engineer chốt theo mục này. Content-designer cập nhật spec khi định dạng thay đổi. Nguồn gốc là khối "ĐỊNH DẠNG FILE ĐỀ" ở đầu `lib/exam/source.ts`. Nếu hai nơi lệch nhau thì báo backend-engineer để thống nhất.
+
+**Đường dẫn**
+
+```
+content/<program>/exams/<kind>/<id>.yaml
+ví dụ: content/topik-ii/exams/mini/doc-01.yaml
+```
+- `<program>`: slug chương trình, ví dụ `topik-ii`.
+- `<kind>`: `full`, `mini`, `hard` hoặc `ibt`. Thư mục **phải khớp** trường `kind`.
+- `<id>`: khoá ổn định trong URL `/[program]/de-thi/[kind]/[id]`. Chỉ gồm chữ thường, chữ số và dấu `-` (ví dụ `doc-01`). **Phải khớp** tên file.
+- Mỗi file là **một** đề.
+
+**Trường cấp đề**
+
+| Trường | Kiểu | Bắt buộc | Ràng buộc / ghi chú |
+|---|---|---|---|
+| `id` | string | ✓ | Khớp tên file |
+| `kind` | enum | ✓ | `full` \| `mini` \| `hard` \| `ibt`. Khớp thư mục |
+| `title` | string | ✓ | Tiêu đề tiếng Việt, ví dụ `"Mini test Đọc 01"` |
+| `status` | enum | ✓ | `draft` \| `published`. **`draft`**: đề mẫu hoặc đang soạn. Vẫn hiển thị được; các luật "đủ số câu" và "phân bố nhãn đúng" chỉ **cảnh báo**. **`published`**: các luật đó thành **lỗi chặn**, đề có lỗi không được phục vụ |
+| `program` | string | – | Nếu có thì phải khớp thư mục chương trình |
+| `sections` | list | ✓ | Các phần thi **theo thứ tự làm bài**. Mỗi kỹ năng có tối đa một phần |
+
+**Trường của mỗi phần tử `sections[]`**
+
+| Trường | Kiểu | Bắt buộc | Ràng buộc / ghi chú |
+|---|---|---|---|
+| `skill` | enum | ✓ | `reading` \| `listening`. Viết và Nói chưa được hỗ trợ trong đề |
+| `duration_sec` | int | – | **Ghi đè** thời gian của phần này (giây). Bỏ trống thì lấy `exam_blueprints[kind][skill].duration_sec` của chương trình (đề Full: lấy theo `sections` của chương trình). Chỉ ghi khi thật sự cần thời gian khác blueprint |
+| `questions` | list[id] | ✓ | Id câu hỏi (file trong `practice/`) **theo thứ tự trong đề**. Số câu trong đề là vị trí của câu (đếm từ 1, liên tục trong phần thi), **không nhất thiết** trùng số trong `type_code` |
+
+**Ví dụ**
+
+```yaml
+id: doc-01
+kind: mini
+title: "Mini test Đọc 01"
+status: draft
+sections:
+  - skill: reading
+    # duration_sec: 1200   # tuỳ chọn, chỉ ghi khi muốn ghi đè thời gian của blueprint (giây)
+    questions: [r01-0001, r03-0001, r07-0001]
+```
+
+Ví dụ trên rút gọn còn 3 câu để minh hoạ cú pháp. Đề thật phải đủ số câu theo blueprint (Mini Đọc hiện là 20 câu). Khi không ghi `duration_sec`, phần thi dùng thời gian của blueprint (Mini Đọc hiện là 30 phút).
+
+**Ràng buộc** (kiểm bởi `npm run validate:content`, mã nguồn ở `lib/db/exam-validation.ts`):
+- Mọi id câu phải tồn tại, đúng kỹ năng của phần, không trùng nhau trong đề.
+- Các câu cùng `group_key` (cặp hoặc bộ dùng chung ngữ liệu, mục 1.3) phải có **đủ** số câu của bộ (đọc từ `group_key`, ví dụ `r46-47-0001` cần 2 câu), đứng **liền nhau** và theo `type_code` tăng dần.
+- Số câu mỗi phần bằng `exam_blueprints` (Mini) hoặc `sections` (Full) của chương trình. `draft`: cảnh báo; `published`: lỗi.
+- Luật nhãn đúng của đề lắp ráp (mục 4.1), tính trên từng phần. `draft`: cảnh báo; `published`: lỗi.
+  - Mỗi nhãn khoảng 25% (áp dụng từ 8 câu trở lên).
+  - Không quá 3 câu liền nhau cùng nhãn.
+  - Không có chu kỳ lặp, tức không có chuỗi từ 4 nhãn trở lên lặp lại liền nhau.
+  - Muốn sửa thì **đổi thứ tự câu**, không đảo nhãn phương án.
+
+**Lệnh nhóm.** Lệnh nhóm tiếng Hàn (`instruction_ko`) **không** nằm trong file đề. Lệnh được lấy từ cấu hình chương trình theo `type_group` (mục 5.2). Giao diện luôn ẩn `stem` của câu đơn.
 
 ### 5.2 Trường chung (mọi biến thể)
 
@@ -854,7 +915,7 @@ reviewed_by: null
 notes_internal: "Hạ độ khó xuống 3 để làm bài khởi động cho thẻ R19-20."
 passage: |
   요즘 점심시간에 회사 근처를 짧게 산책하는 직장인이 늘고 있다. 점심을 먹고 나면 졸음이 오고 일의 능률이 떨어지기 쉬운데, 10분 정도만 걸어도 몸이 가벼워지고 머리가 맑아진다고 한다. (   ) 동료와 함께 걸으면 자연스럽게 이야기를 나누게 되어 사무실에서는 꺼내기 어려웠던 고민을 털어놓기도 한다. 이처럼 짧은 산책은 건강뿐만 아니라 직장 내 인간관계에도 좋은 영향을 준다.
-stem: "(   )에 들어갈 말로 가장 알맞은 것을 고르십시오."
+stem: "(   )에 들어갈 알맞은 말을 고르십시오."
 choices:
   - label: "①"
     text: 게다가
@@ -1326,6 +1387,12 @@ Sửa chính tả thuần tuý (đổi chữ) trong `note_vi`/`explanation_vi` v
 ---
 
 ## Phụ lục B · Lịch sử thay đổi
+
+### v0.3.1 · 2026-10-23
+
+- §5.1: thêm tiểu mục **"Định dạng file đề thi"** (đường dẫn, bảng trường, ví dụ, ràng buộc, lệnh nhóm), chép từ khối tài liệu ở đầu `lib/exam/source.ts` và chuyển sang Markdown. Thay câu "định dạng file đề do backend-engineer chốt cùng script import". Ví dụ không còn ghi `duration_sec` như giá trị mặc định: trường này chỉ là ghi đè tuỳ chọn, bỏ trống thì lấy thời gian của blueprint. Không đổi quy tắc soạn câu hỏi nào, không file nội dung nào phải sửa.
+- §5.1 ↔ code: comment đầu `lib/exam/source.ts` đã bỏ ví dụ `duration_sec: 900` cho khớp spec (main session sửa theo báo cáo duyệt `content/_reviews/2026-10-23-mini-doc-01.md`).
+- §5.10 ví dụ A (R19): sửa `stem` thành `(   )에 들어갈 알맞은 말을 고르십시오.` cho khớp bảng `stem` ở §4.5 (vẫn chờ đối chiếu A4). Ví dụ chỉ để minh hoạ, không ảnh hưởng file nội dung. r19-0001 đã dùng đúng `stem` theo §4.5.
 
 ### v0.3 · 2026-10-20
 
