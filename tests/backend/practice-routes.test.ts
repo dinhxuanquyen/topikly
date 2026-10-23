@@ -129,7 +129,7 @@ describe("GET /api/practice/questions", () => {
 
 describe("practice/queries (hàm 'use cache' cho server component)", () => {
   it("bọc đúng các hàm nguồn", async () => {
-    expect(await getPracticeTypes("topik-ii")).toHaveLength(20);
+    expect(await getPracticeTypes("topik-ii")).toHaveLength(31);
     expect(await getPracticeTypes("topik-ii", "listening")).toHaveLength(10);
     expect((await getPracticeQuestions("topik-ii", "L22")).map((q) => q.id)).toEqual(["l22-0001"]);
     expect((await getPracticeQuestion("topik-ii", "l22-0001"))?.type_code).toBe("L22");

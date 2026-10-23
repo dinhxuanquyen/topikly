@@ -1,0 +1,40 @@
+id: r20-0001
+type_code: R20
+subskill: main_idea
+difficulty: 4
+tags:
+  - "topic:city"
+  - "topic:architecture"
+  - "genre:expository"
+  - "grammar:-기보다"
+group_key: r19-20-0001
+pair_with: [r19-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-23
+reviewed_by: null
+notes_internal: "Passage chép nguyên văn từ r19-0001 (bộ r19-20-0001). Trình tự đoạn: quan niệm cũ (흔히 … 허물어야 할 대상으로 여겨졌다) → xu hướng mới → chi tiết giữ lại dấu vết cũ → lo ngại và kết quả ngược lại → lợi ích cho khu vực → kết luận (-(으)ㄹ 필요가 있다). Chủ đề nằm ở câu kết. Bẫy: ② concession_point (quan niệm phổ biến được nêu rồi bị phản bác), ③ too_narrow (chi tiết minh hoạ), ④ true_not_main (lợi ích tác giả có nêu nhưng là luận cứ, không phải chủ đề). Đáp án R20 không làm lộ đáp án R19 và ngược lại. Stem dùng '주제' theo bảng §4.5 [cần đối chiếu A9: 주제 hay 중심 생각]. Đáp án ① theo yêu cầu lắp đề doc-01 (luật nhãn)."
+passage: |
+  도시가 개발되면서 문을 닫은 오래된 공장이나 창고는 흔히 허물어야 할 대상으로 여겨졌다. 그런데 최근에는 이런 건물을 철거하지 않고 전시장이나 공연장, 카페 등으로 고쳐 쓰는 경우가 늘고 있다. 이때 녹슨 철문이나 낡은 벽돌 벽은 일부러 그대로 남겨 두기도 한다. 처음에는 이런 낡은 모습 때문에 사람들이 찾아오지 않을 것이라는 걱정도 있었다. (   ) 새 건물에서는 느낄 수 없는 시간의 흔적이 사람들의 발길을 끄는 매력이 되었다. 이렇게 다시 태어난 공간은 주민들이 모이는 장소가 되고 지역에 활기를 불어넣기도 한다. 오래된 건물을 무조건 허물기보다 그 건물이 가진 이야기를 살려 새로운 용도로 활용할 방법을 찾을 필요가 있다.
+stem: "위 글의 주제로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "오래된 건물을 허물지 않고 새롭게 활용할 방법을 찾아야 한다."
+    correct: true
+  - label: "②"
+    text: "쓰지 않는 공장이나 창고는 빨리 철거하는 것이 바람직하다."
+    trap: concession_point
+    note_vi: "Đây là quan niệm phổ biến trước đây mà tác giả nêu ra để phản bác (흔히 허물어야 할 대상으로 여겨졌다 → 그런데 최근에는 …). Câu kết của tác giả nói ngược lại: 무조건 허물기보다 (thay vì cứ thế phá bỏ)."
+  - label: "③"
+    text: "낡은 건물을 고칠 때는 녹슨 철문과 벽돌 벽을 남겨 두어야 한다."
+    trap: too_narrow
+    note_vi: "Cửa sắt gỉ và tường gạch chỉ là chi tiết minh hoạ cách giữ lại dấu vết cũ (일부러 그대로 남겨 두기도 한다), lại chỉ là việc 'có khi làm', không phải điều tác giả đòi hỏi. Phương án quá hẹp so với chủ đề cả đoạn."
+  - label: "④"
+    text: "오래된 건물을 고친 공간은 주민들에게 모임 장소를 제공한다."
+    trap: true_not_main
+    note_vi: "Đúng với bài (주민들이 모이는 장소가 되고), nhưng đây chỉ là một lợi ích được nêu làm luận cứ. Điều tác giả muốn nói là cần tìm cách tái sử dụng nhà cũ thay vì phá bỏ."
+explanation_vi: |
+  **Đáp án ①.** Căn cứ: câu kết "오래된 건물을 무조건 허물기보다 그 건물이 가진 이야기를 살려 새로운 용도로 활용할 방법을 찾을 필요가 있다" (thay vì cứ thế phá bỏ nhà cũ, cần tìm cách phát huy câu chuyện của toà nhà và sử dụng nó vào công dụng mới).
+  Cả đoạn đi từ quan niệm cũ (phá bỏ) sang xu hướng mới (sửa lại để dùng), nêu lợi ích, rồi kết luận bằng -(으)ㄹ 필요가 있다. ① diễn đạt lại "무조건 허물기보다 … 새로운 용도로 활용할 방법을 찾을 필요가 있다" thành "허물지 않고 새롭게 활용할 방법을 찾아야 한다".
+  **Mẹo dạng:** chủ đề thường nằm ở câu cuối có -(으)ㄹ 필요가 있다, -아야/어야 한다. Câu mở đầu kiểu "흔히 … (으)로 여겨졌다" thường là quan niệm cũ mà tác giả sẽ phản bác, nên phương án lặp lại quan niệm đó gần như luôn sai.
+  **Đáng chú ý:** 용도 (用途 – dụng đồ) – công dụng, mục đích sử dụng · 활기 (活氣 – hoạt khí) – sức sống, không khí sôi động · -기보다 – hơn là, thay vì (ưu tiên vế sau).

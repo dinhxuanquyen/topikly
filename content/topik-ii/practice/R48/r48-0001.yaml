@@ -1,0 +1,44 @@
+id: r48-0001
+type_code: R48
+subskill: purpose
+difficulty: 6
+tags:
+  - "topic:economy"
+  - "topic:psychology"
+  - "topic:welfare"
+  - "genre:argumentative"
+  - "connector:따라서"
+  - "vocab:기본값"
+group_key: r48-50-0001
+pair_with: [r49-0001, r50-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-23
+reviewed_by: null
+notes_internal: "Bộ ba r48-50-0001, soạn cho Mini test Đọc 01. Passage khoảng 719 ký tự nếu không tính thẻ <u></u> (726 nếu validator đếm cả thẻ), đếm tay, không tính ký tự xuống dòng; trong khoảng 600–750 của §4.5. Nhờ validator đếm lại và cho biết thẻ <u> có được tính không. Cấu trúc: hiện tượng giữ giá trị mặc định + ví dụ quỹ tiết kiệm hưu trí tự động tham gia (đoạn 1) → hai lý do (đoạn 2, chứa chỗ trống R49) → trách nhiệm của bên thiết kế, ý kiến '일부에서는 …' và phản bác 그러나 (đoạn 3, phần gạch chân R50) → đề xuất 따라서 … -아야 한다 (đoạn 4, căn cứ R48). Kiến thức nhờ reviewer xác nhận: hiệu ứng mặc định (default effect) và việc tự động ghi danh kèm quyền rút ra (opt-out) làm tỉ lệ tham gia quỹ tiết kiệm hưu trí nơi làm việc tăng mạnh so với tự đăng ký (opt-in) đã được ghi nhận ở nhiều nước (ví dụ nghiên cứu về 401(k) ở Mỹ, chế độ auto-enrolment ở Anh); bài chỉ nói chung '여러 나라에서 보고되었다', không nêu nước, tổ chức hay số liệu. Chủ đề chính sách công, không gắn với đảng phái. Đáp án ba câu không làm lộ nhau: R48 (mục đích: kêu gọi thiết kế mặc định thận trọng), R49 (lý do thứ hai: coi mặc định là phương án đã được xem xét), R50 (phê phán ý 'để cá nhân tự chọn thì không phải can thiệp'). Từ cần hanviet-lexicographer bổ sung vào words: 기본값, 촉구하다, 설계하다, 투명하다. Người dùng nên kiểm tra kho đề NIIED với từ khoá 기본값/디폴트/넛지/자동 가입 trước khi import."
+passage: |
+  새 휴대 전화를 사면 처음 설정된 화면 밝기나 알림 방식을 그대로 쓰는 사람이 많다. 이처럼 미리 정해진 값, 즉 기본값을 바꾸지 않고 따르는 경향은 생각보다 강하다. 직장에서 운영하는 노후 대비 저축 제도가 좋은 예이다. 원하는 사람만 신청해서 가입하게 했을 때보다 모든 직원을 자동으로 가입시키고 원하지 않는 사람은 언제든 빠져나갈 수 있게 했을 때 가입률이 크게 높아졌다는 사례가 여러 나라에서 보고되었다.
+  사람들이 기본값을 쉽게 바꾸지 않는 데에는 이유가 있다. 우선 기본값을 바꾸려면 따로 시간과 노력을 들여야 한다. 또한 사람들은 흔히 기본값을 (   ) 받아들인다. 제도를 만든 쪽이 여러 사정을 충분히 따져 보고 정했으리라 믿기 때문이다.
+  이러한 사실은 제도를 설계하는 쪽에 무거운 책임을 지운다. 기본값을 어떻게 정하느냐에 따라 수많은 사람의 선택이 달라지기 때문이다. 일부에서는 국가가 기본값을 정하는 것 자체가 개인의 선택에 지나치게 개입하는 일이라고 지적한다. 그러나 <u>아무것도 정하지 않고 개인에게 맡기겠다는 결정 역시 하나의 기본값을 정하는 일이다</u>. 신청하지 않은 사람을 가입하지 않은 것으로 처리하는 제도도 결국 '가입하지 않음'을 기본값으로 삼은 셈이다.
+  따라서 제도를 설계하는 쪽은 기본값이 누구에게 유리한지 꼼꼼히 따져 정하고 그 근거를 투명하게 밝혀야 한다. 동시에 기본값을 원하지 않는 사람이 쉽게 다른 길을 택할 수 있도록 절차를 간단하게 만들어야 한다.
+stem: "필자가 이 글을 쓴 목적으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "자동 가입 제도의 효과를 소개하기 위해"
+    trap: too_narrow
+    note_vi: "Hiệu quả của việc tự động cho tham gia chỉ là ví dụ ở đoạn 1 để minh hoạ sức mạnh của giá trị mặc định ('좋은 예이다'). Đó là vai trò của một đoạn, không phải mục đích của cả bài."
+  - label: "②"
+    text: "개인의 선택에 개입하는 정책을 비판하기 위해"
+    trap: concession_point
+    note_vi: "Phê phán việc nhà nước can thiệp vào lựa chọn cá nhân là quan điểm của '일부' mà tác giả dẫn ra rồi phản bác bằng 그러나. Tác giả không phản đối việc định giá trị mặc định, chỉ đòi hỏi định một cách thận trọng."
+  - label: "③"
+    text: "기본값을 신중하게 설계할 것을 촉구하기 위해"
+    correct: true
+  - label: "④"
+    text: "사람들이 기본값을 따르는 이유를 설명하기 위해"
+    trap: true_not_main
+    note_vi: "Lý do người ta giữ giá trị mặc định có được giải thích ở đoạn 2, nhưng đó là luận cứ dẫn tới đề xuất ở đoạn cuối. Giải thích nguyên nhân không phải mục đích tác giả viết bài."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ: đoạn cuối mở bằng 따라서, "제도를 설계하는 쪽은 기본값이 누구에게 유리한지 꼼꼼히 따져 정하고 그 근거를 투명하게 밝혀야 한다" (bên thiết kế chế độ phải cân nhắc kỹ giá trị mặc định có lợi cho ai rồi mới định, và công khai minh bạch căn cứ). Cả bài đi theo mạch: người ta có xu hướng giữ mặc định (đoạn 1) → vì sao (đoạn 2) → vì vậy bên thiết kế mang trách nhiệm nặng, kể cả "không định gì" cũng là một mặc định (đoạn 3) → đề xuất (đoạn 4). ③ gói đề xuất đó thành "kêu gọi thiết kế giá trị mặc định một cách thận trọng".
+  **Mẹo dạng:** mục đích viết thường lộ ở đoạn cuối (따라서, -아야 한다). Vai trò của một đoạn (giới thiệu ví dụ, giải thích nguyên nhân) hay ý kiến tác giả dẫn ra để phản bác đều không phải mục đích của cả bài.
+  **Đáng chú ý:** 기본값 (基本 – cơ bản) – giá trị mặc định (mặc định của máy, của chế độ) · 촉구하다 (促求 – xúc cầu) – thúc giục, kêu gọi khẩn thiết · 투명하다 (透明 – thấu minh) – trong suốt; ở đây là minh bạch (근거를 투명하게 밝히다: công khai căn cứ một cách minh bạch).

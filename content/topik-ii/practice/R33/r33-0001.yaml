@@ -1,0 +1,38 @@
+id: r33-0001
+type_code: R33
+subskill: detail_match
+difficulty: 5
+tags:
+  - "topic:tradition"
+  - "topic:culture"
+  - "genre:expository"
+  - "grammar:-(으)ㄹ-만큼"
+  - "vocab:복원하다"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-23
+reviewed_by: null
+notes_internal: "Passage tự soạn, khoảng 336 ký tự (đếm tay theo §5.7, nhờ validator đếm lại). Nhờ reviewer kiểm tra kiến thức: (1) 한지 làm từ vỏ cây 닥나무, sợi dài và dai; (2) câu nói '종이는 천 년, 비단은 오백 년' (紙千年 絹五百) về độ bền của 한지; (3) 한지 dùng làm sách, văn bản và 창호지 dán cửa, thông khí, cho ánh sáng dịu vào phòng; (4) việc dùng 한지 giảm mạnh khi giấy kiểu phương Tây du nhập; (5) gần đây 한지 được dùng trong phục chế di sản văn hoá. Bài chỉ nêu nhận định chung, không gắn cơ quan hay công trình cụ thể. Chủ đề 한지 là chủ đề văn hoá Hàn phổ biến; nội dung và câu chữ tự viết, nhưng người dùng nên dò kho đề NIIED với từ khoá 한지/창호지 trước khi import. Bẫy: ① detail_swap (đảo phép so sánh giấy – lụa), ② negation_flip (giảm → tăng), ③ degree_shift (phạm vi: 뿐만 아니라 → 만). Đáp án ④ diễn đạt lại 복원하다/쓰이다 thành 원래 모습으로 되살리다/활용되다. Đáp án ④ theo yêu cầu lắp đề doc-01 (luật nhãn)."
+passage: |
+  한지는 닥나무 껍질을 원료로 하여 전통 방식으로 만든 종이이다. 닥나무 껍질의 섬유는 길고 질겨서 이것으로 만든 한지는 잘 찢어지지 않고 오랜 시간이 지나도 쉽게 변하지 않는다. '종이는 천 년, 비단은 오백 년'이라는 말이 있을 만큼 한지는 오래가는 종이로 알려져 있다. 옛날에는 한지를 책이나 문서를 만드는 데뿐만 아니라 문에 바르는 창호지로도 썼다. 창호지는 바람은 막아 주면서도 공기는 잘 통하게 하고 햇빛을 은은하게 들여보내 방 안을 쾌적하게 해 주었다. 서양 종이가 들어오면서 한지의 사용은 크게 줄었지만, 최근에는 그 우수성이 다시 주목받으면서 오래된 문화재를 복원하는 데 쓰이기도 한다.
+stem: "다음을 읽고 내용이 같은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "한지는 비단보다 오래 보존하기 어려운 종이로 알려져 있다."
+    trap: detail_swap
+    note_vi: "Đảo phép so sánh: câu '종이는 천 년, 비단은 오백 년' cho biết giấy bền nghìn năm còn lụa năm trăm năm, tức 한지 giữ được lâu hơn lụa, không phải khó bảo quản hơn."
+  - label: "②"
+    text: "서양 종이가 들어온 뒤로 한지를 쓰는 일이 더 많아졌다."
+    trap: negation_flip
+    note_vi: "Ngược với bài: '서양 종이가 들어오면서 한지의 사용은 크게 줄었지만' (khi giấy phương Tây du nhập, việc dùng 한지 giảm mạnh)."
+  - label: "③"
+    text: "옛날에는 한지를 창호지로만 쓰고 책을 만드는 데는 쓰지 않았다."
+    trap: degree_shift
+    note_vi: "Thu hẹp sai phạm vi: bài nói '책이나 문서를 만드는 데뿐만 아니라 … 창호지로도 썼다' (không chỉ làm sách, văn bản mà còn làm giấy dán cửa). 뿐만 아니라 bị đổi thành 만 (chỉ)."
+  - label: "④"
+    text: "한지는 오늘날 문화재를 원래 모습으로 되살리는 데 활용된다."
+    correct: true
+explanation_vi: |
+  **Đáp án ④.** Căn cứ: "최근에는 그 우수성이 다시 주목받으면서 오래된 문화재를 복원하는 데 쓰이기도 한다" (gần đây, khi ưu điểm của nó lại được chú ý, 한지 còn được dùng để phục chế di sản văn hoá lâu đời). ④ diễn đạt lại "복원하다" thành "원래 모습으로 되살리다" (làm sống lại hình dáng ban đầu) và "쓰이다" thành "활용되다".
+  **Mẹo dạng:** với mỗi phương án, tìm câu trong bài có cùng từ khoá rồi so ba điểm hay bị đánh tráo: chiều so sánh (보다), phạm vi (뿐만 아니라 ↔ 만) và chiều tăng/giảm. Đáp án đúng thường không lặp nguyên câu mà dùng từ đồng nghĩa.
+  **Đáng chú ý:** 복원 (復元 – phục nguyên) – phục hồi lại nguyên trạng · 원료 (原料 – nguyên liệu) – nguyên liệu (thô) · -(으)ㄹ 만큼 – đến mức (nêu mức độ bằng một ví dụ, câu nói).

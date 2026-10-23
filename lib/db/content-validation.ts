@@ -7,6 +7,7 @@ import {
   checkParagraphWhitespace,
   checkTags,
 } from "./content-rules";
+import { validateExamFile, type ExamQuestionRef } from "./exam-validation";
 import { estimateManuscriptCells } from "./manuscript";
 import { listPrograms } from "./programs";
 import type { ProgramConfig, QuestionTypeConfig } from "./programs";
@@ -16,15 +17,16 @@ import type { ProgramConfig, QuestionTypeConfig } from "./programs";
  * Logic thuần (không đọc đĩa) để test dễ; đọc thư mục + in báo cáo ở scripts/validate-content.ts.
  *
  * Quy ước: mỗi file = MỘT câu hỏi, đường dẫn content/<program>/practice/<TYPE_CODE>/<id>.yaml.
- * YAML ngoài practice/ (exams, vocab, grammar, strategies) không phải file câu hỏi -> bỏ qua.
+ * File đề thi: content/<program>/exams/<kind>/<id>.yaml (kiểm ở ./exam-validation.ts, đối chiếu
+ * với các câu hỏi cùng lượt kiểm). YAML ngoài practice/ và exams/ (vocab, grammar, strategies) -> bỏ qua.
  *
  * Theo content-spec v0.3. Chưa làm (TODO, đều là cảnh báo hoặc phụ thuộc định dạng chưa chốt):
  *  - cảnh báo "độ dài ngữ liệu lệch quá 30% so với mục 4" (cần bảng độ dài chuẩn theo nhóm
  *    dạng ở §4.4–4.6 đưa vào cấu hình chương trình; transcript đếm sau khi bỏ nhãn);
  *  - cảnh báo "phân bố nhãn đúng lệch" (spec chỉ nói "khoảng 25% mỗi nhãn", chưa có ngưỡng);
- *  - luật của ĐỀ LẮP RÁP (không quá 3 câu liền nhau cùng nhãn, không chu kỳ lặp, luôn ẩn stem câu
- *    đơn): bắt buộc nhưng chỉ chạy được khi định dạng content/<program>/exams/ được chốt. Hiện
- *    mới cảnh báo cho lô soạn theo từng thư mục type_code (từ 8 câu trở lên).
+ *  - luật của ĐỀ LẮP RÁP (phân bố nhãn, không quá 3 câu liền nhau cùng nhãn, không chu kỳ lặp) đã
+ *    chạy trên file đề (./exam-validation.ts): lỗi khi `published`, cảnh báo khi `draft`. Lô soạn
+ *    theo từng thư mục type_code (từ 8 câu trở lên) vẫn chỉ cảnh báo.
  *  - "Chỉ định dạng" (§8.2) được xác nhận bởi lib/db/format-only.ts + cờ --format-only-against.
  */
 
@@ -63,9 +65,11 @@ export interface ValidationResult {
   errorCount: number;
   warningCount: number;
   filesChecked: number;
-  /** File YAML không phải câu hỏi (ngoài practice/) nên bỏ qua. */
+  /** File YAML không phải câu hỏi hay đề thi (ngoài practice/ và exams/) nên bỏ qua. */
   filesSkipped: number;
   questionsChecked: number;
+  /** Số file đề thi (<program>/exams/**) đã kiểm. */
+  examsChecked: number;
 }
 
 // ------------------------------------------------------------------ hằng số theo spec
@@ -1034,6 +1038,8 @@ export function validateContent(
   let filesChecked = 0;
   let filesSkipped = 0;
   const seen: Parsed[] = [];
+  const examInputs: Array<{ file: string; text: string; program: ProgramConfig; parts: string[] }> =
+    [];
 
   const sorted = files
     .map((f) => ({ ...f, file: f.file.replace(/\\/g, "/") }))
@@ -1043,7 +1049,25 @@ export function validateContent(
     const file = input.file;
     const parts = file.split("/").filter(Boolean);
 
-    // Chỉ <program>/practice/** là file câu hỏi; phần còn lại (exams, vocab, grammar…) bỏ qua.
+    // <program>/exams/** là file đề thi (kiểm sau khi đã có toàn bộ câu hỏi).
+    if (parts.length >= 2 && parts[1] === "exams") {
+      const examProgram = programs.find((p) => p.code === parts[0]);
+      if (!examProgram) {
+        issues.push({
+          severity: "error",
+          file,
+          path: "",
+          message: `thư mục chương trình "${parts[0]}" chưa được cấu hình (có: ${programs.map((p) => p.code).join(", ")})`,
+        });
+      } else if (!/\.ya?ml$/i.test(file)) {
+        filesSkipped += 1;
+      } else {
+        examInputs.push({ file, text: input.text, program: examProgram, parts });
+      }
+      continue;
+    }
+
+    // Chỉ <program>/practice/** là file câu hỏi; phần còn lại (vocab, grammar…) bỏ qua.
     if (parts.length < 2 || parts[1] !== "practice") {
       filesSkipped += 1;
       continue;
@@ -1091,6 +1115,7 @@ export function validateContent(
   }
 
   crossFileChecks(seen, issues);
+  const examsChecked = checkExams(examInputs, seen, issues);
 
   const errorCount = issues.filter((i) => i.severity === "error").length;
   return {
@@ -1100,7 +1125,68 @@ export function validateContent(
     filesChecked,
     filesSkipped,
     questionsChecked: seen.length,
+    examsChecked,
   };
+}
+
+/** Kiểm các file đề thi: đối chiếu id câu với kho câu hỏi vừa phân tích. Trả về số đề đã kiểm. */
+function checkExams(
+  examInputs: ReadonlyArray<{
+    file: string;
+    text: string;
+    program: ProgramConfig;
+    parts: string[];
+  }>,
+  seen: readonly Parsed[],
+  issues: ValidationIssue[],
+): number {
+  const refsByProgram = new Map<string, Map<string, ExamQuestionRef>>();
+  for (const p of seen) {
+    if (!p.id) continue;
+    let refs = refsByProgram.get(p.programCode);
+    if (!refs) {
+      refs = new Map();
+      refsByProgram.set(p.programCode, refs);
+    }
+    refs.set(p.id, {
+      id: p.id,
+      type_code: p.dirType,
+      ...(p.groupKey ? { group_key: p.groupKey } : {}),
+      ...(p.correctIndex !== undefined ? { correctIndex: p.correctIndex } : {}),
+    });
+  }
+
+  for (const input of examInputs) {
+    const { file, parts, program } = input;
+    if (parts.length !== 4) {
+      issues.push({
+        severity: "error",
+        file,
+        path: "",
+        message: `đường dẫn phải có dạng ${program.code}/exams/<kind>/<id>.yaml`,
+      });
+      continue;
+    }
+    let doc: unknown;
+    try {
+      doc = parseYaml(input.text);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message.split("\n")[0] : String(err);
+      issues.push({ severity: "error", file, path: "", message: `lỗi cú pháp YAML: ${msg}` });
+      continue;
+    }
+    if (doc === null || doc === undefined) {
+      issues.push({ severity: "error", file, path: "", message: "file rỗng" });
+      continue;
+    }
+    validateExamFile(
+      doc,
+      { file, program, dirKind: parts[2]!, basename: parts[3]!.replace(/\.ya?ml$/i, "") },
+      refsByProgram.get(program.code) ?? new Map(),
+      issues,
+    );
+  }
+  return examInputs.length;
 }
 
 function crossFileChecks(seen: readonly Parsed[], issues: ValidationIssue[]): void {
@@ -1216,7 +1302,7 @@ export function formatReport(result: ValidationResult): string {
   }
 
   lines.push(
-    `Đã kiểm ${result.filesChecked} file câu hỏi, bỏ qua ${result.filesSkipped} file ngoài practice/.`,
+    `Đã kiểm ${result.filesChecked} file câu hỏi và ${result.examsChecked} file đề thi, bỏ qua ${result.filesSkipped} file ngoài practice/ và exams/.`,
   );
   lines.push(
     result.errorCount === 0

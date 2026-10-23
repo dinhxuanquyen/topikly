@@ -1,0 +1,41 @@
+id: r45-0001
+type_code: R45
+subskill: fill_blank_content
+difficulty: 5
+tags:
+  - "topic:science"
+  - "topic:history"
+  - "genre:expository"
+  - "grammar:-(으)ㄹ-수밖에-없다"
+  - "grammar:-듯이"
+group_key: r44-45-0001
+pair_with: [r44-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-23
+reviewed_by: null
+notes_internal: "Bộ r44-45-0001, passage chép nguyên văn từ r44-0001 (sửa passage thì sửa cả hai file). difficulty 5: lệch −1 so với bảng §3 (6), theo yêu cầu độ khó cho Mini test; lý do: căn cứ hai phía rõ (phép so sánh -듯이 phía trước, câu diễn giải -ㄴ 것이다 phía sau). Chỗ trống là kết quả chung cho mọi bản đồ phẳng; ba phương án nhiễu đều bám vào chi tiết có thật trong bài (phóng to đất đai, xích đạo, hướng–diện tích) nhưng sai logic, sai chi tiết hoặc chỉ đúng với một loại bản đồ. Kiến thức cần xác nhận: xem notes_internal của r44-0001. Từ cần hanviet-lexicographer bổ sung vào words nếu chưa có: 면적, 적도. 2026-10-23: ④ '어딘가는 어긋날 수밖에 없다' → '어딘가는 실제와 어긋날 수밖에 없다' cho rõ nghĩa (lệch so với thực tế) và cân độ dài với các phương án khác, theo gợi ý báo cáo duyệt 2026-10-23-mini-doc-01; explanation_vi không trích nguyên văn ④ nên không phải sửa; không đổi passage chung, không đổi vị trí nhãn đúng."
+passage: |
+  우리에게 익숙한 세계 지도에서 그린란드는 아프리카와 비슷한 크기로 보이지만, 실제로는 아프리카가 그린란드보다 약 14배나 넓다. 이는 지도를 잘못 그려서 생긴 일이 아니다. 귤껍질을 찢거나 늘리지 않고는 바닥에 평평하게 펼 수 없듯이, 둥근 지구의 표면을 평면에 옮기면 (   ). 면적, 거리, 방향, 모양을 한꺼번에 정확하게 나타내는 지도는 처음부터 만들 수 없는 것이다.
+  흔히 보는 세계 지도 가운데 상당수는 16세기에 고안된 방법을 바탕으로 그려진다. 이 지도는 방향을 정확하게 나타내는 대신 적도에서 멀어질수록 땅을 크게 부풀린다. 나침반에 의지해 먼 바다를 건너던 당시의 뱃사람들에게는 면적보다 방향이 훨씬 중요했기 때문이다. 이 지도가 세계의 모습을 왜곡한다며 더 이상 쓰지 말자고 주장하는 사람들도 있다. 그러나 모든 지도는 무엇을 정확하게 보여 주고 무엇을 포기할지 선택한 결과일 뿐이다. 나라별 면적을 비교하려는 사람에게는 면적이 정확한 지도가, 배의 항로를 정하는 사람에게는 방향이 정확한 지도가 알맞다. 따라서 지도를 볼 때에는 그 지도가 어떤 목적으로 만들어졌는지를 먼저 따져 보아야 한다.
+stem: "(   )에 들어갈 내용으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "모든 땅이 같은 비율로 커진다"
+    trap: logic_mismatch
+    note_vi: "Nếu mọi vùng đất đều to lên theo cùng một tỉ lệ thì tương quan kích thước giữa Greenland và châu Phi vẫn giữ nguyên, không thể sinh ra chênh lệch 14 lần nêu ở câu đầu. Câu sau chỗ trống cũng nói về sai lệch không tránh được, không phải phóng to đều."
+  - label: "②"
+    text: "적도 부근의 땅이 가장 크게 늘어난다"
+    trap: detail_swap
+    note_vi: "Ngược chi tiết ở đoạn 2: đất bị phóng to càng nhiều khi càng **xa** xích đạo ('적도에서 멀어질수록 땅을 크게 부풀린다'). Hơn nữa đó là đặc điểm của một loại bản đồ, còn câu có chỗ trống nói chung về mọi bản đồ phẳng."
+  - label: "③"
+    text: "면적보다 방향이 더 정확하게 나타난다"
+    trap: overgeneralization
+    note_vi: "Giữ đúng hướng hơn diện tích chỉ là lựa chọn của loại bản đồ dùng cho đi biển ở đoạn 2. Phương án biến nó thành quy luật chung của mọi bản đồ phẳng, trong khi bài cho biết cũng có bản đồ giữ đúng diện tích ('면적이 정확한 지도')."
+  - label: "④"
+    text: "어딘가는 실제와 어긋날 수밖에 없다"
+    correct: true
+explanation_vi: |
+  **Đáp án ④.** Căn cứ trước chỗ trống: "귤껍질을 찢거나 늘리지 않고는 바닥에 평평하게 펼 수 없듯이" (giống như không thể trải phẳng vỏ quýt xuống sàn mà không xé hay kéo giãn nó). Căn cứ sau chỗ trống: "면적, 거리, 방향, 모양을 한꺼번에 정확하게 나타내는 지도는 처음부터 만들 수 없는 것이다" (ngay từ đầu đã không thể làm ra bản đồ thể hiện chính xác cùng lúc diện tích, khoảng cách, hướng và hình dạng). Cả phép so sánh với -듯이 lẫn câu diễn giải phía sau đều nói tới một sai lệch **không tránh được** ở mọi bản đồ phẳng. ④ diễn đạt đúng ý đó bằng -(으)ㄹ 수밖에 없다.
+  **Mẹo dạng:** chỗ trống trong bài dài thường là một nhận định khái quát. Đọc câu so sánh, ví dụ phía trước và câu diễn giải (-ㄴ 것이다) phía sau. Phương án chỉ đúng với một trường hợp cụ thể (một loại bản đồ) hoặc ngược chi tiết ở đoạn khác thường là bẫy.
+  **Đáng chú ý:** 면적 (面積 – diện tích) – diện tích · 적도 (赤道 – xích đạo) – đường xích đạo · -듯이 – như thể, giống như (so sánh) · -(으)ㄹ 수밖에 없다 – không thể khác, đành phải.

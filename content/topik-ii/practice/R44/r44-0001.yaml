@@ -1,0 +1,41 @@
+id: r44-0001
+type_code: R44
+subskill: main_idea
+difficulty: 5
+tags:
+  - "topic:science"
+  - "topic:history"
+  - "genre:expository"
+  - "connector:따라서"
+  - "vocab:용도"
+group_key: r44-45-0001
+pair_with: [r45-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-23
+reviewed_by: null
+notes_internal: "Bộ r44-45-0001, soạn cho Mini test Đọc 01. Passage khoảng 566 ký tự (đếm tay, không tính ký tự xuống dòng; nhờ validator đếm lại), trong khoảng 450–600 của §4.5. difficulty 5: lệch −1 so với bảng §3 (6), theo yêu cầu độ khó cho Mini test; lý do: chủ đề cụ thể (bản đồ), từ vựng then chốt cấp 4–5, kết luận nêu rõ sau 따라서. Cấu trúc: hiện tượng (Greenland – châu Phi) → nguyên lý (không trải phẳng được mặt cầu) → ví dụ bản đồ hàng hải thế kỷ 16 → ý kiến trái chiều (… 주장하는 사람들도 있다) → 그러나 → 따라서 (chủ đề). Kiến thức nhờ reviewer xác nhận: (1) diện tích châu Phi khoảng 30,3 triệu km², Greenland khoảng 2,17 triệu km², tức khoảng 14 lần; (2) phép chiếu Mercator (1569) giữ đúng góc/hướng, độ phóng đại diện tích tăng dần khi xa xích đạo, trên bản đồ này Greenland trông gần bằng châu Phi; (3) không có bản đồ phẳng nào giữ đúng đồng thời diện tích, khoảng cách, hướng, hình dạng (hệ quả của định lý Gauss). Bài cố ý không nêu tên Mercator (§4.1: không dùng tên người có thật), chỉ nói '16세기에 고안된 방법'; nhận định '흔히 보는 세계 지도 가운데 상당수' là cách nói rào đón. Đáp án R44 (용도) không làm lộ đáp án R45 (어긋날 수밖에 없다) và ngược lại. Từ cần hanviet-lexicographer bổ sung vào words: 용도, 고안되다. Người dùng nên kiểm tra kho đề NIIED với từ khoá 그린란드/지도 왜곡/메르카토르 trước khi import."
+passage: |
+  우리에게 익숙한 세계 지도에서 그린란드는 아프리카와 비슷한 크기로 보이지만, 실제로는 아프리카가 그린란드보다 약 14배나 넓다. 이는 지도를 잘못 그려서 생긴 일이 아니다. 귤껍질을 찢거나 늘리지 않고는 바닥에 평평하게 펼 수 없듯이, 둥근 지구의 표면을 평면에 옮기면 (   ). 면적, 거리, 방향, 모양을 한꺼번에 정확하게 나타내는 지도는 처음부터 만들 수 없는 것이다.
+  흔히 보는 세계 지도 가운데 상당수는 16세기에 고안된 방법을 바탕으로 그려진다. 이 지도는 방향을 정확하게 나타내는 대신 적도에서 멀어질수록 땅을 크게 부풀린다. 나침반에 의지해 먼 바다를 건너던 당시의 뱃사람들에게는 면적보다 방향이 훨씬 중요했기 때문이다. 이 지도가 세계의 모습을 왜곡한다며 더 이상 쓰지 말자고 주장하는 사람들도 있다. 그러나 모든 지도는 무엇을 정확하게 보여 주고 무엇을 포기할지 선택한 결과일 뿐이다. 나라별 면적을 비교하려는 사람에게는 면적이 정확한 지도가, 배의 항로를 정하는 사람에게는 방향이 정확한 지도가 알맞다. 따라서 지도를 볼 때에는 그 지도가 어떤 목적으로 만들어졌는지를 먼저 따져 보아야 한다.
+stem: "위 글의 주제로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "지도를 볼 때는 그 지도의 용도를 고려해야 한다."
+    correct: true
+  - label: "②"
+    text: "세계의 모습을 왜곡하는 지도는 쓰지 말아야 한다."
+    trap: concession_point
+    note_vi: "Đây là ý kiến của một số người mà tác giả dẫn lại ('더 이상 쓰지 말자고 주장하는 사람들도 있다') rồi phản bác ngay bằng 그러나. Theo tác giả, bản đồ nào cũng phải đánh đổi, và bản đồ giữ đúng hướng vẫn hợp với người định hải trình."
+  - label: "③"
+    text: "지도의 왜곡을 줄이는 기술을 발전시켜야 한다."
+    trap: outside_text
+    note_vi: "Nghe hợp lý theo hiểu biết chung, nhưng bài không nói tới việc phát triển công nghệ. Ngược lại, bài khẳng định không thể làm ra bản đồ chính xác mọi mặt cùng lúc ('처음부터 만들 수 없는 것이다')."
+  - label: "④"
+    text: "항해할 때는 방향이 정확한 지도를 써야 한다."
+    trap: too_narrow
+    note_vi: "Đúng với bài ('배의 항로를 정하는 사람에게는 방향이 정확한 지도가 알맞다') nhưng chỉ là một trong hai ví dụ minh hoạ cho kết luận. Phương án quá hẹp, không bao quát ý 'chọn và đọc bản đồ theo mục đích'."
+explanation_vi: |
+  **Đáp án ①.** Căn cứ: câu kết sau 따라서 "지도를 볼 때에는 그 지도가 어떤 목적으로 만들어졌는지를 먼저 따져 보아야 한다" (khi xem bản đồ, trước hết phải xét xem bản đồ đó được làm ra với mục đích gì). Trước đó, câu sau 그러나 "모든 지도는 무엇을 정확하게 보여 주고 무엇을 포기할지 선택한 결과일 뿐이다" (mọi bản đồ chỉ là kết quả của việc chọn thể hiện chính xác cái gì và bỏ qua cái gì), là lý do dẫn tới kết luận. Chuyện Greenland và bản đồ dùng cho đi biển thế kỷ 16 chỉ là luận cứ. ① diễn đạt lại "어떤 목적으로 만들어졌는지" thành "용도" (công dụng).
+  **Mẹo dạng:** bài dài thường đi theo mạch hiện tượng → giải thích → ý kiến trái chiều (… 사람들도 있다) → 그러나 → 따라서. Chủ đề nằm sau 그러나/따라서. Ý kiến đứng ngay trước 그러나 thường là ý tác giả phản bác, còn câu nêu ví dụ cụ thể chỉ là luận cứ.
+  **Đáng chú ý:** 용도 (用途 – dụng đồ) – công dụng, mục đích sử dụng · 고안되다 (考案 – khảo án) – được nghĩ ra, được sáng chế (phương pháp, thiết bị) · 부풀리다 – làm phồng to; nghĩa bóng: thổi phồng.

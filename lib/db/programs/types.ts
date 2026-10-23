@@ -11,6 +11,10 @@ export type Skill = (typeof SKILLS)[number];
 export const PROGRAM_CODES = ["topik-ii", "topik-i", "eps"] as const;
 export type ProgramCode = (typeof PROGRAM_CODES)[number];
 
+/** Loại đề thi. Trùng `ExamKind` ở lib/exam/types.ts (khai báo lại để lib/db không phụ thuộc lib/exam). */
+export const EXAM_KINDS = ["full", "mini", "hard", "ibt"] as const;
+export type ExamKindCode = (typeof EXAM_KINDS)[number];
+
 export interface SectionConfig {
   skill: Skill;
   /** Thứ tự phần thi trong đề (1-based). */
@@ -51,6 +55,13 @@ export interface TypeGroupConfig {
   name_vi: string;
   /** Các câu trong nhóm dùng chung ngữ liệu (cặp / bộ ba) -> file có group_key. */
   paired: boolean;
+  /**
+   * Lệnh nhóm tiếng Hàn in một lần ở đầu khối khi lắp đề (content-spec 4.5, mục 5.2).
+   * Mẫu có chỗ thay số câu: `{from}` và `{to}` là số câu đầu/cuối của khối TRONG ĐỀ (khi from == to,
+   * "n~n" được rút thành "n"). Ví dụ `※ [{from}~{to}] (   )에 들어갈 가장 알맞은 것을 고르십시오.`
+   * Hiện có cho Đọc; Nghe/Viết chưa có (tuỳ chọn).
+   */
+  instruction_ko?: string;
 }
 
 export interface QuestionTypeConfig {
@@ -99,6 +110,15 @@ export interface SampleSoftLimit {
   max_cells: number;
 }
 
+/** Cấu trúc một phần thi của đề theo loại (số câu, thời gian). Giá trị cấu hình, không hard-code. */
+export interface ExamBlueprint {
+  question_count: number;
+  duration_sec: number;
+}
+
+/** Cấu trúc đề theo loại rồi theo kỹ năng. Loại không khai báo (vd. Full) lấy theo `sections`. */
+export type ExamBlueprints = Partial<Record<ExamKindCode, Partial<Record<Skill, ExamBlueprint>>>>;
+
 export interface ProgramConfig {
   code: ProgramCode;
   name: string;
@@ -118,6 +138,11 @@ export interface ProgramConfig {
   writing_sample_limits: Readonly<Record<string, SampleSoftLimit>>;
   /** Các subskill được miễn quy tắc "ít nhất 2 kiểu trap" (content-spec §2.2). */
   multi_trap_exempt_subskills: readonly string[];
+  /**
+   * Cấu trúc đề rút gọn theo loại (Mini test…). Full không cần khai báo: dùng `sections`.
+   * Tra qua `getExamBlueprint(program, kind, skill)`.
+   */
+  exam_blueprints: ExamBlueprints;
   type_groups: readonly TypeGroupConfig[];
   question_types: readonly QuestionTypeConfig[];
 }

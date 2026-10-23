@@ -1,0 +1,44 @@
+id: r49-0001
+type_code: R49
+subskill: fill_blank_content
+difficulty: 6
+tags:
+  - "topic:economy"
+  - "topic:psychology"
+  - "topic:welfare"
+  - "genre:argumentative"
+  - "connector:또한"
+  - "grammar:-(으)리라"
+group_key: r48-50-0001
+pair_with: [r48-0001, r50-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-23
+reviewed_by: null
+notes_internal: "Bộ ba r48-50-0001, passage chép nguyên văn từ r48-0001 (sửa passage thì sửa cả ba file). Căn cứ hai phía: phía trước là 우선 … 또한 (chỗ trống là lý do thứ hai, khác 'tốn thời gian, công sức'); phía sau là câu -기 때문이다 nói về niềm tin vào bên làm chế độ. Đáp án ① diễn đạt lại '충분히 따져 보고 정했으리라' thành '이미 검토를 거친 권장안', không lặp từ khoá. Từ cần hanviet-lexicographer kiểm tra/bổ sung vào words: 검토 (ghi là bạn giả hoàn toàn với 'kiểm thảo' – nhờ xác nhận), 권장안 (勸奬案, âm Hán Việt 'khuyến tưởng án' – nhờ xác nhận âm của 奬)."
+passage: |
+  새 휴대 전화를 사면 처음 설정된 화면 밝기나 알림 방식을 그대로 쓰는 사람이 많다. 이처럼 미리 정해진 값, 즉 기본값을 바꾸지 않고 따르는 경향은 생각보다 강하다. 직장에서 운영하는 노후 대비 저축 제도가 좋은 예이다. 원하는 사람만 신청해서 가입하게 했을 때보다 모든 직원을 자동으로 가입시키고 원하지 않는 사람은 언제든 빠져나갈 수 있게 했을 때 가입률이 크게 높아졌다는 사례가 여러 나라에서 보고되었다.
+  사람들이 기본값을 쉽게 바꾸지 않는 데에는 이유가 있다. 우선 기본값을 바꾸려면 따로 시간과 노력을 들여야 한다. 또한 사람들은 흔히 기본값을 (   ) 받아들인다. 제도를 만든 쪽이 여러 사정을 충분히 따져 보고 정했으리라 믿기 때문이다.
+  이러한 사실은 제도를 설계하는 쪽에 무거운 책임을 지운다. 기본값을 어떻게 정하느냐에 따라 수많은 사람의 선택이 달라지기 때문이다. 일부에서는 국가가 기본값을 정하는 것 자체가 개인의 선택에 지나치게 개입하는 일이라고 지적한다. 그러나 <u>아무것도 정하지 않고 개인에게 맡기겠다는 결정 역시 하나의 기본값을 정하는 일이다</u>. 신청하지 않은 사람을 가입하지 않은 것으로 처리하는 제도도 결국 '가입하지 않음'을 기본값으로 삼은 셈이다.
+  따라서 제도를 설계하는 쪽은 기본값이 누구에게 유리한지 꼼꼼히 따져 정하고 그 근거를 투명하게 밝혀야 한다. 동시에 기본값을 원하지 않는 사람이 쉽게 다른 길을 택할 수 있도록 절차를 간단하게 만들어야 한다.
+stem: "(   )에 들어갈 내용으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "이미 검토를 거친 권장안으로"
+    correct: true
+  - label: "②"
+    text: "자신이 직접 고른 것으로"
+    trap: logic_mismatch
+    note_vi: "Câu sau nói người ta tin rằng **bên làm chế độ** đã cân nhắc rồi quyết định, tức mặc định do người khác chọn sẵn. 'Coi như chính mình chọn' không được câu -기 때문이다 này giải thích, lại trái với định nghĩa '미리 정해진 값' (giá trị định sẵn) ở đoạn 1."
+  - label: "③"
+    text: "시간과 노력이 드는 일로"
+    trap: keyword_echo
+    note_vi: "Lặp từ khoá '시간과 노력' của câu trước. Nhưng 또한 báo hiệu một lý do thứ hai, khác với lý do 'phải tốn thời gian, công sức'. Câu sau chỗ trống cũng nói về niềm tin, không nói về công sức."
+  - label: "④"
+    text: "만든 쪽의 이익을 위한 것으로"
+    trap: negation_flip
+    note_vi: "Ngược với câu sau: người ta **tin** bên làm chế độ đã cân nhắc kỹ ('믿기 때문이다'), chứ không nghi bên đó vì lợi ích riêng. Nếu nghi ngờ như vậy thì người ta sẽ dễ đổi mặc định hơn, trái với ý cả đoạn."
+explanation_vi: |
+  **Đáp án ①.** Căn cứ sau chỗ trống: "제도를 만든 쪽이 여러 사정을 충분히 따져 보고 정했으리라 믿기 때문이다" (vì tin rằng bên làm ra chế độ hẳn đã cân nhắc kỹ mọi mặt rồi mới quyết định). Câu -기 때문이다 này giải thích cho chỗ trống: vì tin như vậy nên người ta coi giá trị mặc định là "phương án khuyến nghị đã qua xem xét". Căn cứ trước chỗ trống: 우선 … 또한 cho biết chỗ trống là lý do thứ hai, khác lý do đầu tiên (tốn thời gian, công sức). ① diễn đạt lại "충분히 따져 보고 정했으리라" thành "이미 검토를 거친".
+  **Mẹo dạng:** khi câu ngay sau chỗ trống kết thúc bằng -기 때문이다, hãy ghép thử "chỗ trống + vì …" để kiểm tra. Nếu đoạn liệt kê lý do bằng 우선 … 또한, phương án lặp lại lý do đã nêu là bẫy.
+  **Đáng chú ý:** 검토 (檢討 – kiểm thảo) – xem xét kỹ, rà soát; khác "kiểm thảo" (tự kiểm điểm) trong tiếng Việt · 권장안 (勸奬案 – khuyến tưởng án) – phương án được khuyến nghị · -(으)리라 – (văn viết) hẳn là, chắc là; 정했으리라 믿다: tin rằng hẳn đã quyết định.

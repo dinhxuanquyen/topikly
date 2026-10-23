@@ -66,6 +66,8 @@ interface ChoiceListProps {
   result: CheckResponse | null;
   restoredCorrect: boolean | null;
   onSelect: (label: ChoiceLabel) => void;
+  /** Nhãn của nhóm radio; mặc định "Chọn đáp án". Trang có nhiều câu cần nhãn riêng từng câu. */
+  groupLabel?: string;
 }
 
 export function ChoiceList({
@@ -76,9 +78,14 @@ export function ChoiceList({
   result,
   restoredCorrect,
   onSelect,
+  groupLabel,
 }: ChoiceListProps) {
   return (
-    <div role="radiogroup" aria-label={t.runner.choicesLabel} className="grid gap-2.5">
+    <div
+      role="radiogroup"
+      aria-label={groupLabel ?? t.runner.choicesLabel}
+      className="grid gap-2.5"
+    >
       {choices.map((choice, index) => {
         const status = choiceStatus(choice.label, selected, result, restoredCorrect);
         const checked = selected === choice.label;

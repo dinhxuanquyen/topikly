@@ -24,17 +24,27 @@ function groupCode(skill: Skill, from: number, to: number): string {
 
 // ------------------------------------------------------------------ nhóm dạng
 
-type RawGroup = readonly [from: number, to: number, name_vi: string, paired?: boolean];
+type RawGroup = readonly [
+  from: number,
+  to: number,
+  name_vi: string,
+  paired?: boolean,
+  instruction_ko?: string,
+];
 
 function groups(skill: Skill, raw: readonly RawGroup[]): TypeGroupConfig[] {
-  return raw.map(([from, to, name_vi, paired]) => ({
+  return raw.map(([from, to, name_vi, paired, instruction_ko]) => ({
     group: groupCode(skill, from, to),
     skill,
     range: [from, to] as const,
     name_vi,
     paired: paired === true,
+    ...(instruction_ko ? { instruction_ko } : {}),
   }));
 }
+
+/** Lệnh nhóm của cặp/bộ câu Đọc: câu hỏi riêng nằm ở `stem` từng câu (content-spec 5.2). */
+const READ_AND_ANSWER = "※ [{from}~{to}] 다음을 읽고 물음에 답하십시오.";
 
 // Nghe: 1–20 là các nhóm riêng; 21–50 là 15 cặp bài dài (mỗi cặp dùng chung bài nghe).
 const LISTENING_LONG_PAIRS: RawGroup[] = Array.from({ length: 15 }, (_, i): RawGroup => {
@@ -51,25 +61,86 @@ const LISTENING_GROUPS = groups("listening", [
   ...LISTENING_LONG_PAIRS,
 ]);
 
+// Lệnh nhóm: content-spec 4.5 (một số lệnh còn chờ đối chiếu A4 với đề thật).
 const READING_GROUPS = groups("reading", [
-  [1, 2, "Điền ngữ pháp vào chỗ trống"],
-  [3, 4, "Chọn biểu hiện gần nghĩa"],
-  [5, 8, "Văn bản nói về điều gì"],
-  [9, 12, "Chọn nội dung trùng khớp (thông báo / biểu đồ / tin ngắn)"],
-  [13, 15, "Sắp xếp thứ tự câu"],
-  [16, 18, "Điền nội dung vào chỗ trống"],
-  [19, 20, "Điền từ nối và chủ đề của đoạn", true],
-  [21, 22, "Điền quán ngữ và nội dung trùng khớp", true],
-  [23, 24, "Văn tự sự: tâm trạng nhân vật", true],
-  [25, 27, "Giải thích tít báo"],
-  [28, 31, "Điền nội dung vào chỗ trống (học thuật)"],
-  [32, 34, "Chọn nội dung trùng khớp (học thuật)"],
-  [35, 38, "Chủ đề của đoạn"],
-  [39, 41, "Chèn câu <보기>"],
-  [42, 43, "Trích đoạn tiểu thuyết", true],
-  [44, 45, "Bài học thuật dài: chủ đề và điền nội dung", true],
-  [46, 47, "Bài chính luận: thái độ tác giả", true],
-  [48, 50, "Bài chính luận dài (bộ ba)", true],
+  [
+    1,
+    2,
+    "Điền ngữ pháp vào chỗ trống",
+    false,
+    "※ [{from}~{to}] (   )에 들어갈 가장 알맞은 것을 고르십시오.",
+  ],
+  [
+    3,
+    4,
+    "Chọn biểu hiện gần nghĩa",
+    false,
+    "※ [{from}~{to}] 밑줄 친 부분과 의미가 가장 비슷한 것을 고르십시오.",
+  ],
+  [5, 8, "Văn bản nói về điều gì", false, "※ [{from}~{to}] 다음은 무엇에 대한 글인지 고르십시오."],
+  [
+    9,
+    12,
+    "Chọn nội dung trùng khớp (thông báo / biểu đồ / tin ngắn)",
+    false,
+    "※ [{from}~{to}] 다음 글 또는 그래프의 내용과 같은 것을 고르십시오.",
+  ],
+  [
+    13,
+    15,
+    "Sắp xếp thứ tự câu",
+    false,
+    "※ [{from}~{to}] 다음을 순서대로 맞게 배열한 것을 고르십시오.",
+  ],
+  [
+    16,
+    18,
+    "Điền nội dung vào chỗ trống",
+    false,
+    "※ [{from}~{to}] 다음을 읽고 (   )에 들어갈 내용으로 가장 알맞은 것을 고르십시오.",
+  ],
+  [19, 20, "Điền từ nối và chủ đề của đoạn", true, READ_AND_ANSWER],
+  [21, 22, "Điền quán ngữ và nội dung trùng khớp", true, READ_AND_ANSWER],
+  [23, 24, "Văn tự sự: tâm trạng nhân vật", true, READ_AND_ANSWER],
+  [
+    25,
+    27,
+    "Giải thích tít báo",
+    false,
+    "※ [{from}~{to}] 다음 신문 기사의 제목을 가장 잘 설명한 것을 고르십시오.",
+  ],
+  [
+    28,
+    31,
+    "Điền nội dung vào chỗ trống (học thuật)",
+    false,
+    "※ [{from}~{to}] 다음을 읽고 (   )에 들어갈 내용으로 가장 알맞은 것을 고르십시오.",
+  ],
+  [
+    32,
+    34,
+    "Chọn nội dung trùng khớp (học thuật)",
+    false,
+    "※ [{from}~{to}] 다음을 읽고 내용이 같은 것을 고르십시오.",
+  ],
+  [
+    35,
+    38,
+    "Chủ đề của đoạn",
+    false,
+    "※ [{from}~{to}] 다음 글의 주제로 가장 알맞은 것을 고르십시오.",
+  ],
+  [
+    39,
+    41,
+    "Chèn câu <보기>",
+    false,
+    "※ [{from}~{to}] 다음 글에서 <보기>의 문장이 들어가기에 가장 알맞은 곳을 고르십시오.",
+  ],
+  [42, 43, "Trích đoạn tiểu thuyết", true, READ_AND_ANSWER],
+  [44, 45, "Bài học thuật dài: chủ đề và điền nội dung", true, READ_AND_ANSWER],
+  [46, 47, "Bài chính luận: thái độ tác giả", true, READ_AND_ANSWER],
+  [48, 50, "Bài chính luận dài (bộ ba)", true, READ_AND_ANSWER],
 ]);
 
 const WRITING_GROUPS = groups("writing", [
@@ -265,6 +336,12 @@ export const topikII: ProgramConfig = {
     W54: { max_chars: 680, max_cells: 700 },
   },
   multi_trap_exempt_subskills: ["fill_blank_connector", "sentence_order", "insert_sentence"],
+  // Mini test: 1 kỹ năng, ~20–30 phút (tham chiếu Migii, docs/03). Full dùng `sections`.
+  exam_blueprints: {
+    mini: {
+      reading: { question_count: 20, duration_sec: 30 * 60 },
+    },
+  },
   type_groups: TYPE_GROUPS,
   question_types: [
     ...expand("listening", "multiple_choice", LISTENING_TYPES),

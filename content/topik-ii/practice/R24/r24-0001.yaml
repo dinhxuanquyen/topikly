@@ -1,0 +1,41 @@
+id: r24-0001
+type_code: R24
+subskill: detail_match
+difficulty: 4
+tags:
+  - "topic:family"
+  - "topic:technology"
+  - "genre:essay"
+  - "grammar:-더니"
+group_key: r23-24-0001
+pair_with: [r23-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-23
+reviewed_by: null
+notes_internal: "Passage chép nguyên văn từ r23-0001 (bộ r23-24-0001). Đáp án ③ diễn đạt lại '일주일 전부터 … 배우러 다니신다는 것이었다' thành '그 무렵 … 배우기 시작하셨다'. 2026-10-23: ③ đổi '최근에' → '그 무렵' theo gợi ý báo cáo duyệt 2026-10-23-mini-doc-01 (bài kể chuyện '지난겨울', '최근' dễ bị hiểu là gần đây tính từ lúc viết); cập nhật câu diễn đạt lại trong explanation_vi; không đổi passage chung, không đổi vị trí nhãn đúng. Bẫy: ① reverse_causality (gán sai nguyên nhân bố biết nhắn tin: nhờ lớp ở 복지관, không phải nhờ 'tôi' chỉ), ② negation_flip, ④ time_shift ('그날 저녁' là tối của ngày hôm sau, sau cuộc gọi cho mẹ, không phải đêm nhận tin). Đáp án R24 không hỏi lại cảm xúc ở R23 và không làm lộ đáp án R23. Đáp án ③ theo yêu cầu lắp đề doc-01 (luật nhãn)."
+passage: |
+  아버지는 휴대 전화를 쓰신 지 10년이 넘었지만 전화를 걸고 받는 것 말고는 할 줄 아는 것이 거의 없으셨다. 문자 보내는 법을 몇 번이나 알려 드렸지만 아버지는 글씨가 작아서 안 보인다며 손을 내저으셨다. 그래서 집에 연락할 일이 있으면 늘 내가 먼저 전화를 드렸다.
+  지난겨울에는 회사 일이 밀려 한 달 가까이 집에 전화를 드리지 못했다. 그러던 어느 날 밤, 야근을 마치고 집으로 가는 지하철 안에서 휴대 전화가 울렸다. 아버지에게서 온 문자였다. 띄어쓰기가 하나도 안 된 두 줄짜리 문자에는 밥은 잘 챙겨 먹는지, 감기에 걸리지는 않았는지 묻는 말이 적혀 있었다. 돋보기를 쓰고 한 글자씩 천천히 화면을 누르셨을 아버지의 모습이 눈앞에 그려졌다. <u>나는 내릴 역을 지나친 줄도 모르고 그 짧은 문자를 읽고 또 읽었다.</u>
+  다음 날 어머니께 전화를 드렸다. 어머니 말씀으로는 아버지가 아들 목소리를 통 못 듣는다며 서운해하시더니 일주일 전부터 동네 복지관에 휴대 전화 사용법을 배우러 다니신다는 것이었다. 나는 그날 저녁 아버지께 처음으로 문자로 답장을 보냈다.
+stem: "위 글의 내용과 같은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "아버지는 내가 알려 드린 덕분에 문자 보내는 법을 익히셨다."
+    trap: reverse_causality
+    note_vi: "Gán sai nguyên nhân: 'tôi' đã chỉ nhiều lần nhưng bố xua tay từ chối (손을 내저으셨다). Bố biết nhắn tin là nhờ đi học ở trung tâm phúc lợi khu phố (복지관에 … 배우러 다니신다)."
+  - label: "②"
+    text: "나는 회사 일이 바쁜 중에도 아버지께 자주 전화를 드렸다."
+    trap: negation_flip
+    note_vi: "Ngược với bài: vì việc công ty dồn lại, 'tôi' gần một tháng không gọi về nhà (한 달 가까이 집에 전화를 드리지 못했다)."
+  - label: "③"
+    text: "아버지는 그 무렵 휴대 전화 사용법을 배우기 시작하셨다."
+    correct: true
+  - label: "④"
+    text: "나는 아버지의 문자를 받은 그날 밤 바로 답장을 보냈다."
+    trap: time_shift
+    note_vi: "Sai thời điểm: 'tôi' nhận tin vào một đêm, hôm sau gọi cho mẹ, rồi mới nhắn trả lời vào tối hôm đó (다음 날 … 그날 저녁). '그날' ở đây là ngày hôm sau, không phải đêm nhận tin."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ: "일주일 전부터 동네 복지관에 휴대 전화 사용법을 배우러 다니신다는 것이었다" (theo lời mẹ, từ một tuần trước bố đi học cách dùng điện thoại ở trung tâm phúc lợi khu phố). ③ diễn đạt lại "일주일 전부터 … 배우러 다니다" thành "그 무렵 … 배우기 시작하다" (vào khoảng thời gian đó, tức mùa đông năm ấy khi bố nhắn tin cho "tôi").
+  **Mẹo dạng:** với tuỳ bút, đánh dấu các mốc thời gian (지난겨울, 그러던 어느 날 밤, 다음 날, 그날 저녁) và ai làm việc gì. Phương án nhiễu hay đổi thời điểm (cùng ngày hay hôm sau) hoặc đổi người gây ra sự việc.
+  **Đáng chú ý:** 복지관 (福祉館 – phúc chỉ quán) – trung tâm phúc lợi (nơi tổ chức lớp học, hoạt động cho người dân) · 통 – (đi với phủ định) hoàn toàn, chẳng hề · -더니 – (người khác đã) … rồi sau đó …, nối hai sự việc trước sau.

@@ -1,0 +1,39 @@
+id: r29-0001
+type_code: R29
+subskill: fill_blank_content
+difficulty: 5
+tags:
+  - "topic:science"
+  - "topic:nature"
+  - "genre:expository"
+  - "grammar:-는-것이-아니라"
+  - "vocab:천적"
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-23
+reviewed_by: null
+notes_internal: "Passage tự soạn, khoảng 273 ký tự (đếm tay theo §5.7, nhờ validator đếm lại). Nhờ reviewer kiểm tra kiến thức: một số loài cây (ví dụ ngô, bông) khi bị sâu non ăn lá sẽ phát tán hợp chất bay hơi khác bình thường, thu hút ong ký sinh; ong đẻ trứng vào trong cơ thể sâu, ấu trùng ong ăn sâu từ bên trong mà lớn lên. Bài dùng '어떤 식물은' để không khái quát cho mọi loài. Căn cứ hai phía: trước chỗ trống là '직접 쫓아내는 것이 아니라' (cần một tác động gián tiếp), sau là câu '… 때문이다' về ong ký sinh và câu kết '다른 곤충의 힘을 빌려'. Câu kết cố ý không viết '적의 적' để đáp án không bị lộ bằng lặp từ. ③ (báo động cho cây xung quanh) là hiểu biết có thật về thực vật nhưng bài không nói, dùng làm bẫy outside_text; câu sau chỗ trống và câu kết loại được ③. Đáp án ② theo yêu cầu lắp đề doc-01 (luật nhãn). 2026-10-23: sửa 띄어쓰기 trong passage '갉아 먹기' → '갉아먹기' (표준국어대사전: 갉아먹다, một động từ) theo báo cáo duyệt 2026-10-23-mini-doc-01; explanation_vi và note_vi không trích cụm này nên không phải sửa thêm. Passage giảm 1 ký tự (khoảng 272)."
+passage: |
+  식물은 한자리에서 움직일 수 없기 때문에 해충의 공격을 받아도 피할 방법이 없을 것처럼 보인다. 그러나 식물에게도 나름의 방어 수단이 있다. 어떤 식물은 애벌레가 잎을 갉아먹기 시작하면 평소와 다른 냄새를 공기 중으로 내보낸다. 이 냄새는 애벌레를 직접 쫓아내는 것이 아니라 (   ). 냄새를 맡고 날아온 기생벌이 애벌레의 몸속에 알을 낳으면, 알에서 나온 기생벌의 새끼가 애벌레를 먹으며 자라기 때문이다. 결국 식물은 스스로 싸우는 대신 다른 곤충의 힘을 빌려 자신을 지키는 셈이다.
+stem: "다음을 읽고 (   )에 들어갈 내용으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "애벌레가 다른 잎으로 옮겨 가게 만든다"
+    trap: logic_mismatch
+    note_vi: "Khiến sâu bỏ sang lá khác vẫn là tác động trực tiếp lên sâu, trái với '직접 쫓아내는 것이 아니라' (không phải trực tiếp đuổi sâu). Câu giải thích phía sau (… 때문이다) cũng nói về ong ký sinh, không nói về việc sâu di chuyển."
+  - label: "②"
+    text: "애벌레의 천적을 불러들이는 신호가 된다"
+    correct: true
+  - label: "③"
+    text: "주변 식물에게 위험을 알리는 역할을 한다"
+    trap: outside_text
+    note_vi: "Nghe hợp lý theo hiểu biết chung về thực vật, nhưng bài không nói tới cây xung quanh. Câu sau chỗ trống giải thích bằng ong ký sinh, và câu kết nói cây mượn sức của 'côn trùng khác' (다른 곤충의 힘을 빌려), không phải của cây khác."
+  - label: "④"
+    text: "기생벌이 가까이 오지 못하게 막아 준다"
+    trap: negation_flip
+    note_vi: "Ngược với bài: ong ký sinh '냄새를 맡고 날아온' (ngửi thấy mùi rồi bay tới), tức mùi thu hút ong chứ không ngăn ong. Ong lại là bên giúp cây, nên cây không có lý do ngăn nó."
+explanation_vi: |
+  **Đáp án ②.** Căn cứ trước chỗ trống: "이 냄새는 애벌레를 직접 쫓아내는 것이 아니라" (mùi này không trực tiếp đuổi sâu đi mà…), nên vế cần điền phải là một cách **gián tiếp**. Căn cứ sau chỗ trống: "냄새를 맡고 날아온 기생벌이 애벌레의 몸속에 알을 낳으면, 알에서 나온 기생벌의 새끼가 애벌레를 먹으며 자라기 때문이다" (vì ong ký sinh ngửi mùi bay tới, đẻ trứng vào trong mình sâu, ong con nở ra ăn sâu mà lớn) và câu kết "다른 곤충의 힘을 빌려 자신을 지키는 셈이다" (coi như mượn sức côn trùng khác để tự bảo vệ).
+  Ghép lại: mùi hương gọi kẻ thù của sâu tới. ② khái quát "기생벌" thành "애벌레의 천적" (thiên địch của sâu).
+  **Mẹo dạng:** chỗ trống đứng sau "-는 것이 아니라" thì nội dung cần điền phải đối lập với vế trước. Câu ngay sau chỗ trống kết thúc bằng "-기 때문이다" thường là lời giải thích cho chính nội dung chỗ trống, hãy đọc nó trước khi chọn.
+  **Đáng chú ý:** 천적 (天敵 – thiên địch) – thiên địch, kẻ thù tự nhiên · 기생벌 (寄生 – ký sinh; 벌: ong) – ong ký sinh · -는 셈이다 – coi như là, rốt cuộc là.

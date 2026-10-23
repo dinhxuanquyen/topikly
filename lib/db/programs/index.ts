@@ -1,5 +1,12 @@
 import { topikII } from "./topik-ii";
-import type { ProgramCode, ProgramConfig, QuestionTypeConfig } from "./types";
+import type {
+  ExamBlueprint,
+  ExamKindCode,
+  ProgramCode,
+  ProgramConfig,
+  QuestionTypeConfig,
+  Skill,
+} from "./types";
 
 export * from "./types";
 export { topikII } from "./topik-ii";
@@ -33,4 +40,21 @@ export function findQuestionType(
   typeCode: string,
 ): QuestionTypeConfig | undefined {
   return findProgram(programCode)?.question_types.find((t) => t.code === typeCode);
+}
+
+/**
+ * Cấu trúc (số câu, thời gian) của một phần thi theo loại đề. Ưu tiên `exam_blueprints`; loại không
+ * khai báo (Full…) lấy theo `sections` của chương trình. `undefined` nếu chương trình không có phần đó.
+ */
+export function getExamBlueprint(
+  program: ProgramConfig,
+  kind: ExamKindCode,
+  skill: Skill,
+): ExamBlueprint | undefined {
+  const declared = program.exam_blueprints[kind]?.[skill];
+  if (declared) return declared;
+  const section = program.sections.find((s) => s.skill === skill);
+  return section
+    ? { question_count: section.question_count, duration_sec: section.duration_sec }
+    : undefined;
 }

@@ -1,0 +1,44 @@
+id: r19-0001
+type_code: R19
+subskill: fill_blank_connector
+difficulty: 4
+tags:
+  - "topic:city"
+  - "topic:architecture"
+  - "genre:expository"
+  - "connector:오히려"
+group_key: r19-20-0001
+pair_with: [r20-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-23
+reviewed_by: null
+notes_internal: "Ngữ liệu tự soạn mới (không dựa vào ví dụ A ở §5.10), chủ đề tái sử dụng nhà xưởng/kho cũ thành không gian văn hoá, viết dưới dạng nhận định chung, không nêu địa danh hay công trình có thật. Độ dài passage khoảng 354 ký tự (đếm tay theo §5.7, nhờ validator đếm lại). Quan hệ cần nhận ra: câu trước chỗ trống là một lo ngại (khách sẽ không đến vì vẻ cũ kỹ), câu sau là kết quả ngược hẳn (dấu vết thời gian thành sức hút) → 오히려. Không đưa 하지만/그러나/결국/반면에 vào phương án vì các từ này có thể chấp nhận được, dễ thành hai đáp án. ④ 차라리 là bẫy gần nghĩa với 오히려 mà người Việt hay nhầm (cùng dịch được là 'thà/ngược lại'). Miễn quy tắc ≥2 kiểu bẫy theo ngoại lệ fill_blank_connector ở §2.2; note_vi nêu quan hệ logic cụ thể của từng phương án. Đáp án ③ theo yêu cầu lắp đề doc-01 (luật nhãn). r20-0001 phải chép nguyên văn passage này."
+passage: |
+  도시가 개발되면서 문을 닫은 오래된 공장이나 창고는 흔히 허물어야 할 대상으로 여겨졌다. 그런데 최근에는 이런 건물을 철거하지 않고 전시장이나 공연장, 카페 등으로 고쳐 쓰는 경우가 늘고 있다. 이때 녹슨 철문이나 낡은 벽돌 벽은 일부러 그대로 남겨 두기도 한다. 처음에는 이런 낡은 모습 때문에 사람들이 찾아오지 않을 것이라는 걱정도 있었다. (   ) 새 건물에서는 느낄 수 없는 시간의 흔적이 사람들의 발길을 끄는 매력이 되었다. 이렇게 다시 태어난 공간은 주민들이 모이는 장소가 되고 지역에 활기를 불어넣기도 한다. 오래된 건물을 무조건 허물기보다 그 건물이 가진 이야기를 살려 새로운 용도로 활용할 방법을 찾을 필요가 있다.
+stem: "(   )에 들어갈 알맞은 말을 고르십시오."
+choices:
+  - label: "①"
+    text: "그래서"
+    trap: logic_mismatch
+    note_vi: "그래서 nối nguyên nhân → kết quả. Nỗi lo 'khách sẽ không đến' không phải là nguyên nhân khiến dấu vết thời gian trở thành sức hút; hai câu có quan hệ ngược chiều, không phải nhân quả."
+  - label: "②"
+    text: "게다가"
+    trap: logic_mismatch
+    note_vi: "게다가 (hơn nữa) bổ sung một ý cùng chiều với câu trước. Câu trước là một lo ngại (tiêu cực), câu sau là kết quả tích cực trái với lo ngại đó, nên không thể 'cộng thêm' vào nhau."
+  - label: "③"
+    text: "오히려"
+    correct: true
+    note_vi: "오히려 = trái lại, ngược lại với điều được dự đoán: tưởng vẻ cũ kỹ sẽ làm khách tránh xa, kết quả lại chính nó thu hút khách."
+  - label: "④"
+    text: "차라리"
+    trap: logic_mismatch
+    note_vi: "차라리 = thà… (còn hơn), dùng khi chọn cái đỡ tệ hơn giữa hai lựa chọn đều không vừa ý, thường đi với -는 게 낫다, -겠다. Câu sau chỗ trống kể một sự việc đã xảy ra (-되었다), không có phép so sánh lựa chọn nào."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ: câu trước chỗ trống "처음에는 이런 낡은 모습 때문에 사람들이 찾아오지 않을 것이라는 걱정도 있었다" (lúc đầu cũng có lo ngại rằng vì vẻ cũ kỹ này mà mọi người sẽ không tìm đến) và câu sau "새 건물에서는 느낄 수 없는 시간의 흔적이 사람들의 발길을 끄는 매력이 되었다" (dấu vết thời gian không thể cảm nhận ở toà nhà mới lại trở thành sức hút kéo chân mọi người).
+  Điều bị lo là điểm yếu lại trở thành điểm mạnh, tức kết quả **ngược hẳn với dự đoán**. Quan hệ này cần 오히려.
+  **Mẹo dạng:** trước khi nhìn phương án, tự gọi tên quan hệ giữa câu trước và câu sau chỗ trống (bổ sung / nhân quả / đối lập / ngược với dự đoán). Câu trước có "걱정", "-(으)ㄹ 것이라는 예상" mà câu sau lại là kết quả tốt là tín hiệu quen thuộc của 오히려.
+  **Đáng chú ý:**
+  - 철거 (撤去 – triệt khứ) – phá dỡ, dỡ bỏ (công trình)
+  - 발길을 끌다 – thu hút người tìm đến (발길: bước chân)
+  - 오히려 / 차라리 – 오히려: kết quả trái với dự đoán; 차라리: "thà… còn hơn", chọn cái đỡ tệ hơn, thường đi với -는 게 낫다
