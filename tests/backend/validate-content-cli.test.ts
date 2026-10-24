@@ -63,7 +63,7 @@ describe("validate-content CLI", () => {
   it("collectYamlFiles: đệ quy, đường dẫn tương đối dùng '/'", () => {
     const files = collectYamlFiles(path.join(FIXTURES, "valid"));
     expect(files.map((f) => f.file)).toContain("topik-ii/practice/R19/r19-0001.yaml");
-    expect(files.map((f) => f.file)).toContain("topik-ii/vocab/vocab-sample.yaml");
+    expect(files.map((f) => f.file)).toContain("topik-ii/vocab/general.yaml");
   });
 
   it("fixtures hợp lệ -> exit 0 (cảnh báo không làm fail)", () => {

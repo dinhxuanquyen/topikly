@@ -105,18 +105,30 @@ describe("ví dụ hợp lệ (content-spec 5.10)", () => {
     expect(hasWarning(r, "pair_with", "r20-0001")).toBe(true);
   });
 
-  it("file ngoài practice/ và exams/ (vocab, strategies…) được bỏ qua", () => {
+  it("file ngoài practice/, exams/, vocab/, grammar/ (strategies…) được bỏ qua", () => {
     const r = validateContent([
-      {
-        file: "topik-ii/vocab/vocab-sample.yaml",
-        text: readFixture("topik-ii/vocab/vocab-sample.yaml"),
-      },
       { file: "topik-ii/strategies/ghi-chu.yaml", text: "id: chien-luoc-01" },
+      { file: "topik-ii/strategies/doc/ghi-chu-2.yaml", text: "id: chien-luoc-02" },
     ]);
     expect(r.filesSkipped).toBe(2);
     expect(r.filesChecked).toBe(0);
     expect(r.examsChecked).toBe(0);
+    expect(r.lexiconChecked).toBe(0);
     expect(r.issues).toEqual([]);
+  });
+
+  it("file từ vựng & ngữ pháp (vocab/, grammar/) được kiểm riêng, không tính là file câu hỏi", () => {
+    const r = validateContent([
+      {
+        file: "topik-ii/vocab/_hanja-syllables.yaml",
+        text: readFixture("topik-ii/vocab/_hanja-syllables.yaml"),
+      },
+      { file: "topik-ii/vocab/general.yaml", text: readFixture("topik-ii/vocab/general.yaml") },
+    ]);
+    expect(r.errorCount).toBe(0);
+    expect(r.lexiconChecked).toBe(2);
+    expect(r.filesChecked).toBe(0);
+    expect(r.filesSkipped).toBe(0);
   });
 
   it("file đề thi (exams/) được kiểm riêng, không tính là file câu hỏi", () => {

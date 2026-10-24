@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { t } from "@/components/i18n";
@@ -5,15 +6,29 @@ import type { PracticeTypeSummary } from "@/lib/practice/types";
 import { GuestTypeStats } from "./guest-type-stats";
 import { renderInline } from "./rich-text";
 
-/** Thẻ một dạng câu trên trang kỹ năng. Cả thẻ là một liên kết; thống kê khách hydrate sau. */
+/** Phần dữ liệu thẻ cần: dùng chung cho Nghe/Đọc (PracticeTypeSummary) và Viết (WritingTypeSummary). */
+export type TypeCardData = Pick<
+  PracticeTypeSummary,
+  "type_code" | "name_vi" | "type_group" | "group_name_vi" | "question_count"
+>;
+
+/**
+ * Thẻ một dạng câu trên trang kỹ năng. Cả thẻ là một liên kết; thống kê khách hydrate sau.
+ * `footer` thay phần thống kê mặc định (Viết không có thống kê đúng/sai).
+ */
 export function PracticeTypeCard({
   program,
   skillSlug,
   type,
+  footer,
+  countLabel,
 }: {
   program: string;
   skillSlug: string;
-  type: PracticeTypeSummary;
+  type: TypeCardData;
+  footer?: ReactNode;
+  /** Thay chữ "n câu" mặc định (Viết đếm theo đề). */
+  countLabel?: string;
 }) {
   return (
     <Link
@@ -40,13 +55,15 @@ export function PracticeTypeCard({
       </span>
       <span className="mt-auto block">
         <span className="mb-1 block text-xs font-medium text-muted-foreground">
-          {t.practiceSkill.questionCount(type.question_count)}
+          {countLabel ?? t.practiceSkill.questionCount(type.question_count)}
         </span>
-        <GuestTypeStats
-          program={program}
-          typeCode={type.type_code}
-          questionCount={type.question_count}
-        />
+        {footer ?? (
+          <GuestTypeStats
+            program={program}
+            typeCode={type.type_code}
+            questionCount={type.question_count}
+          />
+        )}
       </span>
     </Link>
   );
