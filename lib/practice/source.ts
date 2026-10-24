@@ -170,7 +170,7 @@ function buildQuestion(
 }
 
 /** Đọc đệ quy *.yaml|*.yml; `file` tương đối so với `contentRoot`, dùng dấu "/". */
-function collectYaml(contentRoot: string, program: string): ContentFileInput[] {
+export function collectYaml(contentRoot: string, program: string): ContentFileInput[] {
   const base = path.join(contentRoot, program, "practice");
   try {
     if (!statSync(base).isDirectory()) return [];

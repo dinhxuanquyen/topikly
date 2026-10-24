@@ -129,11 +129,273 @@ export const vi = {
   theory: {
     title: "Lý thuyết",
     description: "Từ vựng, ngữ pháp và chiến lược làm bài, sắp xếp theo cấp và theo dạng câu.",
+    /** Các mục chưa có, hiện ở hub Lý thuyết dưới dạng "sắp có". */
     planned: [
-      "Từ vựng theo cấp 3–6 và theo chủ đề, đánh dấu đã thuộc / chưa thuộc, flashcard SRS.",
-      "Hán-Việt theo hình vị: bấm một âm tiết để xem mọi từ chứa Hán tự đó, cảnh báo bạn giả.",
-      "Ngữ pháp theo cấp và theo chức năng, bảng so sánh các điểm ngữ pháp gần nghĩa.",
+      "Flashcard SRS: ôn từ vựng theo lịch nhớ thông minh, thêm từ ngay từ đoạn văn đang đọc.",
       "Chiến lược làm bài cho từng dạng câu.",
+    ],
+    learnHeading: "Học ngay",
+    comingHeading: "Sắp có",
+    sections: {
+      vocab: {
+        title: "Từ vựng",
+        summary: (n: number) =>
+          `${n} từ theo cấp, chủ đề và từ loại. Đánh dấu đã thuộc ngay trên máy.`,
+      },
+      hanja: {
+        title: "Hán tự",
+        summary: (n: number) => `${n} chữ Hán: bấm một chữ để xem mọi từ chứa nó, kèm âm Hán-Việt.`,
+      },
+      grammar: {
+        title: "Ngữ pháp",
+        summary: (n: number, groups: number) =>
+          `${n} điểm ngữ pháp theo cấp và chức năng, ${groups} nhóm so sánh các mẫu gần nghĩa.`,
+      },
+      falseFriends: {
+        title: "Bạn giả Hán-Việt",
+        summary: (n: number) =>
+          `${n} từ nghe giống Hán-Việt nhưng nghĩa khác hoặc chỉ trùng một phần.`,
+      },
+    },
+    search: {
+      heading: "Tìm từ vựng và ngữ pháp",
+      label: "Tìm theo hangul, 한자, âm Hán-Việt hoặc nghĩa tiếng Việt",
+      placeholder: "Ví dụ: kinh tế, 경제, -느라고",
+      searching: "Đang tìm…",
+      empty: "Không tìm thấy kết quả nào.",
+      error: "Không tìm được lúc này. Kiểm tra mạng rồi thử lại.",
+      vocabHeading: "Từ vựng",
+      grammarHeading: "Ngữ pháp",
+      resultCount: (vocab: number, grammar: number) =>
+        `Tìm thấy ${vocab} từ vựng và ${grammar} điểm ngữ pháp.`,
+    },
+    sourcesLink: "Nguồn và ghi công",
+    footerNote: "Nội dung do Topikly tự biên soạn.",
+    backToTheory: "Về Lý thuyết",
+  },
+
+  lexicon: {
+    reviewPending: "Nội dung đang chờ duyệt",
+    reviewPendingList: (n: number) =>
+      `${n} mục trong danh sách này đang chờ duyệt nội dung: nghĩa, ví dụ và cấp độ có thể còn được chỉnh sửa.`,
+    reviewPendingDetail:
+      "Mục này đang chờ duyệt nội dung: nghĩa, ví dụ và cấp độ có thể còn được chỉnh sửa.",
+    levelLabel: (level: number) => `Cấp ${level}`,
+  },
+
+  known: {
+    toggleLabel: (hangul: string) => `Đánh dấu đã thuộc: ${hangul}`,
+    known: "Đã thuộc",
+    unknown: "Chưa thuộc",
+    progress: (known: number, total: number) => `Đã thuộc ${known}/${total} từ`,
+    progressLabel: "Tiến độ đã thuộc",
+    guestNote:
+      "Chế độ khách: đánh dấu đã thuộc được lưu trên thiết bị này và chuyển lên tài khoản khi bạn đăng ký.",
+    notPersisted:
+      "Không lưu được trên thiết bị này (có thể do chế độ riêng tư): đánh dấu chỉ còn trong lần mở trang này.",
+  },
+
+  vocab: {
+    title: "Từ vựng",
+    description:
+      "Từ vựng TOPIK II theo cấp, chủ đề và từ loại. Từ gốc Hán có âm Hán-Việt và cây hình vị để học cả họ từ.",
+    listLabel: "Danh sách từ vựng",
+    filterHeading: "Bộ lọc",
+    filters: {
+      level: "Cấp",
+      levelAll: "Tất cả",
+      topic: "Chủ đề",
+      topicAll: "Tất cả chủ đề",
+      pos: "Từ loại",
+      posAll: "Tất cả từ loại",
+      falseFriend: (n: number) => `Chỉ bạn giả Hán-Việt (${n})`,
+      status: "Trạng thái",
+      statusAll: "Tất cả",
+      statusUnknown: "Chưa thuộc",
+      statusKnown: "Đã thuộc",
+      search: "Tìm trong danh sách",
+      searchPlaceholder: "Hangul, 한자, âm Hán-Việt hoặc nghĩa",
+      clear: "Xóa bộ lọc",
+      levelOption: (label: string, count: number) => `${label} (${count})`,
+      facetOption: (name: string, count: number) => `${name} (${count})`,
+    },
+    result: (shown: number, total: number) => `Hiển thị ${shown}/${total} từ`,
+    empty: "Không có từ nào khớp bộ lọc.",
+    showMore: (n: number) => `Hiện thêm ${n} từ`,
+    falseFriendShort: "Bạn giả",
+    hanVietLabel: "Âm Hán-Việt",
+  },
+
+  vocabDetail: {
+    pageTitle: (hangul: string) => `${hangul} · Từ vựng`,
+    backToList: "Về danh sách từ vựng",
+    meaningHeading: "Nghĩa",
+    exampleHeading: "Ví dụ",
+    collocationsHeading: "Cụm hay đi cùng",
+    noteHeading: "Ghi chú",
+    hanVietLine: (hanVietText: string) => `Âm Hán-Việt: ${hanVietText}`,
+    pureKorean: "Từ thuần Hàn, không có chữ Hán nên không có cây hình vị.",
+    morpheme: {
+      heading: "Cây hình vị Hán-Hàn",
+      hint: "Bấm một âm tiết để xem các từ khác chứa cùng chữ Hán.",
+      tabsLabel: "Các chữ Hán trong từ",
+      tab: (ko: string, hanja: string, hv: string) => `${ko} ${hanja} ${hv}`,
+      altHv: (list: string) => `Âm Hán-Việt khác của chữ này: ${list}`,
+      familyHeading: (hanja: string) => `Các từ khác chứa ${hanja}`,
+      familyEmpty: "Chưa có từ nào khác trong kho chứa chữ Hán này.",
+      familyWordSound: (ko: string, hv: string) => `${ko} · ${hv}`,
+      viewHanja: (hanja: string) => `Xem trang chữ ${hanja}`,
+    },
+    falseFriend: {
+      full: "Bạn giả hoàn toàn",
+      partial: "Bạn giả một phần",
+      fullBody: "Từ Hán-Việt tương ứng không trùng nghĩa nào. Đừng dịch thẳng từ âm Hán-Việt.",
+      partialBody:
+        "Từ Hán-Việt tương ứng chỉ trùng một phần nghĩa. Cẩn thận khi dùng theo phản xạ tiếng Việt.",
+      viMeaning: (hv: string) => `Trong tiếng Việt, “${hv}” nghĩa là`,
+      noteHeading: "Cần nhớ",
+    },
+  },
+
+  hanja: {
+    title: "Hán tự",
+    description:
+      "Mỗi chữ Hán là một hình vị. Học một chữ để mở ra cả họ từ gốc Hán trong tiếng Hàn.",
+    listLabel: "Danh sách chữ Hán",
+    wordCount: (n: number) => `${n} từ`,
+    itemLabel: (hanja: string, readings: string, count: number) =>
+      `${hanja}, ${readings}, ${count} từ`,
+    pageTitle: (hanja: string) => `Chữ ${hanja}`,
+    pageDescription: (hanja: string, readings: string) =>
+      `Chữ Hán ${hanja}: ${readings}. Các từ gốc Hán chứa chữ này.`,
+    readingsHeading: "Cách đọc",
+    reading: (ko: string, hv: string) => `${ko} · ${hv}`,
+    wordsHeading: (hanja: string) => `Các từ chứa ${hanja}`,
+    meaningLine: (meaning: string) => `Nghĩa gốc: ${meaning}`,
+    altHv: (list: string) => `Âm Hán-Việt khác: ${list}`,
+    backToList: "Về danh sách Hán tự",
+  },
+
+  grammar: {
+    title: "Ngữ pháp",
+    description:
+      "Điểm ngữ pháp TOPIK II theo cấp và chức năng, kèm nhóm so sánh các mẫu gần nghĩa dễ nhầm.",
+    listLabel: "Danh sách điểm ngữ pháp",
+    filterHeading: "Bộ lọc",
+    filters: {
+      level: "Cấp",
+      levelAll: "Tất cả",
+      function: "Chức năng",
+      functionAll: "Tất cả chức năng",
+      group: "Nhóm so sánh",
+      groupAll: "Tất cả",
+      search: "Tìm trong danh sách",
+      searchPlaceholder: "Mẫu câu hoặc nghĩa tiếng Việt",
+      clear: "Xóa bộ lọc",
+    },
+    result: (shown: number, total: number) => `Hiển thị ${shown}/${total} điểm ngữ pháp`,
+    empty: "Không có điểm ngữ pháp nào khớp bộ lọc.",
+    groupsHeading: "Nhóm so sánh các mẫu gần nghĩa",
+    groupsHint: "Mở bảng so sánh để chọn đúng mẫu theo văn phong, chủ ngữ và vế sau.",
+    groupsListLabel: "Các nhóm so sánh ngữ pháp",
+    groupMeta: (count: number, fn: string) => `${count} mẫu · ${fn}`,
+    inGroup: "Thuộc nhóm so sánh",
+  },
+
+  grammarDetail: {
+    pageTitle: (pattern: string) => `${pattern} · Ngữ pháp`,
+    backToList: "Về danh sách ngữ pháp",
+    variants: "Biến thể",
+    meaningHeading: "Nghĩa",
+    formHeading: "Cách chia",
+    hostNames: {
+      V: "Động từ",
+      A: "Tính từ",
+      N: "Danh từ",
+      "V/A": "Động từ và tính từ",
+    },
+    constraintsHeading: "Ràng buộc khi dùng",
+    constraintLabels: {
+      register: "Văn phong",
+      polarity: "Sắc thái vế sau",
+      subject: "Chủ ngữ",
+      tense: "Thì",
+      mainClause: "Vế sau",
+      other: "Lưu ý khác",
+    },
+    register: { spoken: "Khẩu ngữ", written: "Văn viết", both: "Dùng được cả nói và viết" },
+    polarity: {
+      any: "Không giới hạn sắc thái",
+      negative: "Thường dẫn tới kết quả không tốt",
+      positive: "Thường dẫn tới kết quả tốt",
+    },
+    bodyHeading: "Giải thích",
+    examplesHeading: "Ví dụ",
+    nonExamplesHeading: "Câu sai thường gặp",
+    wrongBadge: "Câu sai",
+    fixLabel: "Sửa thành",
+    mistakesHeading: "Lỗi người Việt hay mắc",
+    relatedHeading: "Điểm ngữ pháp liên quan",
+    groupHeading: "Thuộc nhóm so sánh",
+    viewGroup: "Xem bảng so sánh cả nhóm",
+  },
+
+  compare: {
+    pageTitle: (title: string) => `${title} · So sánh ngữ pháp`,
+    backToGrammar: "Về danh sách ngữ pháp",
+    summaryHeading: "Điểm chung và điểm khác",
+    membersHeading: "Các mẫu trong nhóm",
+    tableHeading: "Bảng so sánh",
+    tableLabel: (title: string) => `Bảng so sánh: ${title}`,
+    scrollHint: "Cuộn ngang để xem đủ các cột",
+    criterionColumn: "Tiêu chí",
+    contrastHeading: "Cùng một tình huống, mỗi mẫu dùng ra sao",
+    situation: "Tình huống",
+    okBadge: "Đúng",
+    notOkBadge: "Sai",
+    tipsHeading: "Mẹo chọn đúng mẫu",
+    trapsHeading: "Bẫy hay gặp trong đề TOPIK",
+    memberMeta: (level: number) => `Cấp ${level}`,
+  },
+
+  sources: {
+    title: "Nguồn và ghi công",
+    description:
+      "Từ vựng, Hán tự và ngữ pháp trên Topikly tham chiếu những nguồn nào, dùng ra sao và còn gì chưa chốt.",
+    attributionHeading: "Ghi công",
+    attribution:
+      "Cấp độ tham chiếu: 국제통용 한국어 표준 교육과정 (국립국어원). Từ điển tham khảo: 한국어기초사전 (국립국어원), 표준국어대사전 (국립국어원). Nội dung giải nghĩa, ví dụ do Topikly tự biên soạn.",
+    howHeading: "Chúng tôi dùng các nguồn này như thế nào",
+    how: [
+      "Chỉ để đối chiếu: một từ có thuộc cấp này không, chữ Hán (원어) nào, từ loại gì. Topikly không nhập hàng loạt danh sách hay định nghĩa của nguồn nào.",
+      "Nghĩa tiếng Việt, ví dụ, ghi chú, giải thích ngữ pháp và bảng so sánh do Topikly tự biên soạn. Ví dụ tự đặt, không chép từ từ điển hay sách.",
+      "Không dùng hình ảnh, âm thanh, phát âm của các từ điển nêu trên, và không dùng danh sách từ vựng, ngữ pháp của sách luyện thi hay nền tảng thương mại.",
+      "Âm Hán-Việt theo từ điển Hán-Việt phổ biến và cách dùng thực tế trong tiếng Việt.",
+    ],
+    sourcesHeading: "Các nguồn tham chiếu",
+    sourcesListLabel: "Danh sách nguồn tham chiếu",
+    sourceItems: [
+      {
+        name: "국제통용 한국어 표준 교육과정",
+        org: "국립국어원",
+        use: "Tham chiếu cấp độ (1급 đến 6급).",
+      },
+      {
+        name: "한국어기초사전",
+        org: "국립국어원",
+        use: "Từ điển tham khảo: chữ Hán, từ loại.",
+      },
+      {
+        name: "표준국어대사전",
+        org: "국립국어원",
+        use: "Từ điển tham khảo: chữ Hán, từ loại.",
+      },
+    ],
+    statusHeading: "Tình trạng nội dung",
+    status: [
+      "Cấp độ của từng mục hiện do người soạn đánh giá, chưa đối chiếu chính thức với danh sách của nguồn nào.",
+      "Các mục mang nhãn “Nội dung đang chờ duyệt” chưa được người duyệt xác nhận cuối. Nghĩa, ví dụ và cấp độ có thể còn được chỉnh sửa.",
+      "Điều khoản sử dụng của các nguồn tham chiếu đang được xác nhận. Trang này sẽ được cập nhật khi có kết luận.",
     ],
   },
 
@@ -199,6 +461,109 @@ export const vi = {
     ],
     pageTitle: (code: string, name: string) => `${code} · ${name}`,
     backToSkill: (skill: string) => `Về danh sách dạng câu ${skill}`,
+  },
+
+  writingSkill: {
+    typesHeading: "Chọn dạng câu Viết",
+    typeListLabel: "Các dạng câu phần Viết",
+    guestNote:
+      "Chế độ khách: bài viết nháp của bạn được lưu tạm trên thiết bị này. Phần Viết hiện chưa chấm tự động: bạn viết, rồi xem bài mẫu để tự so sánh.",
+    charLimit: (min: number, max: number) => `${min}–${max} ký tự`,
+    formatFillBlanks: "Điền vào chỗ trống",
+    formatEssay: "Viết bài có giới hạn ký tự",
+    promptCount: (n: number) => `${n} đề`,
+    empty: "Chưa có dạng câu Viết nào để luyện. Bạn quay lại sau nhé.",
+  },
+
+  writing: {
+    regionLabel: "Trình luyện Viết",
+    promptNav: "Danh sách đề Viết",
+    gotoPrompt: (n: number) => `Đề ${n}`,
+    promptOf: (n: number, total: number) => `Đề ${n}/${total}`,
+    difficulty: (level: number) => `Mức khó: cấp ${level}`,
+    passageLabel: "Văn bản cần điền",
+    taskLabel: "Nội dung đề",
+    blankSrLabel: (label: string) => `Chỗ trống ${label}`,
+    blanksLegend: "Điền vào chỗ trống",
+    blanksHint: "Mỗi chỗ trống viết đúng một câu hoàn chỉnh, đúng văn phong của đoạn văn.",
+    blankInputLabel: (label: string) => `Ô điền ${label}`,
+    essayLabel: "Bài viết của bạn",
+    essayHint:
+      "Số ký tự tính cả khoảng trắng, không tính xuống dòng. Tự viết rồi mới xem bài mẫu sẽ nhớ lâu hơn.",
+    essayPlaceholder: "Viết bài của bạn ở đây (bằng tiếng Hàn)…",
+    showReveal: "Xem bài mẫu & tự so sánh",
+    loadingReveal: "Đang tải bài mẫu…",
+    hideReveal: "Ẩn bài mẫu",
+    emptyBeforeReveal: "Bạn chưa viết gì. Nên tự viết trước khi xem bài mẫu, nhưng vẫn có thể xem.",
+    clear: "Xóa bài viết",
+    cleared: "Đã xóa bài viết nháp.",
+    confirmClearTitle: "Xóa bài viết?",
+    confirmClearBody: "Bản nháp trên thiết bị này cũng bị xóa và không khôi phục được.",
+    confirmClearYes: "Xóa",
+    confirmClearNo: "Giữ lại",
+    draft: {
+      idle: "Chế độ khách: bài viết tự lưu nháp trên thiết bị này.",
+      restored: "Đã khôi phục bản nháp của bạn từ thiết bị này.",
+      saved: "Đã lưu nháp trên thiết bị này.",
+      failed:
+        "Không lưu được nháp trên thiết bị này (có thể do chế độ riêng tư). Đừng tải lại trang.",
+    },
+    counter: {
+      count: (n: number) => `${n} ký tự`,
+      range: (min: number, max: number) => `Khung: ${min}–${max} ký tự`,
+      status: {
+        below: (min: number) => `Chưa đủ, cần ít nhất ${min} ký tự`,
+        within: () => "Trong khung ký tự",
+        above: (_min: number, max: number) => `Vượt quá ${max} ký tự`,
+      },
+    },
+    errors: {
+      network:
+        "Không kết nối được tới máy chủ. Kiểm tra mạng rồi thử lại. Bài viết của bạn vẫn được giữ.",
+      server:
+        "Máy chủ chưa tải được bài mẫu. Bài viết của bạn vẫn được giữ, hãy thử lại sau ít phút.",
+      retry: "Thử lại",
+    },
+    reveal: {
+      regionLabel: "Bài mẫu và tự so sánh",
+      heading: "Bài mẫu & tự so sánh",
+      selfCheckNote:
+        "Phần Viết chưa được chấm tự động. Hãy đối chiếu bài của bạn với bài mẫu, tự đánh dấu các ý bắt buộc và đọc nhận xét theo ba tiêu chí chấm.",
+      loaded: "Đã tải bài mẫu.",
+      register: (name: string) => `Văn phong yêu cầu: ${name}.`,
+      levelPicker: "Chọn cấp của bài mẫu",
+      levelOption: (level: number) => `Cấp ${level}`,
+      yourEssay: "Bài của bạn",
+      yourEssayEmpty: "Bạn chưa viết gì.",
+      modelEssay: (level: number) => `Bài mẫu cấp ${level}`,
+      modelMeta: (chars: number, cells: number) => `${chars} ký tự · khoảng ${cells} ô 원고지`,
+      modelCovers: "Bài mẫu có bao quát ý này.",
+      checklistTitle: "Tự kiểm tra các ý bắt buộc",
+      checklistHintData: "Đánh dấu những ý bài của bạn đã có, kèm số liệu đúng.",
+      checklistHintQuestions: "Đánh dấu những câu hỏi gợi ý bài của bạn đã trả lời.",
+      checklistProgress: (done: number, total: number) => `Bạn đã đánh dấu ${done}/${total} ý`,
+      rubricTitle: (level: number) => `Nhận xét bài mẫu cấp ${level} theo 3 tiêu chí`,
+      scoringTitle: "Điều kiện đạt mức cao / thấp",
+      outlineTitle: "Dàn ý gợi ý",
+      expressionsTitle: "Biểu hiện nên dùng",
+      mistakesTitle: "Lỗi người Việt hay mắc ở đề này",
+      explanationTitle: "Lời giải",
+      blankTitle: (label: string) => `Chỗ trống ${label}`,
+      yourAnswer: "Câu của bạn",
+      yourAnswerEmpty: "Bạn chưa điền.",
+      matchNote: {
+        accepted: "Trùng một đáp án đạt điểm tối đa.",
+        partial: "Trùng một đáp án đúng ý nhưng chưa trọn điểm. Xem lý do bên dưới.",
+        rejected: "Trùng một đáp án sai. Xem lý do bên dưới.",
+        unknown:
+          "Không trùng đáp án nào trong danh sách. Đây chưa phải nhận xét sai: hãy đối chiếu với các yếu tố bắt buộc.",
+        empty: "",
+      },
+      acceptedTitle: "Đáp án đạt điểm tối đa",
+      partialTitle: "Đúng ý nhưng chưa trọn điểm",
+      rejectedTitle: "Đáp án sai thường gặp",
+      requiredElements: "Yếu tố bắt buộc để đạt điểm tối đa",
+    },
   },
 
   runner: {

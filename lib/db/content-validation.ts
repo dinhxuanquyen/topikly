@@ -8,6 +8,7 @@ import {
   checkTags,
 } from "./content-rules";
 import { validateExamFile, type ExamQuestionRef } from "./exam-validation";
+import { isLexiconPath, validateLexicon } from "./lexicon-validation";
 import { estimateManuscriptCells } from "./manuscript";
 import { listPrograms } from "./programs";
 import type { ProgramConfig, QuestionTypeConfig } from "./programs";
@@ -18,7 +19,8 @@ import type { ProgramConfig, QuestionTypeConfig } from "./programs";
  *
  * Quy ước: mỗi file = MỘT câu hỏi, đường dẫn content/<program>/practice/<TYPE_CODE>/<id>.yaml.
  * File đề thi: content/<program>/exams/<kind>/<id>.yaml (kiểm ở ./exam-validation.ts, đối chiếu
- * với các câu hỏi cùng lượt kiểm). YAML ngoài practice/ và exams/ (vocab, grammar, strategies) -> bỏ qua.
+ * với các câu hỏi cùng lượt kiểm). File từ vựng & ngữ pháp (<program>/vocab/**, <program>/grammar/**)
+ * kiểm ở ./lexicon-validation.ts (vocab-grammar-spec §8). YAML ngoài các thư mục trên (strategies…) -> bỏ qua.
  *
  * Theo content-spec v0.3. Chưa làm (TODO, đều là cảnh báo hoặc phụ thuộc định dạng chưa chốt):
  *  - cảnh báo "độ dài ngữ liệu lệch quá 30% so với mục 4" (cần bảng độ dài chuẩn theo nhóm
@@ -65,11 +67,13 @@ export interface ValidationResult {
   errorCount: number;
   warningCount: number;
   filesChecked: number;
-  /** File YAML không phải câu hỏi hay đề thi (ngoài practice/ và exams/) nên bỏ qua. */
+  /** File YAML không phải câu hỏi, đề thi hay từ vựng/ngữ pháp (vd. strategies/) nên bỏ qua. */
   filesSkipped: number;
   questionsChecked: number;
   /** Số file đề thi (<program>/exams/**) đã kiểm. */
   examsChecked: number;
+  /** Số file từ vựng & ngữ pháp (<program>/vocab/**, <program>/grammar/**) đã kiểm. */
+  lexiconChecked: number;
 }
 
 // ------------------------------------------------------------------ hằng số theo spec
@@ -1040,6 +1044,7 @@ export function validateContent(
   const seen: Parsed[] = [];
   const examInputs: Array<{ file: string; text: string; program: ProgramConfig; parts: string[] }> =
     [];
+  const lexiconInputs: ContentFileInput[] = [];
 
   const sorted = files
     .map((f) => ({ ...f, file: f.file.replace(/\\/g, "/") }))
@@ -1067,7 +1072,14 @@ export function validateContent(
       continue;
     }
 
-    // Chỉ <program>/practice/** là file câu hỏi; phần còn lại (vocab, grammar…) bỏ qua.
+    // <program>/vocab/** và <program>/grammar/** là từ vựng & ngữ pháp (kiểm ở lexicon-validation).
+    if (isLexiconPath(parts)) {
+      if (/\.ya?ml$/i.test(file)) lexiconInputs.push({ file, text: input.text });
+      else filesSkipped += 1;
+      continue;
+    }
+
+    // Chỉ <program>/practice/** là file câu hỏi; phần còn lại (strategies…) bỏ qua.
     if (parts.length < 2 || parts[1] !== "practice") {
       filesSkipped += 1;
       continue;
@@ -1116,6 +1128,7 @@ export function validateContent(
 
   crossFileChecks(seen, issues);
   const examsChecked = checkExams(examInputs, seen, issues);
+  issues.push(...validateLexicon(lexiconInputs, { programs, forImport }));
 
   const errorCount = issues.filter((i) => i.severity === "error").length;
   return {
@@ -1126,6 +1139,7 @@ export function validateContent(
     filesSkipped,
     questionsChecked: seen.length,
     examsChecked,
+    lexiconChecked: lexiconInputs.length,
   };
 }
 
@@ -1302,7 +1316,7 @@ export function formatReport(result: ValidationResult): string {
   }
 
   lines.push(
-    `Đã kiểm ${result.filesChecked} file câu hỏi và ${result.examsChecked} file đề thi, bỏ qua ${result.filesSkipped} file ngoài practice/ và exams/.`,
+    `Đã kiểm ${result.filesChecked} file câu hỏi, ${result.examsChecked} file đề thi và ${result.lexiconChecked} file từ vựng/ngữ pháp, bỏ qua ${result.filesSkipped} file ngoài practice/, exams/, vocab/ và grammar/.`,
   );
   lines.push(
     result.errorCount === 0

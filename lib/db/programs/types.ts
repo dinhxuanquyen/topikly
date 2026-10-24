@@ -119,6 +119,29 @@ export interface ExamBlueprint {
 /** Cấu trúc đề theo loại rồi theo kỹ năng. Loại không khai báo (vd. Full) lấy theo `sections`. */
 export type ExamBlueprints = Partial<Record<ExamKindCode, Partial<Record<Skill, ExamBlueprint>>>>;
 
+/** Một mã trong danh sách đóng kèm nhãn tiếng Việt (tên hiển thị lấy từ cấu hình, không hard-code ở UI). */
+export interface LabelConfig {
+  code: string;
+  name_vi: string;
+  /** Tên tiếng Hàn (nếu có), ví dụ "명사" cho `noun`. */
+  name_ko?: string;
+}
+
+/**
+ * Cấu hình từ vựng & ngữ pháp (vocab-grammar-spec §3.4, §5.2, content-spec §6): danh sách đóng
+ * và nhãn hiển thị. Validator và UI cùng đọc từ đây.
+ */
+export interface LexiconConfig {
+  /** Từ loại (vocab-grammar-spec §3.4). */
+  pos: readonly LabelConfig[];
+  /** Chức năng ngữ pháp (vocab-grammar-spec §5.2). */
+  grammar_functions: readonly LabelConfig[];
+  /** Chủ đề của từ (giá trị `topic:` ở content-spec §6, trùng `tag_vocabulary.topic`). */
+  topics: readonly LabelConfig[];
+  /** Cấp từ vựng / ngữ pháp của chương trình (gồm hai đầu). Ngoài khoảng này chỉ cảnh báo. */
+  level_range: { min: number; max: number };
+}
+
 export interface ProgramConfig {
   code: ProgramCode;
   name: string;
@@ -133,6 +156,7 @@ export interface ProgramConfig {
   /** Giá trị cho phép của speakers[].age_range (content-spec §5.4). */
   speaker_age_ranges: readonly string[];
   tag_vocabulary: TagVocabulary;
+  lexicon: LexiconConfig;
   manuscript: ManuscriptConfig;
   /** Theo type_code Viết (W53, W54). */
   writing_sample_limits: Readonly<Record<string, SampleSoftLimit>>;

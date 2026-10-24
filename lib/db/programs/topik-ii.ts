@@ -1,3 +1,4 @@
+import { TOPIK_II_LEXICON } from "./topik-ii-lexicon";
 import { TOPIK_II_SUBSKILLS, TOPIK_II_TRAPS } from "./topik-ii-catalog";
 import { TOPIK_II_TAGS } from "./topik-ii-tags";
 import type { ProgramConfig, QuestionTypeConfig, Skill, TypeGroupConfig } from "./types";
@@ -330,6 +331,7 @@ export const topikII: ProgramConfig = {
   difficulty_range: { min: 3, max: 6 },
   speaker_age_ranges: ["teen", "20s", "30s-40s", "50s", "60s+"],
   tag_vocabulary: TOPIK_II_TAGS,
+  lexicon: TOPIK_II_LEXICON,
   manuscript: { cells_per_line: 20, indent_cells: 1 },
   writing_sample_limits: {
     W53: { max_chars: 290, max_cells: 300 },

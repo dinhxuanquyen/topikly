@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { requireProgram, requireSkill } from "@/components/config/route-guards";
 import { SKILLS } from "@/components/config/taxonomy";
 import { t } from "@/components/i18n";
-import { LinkCard } from "@/components/placeholder/link-card";
-import { PlaceholderPage } from "@/components/placeholder/placeholder-page";
 import { PracticePageShell } from "@/components/practice/page-shell";
 import { PracticeTypeCard } from "@/components/practice/practice-type-card";
 import { getPracticeTypes } from "@/lib/practice/queries";
+import { getWritingTypes } from "@/lib/practice/writing-queries";
 
 /** Cố ý blocking để segment lạ trả 404: xem ghi chú ở app/[program]/layout.tsx. */
 export const instant = false;
@@ -35,25 +34,47 @@ export default async function PracticeSkillPage({ params }: Props) {
     { label: skillName },
   ];
 
-  // Viết (tự luận) chưa thuộc phạm vi luyện trắc nghiệm theo dạng: giữ khung "đang xây dựng".
   if (skill.code === "writing") {
+    const writingTypes = await getWritingTypes(program.slug);
     return (
-      <PlaceholderPage
+      <PracticePageShell
+        wide
         breadcrumb={breadcrumb}
         title={t.practiceSkill.title(skillName)}
         description={t.practiceSkill.description(skillName)}
-        planned={t.practiceSkill.planned}
       >
-        <section aria-labelledby="sample-type-heading">
-          <h2 id="sample-type-heading" className="mb-3 text-sm font-semibold text-muted-foreground">
-            {t.practiceSkill.sampleTypeHeading}
+        <section aria-labelledby="types-heading">
+          <h2 id="types-heading" className="mb-1 text-sm font-semibold text-muted-foreground">
+            {t.writingSkill.typesHeading}
           </h2>
-          <LinkCard
-            href={`/${program.slug}/luyen-tap/${skill.slug}/${skill.sampleType}`}
-            title={t.practiceType.title(skill.sampleType)}
-          />
+          <p className="mb-3 text-xs text-muted-foreground">{t.writingSkill.guestNote}</p>
+          {writingTypes.length === 0 ? (
+            <p className="rounded-xl border border-dashed border-border bg-muted/40 p-4 text-sm">
+              {t.writingSkill.empty}
+            </p>
+          ) : (
+            <ul aria-label={t.writingSkill.typeListLabel} className="grid gap-3 sm:grid-cols-2">
+              {writingTypes.map((type) => (
+                <li key={type.type_code}>
+                  <PracticeTypeCard
+                    program={program.slug}
+                    skillSlug={skill.slug}
+                    type={type}
+                    countLabel={t.writingSkill.promptCount(type.question_count)}
+                    footer={
+                      <span className="block min-h-10 text-sm text-muted-foreground">
+                        {type.format === "essay" && type.char_limit
+                          ? `${t.writingSkill.formatEssay}: ${t.writingSkill.charLimit(type.char_limit.min, type.char_limit.max)}`
+                          : t.writingSkill.formatFillBlanks}
+                      </span>
+                    }
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
-      </PlaceholderPage>
+      </PracticePageShell>
     );
   }
 

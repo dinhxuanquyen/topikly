@@ -4,10 +4,11 @@ import { isProgramOpen, PROGRAMS } from "@/components/config/programs";
 import { requireProgram, requireSkill, requireTypeCode } from "@/components/config/route-guards";
 import { SKILLS } from "@/components/config/taxonomy";
 import { t } from "@/components/i18n";
-import { PlaceholderPage } from "@/components/placeholder/placeholder-page";
 import { PracticePageShell } from "@/components/practice/page-shell";
 import { PracticeRunner } from "@/components/practice/practice-runner";
+import { WritingPracticeRunner } from "@/components/writing/writing-runner";
 import { getPracticeQuestions, getPracticeTypes } from "@/lib/practice/queries";
+import { getWritingPrompts, getWritingTypes } from "@/lib/practice/writing-queries";
 
 /** Cố ý blocking để segment lạ trả 404: xem ghi chú ở app/[program]/layout.tsx. */
 export const instant = false;
@@ -15,16 +16,18 @@ export const instant = false;
 type Props = { params: Promise<{ program: string; skill: string; type: string }> };
 
 /**
- * Sinh sẵn mọi dạng đang có câu của các chương trình đang mở (Nghe, Đọc). Dạng lạ hoặc chưa có
- * câu không nằm trong danh sách và trả 404 lúc chạy (xem `PracticeTypePage`). Viết giữ trang
- * giữ chỗ. Với cacheComponents phải trả ít nhất một phần tử.
+ * Sinh sẵn mọi dạng đang có câu / đề của các chương trình đang mở (Nghe, Đọc, Viết). Dạng lạ hoặc
+ * chưa có câu không nằm trong danh sách và trả 404 lúc chạy (xem `PracticeTypePage`). Với
+ * cacheComponents phải trả ít nhất một phần tử.
  */
 export async function generateStaticParams() {
   const params: { program: string; skill: string; type: string }[] = [];
   for (const program of PROGRAMS.filter(isProgramOpen)) {
     for (const skill of SKILLS) {
       if (skill.code === "writing") {
-        params.push({ program: program.slug, skill: skill.slug, type: skill.sampleType });
+        for (const type of await getWritingTypes(program.slug)) {
+          params.push({ program: program.slug, skill: skill.slug, type: type.type_code });
+        }
         continue;
       }
       const types = await getPracticeTypes(program.slug, skill.code);
@@ -62,13 +65,19 @@ export default async function PracticeTypePage({ params }: Props) {
   ];
 
   if (skill.code === "writing") {
+    const prompts = await getWritingPrompts(program.slug, code);
+    if (prompts.length === 0) notFound();
+    const writingTypes = await getWritingTypes(program.slug);
+    const writingSummary = writingTypes.find((type) => type.type_code === code);
     return (
-      <PlaceholderPage
+      <PracticePageShell
+        wide
         breadcrumb={breadcrumb}
-        title={t.practiceType.title(code)}
-        description={t.practiceType.description(skillName)}
-        planned={t.practiceType.planned}
-      />
+        title={t.practiceType.pageTitle(code, writingSummary?.name_vi ?? skillName)}
+        description={writingSummary?.group_name_vi}
+      >
+        <WritingPracticeRunner program={program.slug} prompts={prompts} />
+      </PracticePageShell>
     );
   }
 

@@ -1,0 +1,88 @@
+# Fixture hợp lệ: lô từ vựng nhỏ.
+batch: general
+program: topik-ii
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null
+verification_vi: "Fixture cho test, không phải nội dung thật."
+words:
+  - id: v-00001
+    hangul: 사회
+    hanja: 社會
+    han_viet: xã hội
+    syllables:
+      - { ko: 사, hanja: 社, hv: xã }
+      - { ko: 회, hanja: 會, hv: hội }
+    meaning_vi: "xã hội"
+    pos: noun
+    level: 3
+    level_basis: editor
+    topics: [society]
+    example_ko: "우리 사회는 빠르게 변하고 있다."
+    example_vi: "Xã hội của chúng ta đang thay đổi nhanh chóng."
+    false_friend: null
+    collocations:
+      - { ko: "사회 문제", vi: "vấn đề xã hội" }
+      - { ko: "사회생활", vi: "cuộc sống xã hội" }
+    note_vi: "Giống nghĩa với 'xã hội' tiếng Việt."
+
+  - id: v-00002
+    hangul: 해결하다
+    hanja: 解決
+    han_viet: giải quyết
+    syllables:
+      - { ko: 해, hanja: 解, hv: giải }
+      - { ko: 결, hanja: 決, hv: quyết }
+    meaning_vi: "giải quyết"
+    pos: verb
+    level: 3
+    level_basis: editor
+    topics: [society]
+    example_ko: "문제를 해결하려면 먼저 원인부터 찾아야 한다."
+    example_vi: "Muốn giải quyết vấn đề thì trước hết phải tìm nguyên nhân."
+    false_friend: null
+    collocations:
+      - { ko: "문제를 해결하다", vi: "giải quyết vấn đề" }
+      - { ko: "해결책", vi: "giải pháp" }
+
+  - id: v-00003
+    hangul: 결정하다
+    hanja: 決定
+    han_viet: quyết định
+    syllables:
+      - { ko: 결, hanja: 決, hv: quyết }
+      - { ko: 정, hanja: 定, hv: định }
+    meaning_vi: "quyết định"
+    pos: verb
+    level: 3
+    level_basis: editor
+    topics: [daily-life, society]
+    example_ko: "우리는 내일 출발하기로 결정했다."
+    example_vi: "Chúng tôi đã quyết định ngày mai xuất phát."
+    false_friend: null
+    collocations:
+      - { ko: "결정을 내리다", vi: "đưa ra quyết định" }
+      - { ko: "결정되다", vi: "được quyết định" }
+    reviewed_by: "nguoi-dung"
+    reviewed_at: 2026-10-22
+
+  - id: v-00004
+    hangul: 어울리다
+    hanja: null
+    han_viet: null
+    meaning_vi: "hợp, hợp với; hòa nhập, chơi cùng"
+    pos: verb
+    level: 4
+    level_basis: editor
+    topics: [daily-life]
+    example_ko: "이 넥타이는 그 양복과 잘 어울려요."
+    example_vi: "Cà vạt này rất hợp với bộ vest đó."
+    false_friend:
+      kind: partial
+      vi_meaning: "ví dụ cho test"
+      note_vi: "Chỉ là fixture để kiểm tra cấu trúc bạn giả."
+    collocations:
+      - { ko: "잘 어울리다", vi: "rất hợp" }
+      - { ko: "친구들과 어울리다", vi: "chơi cùng bạn bè" }

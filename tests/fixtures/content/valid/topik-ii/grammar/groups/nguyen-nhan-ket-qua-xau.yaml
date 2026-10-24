@@ -1,0 +1,66 @@
+slug: nguyen-nhan-ket-qua-xau
+title_vi: "Nguyên nhân dẫn đến kết quả không tốt: -느라고 / -는 바람에"
+function: cause
+level: 4
+members: [g-0001, g-0002]
+summary_vi: |
+  Fixture cho test. Cả hai đều nêu nguyên nhân dẫn đến kết quả không tốt, khác nhau ở loại nguyên nhân.
+compare_table:
+  columns: ["-느라고", "-는 바람에"]
+  rows:
+    - criterion_key: meaning
+      criterion: "Nghĩa cốt lõi"
+      cells: ["Mải làm A nên không làm được B", "A xảy ra bất ngờ nên B xấu xảy ra"]
+    - criterion_key: pos
+      criterion: "Loại từ đi kèm"
+      cells: ["Chỉ động từ", "Chỉ động từ"]
+    - criterion_key: subject
+      criterion: "Chủ ngữ hai vế"
+      cells: ["Phải giống nhau", "Có thể khác nhau"]
+    - criterion_key: tense
+      criterion: "Thì"
+      cells: ["Không gắn -았/었-", "Không gắn -았/었-"]
+    - criterion_key: main_clause
+      criterion: "Kết quả ở vế sau"
+      cells: ["Thường không tốt", "Không tốt, ngoài dự tính"]
+    - criterion_key: nuance
+      criterion: "Sắc thái"
+      cells: ["Giải thích mình bận", "Kể lại sự cố"]
+    - criterion_key: register
+      criterion: "Văn nói / văn viết"
+      cells: ["Cả hai", "Cả hai, thiên văn nói"]
+    - criterion_key: other
+      criterion: "Dấu hiệu nhận ra"
+      cells: ["Cùng chủ ngữ", "갑자기, 그만"]
+contrast_examples:
+  - situation_vi: "Đi học trễ vì tắc đường."
+    items:
+      - member: g-0001
+        ko: "길이 막히느라고 늦었어요."
+        vi: "Vì tắc đường nên tôi bị trễ."
+        ok: false
+        note_vi: "Sai: tắc đường không phải việc chủ ngữ đang mải làm."
+      - member: g-0002
+        ko: "길이 막히는 바람에 늦었어요."
+        vi: "Vì tắc đường nên tôi bị trễ."
+        ok: true
+        note_vi: "Việc tắc đường là bất ngờ, hợp -는 바람에."
+  - situation_vi: "Không ngủ được."
+    items:
+      - member: g-0001
+        ko: "보고서를 쓰느라고 못 잤어요."
+        vi: "Mải viết báo cáo nên tôi không ngủ được."
+        ok: true
+        note_vi: "Cùng chủ ngữ, hành động mất thời gian."
+      - member: g-0002
+        ko: "옆집 사람들이 떠드는 바람에 못 잤어요."
+        vi: "Vì nhà bên cạnh ồn nên tôi không ngủ được."
+        ok: true
+        note_vi: "Khác chủ ngữ, việc ngoài ý muốn."
+decision_tips_vi:
+  - "Hai vế khác chủ ngữ thì loại -느라고."
+source: original
+authored_by: hanviet-lexicographer
+created_at: 2026-10-20
+reviewed_by: null
+reviewed_at: null

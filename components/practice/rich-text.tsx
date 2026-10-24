@@ -4,11 +4,12 @@ import { Fragment, type ReactNode } from "react";
  * Hiển thị văn bản có đánh dấu tối thiểu mà KHÔNG dùng dangerouslySetInnerHTML:
  *   **đậm**        -> <strong>
  *   <u>gạch</u>    -> <u>   (ngữ liệu "밑줄 친 부분")
+ *   *nghiêng*      -> <em>  (chỉ khi bật `italic`; mặc định là chữ thường vì đề có dấu * thật)
  * Mọi thứ khác là chữ thường, React tự escape.
  * Mỗi "\n" là một ngắt dòng cứng (quy ước content-spec 5.2): mỗi dòng thành một đoạn.
  */
 
-const TOKEN = /\*\*([^*]+?)\*\*|<u>([^<]+?)<\/u>/g;
+const TOKEN = /\*\*([^*]+?)\*\*|<u>([^<]+?)<\/u>|\*([^*\s](?:[^*]*?[^*\s])?)\*/g;
 const HANGUL_RUN = /([ᄀ-ᇿ㄰-㆏가-힯]+(?:[ ·][ᄀ-ᇿ㄰-㆏가-힯]+)*)/g;
 
 /** Bọc từng cụm chữ Hàn trong văn bản Việt bằng <span lang="ko"> (phát âm đúng, ngắt chữ đúng). */
@@ -27,6 +28,8 @@ function tagKorean(text: string, keyPrefix: string): ReactNode[] {
 export interface InlineOptions {
   /** true = văn bản tiếng Việt có xen chữ Hàn: bọc cụm Hangul bằng lang="ko". */
   tagKorean?: boolean;
+  /** true = *nghiêng* thành <em> (lời giải dạng markdown). Mặc định false. */
+  italic?: boolean;
 }
 
 export function renderInline(text: string, options: InlineOptions = {}): ReactNode[] {
@@ -42,6 +45,14 @@ export function renderInline(text: string, options: InlineOptions = {}): ReactNo
       out.push(<strong key={`b${start}`}>{plain(match[1], `b${start}`)}</strong>);
     } else if (match[2] !== undefined) {
       out.push(<u key={`u${start}`}>{plain(match[2], `u${start}`)}</u>);
+    } else if (match[3] !== undefined) {
+      out.push(
+        options.italic ? (
+          <em key={`i${start}`}>{plain(match[3], `i${start}`)}</em>
+        ) : (
+          <Fragment key={`i${start}`}>{plain(match[0], `i${start}`)}</Fragment>
+        ),
+      );
     }
     last = start + match[0].length;
   }
