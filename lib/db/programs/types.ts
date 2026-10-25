@@ -11,8 +11,12 @@ export type Skill = (typeof SKILLS)[number];
 export const PROGRAM_CODES = ["topik-ii", "topik-i", "eps"] as const;
 export type ProgramCode = (typeof PROGRAM_CODES)[number];
 
-/** Loại đề thi. Trùng `ExamKind` ở lib/exam/types.ts (khai báo lại để lib/db không phụ thuộc lib/exam). */
-export const EXAM_KINDS = ["full", "mini", "hard", "ibt"] as const;
+/**
+ * Loại đề thi. Trùng `ExamKind` ở lib/exam/types.ts (khai báo lại để lib/db không phụ thuộc lib/exam)
+ * và enum Postgres `exam_kind`. `placement` = Test trình độ (đề ngắn ước lượng cấp xuất phát, không
+ * nằm trong danh sách đề của trụ Đề thi).
+ */
+export const EXAM_KINDS = ["full", "mini", "hard", "ibt", "placement"] as const;
 export type ExamKindCode = (typeof EXAM_KINDS)[number];
 
 export interface SectionConfig {
@@ -142,6 +146,19 @@ export interface LexiconConfig {
   level_range: { min: number; max: number };
 }
 
+/**
+ * Cấu hình Test trình độ (loại đề `placement`) của chương trình. Số câu và thời gian nằm ở
+ * `exam_blueprints.placement`, không lặp lại ở đây.
+ */
+export interface PlacementConfig {
+  /** Id đề test trình độ đang dùng (file content/<program>/exams/placement/<id>.yaml). */
+  exam_id: string;
+  /** Tỉ lệ đúng tối thiểu để coi là vững một bậc độ khó (content-spec §2.3: vững cấp đó làm đúng ~60–70%). */
+  band_pass_ratio: number;
+  /** Số kỹ năng con yếu nhất trả về để Lộ trình ưu tiên. */
+  weak_subskill_count: number;
+}
+
 export interface ProgramConfig {
   code: ProgramCode;
   name: string;
@@ -167,6 +184,8 @@ export interface ProgramConfig {
    * Tra qua `getExamBlueprint(program, kind, skill)`.
    */
   exam_blueprints: ExamBlueprints;
+  /** Test trình độ (đề `placement`): đề đang dùng, ngưỡng vững một bậc, số kỹ năng yếu trả về. */
+  placement: PlacementConfig;
   type_groups: readonly TypeGroupConfig[];
   question_types: readonly QuestionTypeConfig[];
 }

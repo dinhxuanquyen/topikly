@@ -404,11 +404,64 @@ export const vi = {
     description:
       "Từ test trình độ đến kế hoạch từng ngày, bám theo cấp mục tiêu và ngày thi của bạn.",
     planned: [
-      "Test trình độ ngắn (khoảng 10 phút) để gợi ý cấp xuất phát.",
       "Nhập ngày thi, cấp mục tiêu và số phút học mỗi ngày để nhận kế hoạch theo ngày.",
       "Mở khoá tuần tự, chuỗi ngày học (streak) và nhắc học.",
       "Tự điều chỉnh khi bỏ lỡ ngày học hoặc điểm Mini test thấp.",
     ],
+  },
+
+  placement: {
+    title: "Test trình độ",
+    description:
+      "Làm một bài Đọc ngắn từ dễ đến khó để biết nên bắt đầu học từ cấp nào. Không cần đăng nhập.",
+    unavailableTitle: "Test trình độ đang được biên soạn",
+    unavailable:
+      "Bài test chưa sẵn sàng. Trong lúc chờ, bạn có thể luyện từng dạng câu hoặc làm Mini test để tự đánh giá.",
+    unavailablePractice: "Đến trang Luyện tập",
+    unavailableRoadmap: "Về Lộ trình",
+    card: {
+      summary: (questions: number, minutes: number) =>
+        `Làm ${questions} câu Đọc trong ${minutes} phút để biết nên bắt đầu học từ cấp nào. Không cần đăng nhập.`,
+      unavailable: "Bài test đang được biên soạn, sẽ mở sớm.",
+      result: (estimated: string, start: string) =>
+        `Trình độ ước lượng: ${estimated} · nên bắt đầu ở ${start}`,
+      resultNote: "Ước lượng sơ bộ từ lần làm gần nhất, lưu tạm trên thiết bị này.",
+      start: "Làm test ngay",
+      retry: "Làm lại",
+      retryLabel: "Làm lại Test trình độ",
+    },
+    intro: {
+      note: "Các câu xếp từ dễ đến khó. Kết quả chỉ là ước lượng sơ bộ để gợi ý cấp bắt đầu, không phải điểm thi thật và có thể lệch so với trình độ thực.",
+    },
+    result: {
+      heading: "Kết quả Test trình độ",
+      estimatedLabel: "Trình độ ước lượng sơ bộ",
+      startLabel: "Nên bắt đầu ở",
+      belowLowest:
+        "Bạn chưa vững bậc thấp nhất của bài test, nên Lộ trình sẽ bắt đầu từ cấp thấp nhất.",
+      ruleWithRatio: (percent: number) =>
+        `Một bậc được tính là vững khi bạn làm đúng từ ${percent}% số câu của bậc đó. Trình độ ước lượng là bậc cao nhất mà bạn vững, cùng với mọi bậc thấp hơn.`,
+      ruleWithoutRatio:
+        "Một bậc được tính là vững khi bạn làm đúng phần lớn số câu của bậc đó. Trình độ ước lượng là bậc cao nhất mà bạn vững, cùng với mọi bậc thấp hơn.",
+      disclaimer:
+        "Đây là ước lượng sơ bộ: mỗi bậc chỉ có vài câu nên kết quả có thể lệch khoảng một cấp. Dùng nó để gợi ý điểm xuất phát, không phải điểm thi thật.",
+      bandsHeading: "Kết quả theo bậc độ khó",
+      bandsHint: "Mỗi bậc ứng với cấp TOPIK mà các câu đó phân biệt.",
+      bandColumns: { band: "Bậc", correct: "Đúng/tổng", ratio: "Tỉ lệ", status: "Kết quả" },
+      band: (difficulty: number) => `${difficulty}급`,
+      bandPassed: "Vững",
+      bandFailed: "Chưa vững",
+      ratioLabel: (percent: number) => `${percent}%`,
+      weakHeading: "Kỹ năng nên luyện trước",
+      weakHint: "Những kỹ năng con bạn còn sai, yếu nhất đứng trước.",
+      weakEmpty: "Từ bài test này chưa có kỹ năng nào cần ưu tiên luyện thêm.",
+      roadmapNote:
+        "Lộ trình theo ngày sẽ dùng kết quả này để xếp nhiệm vụ cho bạn (sắp có). Kết quả được giữ trên thiết bị này.",
+      reviewHidden:
+        "Test trình độ không hiện đáp án và lời giải từng câu để lần làm lại vẫn đo đúng trình độ. Muốn xem lời giải, bạn luyện theo dạng ở mục Luyện tập.",
+      retry: "Làm lại test",
+      backToRoadmap: "Về Lộ trình",
+    },
   },
 
   practice: {

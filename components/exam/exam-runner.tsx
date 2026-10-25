@@ -48,8 +48,10 @@ interface ExamRunnerProps {
   exam: PublicExam;
   /** Các type_code đang có câu luyện (để chỉ gắn link "Luyện dạng này" khi trang đích tồn tại). */
   practiceTypeCodes?: readonly string[];
-  /** Liên kết về danh sách đề cùng loại. */
+  /** Liên kết về danh sách đề cùng loại (Test trình độ: về trang Lộ trình). */
   listHref: string;
+  /** Test trình độ: tỉ lệ đúng tối thiểu để vững một bậc (cấu hình chương trình), dùng để giải thích quy tắc. */
+  passRatio?: number;
 }
 
 /** Chuyển focus tới phần tử và cuộn đầu phần tử lên dưới thanh dính. */
@@ -67,7 +69,7 @@ function focusAndReveal(element: HTMLElement | null) {
  * - Không gọi API chấm từng câu và không có đáp án ở client: chỉ POST /api/exam/submit một lần.
  * - Lỗi nộp bài (mạng/server) giữ nguyên bài làm và cho thử lại.
  */
-export function ExamRunner({ exam, practiceTypeCodes, listHref }: ExamRunnerProps) {
+export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: ExamRunnerProps) {
   const blocks = useMemo(() => listBlocks(exam), [exam]);
   const questions = useMemo(() => listQuestions(exam), [exam]);
   const sectionLabels = useMemo(
@@ -519,6 +521,7 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref }: ExamRunnerProp
           practiceTypeCodes={practiceTypeCodes}
           listHref={listHref}
           saved={resultSaved}
+          passRatio={passRatio}
           onRetry={restart}
         />
       ) : null}

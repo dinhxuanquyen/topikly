@@ -53,7 +53,7 @@ export async function POST(request: Request): Promise<Response> {
     const e = examApiError(
       400,
       "invalid_body",
-      "Dữ liệu không hợp lệ: cần program, kind (full|mini|hard|ibt), examId, answers (questionId -> ①–④ hoặc null), và tuỳ chọn startedAt, timeSpentMs, timedOut.",
+      "Dữ liệu không hợp lệ: cần program, kind (full|mini|hard|ibt|placement), examId, answers (questionId -> ①–④ hoặc null), và tuỳ chọn startedAt, timeSpentMs, timedOut.",
     );
     return respond(e.status, e.body);
   }

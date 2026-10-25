@@ -13,6 +13,9 @@ import type { ExamKindCode, ProgramConfig } from "./programs";
  *    tại, sai kỹ năng của phần, câu trùng, bộ group_key thiếu câu hoặc không liền nhau.
  *  - Chỉ chặn khi `published` (draft chỉ cảnh báo): số câu khác blueprint, và luật nhãn đúng của
  *    đề lắp ráp (content-spec §4.1: ~25% mỗi nhãn, không quá 3 câu liền cùng nhãn, không chu kỳ lặp).
+ *  - Riêng đề `placement` (Test trình độ), cũng chỉ chặn khi `published`: đề phải phủ đủ bậc độ khó,
+ *    liên tục từ bậc thấp nhất, mỗi bậc đủ câu
+ *    (xem PLACEMENT_MIN_BANDS / PLACEMENT_MIN_PER_BAND) để ước lượng trình độ có nghĩa.
  */
 
 export const EXAM_ID_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -23,6 +26,14 @@ const MAX_SECTION_DURATION_SEC = 6 * 60 * 60;
 /** Kỹ năng đề thi hiện hỗ trợ: trắc nghiệm. Viết/Nói sẽ thêm khi có trụ chấm tương ứng. */
 export const EXAM_SKILLS = ["listening", "reading"] as const;
 export type ExamSkill = (typeof EXAM_SKILLS)[number];
+
+/**
+ * Luật phủ bậc độ khó của đề `placement`: ít nhất bấy nhiêu bậc khác nhau trong `difficulty_range`,
+ * các bậc LIÊN TỤC từ `difficulty_range.min` (không lỗ, không thiếu bậc thấp nhất), mỗi bậc có mặt
+ * trong đề phải có ít nhất bấy nhiêu câu. Với ngưỡng 60%: 2 câu = phải đúng hết, 3 câu = đúng >= 2/3.
+ */
+export const PLACEMENT_MIN_BANDS = 3;
+export const PLACEMENT_MIN_PER_BAND = 3;
 
 export const EXAM_STATUSES = ["draft", "published"] as const;
 
@@ -82,6 +93,8 @@ export interface ExamQuestionRef {
   group_key?: string;
   /** Chỉ số (0–3) của đáp án đúng; undefined nếu chưa xác định được. */
   correctIndex?: number;
+  /** Độ khó (số nguyên, thang `difficulty_range`); undefined nếu chưa xác định được. */
+  difficulty?: number;
 }
 
 export interface ExamFileContext {
@@ -147,6 +160,7 @@ export function validateExamFile(
     program.question_types.find((t) => t.code === typeCode)?.skill;
 
   const seenSkills = new Set<string>();
+  const placementDifficulties: number[] = [];
   const seenIds = new Map<string, string>(); // id -> "sections[i].questions[j]"
 
   exam.sections.forEach((section, si) => {
@@ -193,6 +207,7 @@ export function validateExamFile(
         return;
       }
       resolved.push(ref);
+      if (ref.difficulty !== undefined) placementDifficulties.push(ref.difficulty);
     });
 
     checkGroups(section.questions, questions, base, error);
@@ -214,7 +229,56 @@ export function validateExamFile(
     }
   });
 
+  if (kind === "placement") {
+    checkPlacementBands(placementDifficulties, program, softAdd);
+  }
+
   return exam;
+}
+
+/**
+ * Đề `placement` phải phủ ≥ PLACEMENT_MIN_BANDS bậc độ khó khác nhau trong `difficulty_range`, mỗi bậc
+ * có mặt ≥ PLACEMENT_MIN_PER_BAND câu. Tính trên mọi phần của đề (câu đã tra được độ khó).
+ */
+function checkPlacementBands(
+  difficulties: readonly number[],
+  program: ProgramConfig,
+  report: Reporter,
+): void {
+  const { min, max } = program.difficulty_range;
+  const counts = new Map<number, number>();
+  for (const d of difficulties) {
+    if (d >= min && d <= max) counts.set(d, (counts.get(d) ?? 0) + 1);
+  }
+  if (counts.size < PLACEMENT_MIN_BANDS) {
+    report(
+      "sections",
+      `đề placement chỉ phủ ${counts.size} bậc độ khó (${[...counts.keys()].sort((a, b) => a - b).join(", ") || "không có"}), cần ít nhất ${PLACEMENT_MIN_BANDS} bậc khác nhau trong ${min}–${max}`,
+      "placement-bands",
+    );
+  }
+  // Liên tục từ bậc thấp nhất: mọi bậc từ min đến bậc cao nhất có câu đều phải có mặt.
+  if (counts.size > 0) {
+    const top = Math.max(...counts.keys());
+    const missing: number[] = [];
+    for (let d = min; d <= top; d++) if (!counts.has(d)) missing.push(d);
+    if (missing.length > 0) {
+      report(
+        "sections",
+        `đề placement thiếu bậc độ khó ${missing.join(", ")}: các bậc phải liên tục từ ${min} đến bậc cao nhất của đề (${top}), không bỏ cách bậc nào`,
+        "placement-band-gap",
+      );
+    }
+  }
+  for (const [difficulty, count] of [...counts].sort((a, b) => a[0] - b[0])) {
+    if (count < PLACEMENT_MIN_PER_BAND) {
+      report(
+        "sections",
+        `đề placement: bậc độ khó ${difficulty} chỉ có ${count} câu, cần ít nhất ${PLACEMENT_MIN_PER_BAND} câu mỗi bậc`,
+        "placement-band-size",
+      );
+    }
+  }
 }
 
 /** Bộ câu dùng chung ngữ liệu (cùng group_key) phải đủ câu, liền nhau, đúng thứ tự type_code. */

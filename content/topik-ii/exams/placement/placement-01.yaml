@@ -1,0 +1,53 @@
+# Test trình độ TOPIK II 01 (status: draft). 12 câu Đọc theo blueprint placement.reading
+# (12 câu / 15 phút, lấy thời gian từ blueprint nên không ghi duration_sec). Chưa có câu Nghe
+# vì câu Nghe chưa có audio.
+#
+# Chọn câu (không soạn câu mới, chỉ lấy từ content/topik-ii/practice/R*/):
+# - Phủ liên tục 4 bậc độ khó 3-4-5-6 (content-spec §2.3, §5.1), mỗi bậc 3 câu, xếp tăng dần:
+#   bậc 3: r01, r03, r07 | bậc 4: r17, r14, r10 | bậc 5: r26, r35, r33 | bậc 6: bộ r48-50.
+#   Với 3 câu mỗi bậc, ngưỡng vững bậc 60% tương đương đúng 2/3 câu.
+# - Bậc 3 và bậc 6 lấy toàn bộ câu đang có của bậc đó. Bậc 6 hiện chỉ có bộ r48-50-0001
+#   (đủ bộ, liền nhau, type_code tăng dần); không dùng r47-0001 vì bộ r46-47-0001 chưa đủ và
+#   còn chờ chốt dạng câu R46 (Phụ lục A11 của content-spec).
+# - Bậc 4: r10, r14, r17 là ba câu đơn duy nhất của bậc này; các bộ r19-20 và r23-24 bị bỏ
+#   vì ngữ liệu dài.
+# - Bậc 5: bỏ bộ r44-45 vì ngữ liệu dài (khoảng 566 ký tự). Bỏ r29 và r40 vì luật nhãn: cả hai
+#   đều có đáp án ②, mà nhãn ② đã đủ 3 câu (r01, r14, r50). Lấy một trong hai câu thì không còn
+#   chia đều 3/3/3/3. r40 cũng không ngắn hơn r33 (ngữ liệu tương đương, thêm câu <보기>), và
+#   r29 sẽ làm fill_blank_content lặp thêm lần nữa. Bậc 5 cần các nhãn ①③④, nên chọn r26 ①,
+#   r35 ③, r33 ④.
+# - Subskill: 12 câu có 11 subskill khác nhau. Chỉ fill_blank_content lặp lại (r17 bậc 4, r49
+#   bậc 6).
+#
+# Luật nhãn đề lắp ráp (§4.1): chuỗi nhãn đúng theo thứ tự đề là ②④①④②③①③④③①②.
+# Mỗi nhãn 3 câu, không có hai câu liền nhau cùng nhãn, không có chu kỳ lặp (đã dò mọi cửa
+# sổ dài 4 trở lên; mọi chuỗi 3 nhãn liên tiếp cũng khác nhau). Trong bậc 4 và bậc 5, thứ tự
+# câu không theo type_code tăng dần vì phải đổi thứ tự để đạt luật nhãn.
+#
+# Đề trùng câu với doc-01 (cả 12 câu đều có trong doc-01) vì ngân hàng câu còn nhỏ. Khi đủ
+# câu sẽ thay bằng câu riêng, không dùng chung với Mini test.
+# Quyết định của người dùng (2026-10-25, báo cáo duyệt P11): trong lúc còn trùng câu với doc-01,
+# trang kết quả Test trình độ KHÔNG hiện đáp án và lời giải từng câu (chỉ hiện bảng theo bậc và
+# dạng câu nên luyện), để người làm lại không được xếp cao hơn thực tế. Khi đề có câu riêng thì
+# xem xét mở lại phần xem lại từng câu.
+# Chờ duyệt nội dung: chỉ chuyển sang `published` khi mọi câu trong đề đã có reviewed_by.
+# Định dạng file đề: xem docs/content-spec.md mục 5.1, tiểu mục "Định dạng file đề thi".
+id: placement-01
+kind: placement
+title: "Test trình độ TOPIK II 01"
+status: draft
+sections:
+  - skill: reading
+    questions:
+      - r01-0001
+      - r03-0001
+      - r07-0001
+      - r17-0001
+      - r14-0001
+      - r10-0001
+      - r26-0001
+      - r35-0001
+      - r33-0001
+      - r48-0001
+      - r49-0001
+      - r50-0001

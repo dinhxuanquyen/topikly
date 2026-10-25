@@ -1,6 +1,6 @@
 # Đặc tả biên soạn nội dung TOPIK II (content-spec)
 
-> **Phiên bản 0.3.1 · 2026-10-23** · Chủ sở hữu: `topik-content-designer` · Người dùng (product owner) duyệt cuối. Lịch sử thay đổi: xem [Phụ lục B](#phụ-lục-b--lịch-sử-thay-đổi).
+> **Phiên bản 0.3.3 · 2026-10-25** · Chủ sở hữu: `topik-content-designer` · Người dùng (product owner) duyệt cuối. Lịch sử thay đổi: xem [Phụ lục B](#phụ-lục-b--lịch-sử-thay-đổi).
 > Đầu ra Giai đoạn 0 theo [02 · Lộ trình](02-lo-trinh-trien-khai.md#giai-đoạn-0--nền-móng-2-tuần). Dựa trên [01 · Phân tích chuyên môn](01-phan-tich-chuyen-mon.md) mục 2, mô hình dữ liệu ở [README mục 6](../README.md#6-mô-hình-dữ-liệu) và mẫu YAML ở [README mục 7](../README.md#7-cấu-trúc-thư-mục-dự-kiến).
 >
 > Ai dùng tài liệu này:
@@ -278,7 +278,7 @@ Phạm vi: phần **Cấu trúc** và **Phương án nhiễu** áp dụng cho c�
 - Đúng **4 phương án**, nhãn `①②③④` theo thứ tự, **đúng 1** phương án `correct: true`.
 - Các phương án **song song** về ngữ pháp và độ dài (chênh không quá khoảng 30%). Đáp án đúng **không** được luôn là câu dài nhất, cụ thể nhất hay "mềm" nhất.
 - Phân bố nhãn đúng và chu kỳ lặp nhãn, chia theo phạm vi:
-  - **Đề lắp ráp (Full, Mini, Hard, IBT): quy tắc bắt buộc**, do script lắp đề kiểm tra và chặn. Mỗi nhãn khoảng 25%. Không quá 3 câu liền nhau cùng nhãn đúng. **Không có chu kỳ lặp nhãn đúng**, tức không có chuỗi nhãn dài từ 4 trở lên lặp lại liền nhau (ví dụ ②④①③ │ ②④①③). Script nên xáo **thứ tự câu** chứ không đảo nhãn. Đảo nhãn phương án buộc phải đảo cả các tham chiếu nhãn trong `explanation_vi`/`note_vi`, nên đó là thay đổi nội dung.
+  - **Đề lắp ráp (Full, Mini, Hard, IBT, Placement): quy tắc bắt buộc**, do script lắp đề kiểm tra và chặn. Mỗi nhãn khoảng 25%. Không quá 3 câu liền nhau cùng nhãn đúng. **Không có chu kỳ lặp nhãn đúng**, tức không có chuỗi nhãn dài từ 4 trở lên lặp lại liền nhau (ví dụ ②④①③ │ ②④①③). Script nên xáo **thứ tự câu** chứ không đảo nhãn. Đảo nhãn phương án buộc phải đảo cả các tham chiếu nhãn trong `explanation_vi`/`note_vi`, nên đó là thay đổi nội dung.
   - **Lô soạn (luyện tập): chỉ là khuyến nghị.** Validator cảnh báo, không chặn. Lô soạn theo thứ tự `type_code` dễ sinh ra chu kỳ, nhưng người học luyện theo dạng không gặp câu theo thứ tự đó. Reviewer ghi nhận ở phần "Nhận xét cấp lô".
 - Không dùng phương án kiểu "모두 맞다 / 정답 없음".
 
@@ -660,7 +660,7 @@ content/<program>/exams/<kind>/<id>.yaml
 ví dụ: content/topik-ii/exams/mini/doc-01.yaml
 ```
 - `<program>`: slug chương trình, ví dụ `topik-ii`.
-- `<kind>`: `full`, `mini`, `hard` hoặc `ibt`. Thư mục **phải khớp** trường `kind`.
+- `<kind>`: `full`, `mini`, `hard`, `ibt` hoặc `placement` (Test trình độ). Thư mục **phải khớp** trường `kind`.
 - `<id>`: khoá ổn định trong URL `/[program]/de-thi/[kind]/[id]`. Chỉ gồm chữ thường, chữ số và dấu `-` (ví dụ `doc-01`). **Phải khớp** tên file.
 - Mỗi file là **một** đề.
 
@@ -669,9 +669,9 @@ ví dụ: content/topik-ii/exams/mini/doc-01.yaml
 | Trường | Kiểu | Bắt buộc | Ràng buộc / ghi chú |
 |---|---|---|---|
 | `id` | string | ✓ | Khớp tên file |
-| `kind` | enum | ✓ | `full` \| `mini` \| `hard` \| `ibt`. Khớp thư mục |
+| `kind` | enum | ✓ | `full` \| `mini` \| `hard` \| `ibt` \| `placement`. Khớp thư mục |
 | `title` | string | ✓ | Tiêu đề tiếng Việt, ví dụ `"Mini test Đọc 01"` |
-| `status` | enum | ✓ | `draft` \| `published`. **`draft`**: đề mẫu hoặc đang soạn. Vẫn hiển thị được; các luật "đủ số câu" và "phân bố nhãn đúng" chỉ **cảnh báo**. **`published`**: các luật đó thành **lỗi chặn**, đề có lỗi không được phục vụ |
+| `status` | enum | ✓ | `draft` \| `published`. **`draft`**: đề mẫu hoặc đang soạn. Vẫn hiển thị được; các luật "đủ số câu", "phân bố nhãn đúng" và "phủ bậc" (riêng đề placement) chỉ **cảnh báo**. **`published`**: các luật đó thành **lỗi chặn**, đề có lỗi không được phục vụ |
 | `program` | string | – | Nếu có thì phải khớp thư mục chương trình |
 | `sections` | list | ✓ | Các phần thi **theo thứ tự làm bài**. Mỗi kỹ năng có tối đa một phần |
 
@@ -701,12 +701,31 @@ Ví dụ trên rút gọn còn 3 câu để minh hoạ cú pháp. Đề thật p
 **Ràng buộc** (kiểm bởi `npm run validate:content`, mã nguồn ở `lib/db/exam-validation.ts`):
 - Mọi id câu phải tồn tại, đúng kỹ năng của phần, không trùng nhau trong đề.
 - Các câu cùng `group_key` (cặp hoặc bộ dùng chung ngữ liệu, mục 1.3) phải có **đủ** số câu của bộ (đọc từ `group_key`, ví dụ `r46-47-0001` cần 2 câu), đứng **liền nhau** và theo `type_code` tăng dần.
-- Số câu mỗi phần bằng `exam_blueprints` (Mini) hoặc `sections` (Full) của chương trình. `draft`: cảnh báo; `published`: lỗi.
+- Số câu mỗi phần bằng `exam_blueprints` (Mini, Placement) hoặc `sections` (Full) của chương trình. `draft`: cảnh báo; `published`: lỗi.
 - Luật nhãn đúng của đề lắp ráp (mục 4.1), tính trên từng phần. `draft`: cảnh báo; `published`: lỗi.
   - Mỗi nhãn khoảng 25% (áp dụng từ 8 câu trở lên).
   - Không quá 3 câu liền nhau cùng nhãn.
   - Không có chu kỳ lặp, tức không có chuỗi từ 4 nhãn trở lên lặp lại liền nhau.
   - Muốn sửa thì **đổi thứ tự câu**, không đảo nhãn phương án.
+
+**Đề Test trình độ (`kind: placement`).** Đề ngắn, không cần đăng nhập, dùng để ước lượng trình độ hiện tại của người học theo **bậc độ khó** (độ khó = cấp TOPIK mà câu phân hoá, §2.3). Trình độ ước lượng là bậc cao nhất mà bậc đó và mọi bậc thấp hơn đều đạt tỉ lệ đúng tối thiểu (`placement.band_pass_ratio` của chương trình, hiện là 60%). Kết quả kèm gợi ý các subskill yếu, nên đề cần **đa dạng subskill**. Đề placement **không** nằm trong danh sách đề của trụ Đề thi. Đề đang dùng do `placement.exam_id` của chương trình chỉ định.
+- Số câu và thời gian lấy từ `exam_blueprints.placement` của chương trình (TOPIK II hiện là 12 câu Đọc / 15 phút), không ghi trong file đề. Ưu tiên câu có ngữ liệu ngắn để vừa thời gian. Bậc cao thường có ngữ liệu dài và nằm cuối đề, nên nếu thiếu giờ thì đề sẽ đo cả tốc độ đọc chứ không chỉ trình độ.
+- **Phủ bậc liên tục.** Các bậc có câu phải liên tục từ bậc thấp nhất của chương trình (`difficulty_range.min`, TOPIK II là bậc 3), không được bỏ trống bậc nào ở giữa, và có ít nhất 3 bậc. Ví dụ: 3-4-5 và 3-4-5-6 hợp lệ; 4-5-6 (thiếu bậc 3) và 3-4-6 (thiếu bậc 5) không hợp lệ.
+- **Cách ước lượng.** Xét từ bậc thấp nhất lên. Ước lượng dừng ở bậc đầu tiên không đạt ngưỡng, hoặc ở bậc trống đầu tiên (bậc không có câu). Các bậc phía trên bậc trống không được tính, kể cả khi người học làm đúng hết.
+- **Mỗi bậc ít nhất 3 câu.** Ngưỡng 60% được làm tròn lên theo số câu của bậc, nên ngưỡng thực tế khác nhau theo số câu:
+
+  | Số câu của bậc | Số câu đúng tối thiểu (ngưỡng 60%) | Tỉ lệ thực tế |
+  |---|---|---|
+  | 3 | 2/3 | 67% |
+  | 4 | 3/4 | 75% |
+  | 5 | 3/5 | 60% |
+
+  Nên dùng **cùng số câu cho mọi bậc**, ưu tiên 3 hoặc 5 câu/bậc, để ngưỡng mỗi bậc có cùng ý nghĩa và gần mức 60% danh nghĩa.
+- **Độ tin cậy.** Kết quả chỉ là **ước lượng sơ bộ**, độ tin cậy khoảng **±1 cấp**. Lý do: theo §2.3, người vững một cấp cũng chỉ làm đúng khoảng 60–70% câu của cấp đó, mà mỗi bậc lại có ít câu, nên người vững bậc vẫn có thể trượt chính bậc của mình. Giao diện không trình bày kết quả như kết quả thi. Nên hiện kèm số câu đúng/tổng của từng bậc và gợi ý cấp xuất phát.
+- **Dạng câu bạn làm sai (subskill yếu).** Chỉ xét các câu có độ khó không vượt quá cấp nên bắt đầu + 1 (cấp nên bắt đầu = trình độ ước lượng, hoặc bậc thấp nhất nếu chưa đạt bậc nào), để người cấp 3–4 không bị gợi ý những dạng của bậc 6. Xếp theo tỉ lệ đúng tăng dần, lấy tối đa `placement.weak_subskill_count` dòng; nếu hoà thì ưu tiên subskill có câu ở bậc thấp hơn. Danh sách có thể rỗng.
+- Thứ tự câu nên tăng dần theo bậc, nhưng vẫn phải đạt luật nhãn của đề lắp ráp và luật bộ câu ở trên. Muốn đạt luật nhãn thì đổi thứ tự câu **trong cùng một bậc**.
+- Luật phủ bậc (liên tục từ bậc thấp nhất, ít nhất 3 bậc, mỗi bậc ít nhất 3 câu): `draft` chỉ cảnh báo; `published` là lỗi chặn (như luật số câu và luật nhãn).
+- Ví dụ: `content/topik-ii/exams/placement/placement-01.yaml`.
 
 **Lệnh nhóm.** Lệnh nhóm tiếng Hàn (`instruction_ko`) **không** nằm trong file đề. Lệnh được lấy từ cấu hình chương trình theo `type_group` (mục 5.2). Giao diện luôn ẩn `stem` của câu đơn.
 
@@ -1265,9 +1284,15 @@ Dùng cho **topik-content-reviewer**. Ghi mã tiêu chí (ví dụ `[B2]`) ở c
 
 **L · Cấp lô** (ghi ở phần "Nhận xét cấp lô" của báo cáo, không gắn vào từng id)
 - L1. Phân bố nhãn đúng gần đều, không quá 3 câu liền nhau cùng nhãn, không có chu kỳ lặp nhãn (mục 4.1).
-  - **Bắt buộc** với đề lắp ráp (Full, Mini, Hard, IBT) và với mọi lô được **phát cho người học theo đúng thứ tự trong lô**.
+  - **Bắt buộc** với đề lắp ráp (Full, Mini, Hard, IBT, Placement) và với mọi lô được **phát cho người học theo đúng thứ tự trong lô**.
   - Với lô soạn theo `type_code` rồi phát theo thẻ nhóm dạng: chỉ là **khuyến nghị**. Reviewer **không cần** ghi lại nhận xét về chu kỳ ở mỗi lô loại này, chỉ ghi khi phân bố lệch rõ (một nhãn trên 40% hoặc dưới 10%).
 - L2. Các câu cùng `group_key` có ngữ liệu chung giống hệt nhau.
+- L3. Đề placement (§5.1):
+  - Các bậc có câu liên tục từ bậc thấp nhất của chương trình, ít nhất 3 bậc, mỗi bậc ít nhất 3 câu. Nên cùng số câu cho mọi bậc.
+  - Độ khó ghi trong comment đầu file đề khớp `difficulty` của từng file câu.
+  - Bộ câu dùng chung ngữ liệu không bị tách, đứng liền nhau, `type_code` tăng dần.
+  - Câu xếp tăng dần theo bậc. Thứ tự chỉ được đảo trong cùng một bậc.
+  - Tổng độ dài ngữ liệu vừa thời gian của blueprint. Subskill đa dạng.
 
 ### 7.2 Mức kết luận
 
@@ -1387,6 +1412,36 @@ Sửa chính tả thuần tuý (đổi chữ) trong `note_vi`/`explanation_vi` v
 ---
 
 ## Phụ lục B · Lịch sử thay đổi
+
+### v0.3.3 · 2026-10-25
+
+Cập nhật theo báo cáo duyệt `content/_reviews/2026-10-25-placement-01.md` (các mục S1–S5, P6, P7, P9).
+
+**Đã áp dụng**
+- §5.1, đoạn "Đề Test trình độ":
+  - (S2) Các bậc có câu phải **liên tục** từ `difficulty_range.min` (TOPIK II: bậc 3), không bỏ trống bậc nào ở giữa, ít nhất 3 bậc, kèm ví dụ hợp lệ và không hợp lệ. Ghi rõ cách ước lượng: dừng ở bậc đầu tiên không đạt hoặc ở bậc trống đầu tiên. Bậc phía trên bậc trống không được tính.
+  - (S3) Nâng mức tối thiểu từ 2 lên **3 câu mỗi bậc**. Thêm bảng ngưỡng thực tế theo số câu với ngưỡng 60% (3 câu → 2/3, 4 câu → 3/4, 5 câu → 3/5). Khuyến nghị cùng số câu cho mọi bậc, ưu tiên 3 hoặc 5. Thêm đoạn độ tin cậy: kết quả là ước lượng sơ bộ, khoảng ±1 cấp, giao diện không trình bày như kết quả thi.
+  - (P7) Thời gian blueprint ghi là 15 phút thay cho 12 phút. Thêm câu cảnh báo: nếu thiếu giờ thì đề đo cả tốc độ đọc.
+  - (S1, gợi ý) Ghi rằng đề placement không nằm trong danh sách đề của trụ Đề thi, cho khớp comment đầu `lib/exam/source.ts`.
+- §5.1, bảng "Trường cấp đề", hàng `status` (S1, gợi ý): thêm luật "phủ bậc" (riêng đề placement) vào nhóm luật chỉ cảnh báo ở `draft`.
+- §4.1 và §7.1 L1 (S4): thêm Placement vào danh sách đề lắp ráp phải theo luật nhãn.
+- §7.1 (S4): thêm mục cấp lô **L3** cho đề placement.
+- Phụ lục B v0.3.2 (S5, gợi ý): câu "nếu backend chưa cập nhật…" đã lỗi thời, nay ghi nhận code đã đồng bộ.
+- Comment đầu `content/topik-ii/exams/placement/placement-01.yaml` (P6, gợi ý): sửa lý do bỏ r29 và r40, đổi 12 phút thành 15 phút.
+
+**Phụ thuộc code (backend-engineer làm song song, ngoài vùng file của content-designer)**
+- `lib/db/programs/topik-ii.ts`: `exam_blueprints.placement.reading.duration_sec` đổi thành 15 × 60.
+- `lib/db/exam-validation.ts`: `PLACEMENT_MIN_PER_BAND` đổi thành 3, và `checkPlacementBands` thêm kiểm tra bậc thấp nhất và bậc bỏ trống. `lib/exam/placement.ts`: dừng ước lượng ở bậc trống đầu tiên.
+- Backend đã sửa xong cả ba mục trên (kèm mã cảnh báo `placement-band-gap`), code khớp §5.1.
+- (P10) §5.1 thêm quy tắc "Dạng câu bạn làm sai": chỉ xét câu có độ khó ≤ cấp nên bắt đầu + 1, hoà thì ưu tiên bậc thấp hơn. Khớp `lib/exam/placement.ts`.
+
+**File nội dung bị ảnh hưởng:** không có file câu hỏi nào. placement-01 đã phủ 3–6 liên tục, mỗi bậc 3 câu, nên vẫn đạt luật mới.
+
+### v0.3.2 · 2026-10-25
+
+- §5.1 "Định dạng file đề thi": thêm loại đề `placement` (Test trình độ) vào danh sách `<kind>` và enum `kind`. Thêm đoạn "Đề Test trình độ": mục đích (ước lượng trình độ theo bậc độ khó, gợi ý subskill yếu), phủ ít nhất 3 bậc độ khó và mỗi bậc ít nhất 2 câu, số câu và thời gian lấy từ `exam_blueprints.placement`, luật phủ bậc ở `draft` chỉ cảnh báo, ở `published` là lỗi chặn. Dòng ràng buộc số câu ghi thêm "Placement" bên cạnh "Mini" (lấy theo `exam_blueprints`). Theo Giai đoạn 1 tuần 7 ở [02 · Lộ trình](02-lo-trinh-trien-khai.md) và cấu hình `exam_blueprints.placement` / `placement` trong `lib/db/programs/topik-ii.ts`.
+- Thêm đề mẫu `content/topik-ii/exams/placement/placement-01.yaml` (12 câu Đọc, bậc 3/4/5/6 mỗi bậc 3 câu, dùng lại câu của doc-01).
+- Không đổi quy tắc soạn câu hỏi nào, không file câu hỏi nào phải sửa. Comment "ĐỊNH DẠNG FILE ĐỀ" đầu `lib/exam/source.ts` và `lib/db/exam-validation.ts` đã có kind `placement` và luật phủ bậc, khớp mục này (reviewer đã kiểm ở báo cáo `content/_reviews/2026-10-25-placement-01.md`, mục S1 và S5).
 
 ### v0.3.1 · 2026-10-23
 
