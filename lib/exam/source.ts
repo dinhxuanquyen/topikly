@@ -12,13 +12,15 @@
  * ============================================================================================
  * Đường dẫn:  content/<program>/exams/<kind>/<id>.yaml
  *   - <program>  slug chương trình, ví dụ topik-ii
- *   - <kind>     full | mini | hard | ibt  (thư mục PHẢI khớp trường `kind`)
+ *   - <kind>     full | mini | hard | ibt | placement  (thư mục PHẢI khớp trường `kind`)
+ *                `placement` = Test trình độ (~12 câu Đọc, không cần đăng nhập); id đang dùng là
+ *                `ProgramConfig.placement.exam_id`; KHÔNG nằm trong danh sách đề của trụ Đề thi
  *   - <id>       khoá ổn định trong URL /[program]/de-thi/[kind]/[id]; chữ thường, số, dấu "-"
  *                (ví dụ doc-01); PHẢI khớp tên file. Mỗi file = MỘT đề.
  *
  * Trường:
  *   id         string   bắt buộc  khớp tên file
- *   kind       enum     bắt buộc  full | mini | hard | ibt, khớp thư mục
+ *   kind       enum     bắt buộc  full | mini | hard | ibt | placement, khớp thư mục
  *   title      string   bắt buộc  tiêu đề tiếng Việt, ví dụ "Mini test Đọc 01"
  *   status     enum     bắt buộc  draft | published
  *                                 draft: đề mẫu / đang soạn. Hiển thị được, các luật "đủ số câu"
@@ -47,11 +49,18 @@
  *   - mọi id câu phải tồn tại, đúng kỹ năng của phần, không trùng trong đề;
  *   - câu cùng `group_key` (cặp/bộ dùng chung ngữ liệu) phải có ĐỦ số câu của bộ (đọc từ group_key,
  *     ví dụ r46-47-0001 cần 2 câu), đứng LIỀN NHAU và theo type_code tăng dần;
- *   - số câu mỗi phần = `exam_blueprints` (mini) hoặc `sections` (full) của chương trình
+ *   - số câu mỗi phần = `exam_blueprints` (mini, placement) hoặc `sections` (full) của chương trình
  *     (draft: cảnh báo, published: lỗi);
+ *   - riêng `placement`: phủ ≥ 3 bậc độ khó khác nhau trong `difficulty_range`, các bậc LIÊN TỤC từ
+ *     `difficulty_range.min` (không lỗ), mỗi bậc có mặt ≥ 3 câu (draft: cảnh báo, published: lỗi),
+ *     để ước lượng trình độ theo bậc có nghĩa;
  *   - luật nhãn đúng của đề lắp ráp, tính trên từng phần (draft: cảnh báo, published: lỗi):
  *     mỗi nhãn ~25% (từ 8 câu), không quá 3 câu liền cùng nhãn, không chu kỳ lặp ≥ 4 nhãn lặp
  *     liền nhau. Muốn sửa thì ĐỔI THỨ TỰ CÂU, không đảo nhãn phương án.
+ *
+ * Chấm đề `placement`: như Mini (scoreExam) và thêm `ExamResult.placement` (lib/exam/placement.ts):
+ * gom câu theo `difficulty`, bậc vững khi tỉ lệ đúng >= `placement.band_pass_ratio`, trình độ
+ * ước lượng = bậc cao nhất mà mọi bậc thấp hơn (có câu) cũng vững.
  *
  * Lệnh nhóm tiếng Hàn (`instruction_ko`) KHÔNG nằm trong file đề: lấy từ cấu hình chương trình
  * theo type_group (content-spec 5.2). Giao diện luôn ẩn `stem` của câu đơn.
@@ -193,6 +202,7 @@ function buildRefs(program: string, options: PracticeSourceOptions): Map<string,
         type_code: pq.type_code,
         ...(pq.group_key ? { group_key: pq.group_key } : {}),
         ...(correctIndex >= 0 ? { correctIndex } : {}),
+        difficulty: full.difficulty,
       });
     }
   }
@@ -406,14 +416,17 @@ export function toPublicExam(config: ProgramConfig, exam: FullExam): PublicExam 
 
 // ------------------------------------------------------------------ API
 
-/** Danh sách đề, sắp theo kind rồi id. Program lạ trả []. */
+/**
+ * Danh sách đề, sắp theo kind rồi id. Program lạ trả []. `kind` bỏ trống = mọi loại TRỪ `placement`
+ * (Test trình độ không nằm trong trụ Đề thi); muốn lấy phải truyền đúng `kind = "placement"`.
+ */
 export function listExams(
   program: string,
   kind?: ExamKind,
   options: ExamSourceOptions = {},
 ): ExamSummary[] {
   return getExamBank(program, options)
-    .entries.filter((e) => !kind || e.summary.kind === kind)
+    .entries.filter((e) => (kind ? e.summary.kind === kind : e.summary.kind !== "placement"))
     .map((e) => e.summary);
 }
 
@@ -429,6 +442,20 @@ export function getPublicExam(
     (e) => e.summary.kind === kind && e.summary.id === examId,
   );
   return config && entry ? toPublicExam(config, entry.full) : undefined;
+}
+
+/**
+ * Đề Test trình độ đang dùng của chương trình (`ProgramConfig.placement.exam_id`, loại `placement`).
+ * `undefined` nếu chương trình lạ, đề chưa có hoặc đề không hợp lệ/bị ẩn.
+ */
+export function getPlacementPublicExam(
+  program: string,
+  options: ExamSourceOptions = {},
+): PublicExam | undefined {
+  const config = findProgram(program);
+  return config
+    ? getPublicExam(program, "placement", config.placement.exam_id, options)
+    : undefined;
 }
 
 /** NỘI BỘ server: bản đầy đủ để chấm. Không trả cho client. */

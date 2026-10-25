@@ -176,3 +176,33 @@ export const RESULT: ExamResult = {
     qr("r20-0001", 4, "R20", "R19-20", "④", "④"),
   ],
 };
+
+// ------------------------------------------------------------------ Test trình độ
+
+export const PLACEMENT_EXAM: PublicExam = { ...EXAM, kind: "placement", title: "Test trình độ 01" };
+
+/** Kết quả placement: bậc 3 vững (2/2), bậc 4 chưa vững (1/3) -> ước lượng 3급. */
+export const PLACEMENT_RESULT: ExamResult = {
+  ...RESULT,
+  kind: "placement",
+  title: "Test trình độ 01",
+  placement: {
+    estimated_level: 3,
+    estimated_label: "3급",
+    start_level: 3,
+    start_label: "3급",
+    bands: [
+      { difficulty: 3, correct: 2, total: 2, ratio: 1, passed: true },
+      { difficulty: 4, correct: 1, total: 3, ratio: 0.33, passed: false },
+    ],
+    weak_subskills: [
+      {
+        code: "main_idea",
+        name_vi: "Tìm ý chính",
+        correct: 2,
+        total: 4,
+        type_codes: ["R01", "R02"],
+      },
+    ],
+  },
+};

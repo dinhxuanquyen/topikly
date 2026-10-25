@@ -61,6 +61,9 @@ export function ExamIntro({ exam, ready, lastResult, onStart, onViewLastResult }
         {exam.kind === "mini" ? (
           <p className="mt-3 text-sm text-muted-foreground">{t.examIntro.estimateNote}</p>
         ) : null}
+        {exam.kind === "placement" ? (
+          <p className="mt-3 text-sm text-muted-foreground">{t.placement.intro.note}</p>
+        ) : null}
         {exam.status === "draft" ? (
           <p className="mt-3 rounded-lg bg-brand-soft px-3 py-2 text-sm text-brand-soft-foreground">
             {t.examCard.sampleNote}

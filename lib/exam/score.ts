@@ -7,10 +7,13 @@
  * Điểm: phần thi quy theo thang `max_score` của phần: round(đúng / tổng × max_score), tính trên số
  * câu THẬT của đề (Mini ít câu hơn đề thật). Cấp: so điểm tổng (hoặc điểm chiếu lên thang tổng khi
  * đề không phủ hết các phần thi của chương trình) với `level_thresholds`.
+ *
+ * Đề `placement` (Test trình độ) thêm `ExamResult.placement` (xem ./placement.ts).
  */
 import type { ProgramConfig } from "@/lib/db/programs";
 import { gradeQuestion } from "@/lib/practice/check";
 import { CHOICE_LABELS, type ChoiceLabel } from "@/lib/practice/types";
+import { estimatePlacement, type PlacementItem } from "./placement";
 import type { FullExam } from "./source";
 import type {
   BreakdownRow,
@@ -84,6 +87,7 @@ export function scoreExam(
   const questions: QuestionResult[] = [];
   const groupAcc = new Map<string, { correct: number; total: number; codes: Set<string> }>();
   const subskillAcc = new Map<string, { correct: number; total: number; codes: Set<string> }>();
+  const placementItems: PlacementItem[] = [];
   let anySectionShort = false;
 
   const bump = (
@@ -117,6 +121,12 @@ export function scoreExam(
 
       const graded = gradeQuestion(question, selected, program);
       if (graded.correct) correct += 1;
+      placementItems.push({
+        difficulty: question.difficulty,
+        correct: graded.correct,
+        subskill: question.subskill,
+        type_code: question.type_code,
+      });
       bump(groupAcc, item.type_group, graded.correct, question.type_code);
       bump(subskillAcc, question.subskill, graded.correct, question.type_code);
       questions.push({
@@ -193,6 +203,8 @@ export function scoreExam(
     total_score: totalScore,
     total_max_score: totalMax,
     level: estimateLevel(comparedScore, program, isEstimate),
+    // Test trình độ: ước lượng cấp xuất phát + kỹ năng con yếu; `level` ở trên chỉ để không vỡ kiểu.
+    ...(exam.kind === "placement" ? { placement: estimatePlacement(placementItems, program) } : {}),
     by_type_group,
     by_subskill,
     questions,

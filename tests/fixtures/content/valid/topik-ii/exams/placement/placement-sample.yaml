@@ -1,0 +1,9 @@
+# Đề Test trình độ mẫu hợp lệ (draft) cho test validator: chỉ tham chiếu câu có trong fixtures.
+# Chỉ có 1 câu nên validator cảnh báo (không lỗi): thiếu số câu so với blueprint placement và chưa phủ đủ bậc độ khó.
+id: placement-sample
+kind: placement
+title: "Test trình độ mẫu"
+status: draft
+sections:
+  - skill: reading
+    questions: [r10-0001]

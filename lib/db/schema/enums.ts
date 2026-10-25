@@ -2,7 +2,7 @@ import { pgEnum } from "drizzle-orm/pg-core";
 
 export const skillEnum = pgEnum("skill", ["listening", "reading", "writing", "speaking"]);
 
-export const examKindEnum = pgEnum("exam_kind", ["full", "mini", "hard", "ibt"]);
+export const examKindEnum = pgEnum("exam_kind", ["full", "mini", "hard", "ibt", "placement"]);
 
 /** Dạng câu: trắc nghiệm (có choices) hay tự luận (Viết). */
 export const questionFormatEnum = pgEnum("question_format", ["multiple_choice", "constructed"]);

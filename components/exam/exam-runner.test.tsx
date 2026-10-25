@@ -9,6 +9,8 @@ import {
   GROUP_STEM_2,
   INSTRUCTION_1,
   INSTRUCTION_2,
+  PLACEMENT_EXAM,
+  PLACEMENT_RESULT,
   RESULT,
   SHARED_PASSAGE,
   SINGLE_STEM_1,
@@ -452,5 +454,37 @@ describe("ExamRunner: khôi phục tiến độ", () => {
     pick(1, "②");
     expect(await screen.findByText(/Không lưu tạm được bài làm/)).toBeInTheDocument();
     expect(radiosOf(1).getByRole("radio", { name: /^②/ })).toBeChecked();
+  });
+});
+
+describe("ExamRunner: Test trình độ", () => {
+  const placementProps = { exam: PLACEMENT_EXAM, listHref: "/topik-ii/lo-trinh", passRatio: 0.6 };
+
+  it("nộp với kind placement, hiện kết quả trình độ, lưu và làm lại về màn giới thiệu", async () => {
+    respondOk(PLACEMENT_RESULT);
+    render(<ExamRunner {...placementProps} />);
+    expect(screen.getByText(/Các câu xếp từ dễ đến khó/)).toBeInTheDocument();
+    expect(store.loadLatestResult).toHaveBeenCalledWith("topik-ii", "placement", "doc-01");
+    const start = await screen.findByRole("button", { name: /Bắt đầu làm bài/ });
+    await waitFor(() => expect(start).toBeEnabled());
+    fireEvent.click(start);
+    fireEvent.click(within(openSubmitDialog()).getByRole("button", { name: "Nộp bài" }));
+
+    const heading = await screen.findByRole("heading", { level: 2, name: "Kết quả Test trình độ" });
+    expect(heading).toHaveFocus();
+    expect(lastSubmitBody()).toMatchObject({ kind: "placement", examId: "doc-01" });
+    expect(document.body).toHaveTextContent("làm đúng từ 60% số câu");
+    await waitFor(() => expect(store.saveResult).toHaveBeenCalledWith(PLACEMENT_RESULT));
+    expect(store.clearDraft).toHaveBeenCalledWith("topik-ii", "placement", "doc-01");
+
+    fireEvent.click(screen.getByRole("button", { name: /Làm lại test/ }));
+    expect(screen.getByRole("button", { name: /Bắt đầu làm bài/ })).toBeEnabled();
+  });
+
+  it("mở lại kết quả đã lưu từ màn giới thiệu", async () => {
+    vi.mocked(store.loadLatestResult).mockResolvedValue(PLACEMENT_RESULT);
+    render(<ExamRunner {...placementProps} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Xem kết quả lần gần nhất" }));
+    expect(screen.getByTestId("placement-start")).toHaveTextContent("3급");
   });
 });

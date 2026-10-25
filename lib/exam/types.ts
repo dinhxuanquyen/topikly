@@ -18,7 +18,8 @@ import type {
   PublicQuestion,
 } from "@/lib/practice/types";
 
-export type ExamKind = "full" | "mini" | "hard" | "ibt";
+/** `placement` = Test trình độ: đề ngắn, kết quả có thêm `placement` (ước lượng cấp xuất phát). */
+export type ExamKind = "full" | "mini" | "hard" | "ibt" | "placement";
 
 /** `draft` = đề mẫu/đang soạn: hiển thị được ở dev, luật phân bố nhãn đúng chỉ cảnh báo. */
 export type ExamStatus = "draft" | "published";
@@ -152,6 +153,45 @@ export interface QuestionResult extends CheckResponse {
   subskill: string;
 }
 
+// ------------------------------------------------------------------ test trình độ
+
+/** Kết quả một bậc độ khó trong đề `placement`. */
+export interface PlacementBand {
+  /** Bậc độ khó = cấp TOPIK mà câu phân hoá (content-spec §2.3). */
+  difficulty: number;
+  correct: number;
+  total: number;
+  /** correct / total, làm tròn 2 chữ số. */
+  ratio: number;
+  /** ratio >= `placement.band_pass_ratio` của chương trình. */
+  passed: boolean;
+}
+
+/**
+ * Ước lượng trình độ từ đề `placement` (hàm `estimatePlacement`, lib/exam/placement.ts).
+ * Quy tắc: câu được gom theo `difficulty`; chuỗi bậc liên tục từ `difficulty_range.min`, bậc trống hay
+ * bậc trượt đều dừng chuỗi; `estimated_level` = bậc cao nhất mà nó và MỌI bậc thấp hơn đều `passed`.
+ */
+export interface PlacementEstimate {
+  /** Trình độ hiện tại ước lượng = bậc cao nhất mà nó và MỌI bậc thấp hơn có câu đều passed. null = chưa vững bậc thấp nhất. */
+  estimated_level: number | null;
+  /** "4급" hoặc "Chưa đạt 3급" — lấy nhãn từ level_thresholds của chương trình, không hard-code. */
+  estimated_label: string;
+  /** Cấp nên bắt đầu học trong Lộ trình: estimated_level ?? difficulty_range.min. */
+  start_level: number;
+  start_label: string;
+  /** Theo độ khó tăng dần; chỉ các bậc có câu trong đề. */
+  bands: PlacementBand[];
+  /**
+   * Tối đa weak_subskill_count kỹ năng con làm sai (tỉ lệ đúng < 1), yếu nhất trước. Chỉ tính các câu
+   * có độ khó <= start_level + 1 (kỹ năng chỉ xuất hiện ở bậc cao hơn nữa không bị gọi là yếu). Hoà tỉ
+   * lệ đúng thì kỹ năng có câu độ khó thấp hơn đứng trước, rồi tới thứ tự cấu hình/mã. Số liệu
+   * correct/total chỉ tính trong các câu được xét; đề mỗi kỹ năng thường chỉ 1–2 câu nên nên gọi là
+   * "dạng câu bạn làm sai" hơn là "kỹ năng yếu".
+   */
+  weak_subskills: BreakdownRow[];
+}
+
 export interface ExamResult {
   examId: string;
   program: string;
@@ -165,6 +205,8 @@ export interface ExamResult {
   total_score: number;
   total_max_score: number;
   level: LevelEstimate;
+  /** Chỉ có khi kind = "placement". Frontend của Test trình độ dùng trường này thay vì `level`. */
+  placement?: PlacementEstimate;
   /** Sắp theo thứ tự nhóm dạng trong cấu hình. */
   by_type_group: BreakdownRow[];
   /** Sắp theo tỉ lệ đúng tăng dần (yếu nhất trước). */

@@ -343,7 +343,13 @@ export const topikII: ProgramConfig = {
     mini: {
       reading: { question_count: 20, duration_sec: 30 * 60 },
     },
+    // Test trình độ: ~12 câu Đọc, ~15 phút (12 phút quá chặt với bộ R48–50, review P7), phủ độ khó 3–6 (Giai đoạn 1 chưa có Nghe).
+    placement: {
+      reading: { question_count: 12, duration_sec: 15 * 60 },
+    },
   },
+  // content-spec §2.3: vững một cấp = làm đúng ~60–70% câu của cấp đó.
+  placement: { exam_id: "placement-01", band_pass_ratio: 0.6, weak_subskill_count: 3 },
   type_groups: TYPE_GROUPS,
   question_types: [
     ...expand("listening", "multiple_choice", LISTENING_TYPES),

@@ -420,6 +420,8 @@ interface Parsed {
   programCode: string;
   /** Chỉ số (0–3) của đáp án đúng, nếu là câu trắc nghiệm hợp lệ. */
   correctIndex: number | undefined;
+  /** Độ khó khai báo trong file (số nguyên), nếu có — luật phủ bậc độ khó của đề placement. */
+  difficulty: number | undefined;
   id: string | undefined;
   groupKey: string | undefined;
   pairWith: string[] | undefined;
@@ -450,6 +452,7 @@ function checkQuestionFile(doc: unknown, ctx: FileContext, out: ValidationIssue[
     dirType: ctx.dirType,
     programCode: program.code,
     correctIndex: undefined,
+    difficulty: undefined,
     id: undefined,
     groupKey: undefined,
     pairWith: undefined,
@@ -640,6 +643,9 @@ function checkQuestionFile(doc: unknown, ctx: FileContext, out: ValidationIssue[
     }
   }
   for (const f of SHARED_FIELDS) parsed.shared[f] = data[f];
+  if (typeof data.difficulty === "number" && Number.isInteger(data.difficulty)) {
+    parsed.difficulty = data.difficulty;
+  }
 
   // ---- luật riêng theo biến thể
   checkCharts(data, warn);
@@ -1167,6 +1173,7 @@ function checkExams(
       type_code: p.dirType,
       ...(p.groupKey ? { group_key: p.groupKey } : {}),
       ...(p.correctIndex !== undefined ? { correctIndex: p.correctIndex } : {}),
+      ...(p.difficulty !== undefined ? { difficulty: p.difficulty } : {}),
     });
   }
 

@@ -30,6 +30,7 @@ function storedConfig(program: ProgramConfig) {
     writing_sample_limits: program.writing_sample_limits,
     multi_trap_exempt_subskills: program.multi_trap_exempt_subskills,
     exam_blueprints: program.exam_blueprints,
+    placement: program.placement,
     type_groups: program.type_groups,
   };
 }

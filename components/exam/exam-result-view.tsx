@@ -19,6 +19,7 @@ import { QuestionMaterial } from "@/components/practice/question-material";
 import { RichLines, renderInline } from "@/components/practice/rich-text";
 import { verdictOf, type Verdict } from "@/components/practice/result-panel";
 import { listBlocks, practiceHrefForGroup, ratePercent } from "./exam-state";
+import { PlacementDetails, PlacementSummary } from "./placement-result";
 
 interface ExamResultViewProps {
   result: ExamResult;
@@ -30,6 +31,8 @@ interface ExamResultViewProps {
   listHref: string;
   /** true/false = đã/không lưu được kết quả vào chế độ khách; null = không nói gì. */
   saved: boolean | null;
+  /** Test trình độ: tỉ lệ đúng tối thiểu để vững một bậc (cấu hình chương trình), để giải thích quy tắc. */
+  passRatio?: number;
   onRetry: () => void;
 }
 
@@ -68,6 +71,7 @@ export function ExamResultView({
   practiceTypeCodes,
   listHref,
   saved,
+  passRatio,
   onRetry,
 }: ExamResultViewProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -101,7 +105,7 @@ export function ExamResultView({
     return filter === "all" || verdict === filter;
   });
 
-  const { level } = result;
+  const { level, placement } = result;
   const filters: { key: Filter; label: string; count: number }[] = [
     { key: "all", label: t.examResult.filterAll, count: result.questions.length },
     { key: "wrong", label: t.examResult.filterWrong, count: wrongCount },
@@ -126,61 +130,74 @@ export function ExamResultView({
           tabIndex={-1}
           className="scroll-mt-[calc(var(--header-height)+0.75rem)] rounded-md text-xl font-bold outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
         >
-          {t.examResult.heading}
+          {placement ? t.placement.result.heading : t.examResult.heading}
         </h2>
-        <div className="grid gap-3 rounded-2xl border-2 border-primary/30 bg-brand-soft p-4 sm:grid-cols-2 md:p-5">
-          <div>
-            <p className="text-sm font-semibold text-brand-soft-foreground">
-              {t.examResult.scoreLabel}
-            </p>
-            <p className="mt-1 text-4xl font-bold tabular-nums">
-              {result.total_score}
-              <span className="text-xl font-semibold text-muted-foreground">
-                /{result.total_max_score}
-              </span>
-            </p>
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-brand-soft-foreground">
-              {t.examResult.levelLabel}
-              {level.is_estimate ? ` (${t.examResult.estimate})` : ""}
-            </p>
-            <p className="mt-1 text-4xl font-bold">
-              {renderInline(level.label, { tagKorean: true })}
-            </p>
-          </div>
-          <div className="space-y-1 text-sm sm:col-span-2">
-            <p>
-              {level.is_estimate
-                ? t.examResult.estimateNote(level.compared_score, level.total_max_score)
-                : t.examResult.notEstimate(level.compared_score, level.total_max_score)}
-            </p>
-            {level.next_level ? (
-              <p className="font-semibold">
-                {renderInline(
-                  t.examResult.nextLevel(
-                    level.next_level.points_needed,
-                    level.total_max_score,
-                    level.next_level.label,
-                  ),
-                  { tagKorean: true },
-                )}
+        {placement ? <PlacementSummary placement={placement} passRatio={passRatio} /> : null}
+        {!placement ? (
+          <div className="grid gap-3 rounded-2xl border-2 border-primary/30 bg-brand-soft p-4 sm:grid-cols-2 md:p-5">
+            <div>
+              <p className="text-sm font-semibold text-brand-soft-foreground">
+                {t.examResult.scoreLabel}
               </p>
-            ) : level.next_level === null ? (
-              <p className="font-semibold">{t.examResult.topLevel}</p>
-            ) : null}
-            {result.timeSpentMs !== undefined ? (
-              <p className="text-muted-foreground">
-                {t.examResult.timeSpent(formatClock(result.timeSpentMs))}
+              <p className="mt-1 text-4xl font-bold tabular-nums">
+                {result.total_score}
+                <span className="text-xl font-semibold text-muted-foreground">
+                  /{result.total_max_score}
+                </span>
               </p>
-            ) : null}
-            {result.timedOut ? (
-              <p className="font-semibold text-amber-900 dark:text-amber-200">
-                {t.examResult.timedOut}
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-brand-soft-foreground">
+                {t.examResult.levelLabel}
+                {level.is_estimate ? ` (${t.examResult.estimate})` : ""}
               </p>
-            ) : null}
+              <p className="mt-1 text-4xl font-bold">
+                {renderInline(level.label, { tagKorean: true })}
+              </p>
+            </div>
+            <div className="space-y-1 text-sm sm:col-span-2">
+              <p>
+                {level.is_estimate
+                  ? t.examResult.estimateNote(level.compared_score, level.total_max_score)
+                  : t.examResult.notEstimate(level.compared_score, level.total_max_score)}
+              </p>
+              {level.next_level ? (
+                <p className="font-semibold">
+                  {renderInline(
+                    t.examResult.nextLevel(
+                      level.next_level.points_needed,
+                      level.total_max_score,
+                      level.next_level.label,
+                    ),
+                    { tagKorean: true },
+                  )}
+                </p>
+              ) : level.next_level === null ? (
+                <p className="font-semibold">{t.examResult.topLevel}</p>
+              ) : null}
+              {result.timeSpentMs !== undefined ? (
+                <p className="text-muted-foreground">
+                  {t.examResult.timeSpent(formatClock(result.timeSpentMs))}
+                </p>
+              ) : null}
+              {result.timedOut ? (
+                <p className="font-semibold text-amber-900 dark:text-amber-200">
+                  {t.examResult.timedOut}
+                </p>
+              ) : null}
+            </div>
           </div>
-        </div>
+        ) : null}
+        {placement && result.timeSpentMs !== undefined ? (
+          <p className="text-sm text-muted-foreground">
+            {t.examResult.timeSpent(formatClock(result.timeSpentMs))}
+          </p>
+        ) : null}
+        {placement && result.timedOut ? (
+          <p className="text-sm font-semibold text-amber-900 dark:text-amber-200">
+            {t.examResult.timedOut}
+          </p>
+        ) : null}
         {saved !== null ? (
           <p className="text-xs text-muted-foreground">
             {saved ? t.examResult.saved : t.examResult.unsaved}
@@ -188,141 +205,163 @@ export function ExamResultView({
         ) : null}
       </section>
 
-      <section aria-labelledby={`${idPrefix}-sections`}>
-        <h2 id={`${idPrefix}-sections`} className="mb-3 text-lg font-bold">
-          {t.examResult.sectionsHeading}
-        </h2>
-        <div className="overflow-x-auto rounded-xl border border-border">
-          <table className="w-full text-left text-sm">
-            <caption className="sr-only">{t.examResult.sectionsHeading}</caption>
-            <thead className="bg-muted/60 text-xs text-muted-foreground">
-              <tr>
-                <th scope="col" className="px-3 py-2 font-semibold">
-                  {t.examResult.sectionColumns.skill}
-                </th>
-                <th scope="col" className="px-3 py-2 font-semibold">
-                  {t.examResult.sectionColumns.correct}
-                </th>
-                <th scope="col" className="px-3 py-2 font-semibold">
-                  {t.examResult.sectionColumns.blank}
-                </th>
-                <th scope="col" className="px-3 py-2 text-right font-semibold">
-                  {t.examResult.sectionColumns.score}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.sections.map((section) => (
-                <tr key={section.skill} className="border-t border-border">
-                  <th scope="row" className="px-3 py-2.5 font-semibold">
-                    {t.examCard.skillNames[section.skill]}
-                  </th>
-                  <td className="px-3 py-2.5 tabular-nums">
-                    {section.correct}/{section.total}
-                  </td>
-                  <td className="px-3 py-2.5 tabular-nums">{section.unanswered}</td>
-                  <td className="px-3 py-2.5 text-right font-semibold tabular-nums">
-                    {section.score}/{section.max_score}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      {placement ? (
+        <PlacementDetails
+          placement={placement}
+          program={exam.program}
+          practiceTypeCodes={practiceTypeCodes}
+          passRatio={passRatio}
+          idPrefix={idPrefix}
+        />
+      ) : (
+        <>
+          <section aria-labelledby={`${idPrefix}-sections`}>
+            <h2 id={`${idPrefix}-sections`} className="mb-3 text-lg font-bold">
+              {t.examResult.sectionsHeading}
+            </h2>
+            <div className="overflow-x-auto rounded-xl border border-border">
+              <table className="w-full text-left text-sm">
+                <caption className="sr-only">{t.examResult.sectionsHeading}</caption>
+                <thead className="bg-muted/60 text-xs text-muted-foreground">
+                  <tr>
+                    <th scope="col" className="px-3 py-2 font-semibold">
+                      {t.examResult.sectionColumns.skill}
+                    </th>
+                    <th scope="col" className="px-3 py-2 font-semibold">
+                      {t.examResult.sectionColumns.correct}
+                    </th>
+                    <th scope="col" className="px-3 py-2 font-semibold">
+                      {t.examResult.sectionColumns.blank}
+                    </th>
+                    <th scope="col" className="px-3 py-2 text-right font-semibold">
+                      {t.examResult.sectionColumns.score}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.sections.map((section) => (
+                    <tr key={section.skill} className="border-t border-border">
+                      <th scope="row" className="px-3 py-2.5 font-semibold">
+                        {t.examCard.skillNames[section.skill]}
+                      </th>
+                      <td className="px-3 py-2.5 tabular-nums">
+                        {section.correct}/{section.total}
+                      </td>
+                      <td className="px-3 py-2.5 tabular-nums">{section.unanswered}</td>
+                      <td className="px-3 py-2.5 text-right font-semibold tabular-nums">
+                        {section.score}/{section.max_score}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-      <section aria-labelledby={`${idPrefix}-groups`}>
-        <h2 id={`${idPrefix}-groups`} className="text-lg font-bold">
-          {t.examResult.groupHeading}
-        </h2>
-        <p className="mt-1 mb-3 text-sm text-muted-foreground">{t.examResult.groupHint}</p>
-        <ul aria-label={t.examResult.groupHeading} className="grid gap-3">
-          {result.by_type_group.map((row) => (
-            <GroupRow
-              key={row.code}
-              row={row}
-              href={practiceHrefForGroup(exam.program, row.type_codes, available)}
-            />
-          ))}
-        </ul>
-      </section>
-
-      <section aria-labelledby={`${idPrefix}-subskills`}>
-        <h2 id={`${idPrefix}-subskills`} className="text-lg font-bold">
-          {t.examResult.subskillHeading}
-        </h2>
-        <p className="mt-1 mb-3 text-sm text-muted-foreground">{t.examResult.subskillHint}</p>
-        <ul aria-label={t.examResult.subskillHeading} className="grid gap-3">
-          {result.by_subskill.map((row) => {
-            const percent = ratePercent(row.correct, row.total);
-            return (
-              <li key={row.code} className="rounded-xl border border-border bg-card p-3">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <p className="font-semibold">{renderInline(row.name_vi, { tagKorean: true })}</p>
-                  <p className="text-sm tabular-nums">
-                    {t.examResult.ratio(row.correct, row.total, percent)}
-                  </p>
-                </div>
-                <div className="mt-2">
-                  <RateBar percent={percent} />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-
-      <section aria-labelledby={`${idPrefix}-review`} className="space-y-3">
-        <h2 id={`${idPrefix}-review`} className="text-lg font-bold">
-          {t.examResult.reviewHeading}
-        </h2>
-        <div role="group" aria-label={t.examResult.filterLabel} className="flex flex-wrap gap-2">
-          {filters.map(({ key, label, count }) => (
-            <Button
-              key={key}
-              type="button"
-              variant={filter === key ? "default" : "outline"}
-              className="h-11 px-4"
-              aria-pressed={filter === key}
-              onClick={() => setFilter(key)}
-            >
-              {t.examResult.filterCount(label, count)}
-            </Button>
-          ))}
-        </div>
-        {visible.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-border bg-muted/40 p-4 text-sm">
-            {t.examResult.filterEmpty}
-          </p>
-        ) : (
-          <ol className="space-y-2.5">
-            {visible.map((question) => {
-              const entry = itemsById.get(question.questionId);
-              return (
-                <ReviewItem
-                  key={question.questionId}
-                  question={question}
-                  entry={entry}
-                  idPrefix={idPrefix}
-                  isOpen={open.has(question.questionId)}
-                  onToggle={() => toggle(question.questionId)}
+          <section aria-labelledby={`${idPrefix}-groups`}>
+            <h2 id={`${idPrefix}-groups`} className="text-lg font-bold">
+              {t.examResult.groupHeading}
+            </h2>
+            <p className="mt-1 mb-3 text-sm text-muted-foreground">{t.examResult.groupHint}</p>
+            <ul aria-label={t.examResult.groupHeading} className="grid gap-3">
+              {result.by_type_group.map((row) => (
+                <GroupRow
+                  key={row.code}
+                  row={row}
+                  href={practiceHrefForGroup(exam.program, row.type_codes, available)}
                 />
-              );
-            })}
-          </ol>
-        )}
-      </section>
+              ))}
+            </ul>
+          </section>
+
+          <section aria-labelledby={`${idPrefix}-subskills`}>
+            <h2 id={`${idPrefix}-subskills`} className="text-lg font-bold">
+              {t.examResult.subskillHeading}
+            </h2>
+            <p className="mt-1 mb-3 text-sm text-muted-foreground">{t.examResult.subskillHint}</p>
+            <ul aria-label={t.examResult.subskillHeading} className="grid gap-3">
+              {result.by_subskill.map((row) => {
+                const percent = ratePercent(row.correct, row.total);
+                return (
+                  <li key={row.code} className="rounded-xl border border-border bg-card p-3">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                      <p className="font-semibold">
+                        {renderInline(row.name_vi, { tagKorean: true })}
+                      </p>
+                      <p className="text-sm tabular-nums">
+                        {t.examResult.ratio(row.correct, row.total, percent)}
+                      </p>
+                    </div>
+                    <div className="mt-2">
+                      <RateBar percent={percent} />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        </>
+      )}
+
+      {/* Test trình độ dùng chung câu với Mini test và làm lại được, nên tạm ẩn đáp án/lời giải
+          (ghi ở comment đầu content/topik-ii/exams/placement/placement-01.yaml). */}
+      {placement ? (
+        <p className="rounded-xl border border-border bg-muted/40 p-3 text-sm">
+          {t.placement.result.reviewHidden}
+        </p>
+      ) : (
+        <section aria-labelledby={`${idPrefix}-review`} className="space-y-3">
+          <h2 id={`${idPrefix}-review`} className="text-lg font-bold">
+            {t.examResult.reviewHeading}
+          </h2>
+          <div role="group" aria-label={t.examResult.filterLabel} className="flex flex-wrap gap-2">
+            {filters.map(({ key, label, count }) => (
+              <Button
+                key={key}
+                type="button"
+                variant={filter === key ? "default" : "outline"}
+                className="h-11 px-4"
+                aria-pressed={filter === key}
+                onClick={() => setFilter(key)}
+              >
+                {t.examResult.filterCount(label, count)}
+              </Button>
+            ))}
+          </div>
+          {visible.length === 0 ? (
+            <p className="rounded-xl border border-dashed border-border bg-muted/40 p-4 text-sm">
+              {t.examResult.filterEmpty}
+            </p>
+          ) : (
+            <ol className="space-y-2.5">
+              {visible.map((question) => {
+                const entry = itemsById.get(question.questionId);
+                return (
+                  <ReviewItem
+                    key={question.questionId}
+                    question={question}
+                    entry={entry}
+                    idPrefix={idPrefix}
+                    isOpen={open.has(question.questionId)}
+                    onToggle={() => toggle(question.questionId)}
+                  />
+                );
+              })}
+            </ol>
+          )}
+        </section>
+      )}
 
       <div className="flex flex-wrap gap-3 border-t border-border pt-5">
         <Button type="button" className="h-12 px-6 text-base" onClick={onRetry}>
           <RotateCcw aria-hidden />
-          {t.examResult.retry}
+          {placement ? t.placement.result.retry : t.examResult.retry}
         </Button>
         <Link
           href={listHref}
           className={cn(buttonVariants({ variant: "outline" }), "h-12 px-5 text-base")}
         >
-          {t.examResult.backToList}
+          {placement ? t.placement.result.backToRoadmap : t.examResult.backToList}
         </Link>
       </div>
     </div>
