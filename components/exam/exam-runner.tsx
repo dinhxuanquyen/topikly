@@ -14,7 +14,9 @@ import { choiceGroupId, ExamBlockView, questionHeadingId } from "./exam-block";
 import { ExamIntro } from "./exam-intro";
 import { ExamNav } from "./exam-nav";
 import { ExamResultView } from "./exam-result-view";
+import { ExamAudioProvider } from "@/components/audio/exam-audio-context";
 import {
+  audioPlayedFromDraft,
   buildDraft,
   buildSubmitRequest,
   clampBlockIndex,
@@ -92,6 +94,17 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
   const [activeId, setActiveId] = useState<string | null>(null);
   const [draftSaved, setDraftSaved] = useState<boolean | null>(null);
   const [resumed, setResumed] = useState(false);
+  // Audio đã phát trong phiên (chế độ thi nghe một lần). Sống ở đây, không ở AudioPlayer, để
+  // việc đổi khối (unmount/mount) không mở khoá lượt nghe; được lưu cùng bản nháp.
+  const [audioPlayed, setAudioPlayed] = useState<Record<string, true>>({});
+  const audioState = useMemo(
+    () => ({
+      played: audioPlayed,
+      markPlayed: (audioId: string) =>
+        setAudioPlayed((prev) => (prev[audioId] ? prev : { ...prev, [audioId]: true })),
+    }),
+    [audioPlayed],
+  );
 
   const idPrefix = useId();
   const navPanelId = `${idPrefix}-nav`;
@@ -163,6 +176,7 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
       const restored = sessionFromDraft(exam, draft);
       const current = Date.now();
       dispatch({ type: "restore", session: restored });
+      setAudioPlayed(audioPlayedFromDraft(exam, draft));
       setBlockIndex(clampBlockIndex(exam, draft.blockIndex));
       setStartedAt(draft.startedAt);
       setNow(current);
@@ -205,13 +219,15 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
   useEffect(() => {
     if (phase !== "running" || startedAt === null) return;
     let cancelled = false;
-    void saveDraft(buildDraft(exam, session, startedAt, blockIndex, Date.now())).then((ok) => {
-      if (!cancelled) setDraftSaved(ok);
-    });
+    void saveDraft(buildDraft(exam, session, startedAt, blockIndex, Date.now(), audioPlayed)).then(
+      (ok) => {
+        if (!cancelled) setDraftSaved(ok);
+      },
+    );
     return () => {
       cancelled = true;
     };
-  }, [phase, startedAt, session, blockIndex, exam]);
+  }, [phase, startedAt, session, blockIndex, exam, audioPlayed]);
 
   // ---- focus: sang đầu khối (hoặc đúng câu được chọn từ bảng số câu) khi đổi khối
   useEffect(() => {
@@ -277,6 +293,7 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
     setActiveId(null);
     setNavOpen(false);
     setResumed(false);
+    setAudioPlayed({});
     setDraftSaved(null);
     setPhase("running");
   }
@@ -464,19 +481,21 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
             </div>
           ) : null}
 
-          <ExamBlockView
-            key={currentBlock.index}
-            blockRef={currentBlock}
-            session={session}
-            locked={locked}
-            idPrefix={idPrefix}
-            headingRef={blockHeadingRef}
-            sectionLabel={multiSection ? sectionLabels[currentBlock.sectionIndex] : undefined}
-            onSelect={select}
-            onClear={(id) => dispatch({ type: "clear", id })}
-            onToggleMark={(id) => dispatch({ type: "toggle-mark", id })}
-            onQuestionFocus={setActiveId}
-          />
+          <ExamAudioProvider value={audioState}>
+            <ExamBlockView
+              key={currentBlock.index}
+              blockRef={currentBlock}
+              session={session}
+              locked={locked}
+              idPrefix={idPrefix}
+              headingRef={blockHeadingRef}
+              sectionLabel={multiSection ? sectionLabels[currentBlock.sectionIndex] : undefined}
+              onSelect={select}
+              onClear={(id) => dispatch({ type: "clear", id })}
+              onToggleMark={(id) => dispatch({ type: "toggle-mark", id })}
+              onQuestionFocus={setActiveId}
+            />
+          </ExamAudioProvider>
           <p className="text-xs text-muted-foreground">{t.examRun.choiceHint}</p>
 
           <div className="flex items-center justify-between gap-2 border-t border-border pt-4">
