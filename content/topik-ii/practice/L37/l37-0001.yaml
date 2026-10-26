@@ -1,0 +1,57 @@
+id: l37-0001
+type_code: L37
+subskill: central_thought
+difficulty: 5
+tags: [topic:architecture, topic:tradition, topic:energy, genre:edu-program]
+group_key: l37-38-0001
+pair_with: [l38-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Cặp với l38-0001: transcript_ko/transcript_vi, speakers, tts_notes chép nguyên văn từ l38-0001. Căn cứ của L37 là câu kết của chuyên gia ('기기에 기대기 전에 … 건물의 구조만으로 햇빛과 비를 다스리는 방법을 먼저 고민해 볼 필요가 있습니다'), khác căn cứ của L38 (mái hiên che mưa cho cột gỗ). Không có phương án nào nhắc tới mưa hay cột gỗ, để không làm lộ đáp án L38. Nhiễu ④ ('điều tiết lượng nắng theo mùa') đúng theo bài nhưng chỉ là phần giải thích, và không khẳng định chi tiết mùa đông nên không làm lộ nhiễu ① của L38. Độ khó 5 theo bảng."
+audio_url: null
+speakers:
+  - label: 남자
+    gender: male
+    role_vi: "người dẫn chương trình giáo dục – văn hoá (교양 프로그램)"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng MC rõ ràng, tò mò"
+  - label: 여자
+    gender: female
+    role_vi: "chuyên gia kiến trúc truyền thống"
+    age_range: 60s+
+    voice_hint_vi: "giọng trầm, giảng giải, ngắt ý rõ"
+tts_notes:
+  speed: 0.95
+  style_vi: "Chương trình giáo dục: MC hỏi ngắn, chuyên gia trả lời kiểu giảng giải (-습니다 xen -잖아요, -는데요)."
+  pauses_vi: "Ngắt rõ trước '반대로 겨울에는', trước '또 비가 올 때는' và trước '요즘 건물들은'."
+  pronunciation_vi: "햇볕 [해뼏]; 깊숙한 [깁쑤칸]; 처마 đọc rõ, không nuốt âm; 뜨잖아요? lên giọng nhẹ như hỏi lại người nghe."
+transcript_ko: |
+  남자: 한옥을 보면 지붕 끝이 벽보다 훨씬 바깥쪽으로 길게 나와 있는데요. 이 부분을 처마라고 하죠? 처마를 이렇게 길게 만든 데에는 특별한 이유가 있습니까?
+  여자: 네, 처마는 무엇보다 햇빛이 들어오는 양을 조절하는 역할을 합니다. 여름에는 해가 높이 뜨기 때문에 긴 처마가 뜨거운 햇볕을 가려 줘서 방 안이 덜 덥습니다. 반대로 겨울에는 해가 낮게 뜨잖아요? 그래서 햇빛이 처마 밑으로 비스듬히 들어와 방 깊숙한 곳까지 따뜻하게 해 줍니다. 또 비가 올 때는 빗물이 나무 기둥이나 창호지를 바른 문에 직접 닿지 않도록 막아 줘서 집을 오래 보존할 수 있었고요. 요즘 건물들은 유리창을 크게 내고 냉난방 기기에 많이 의존하는데요. 기기에 기대기 전에 처마처럼 건물의 구조만으로 햇빛과 비를 다스리는 방법을 먼저 고민해 볼 필요가 있습니다.
+transcript_vi: |
+  Nam: Nhìn nhà hanok thì thấy mép mái nhô ra ngoài xa hơn tường rất nhiều. Phần này gọi là mái hiên (처마) phải không ạ? Làm mái hiên dài như vậy có lý do gì đặc biệt không ạ?
+  Nữ: Vâng, trước hết mái hiên có vai trò điều tiết lượng ánh nắng chiếu vào nhà. Mùa hè mặt trời lên cao nên mái hiên dài che bớt nắng nóng, trong phòng đỡ nóng hơn. Ngược lại, mùa đông mặt trời ở thấp, đúng không? Vì vậy ánh nắng chiếu xiên vào dưới mái hiên, sưởi ấm đến tận sâu bên trong phòng. Ngoài ra, khi trời mưa, mái hiên ngăn nước mưa chạm trực tiếp vào cột gỗ hay cửa dán giấy, nhờ vậy ngôi nhà được giữ gìn lâu bền. Các toà nhà ngày nay trổ cửa kính lớn và phụ thuộc nhiều vào thiết bị làm mát, sưởi ấm. Trước khi dựa vào thiết bị, chúng ta cần cân nhắc trước những cách chế ngự nắng và mưa chỉ bằng chính cấu trúc của công trình, như mái hiên vậy.
+stem: "여자의 중심 생각으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 처마는 길게 만들수록 방 안이 더 시원해진다.
+    trap: overgeneralization
+    note_vi: "Tuyệt đối hoá từ một chi tiết: bà chỉ nói mái hiên dài che nắng mùa hè, còn mùa đông vẫn để nắng chiếu vào. Bà không nói càng dài càng mát, và đây cũng không phải ý chính."
+  - label: "②"
+    text: 기기에 앞서 건물 구조를 활용할 방법을 찾아야 한다.
+    correct: true
+  - label: "③"
+    text: 요즘 건물에는 큰 유리창을 내지 않는 것이 좋다.
+    trap: keyword_echo
+    note_vi: "Lặp từ khoá 유리창 nghe được. Bà chỉ mô tả các toà nhà ngày nay trổ cửa kính lớn (유리창을 크게 내고), không khuyên bỏ cửa kính lớn."
+  - label: "④"
+    text: 처마는 계절에 따라 햇빛의 양을 조절해 준다.
+    trap: true_not_main
+    note_vi: "Đúng với bài (햇빛이 들어오는 양을 조절하는 역할), nhưng đây là phần giải thích chức năng mái hiên, dùng làm ví dụ cho ý chính ở câu cuối, không phải điều bà muốn nhấn mạnh."
+explanation_vi: |
+  **Đáp án ②.** Căn cứ: câu kết của chuyên gia "기기에 기대기 전에 처마처럼 건물의 구조만으로 햇빛과 비를 다스리는 방법을 먼저 고민해 볼 필요가 있습니다" (trước khi dựa vào thiết bị, chúng ta cần cân nhắc trước những cách chế ngự nắng và mưa chỉ bằng chính cấu trúc của công trình, như mái hiên vậy).
+  Toàn bộ phần giải thích về mái hiên (che nắng mùa hè, đón nắng mùa đông, che mưa) là ví dụ dẫn tới lời khuyên này. Đáp án diễn đạt lại "기기에 기대기 전에 … 먼저 고민해 볼 필요가 있다" thành "기기에 앞서 건물 구조를 활용할 방법을 찾아야 한다".
+  **Mẹo dạng:** Ở chương trình giáo dục, chuyên gia thường giải thích một hiện tượng cụ thể rồi mới rút ra bài học ở cuối (-(으)ㄹ 필요가 있습니다, -아/어야 합니다). Câu giải thích chức năng dù đúng vẫn chỉ là chi tiết.
+  **Đáng chú ý:** 조절하다 (調節 – điều tiết) – điều chỉnh, điều tiết · 냉난방 (冷暖房 – lãnh noãn phòng) – làm mát và sưởi ấm · 구조 (構造 – cấu tạo) – cấu trúc, kết cấu.

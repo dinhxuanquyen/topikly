@@ -1,7 +1,15 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { ExamResultView } from "./exam-result-view";
-import { EXAM, RESULT } from "./test-fixtures";
+import {
+  EXAM,
+  LISTENING_EXAM,
+  LISTENING_RESULT,
+  LISTEN_TRANSLATION_1,
+  LISTEN_TRANSLATION_2,
+  RESULT,
+  withAudio,
+} from "./test-fixtures";
 
 const base = {
   result: RESULT,
@@ -185,5 +193,43 @@ describe("ExamResultView: xem lại câu", () => {
       "href",
       "/topik-ii/de-thi/mini",
     );
+  });
+});
+
+describe("ExamResultView: xem lại câu Nghe", () => {
+  const listening = { ...base, result: LISTENING_RESULT, exam: LISTENING_EXAM };
+
+  function openPanel(name: RegExp) {
+    const toggle = screen.getByRole("button", { name });
+    fireEvent.click(toggle);
+    return document.getElementById(toggle.getAttribute("aria-controls")!)!;
+  }
+
+  it("chưa có audio: hiện lời thoại tiếng Hàn kèm bản dịch dưới từng lượt, ghi chú trung tính", () => {
+    render(<ExamResultView {...listening} />);
+    const panel = openPanel(/Câu 1 · L10/);
+    expect(within(panel).getByText("이 원피스 좀 맡기려고요.")).toBeInTheDocument();
+    expect(within(panel).getByText(LISTEN_TRANSLATION_1)).toBeInTheDocument();
+    expect(within(panel).getByText(LISTEN_TRANSLATION_2)).toBeInTheDocument();
+    expect(within(panel).getByText("Chưa có audio, đọc lời thoại.")).toBeInTheDocument();
+    expect(within(panel).queryByText(/Chế độ luyện/)).toBeNull();
+    expect(panel.querySelector("audio")).toBeNull();
+  });
+
+  it("câu không có transcript_vi vẫn hiện lời thoại tiếng Hàn, không có dòng dịch", () => {
+    render(<ExamResultView {...listening} />);
+    const panel = openPanel(/Câu 2 · L11/);
+    expect(within(panel).getByText("이 원피스 좀 맡기려고요.")).toBeInTheDocument();
+    expect(screen.queryByText(LISTEN_TRANSLATION_1)).toBeNull();
+  });
+
+  it("có audio: trình phát luyện có công tắc bản dịch, bản dịch chỉ hiện sau khi bật", () => {
+    render(<ExamResultView {...listening} exam={withAudio(LISTENING_EXAM)} />);
+    openPanel(/Câu 1 · L10/);
+    expect(document.querySelector("audio")).not.toBeNull();
+    expect(screen.queryByText(LISTEN_TRANSLATION_1)).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Xem lời thoại" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Hiện bản dịch tiếng Việt" }));
+    expect(screen.getByText(LISTEN_TRANSLATION_1)).toBeInTheDocument();
   });
 });

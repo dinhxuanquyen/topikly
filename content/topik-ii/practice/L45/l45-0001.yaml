@@ -1,0 +1,50 @@
+id: l45-0001
+type_code: L45
+subskill: detail_match
+difficulty: 6
+tags: [topic:language, topic:history, genre:lecture, vocab:의미-변화]
+group_key: l45-46-0001
+pair_with: [l46-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Cặp với l46-0001: transcript_ko/transcript_vi, speakers, tts_notes chép nguyên văn từ l46-0001. Căn cứ của L45 là đoạn mở đầu về '어린 백성' (nghĩa trung đại = 어리석은 백성, đối lập với cách hiểu 'nhỏ tuổi' của người nghe hiện nay); khác căn cứ của L46 (cách triển khai: phân loại ba kiểu rồi nêu ví dụ). Không phương án nào hỏi lại cách phân loại hay quan điểm được trích dẫn '말이 타락한다' (căn cứ và nhiễu của L46). Độ khó 6 theo bảng: đáp án là diễn đạt lại ở mức suy luận ('어리석은 백성' → không liên quan tuổi tác); ba nhiễu đều bám từ khoá có thật ('얼굴', '다리', '필요') nhưng đảo hướng thay đổi nghĩa, đảo trình tự trước/sau hoặc đảo khẳng định. Kiến thức (어리다 trung đại = 어리석다; 얼굴 trung đại = 모습/형체; 다리 mở rộng sang đồ vật) đã ghi ở notes_internal của l46-0001, reviewer xác nhận một lần cho cả bộ."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "giảng viên ngôn ngữ học tiếng Hàn, giảng cho công chúng"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng giảng bài rõ, điềm tĩnh, có nhấn ở các từ khoá phân loại"
+tts_notes:
+  speed: 0.95
+  style_vi: "Bài giảng học thuật bằng văn nói: -습니다 xen -는데요, -죠, mở và kết bằng câu hỏi tu từ."
+  pauses_vi: "Ngắt dài sau câu hỏi mở đầu. Ngắt rõ trước '먼저', '반대로', '그리고', '하지만'. Câu hỏi cuối đọc chậm."
+  pronunciation_vi: "백성 [백썽]; 훈민정음 [훈민정음] đọc liền; 의미의 [의미에]; 확대 [확때]; 축소 [축쏘]; 넓어지는 [널버지는]; 좁아지기도 [조바지기도]; 끊임없이 [끄니멉씨]. Dấu nháy đơn quanh từ ví dụ không đọc ra, chỉ ngắt nhẹ."
+transcript_ko: |
+  여자: 여러분, '어린 백성'이라는 말을 들으면 어떤 사람들이 떠오르세요? 아마 나이가 어린 사람들을 생각하실 텐데요. 그런데 훈민정음 서문에 나오는 '어린 백성'은 '어리석은 백성', 다시 말해 글을 몰라 하고 싶은 말을 제대로 펴지 못하는 백성을 가리키는 말이었습니다. 이처럼 단어의 뜻은 시간이 흐르면서 달라지는데, 그 방향은 크게 세 가지로 나눌 수 있습니다. 먼저 뜻이 넓어지는 경우가 있습니다. '다리'는 원래 사람이나 짐승의 몸에만 쓰던 말이었지만 지금은 책상 다리, 안경 다리처럼 물건에도 씁니다. 이를 의미의 확대라고 합니다. 반대로 뜻이 좁아지기도 하는데요. '얼굴'은 옛날에는 사람의 모습이나 형체 전체를 가리켰지만 지금은 눈, 코, 입이 있는 부분만을 뜻합니다. 이를 의미의 축소라고 합니다. 그리고 앞에서 본 '어리다'처럼 뜻이 아예 다른 쪽으로 옮겨 가는 의미의 이동도 있습니다. 새로운 뜻이 생기는 것을 두고 말이 타락한다며 걱정하시는 분들도 있습니다. 하지만 단어의 뜻은 그 시대를 사는 사람들의 필요에 따라 끊임없이 다시 만들어지는 것입니다. 그렇다면 변화 자체를 막으려 하기보다 그 변화가 우리 삶의 어떤 모습을 비추고 있는지 살펴보는 것이 더 의미 있는 일이 아닐까요?
+transcript_vi: |
+  Nữ: Thưa các bạn, nghe cụm từ '어린 백성' các bạn nghĩ đến những người như thế nào? Có lẽ các bạn sẽ nghĩ đến những người nhỏ tuổi. Thế nhưng '어린 백성' trong lời tựa của Huấn dân chính âm lại là cách gọi 'dân chúng ngu muội', nói cách khác là những người dân không biết chữ nên không thể bày tỏ trọn vẹn điều mình muốn nói. Như vậy, nghĩa của từ thay đổi theo thời gian, và hướng thay đổi đó có thể chia thành ba loại lớn. Trước hết là trường hợp nghĩa rộng ra. '다리' (chân) vốn là từ chỉ dùng cho cơ thể người hoặc con vật, nhưng nay còn dùng cho đồ vật như chân bàn, gọng kính. Hiện tượng này gọi là sự mở rộng nghĩa. Ngược lại, nghĩa cũng có khi hẹp lại. '얼굴' xưa kia chỉ toàn bộ dáng vẻ, hình thể của con người, nhưng nay chỉ còn nghĩa là phần có mắt, mũi, miệng (khuôn mặt). Hiện tượng này gọi là sự thu hẹp nghĩa. Và cũng có sự chuyển nghĩa, khi nghĩa của từ chuyển hẳn sang một hướng khác, như từ '어리다' ta vừa thấy ở trên. Có những người lo lắng rằng việc xuất hiện nghĩa mới khiến ngôn ngữ bị suy đồi. Nhưng nghĩa của từ là thứ được tạo lại không ngừng theo nhu cầu của những con người sống trong thời đại đó. Nếu vậy, thay vì tìm cách ngăn chặn bản thân sự thay đổi, chẳng phải xem xét xem sự thay đổi ấy đang phản chiếu điều gì trong cuộc sống của chúng ta mới là việc có ý nghĩa hơn sao?
+stem: "들은 내용으로 맞는 것을 고르십시오."
+choices:
+  - label: "①"
+    text: "'얼굴'은 옛날에 지금보다 좁은 뜻으로 쓰였다."
+    trap: time_shift
+    note_vi: "Đảo trước/sau: '얼굴' xưa kia chỉ toàn bộ dáng vẻ, hình thể (옛날에는 사람의 모습이나 형체 전체를 가리켰지만), nay mới hẹp lại thành 'khuôn mặt'. Tức là ngày xưa nghĩa rộng hơn, không phải hẹp hơn."
+  - label: "②"
+    text: "'다리'는 원래 물건에 쓰다가 몸에도 쓰게 되었다."
+    trap: detail_swap
+    note_vi: "Đảo đối tượng gốc và đối tượng mở rộng: '다리' vốn chỉ dùng cho cơ thể người hoặc con vật (원래 사람이나 짐승의 몸에만 쓰던 말), sau mới dùng cho đồ vật như chân bàn, gọng kính."
+  - label: "③"
+    text: 단어의 뜻은 사람들의 필요와 상관없이 바뀐다.
+    trap: negation_flip
+    note_vi: "Ngược với nhận định của người giảng: nghĩa của từ được tạo lại không ngừng 'theo nhu cầu' của con người trong thời đại đó (사람들의 필요에 따라 끊임없이 다시 만들어지는 것입니다)."
+  - label: "④"
+    text: "'어린 백성'은 원래 나이와 상관없는 표현이었다."
+    correct: true
+explanation_vi: |
+  **Đáp án ④.** Căn cứ: "아마 나이가 어린 사람들을 생각하실 텐데요. 그런데 훈민정음 서문에 나오는 '어린 백성'은 '어리석은 백성' … 을 가리키는 말이었습니다" (có lẽ các bạn sẽ nghĩ đến những người nhỏ tuổi. Thế nhưng '어린 백성' trong lời tựa Huấn dân chính âm lại là cách gọi 'dân chúng ngu muội').
+  Người giảng dùng '그런데' để đối lập cách hiểu hiện nay (nhỏ tuổi) với nghĩa gốc (ngu muội, không biết chữ). Vậy '어린 백성' ban đầu không nói về tuổi tác. Đáp án không lặp từ khoá '어리석은' mà diễn đạt lại thành "나이와 상관없는 표현".
+  **Mẹo dạng:** Bài giảng có nhiều ví dụ "xưa – nay" thì ghi mỗi ví dụ thành một cặp "trước → sau" (몸 → 물건; 모습 전체 → 눈·코·입 부분). Phương án nhiễu ở cấp 6 thường giữ đúng từ khoá nhưng đảo chiều của cặp đó.
+  **Đáng chú ý:** 서문 (序文 – tự văn) – lời tựa, lời nói đầu · 형체 (形體 – hình thể) – hình dáng, hình hài; trong bài chỉ toàn bộ dáng vẻ con người · 어리석다 – ngu muội, khờ dại.

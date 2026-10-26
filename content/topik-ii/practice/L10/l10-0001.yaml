@@ -1,0 +1,59 @@
+id: l10-0001
+type_code: L10
+subskill: next_action
+difficulty: 3
+tags: [topic:workplace, genre:conversation, setting:cafe, grammar:-아-놓다]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Transcript khoảng 140 ký tự (không tính nhãn), đếm tay. Đủ 3 loại hành động theo §4.4: việc đã xong (nữ đã chuyển ghế), việc người kia sẽ làm (nam lấy cốc từ kho), việc người hỏi sẽ làm (nữ đặt thực đơn lên bàn). Căn cứ nằm ở lượt 3 của nam, lượt cuối của nữ chỉ là lời nhận việc. 2026-10-26 (FIX [E3] theo content/_reviews/2026-10-26-mini-nghe-01.md): mục 단체 trong 'Đáng chú ý' viết lại theo mẫu bạn giả một phần (nêu cả nghĩa trùng 'tổ chức'). Nhờ hanviet-lexicographer kiểm trường false_friend của 단체 trong words cho khớp (loại: bạn giả một phần)."
+audio_url: null
+speakers:
+  - label: 남자
+    gender: male
+    role_vi: "quản lý quán cà phê"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng thân thiện, hơi vội vì sắp đến giờ đón khách"
+  - label: 여자
+    gender: female
+    role_vi: "Ji-eun, nhân viên làm thêm của quán"
+    age_range: 20s
+    voice_hint_vi: "giọng trẻ, nhanh nhẹn, lễ phép"
+tts_notes:
+  speed: 1.0
+  style_vi: "Hội thoại nơi làm việc giữa quản lý và nhân viên làm thêm, cả hai dùng -요, tự nhiên."
+  pauses_vi: "Ngắt ngắn sau '그래요?' và trước '지은 씨는 그동안'."
+  pronunciation_vi: "스무 명 [스무 명]; 옮겨 놨어요 [옴겨 놔써요]; 옮겼어요 [옴겨써요]; 꺼내 올게요 [꺼내 올께요]; 놓아 줄래요 [노아 줄래요]."
+transcript_ko: |
+  남자: 지은 씨, 오늘 오후에 단체 손님 스무 명 오시는 거 알죠? 의자는 다 옮겨 놨어요?
+  여자: 네, 아까 다 옮겼어요. 그런데 컵이 좀 모자랄 것 같아요.
+  남자: 그래요? 그럼 제가 창고에 가서 컵을 더 꺼내 올게요. 지은 씨는 그동안 테이블마다 메뉴판을 하나씩 놓아 줄래요?
+  여자: 네, 알겠어요. 바로 할게요.
+transcript_vi: |
+  Nam: Ji-eun này, em biết chiều nay có đoàn khách hai mươi người đến chứ? Ghế đã chuyển hết chưa?
+  Nữ: Dạ, lúc nãy em chuyển hết rồi. Nhưng chắc cốc sẽ hơi thiếu anh ạ.
+  Nam: Vậy à? Thế để anh xuống kho lấy thêm cốc. Trong lúc đó em đặt lên mỗi bàn một tờ thực đơn giúp anh nhé?
+  Nữ: Dạ, em biết rồi. Em làm ngay ạ.
+stem: "다음 대화를 잘 듣고 여자가 이어서 할 행동으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 의자를 옮긴다.
+    trap: time_shift
+    note_vi: "Việc đã xong: nữ trả lời '네, 아까 다 옮겼어요' (lúc nãy em chuyển hết rồi)."
+  - label: "②"
+    text: 테이블에 메뉴판을 놓는다.
+    correct: true
+  - label: "③"
+    text: 창고에서 컵을 꺼내 온다.
+    trap: speaker_swap
+    note_vi: "Lấy cốc từ kho là việc của nam (제가 창고에 가서 컵을 더 꺼내 올게요), không phải của nữ."
+  - label: "④"
+    text: 컵을 사러 가게에 간다.
+    trap: keyword_echo
+    note_vi: "Có nghe thấy chuyện thiếu cốc (컵이 좀 모자랄 것 같아요), nhưng cách giải quyết là nam lấy thêm cốc trong kho, không ai nói tới việc đi mua cốc."
+explanation_vi: |
+  **Đáp án ②.** Căn cứ: nam giao việc "지은 씨는 그동안 테이블마다 메뉴판을 하나씩 놓아 줄래요?" (trong lúc đó em đặt lên mỗi bàn một tờ thực đơn nhé?), và nữ nhận lời "네, 알겠어요. 바로 할게요." (dạ, em làm ngay).
+  '그동안' cho biết nữ làm việc này ngay trong lúc nam đi lấy cốc.
+  **Mẹo dạng:** Gạch ba cột "đã làm – người kia sẽ làm – người được hỏi sẽ làm". Câu nhờ -아/어 줄래요? hướng tới người được hỏi, cộng với lời nhận việc (바로 할게요), là tín hiệu của hành động tiếp theo.
+  **Đáng chú ý:** 단체 (團體 – đoàn thể) – nhóm, đoàn; tổ chức; trùng "đoàn thể" ở nghĩa tổ chức (사회단체 – đoàn thể xã hội), khác ở nghĩa "nhóm người cùng đi, cùng làm" mà "đoàn thể" không có (단체 손님: khách đoàn; 단체 여행: du lịch theo đoàn) · 창고 (倉庫 – thương khố) – nhà kho · 모자라다 – thiếu, không đủ.

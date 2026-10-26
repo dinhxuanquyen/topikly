@@ -152,7 +152,8 @@ export function ChoiceList({
                     {renderInline(choice.text)}
                   </span>
                 ) : null}
-                {!choice.text && choice.image_desc ? (
+                {/* Phương án biểu đồ đã vẽ từ chart_data: image_desc chỉ còn làm nhãn trợ năng. */}
+                {!choice.text && choice.image_desc && !choice.chart_data?.length ? (
                   <ImagePending
                     description={choice.image_desc}
                     className="border-0 bg-transparent p-0"

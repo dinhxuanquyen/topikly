@@ -1,0 +1,57 @@
+id: l07-0001
+type_code: L07
+subskill: next_response
+difficulty: 3
+tags: [topic:food, topic:shopping, genre:conversation, setting:store, vocab:넉넉하다]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Transcript khoảng 80 ký tự (không tính nhãn), đếm tay. Bối cảnh tiệm bánh (setting:store). Lượt cuối của người A (nữ, khách) là câu hỏi xin giải pháp; người học chọn lời của người B (nam, nhân viên). Đã đọc nối từng phương án vào sau lượt cuối: chỉ ① vừa trả lời câu hỏi 'phải làm sao' vừa giải quyết đúng vấn đề kem chảy. Không đưa phương án 'đổi sang bánh không có kem tươi' hay 'ăn tại tiệm' vì đó cũng là giải pháp hợp lý, sẽ thành hai đáp án đúng."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "khách mua bánh kem mang về"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng tự nhiên, hơi lo lắng ở lượt cuối"
+  - label: 남자
+    gender: male
+    role_vi: "nhân viên tiệm bánh"
+    age_range: 20s
+    voice_hint_vi: "giọng trẻ, lễ phép, niềm nở"
+tts_notes:
+  speed: 1.0
+  style_vi: "Hội thoại mua bán tại quầy, tự nhiên. Nhân viên dùng kính ngữ (-시-), khách dùng -요."
+  pauses_vi: "Ngắt ngắn sau '포장해 주세요.' và sau '아, 그래요?'."
+  pronunciation_vi: "한 시간쯤 [한 시간쯤]; 괜찮을까요 [괜차늘까요], lên giọng cuối câu; 생크림 [생크림]; 녹을 [노글]; 어떻게 [어떠케]."
+transcript_ko: |
+  여자: 이 케이크 포장해 주세요. 그런데 집까지 한 시간쯤 걸리는데 괜찮을까요?
+  남자: 생크림 케이크라서 오래 들고 가시면 녹을 수도 있어요.
+  여자: 아, 그래요? 그럼 어떻게 하죠?
+transcript_vi: |
+  Nữ: Em gói giúp chị cái bánh này nhé. Mà về đến nhà mất khoảng một tiếng, có sao không em?
+  Nam: Bánh này là bánh kem tươi nên chị mang đi lâu thì kem có thể bị chảy đấy ạ.
+  Nữ: À, vậy à? Thế chị phải làm sao đây?
+stem: "다음 대화를 잘 듣고 이어질 수 있는 말로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 아이스팩을 넉넉하게 넣어 드릴게요.
+    correct: true
+  - label: "②"
+    text: 네, 그 정도면 괜찮을 거예요.
+    trap: time_shift
+    note_vi: "Đây là lời đáp cho câu hỏi ở lượt đầu (괜찮을까요?), và còn mâu thuẫn với chính lời nhân viên vừa cảnh báo (녹을 수도 있어요). Lượt cuối hỏi 'phải làm sao', không hỏi 'có sao không'."
+  - label: "③"
+    text: 포장 상자는 큰 걸로 드릴까요?
+    trap: keyword_echo
+    note_vi: "Lặp từ khoá 포장 nghe được ở lượt đầu, nhưng hộp to hay nhỏ không giải quyết được việc kem bị chảy mà khách đang lo."
+  - label: "④"
+    text: 생크림 케이크가 제일 잘 팔려요.
+    trap: keyword_echo
+    note_vi: "Lặp từ khoá 생크림 케이크 nhưng chỉ là thông tin quảng cáo, không trả lời câu hỏi '그럼 어떻게 하죠?' (thế phải làm sao)."
+explanation_vi: |
+  **Đáp án ①.** Căn cứ: nhân viên cảnh báo "생크림 케이크라서 오래 들고 가시면 녹을 수도 있어요" (bánh kem tươi nên mang đi lâu thì có thể bị chảy), rồi khách hỏi "그럼 어떻게 하죠?" (thế phải làm sao).
+  Lời đáp phù hợp phải đưa ra cách giữ lạnh cho bánh trong một tiếng đi đường. Bỏ thêm túi đá giữ lạnh (아이스팩) là giải pháp trực tiếp cho vấn đề kem chảy.
+  **Mẹo dạng:** Xác định lượt cuối là loại câu gì (hỏi giải pháp, xin phép, mời…) rồi đọc nối từng phương án vào sau lượt đó. Phương án trả lời câu hỏi ở lượt trước là bẫy quen thuộc.
+  **Đáng chú ý:** 포장하다 (包裝 – bao trang) – gói, đóng gói; 포장해 주세요 ở tiệm ăn, tiệm bánh còn có nghĩa "cho mang về" · 녹다 – tan, chảy (kem, đá, tuyết) · 넉넉하다 – đầy đủ, dư dả.

@@ -13,6 +13,8 @@ import type { ExamKindCode, ProgramConfig } from "./programs";
  *    tại, sai kỹ năng của phần, câu trùng, bộ group_key thiếu câu hoặc không liền nhau.
  *  - Chỉ chặn khi `published` (draft chỉ cảnh báo): số câu khác blueprint, và luật nhãn đúng của
  *    đề lắp ráp (content-spec §4.1: ~25% mỗi nhãn, không quá 3 câu liền cùng nhãn, không chu kỳ lặp).
+ *  - Luật audio: mọi câu Nghe (phần `listening`) trong đề phải có `audio_url` khác rỗng; thiếu thì
+ *    gộp MỘT cảnh báo liệt kê id thiếu (draft) hoặc MỘT lỗi chặn (published). Áp dụng mọi kind.
  *  - Riêng đề `placement` (Test trình độ), cũng chỉ chặn khi `published`: đề phải phủ đủ bậc độ khó,
  *    liên tục từ bậc thấp nhất, mỗi bậc đủ câu
  *    (xem PLACEMENT_MIN_BANDS / PLACEMENT_MIN_PER_BAND) để ước lượng trình độ có nghĩa.
@@ -34,6 +36,9 @@ export type ExamSkill = (typeof EXAM_SKILLS)[number];
  */
 export const PLACEMENT_MIN_BANDS = 3;
 export const PLACEMENT_MIN_PER_BAND = 3;
+
+/** Số id tối đa liệt kê trong thông báo thiếu audio (còn lại gộp thành "và N câu khác"). */
+const AUDIO_MISSING_LIST_LIMIT = 12;
 
 export const EXAM_STATUSES = ["draft", "published"] as const;
 
@@ -95,6 +100,8 @@ export interface ExamQuestionRef {
   correctIndex?: number;
   /** Độ khó (số nguyên, thang `difficulty_range`); undefined nếu chưa xác định được. */
   difficulty?: number;
+  /** `audio_url` của câu (chỉ câu Nghe). undefined/null/rỗng = chưa có audio. */
+  audio_url?: string | null;
 }
 
 export interface ExamFileContext {
@@ -211,6 +218,20 @@ export function validateExamFile(
     });
 
     checkGroups(section.questions, questions, base, error);
+
+    // Luật audio: đề có phần Nghe thì mọi câu Nghe phải có audio_url (gộp một thông báo).
+    if (section.skill === "listening") {
+      const noAudio = resolved.filter((r) => !r.audio_url || r.audio_url.trim() === "");
+      if (noAudio.length > 0) {
+        const shown = noAudio.slice(0, AUDIO_MISSING_LIST_LIMIT).map((r) => r.id);
+        const rest = noAudio.length - shown.length;
+        softAdd(
+          `${base}.questions`,
+          `${noAudio.length}/${resolved.length} câu Nghe thiếu audio_url: ${shown.join(", ")}${rest > 0 ? ` và ${rest} câu khác` : ""}`,
+          "audio-missing",
+        );
+      }
+    }
 
     // Luật nhãn đúng: tính trên các câu đã xác định được đáp án, theo thứ tự trong đề.
     if (resolved.length === section.questions.length) {

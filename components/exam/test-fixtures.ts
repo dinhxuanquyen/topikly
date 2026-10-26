@@ -206,3 +206,129 @@ export const PLACEMENT_RESULT: ExamResult = {
     ],
   },
 };
+
+// ------------------------------------------------------------------ đề Nghe
+
+export const LISTEN_INSTRUCTION_1 = "※ [1~2] 다음을 듣고 알맞은 것을 고르십시오.";
+export const LISTEN_INSTRUCTION_2 = "※ [3~4] 다음을 듣고 물음에 답하십시오.";
+export const LISTEN_LINE_1 = "여자: 이 원피스 좀 맡기려고요.";
+export const LISTEN_LINE_2 = "남자: 네, 그럼요.";
+export const LISTEN_SHARED_LINE = "남자: 이번 주말에 등산 갈래요?";
+const SPEAKERS = [
+  { label: "여자", gender: "female" },
+  { label: "남자", gender: "male" },
+] as const;
+
+function listeningQuestion(
+  id: string,
+  typeCode: string,
+  extra: Partial<PublicQuestion> = {},
+): PublicQuestion {
+  return question(id, typeCode, "다음을 듣고 알맞은 것을 고르십시오.", {
+    skill: "listening",
+    subskill: "dialogue_gist",
+    transcript_ko: `${LISTEN_LINE_1}\n${LISTEN_LINE_2}`,
+    speakers: [...SPEAKERS],
+    audio_url: null,
+    ...extra,
+  });
+}
+
+/** Mini test Nghe nháp: 4 câu, 25 phút; khối 1 hai câu đơn (L01-2), khối 2 một bộ dùng chung bài nghe (L21-22). Mọi audio_url null. */
+export const LISTENING_EXAM: PublicExam = {
+  id: "nghe-01",
+  program: "topik-ii",
+  kind: "mini",
+  title: "Mini test Nghe 01",
+  status: "draft",
+  skills: ["listening"],
+  question_count: 4,
+  duration_sec: 1500,
+  sections: [
+    {
+      skill: "listening",
+      order: 1,
+      duration_sec: 1500,
+      question_count: 4,
+      max_score: 100,
+      blocks: [
+        {
+          type_group: "L01-3",
+          first_number: 1,
+          last_number: 2,
+          instruction_ko: LISTEN_INSTRUCTION_1,
+          shared_material: false,
+          questions: [
+            item(1, listeningQuestion("l10-0001", "L10")),
+            item(2, listeningQuestion("l11-0001", "L11")),
+          ],
+        },
+        {
+          type_group: "L21-22",
+          first_number: 3,
+          last_number: 4,
+          instruction_ko: LISTEN_INSTRUCTION_2,
+          shared_material: true,
+          questions: [
+            item(
+              3,
+              listeningQuestion("l21-0001", "L21", {
+                transcript_ko: LISTEN_SHARED_LINE,
+                group_key: "lg1",
+              }),
+            ),
+            item(
+              4,
+              listeningQuestion("l22-0001", "L22", {
+                transcript_ko: LISTEN_SHARED_LINE,
+                group_key: "lg1",
+              }),
+            ),
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+/** Bản có đủ audio của LISTENING_EXAM. */
+export function withAudio(
+  exam: PublicExam,
+  urlFor = (id: string) => `/audio/${id}.mp3`,
+): PublicExam {
+  return {
+    ...exam,
+    sections: exam.sections.map((section) => ({
+      ...section,
+      blocks: section.blocks.map((block) => ({
+        ...block,
+        questions: block.questions.map((entry) => ({
+          ...entry,
+          question: { ...entry.question, audio_url: urlFor(entry.question.id) },
+        })),
+      })),
+    })),
+  };
+}
+
+export const LISTEN_TRANSLATION_1 = "Tôi muốn gửi chiếc váy này.";
+export const LISTEN_TRANSLATION_2 = "Vâng, được ạ.";
+
+/** Kết quả đề Nghe: mọi câu bỏ trống; câu 1 có bản dịch đủ hai lượt thoại. */
+export const LISTENING_RESULT: ExamResult = {
+  ...RESULT,
+  examId: "nghe-01",
+  title: "Mini test Nghe 01",
+  sections: [{ skill: "listening", correct: 0, total: 4, unanswered: 4, score: 0, max_score: 100 }],
+  total_score: 0,
+  questions: LISTENING_EXAM.sections[0]!.blocks.flatMap((block) => block.questions).map(
+    (entry) => ({
+      ...qr(entry.question.id, entry.number, entry.question.type_code, "L01-3", null, "①"),
+      skill: "listening" as const,
+      subskill: "dialogue_gist",
+      ...(entry.number === 1
+        ? { transcript_vi: `${LISTEN_TRANSLATION_1}\n${LISTEN_TRANSLATION_2}` }
+        : {}),
+    }),
+  ),
+};

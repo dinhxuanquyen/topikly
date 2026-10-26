@@ -145,6 +145,10 @@ export interface LevelEstimate {
   next_level?: { level: number; label: string; points_needed: number } | null;
 }
 
+/**
+ * Một câu trong kết quả, kèm đáp án/lời giải để xem lại. Câu Nghe có thêm `transcript_vi` (kế thừa từ
+ * CheckResponse: bản dịch, mỗi dòng ứng với một dòng `transcript_ko` của đề); CHỈ có sau khi nộp.
+ */
 export interface QuestionResult extends CheckResponse {
   number: number;
   skill: PracticeSkill;

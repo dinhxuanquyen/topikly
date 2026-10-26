@@ -1,6 +1,6 @@
 # Đặc tả biên soạn nội dung TOPIK II (content-spec)
 
-> **Phiên bản 0.3.3 · 2026-10-25** · Chủ sở hữu: `topik-content-designer` · Người dùng (product owner) duyệt cuối. Lịch sử thay đổi: xem [Phụ lục B](#phụ-lục-b--lịch-sử-thay-đổi).
+> **Phiên bản 0.3.5 · 2026-10-26** · Chủ sở hữu: `topik-content-designer` · Người dùng (product owner) duyệt cuối. Lịch sử thay đổi: xem [Phụ lục B](#phụ-lục-b--lịch-sử-thay-đổi).
 > Đầu ra Giai đoạn 0 theo [02 · Lộ trình](02-lo-trinh-trien-khai.md#giai-đoạn-0--nền-móng-2-tuần). Dựa trên [01 · Phân tích chuyên môn](01-phan-tich-chuyen-mon.md) mục 2, mô hình dữ liệu ở [README mục 6](../README.md#6-mô-hình-dữ-liệu) và mẫu YAML ở [README mục 7](../README.md#7-cấu-trúc-thư-mục-dự-kiến).
 >
 > Ai dùng tài liệu này:
@@ -127,20 +127,22 @@ Mỗi phương án sai nên gắn một mã `trap` (trường của choice, mụ
 
 **Ngoại lệ:** ba subskill `fill_blank_connector` (R19), `sentence_order` (R13–R15) và `insert_sentence` (R39–R41) không bắt buộc 2 kiểu bẫy. Ở các dạng này, mọi phương án nhiễu tự nhiên đều có thể cùng là `logic_mismatch` hoặc `cohesion_break`. Bù lại, `note_vi` của từng phương án phải nêu **quan hệ logic cụ thể** mà phương án đó biểu thị (ví dụ "오히려 = đảo ngược kỳ vọng"), hoặc nêu **mối nối cụ thể** bị đứt.
 
+Ngoại lệ tương tự cho `chart_reading` (L03, R10): mọi phương án nhiễu có thể cùng là `detail_swap`, vì nhiễu biểu đồ tự nhiên đều là sai mốc, sai xu hướng hoặc sai thứ hạng. Bù lại, `note_vi` phải nêu cụ thể chi tiết bị sai (mốc nào, xu hướng nào, thứ hạng nào) và đối chiếu với câu trong transcript hoặc với số liệu trên biểu đồ. Không gán mã khác chỉ để đủ 2 kiểu bẫy.
+
 | trap | Mô tả |
 |---|---|
 | `detail_swap` | Sai một chi tiết: số, thời gian, địa điểm, đối tượng, thứ tự |
 | `speaker_swap` | Gán lời nói, hành động hay quan điểm của người này cho người kia, trong số **các người nói hoặc nhân vật có mặt** trong ngữ liệu |
-| `concession_point` | Trình bày như lập trường của người nói/tác giả một quan điểm mà ngữ liệu **có nhắc tới nhưng người nói/tác giả không giữ**. Gồm: ý nhượng bộ (`물론 …`), quan điểm của người khác được trích dẫn rồi phản bác (`일부에서는 …`, `흔히 …`, `-다는 우려도 있다` rồi `그러나/하지만`). Bẫy này hay gặp nhất ở R35–R38, R44–R50, L31, L41–L50 |
+| `concession_point` | Trình bày như lập trường chính của người nói/tác giả một quan điểm mà ngữ liệu **có nhắc tới nhưng không phải lập trường chính** của người nói/tác giả. Gồm: ý nhượng bộ (`물론 …`: người nói **có thể đồng ý** nhưng thừa nhận rồi gác lại để chuyển sang ý chính sau `하지만/근데`), quan điểm của người khác được trích dẫn rồi phản bác (`일부에서는 …`, `흔히 …`, `-다는 우려도 있다` rồi `그러나/하지만`). Bẫy này hay gặp nhất ở R35–R38, R44–R50, L31, L41–L50 |
 | `time_shift` | Lẫn đã làm / đang làm / sẽ làm, hoặc lẫn trước / sau |
-| `negation_flip` | Đảo khẳng định ↔ phủ định |
+| `negation_flip` | Đảo khẳng định ↔ phủ định (có ↔ không, được ↔ không được, đúng ↔ không đúng). **Không** dùng cho: đảo chiều xu hướng (tăng ↔ giảm), đảo thứ tự/thứ hạng hay đảo mốc số liệu → dùng `detail_swap`; lập trường hoặc thái độ ngược với người nói → dùng `attitude_mismatch`; đề xuất không ai nói tới trong ngữ liệu → dùng `outside_text` |
 | `degree_shift` | Sai mức độ hoặc phạm vi: 일부 ↔ 대부분, 가끔 ↔ 항상, 조금 ↔ 크게 |
 | `reverse_causality` | Đảo quan hệ nhân quả hoặc gán sai nguyên nhân |
 | `logic_mismatch` | Sai quan hệ logic giữa câu: bổ sung, đối lập, nhân quả, nhượng bộ, ví dụ (dùng cho từ nối, chèn câu, sắp xếp) |
 | `cohesion_break` | Vị trí hoặc thứ tự phá vỡ liên kết: chỉ từ không có tiền ngữ, thông tin mới đứng trước thông tin cũ |
 | `overgeneralization` | Quá khái quát, tuyệt đối hoá so với văn bản |
 | `too_narrow` | Quá hẹp: chỉ là một chi tiết hoặc ví dụ, không bao quát ý chính |
-| `true_not_main` | Đúng với văn bản **theo ý của chính người nói/tác giả**, nhưng không phải điều câu hỏi hỏi (ví dụ đúng nhưng không phải ý chính). Nếu đó là quan điểm mà người nói/tác giả không giữ thì dùng `concession_point` |
+| `true_not_main` | Đúng với văn bản **theo ý của chính người nói/tác giả**, nhưng không phải điều câu hỏi hỏi (ví dụ đúng nhưng không phải ý chính). Nếu đó là ý nhượng bộ (`물론 …`) hoặc quan điểm được trích dẫn thì dùng `concession_point`, kể cả khi người nói có đồng ý với ý nhượng bộ đó |
 | `outside_text` | Hợp lý theo hiểu biết chung nhưng văn bản không nói tới |
 | `keyword_echo` | Lặp từ khoá nghe/đọc được nhưng ghép sai nghĩa hoặc sai ngữ dụng |
 | `near_synonym_grammar` | Ngữ pháp gần nghĩa nhưng sai sắc thái hoặc điều kiện dùng (-느라고 / -는 바람에…) |
@@ -524,7 +526,7 @@ Quy tắc riêng theo cặp:
   - Dấu phẩy, dấu `…`, ngoặc đơn kép `' '`.
   - Từ tượng hình/ẩn dụ: `뚝`, `껑충`, `주춤`, `빨간불`, `훈풍`, `날개 달다`, `발목 잡다`.
 - Ví dụ tự soạn: `봄꽃 축제 첫 주말, 궂은 날씨에 관람객 '뚝'`.
-- Phương án là câu đầy đủ -ㄴ다 giải thích tin. Nhiễu: hiểu sai ẩn dụ (`negation_flip`, `degree_shift`), đảo nguyên nhân–kết quả (`reverse_causality`).
+- Phương án là câu đầy đủ -ㄴ다 giải thích tin. Nhiễu: hiểu ngược ẩn dụ (`negation_flip`, chỉ khi cách hiểu sai đảo hẳn tốt ↔ xấu, ví dụ 빨간불 hiểu thành tín hiệu tốt), sai mức độ (`degree_shift`, ví dụ 뚝 "giảm mạnh" hiểu thành "giảm nhẹ"), đảo nguyên nhân–kết quả (`reverse_causality`).
 - Lệnh đề: `다음 신문 기사의 제목을 가장 잘 설명한 것을 고르십시오.`
 - Lỗi AI: tít viết như câu văn thường (có đủ trợ từ, đuôi -다). Tít không có từ khó hay ẩn dụ nào nên quá dễ.
 
@@ -671,7 +673,7 @@ ví dụ: content/topik-ii/exams/mini/doc-01.yaml
 | `id` | string | ✓ | Khớp tên file |
 | `kind` | enum | ✓ | `full` \| `mini` \| `hard` \| `ibt` \| `placement`. Khớp thư mục |
 | `title` | string | ✓ | Tiêu đề tiếng Việt, ví dụ `"Mini test Đọc 01"` |
-| `status` | enum | ✓ | `draft` \| `published`. **`draft`**: đề mẫu hoặc đang soạn. Vẫn hiển thị được; các luật "đủ số câu", "phân bố nhãn đúng" và "phủ bậc" (riêng đề placement) chỉ **cảnh báo**. **`published`**: các luật đó thành **lỗi chặn**, đề có lỗi không được phục vụ |
+| `status` | enum | ✓ | `draft` \| `published`. **`draft`**: đề mẫu hoặc đang soạn. Vẫn hiển thị được; các luật "đủ số câu", "phân bố nhãn đúng", "audio" (phần Nghe) và "phủ bậc" (riêng đề placement) chỉ **cảnh báo**. **`published`**: các luật đó thành **lỗi chặn**, đề có lỗi không được phục vụ |
 | `program` | string | – | Nếu có thì phải khớp thư mục chương trình |
 | `sections` | list | ✓ | Các phần thi **theo thứ tự làm bài**. Mỗi kỹ năng có tối đa một phần |
 
@@ -696,17 +698,31 @@ sections:
     questions: [r01-0001, r03-0001, r07-0001]
 ```
 
-Ví dụ trên rút gọn còn 3 câu để minh hoạ cú pháp. Đề thật phải đủ số câu theo blueprint (Mini Đọc hiện là 20 câu). Khi không ghi `duration_sec`, phần thi dùng thời gian của blueprint (Mini Đọc hiện là 30 phút).
+Ví dụ trên rút gọn còn 3 câu để minh hoạ cú pháp. Đề thật phải đủ số câu theo blueprint. Khi không ghi `duration_sec`, phần thi dùng thời gian của blueprint. Blueprint Mini hiện hành của TOPIK II (`exam_blueprints.mini` trong `lib/db/programs/topik-ii.ts`):
+
+| Đề Mini | Số câu | Thời gian | Ví dụ |
+|---|---|---|---|
+| Mini Đọc (`reading`) | 20 | 30 phút | `content/topik-ii/exams/mini/doc-01.yaml` |
+| Mini Nghe (`listening`) | 20 | 25 phút, **gồm cả thời gian phát audio** | `content/topik-ii/exams/mini/nghe-01.yaml` |
+
+Mỗi đề Mini chỉ có một kỹ năng. Đề Mini Nghe chọn câu theo các nhóm dạng L01–L50 (câu đơn và bộ câu), xếp theo `type_code` tăng dần; mỗi bộ câu dùng chung bài nghe phải đủ cả hai câu và đứng liền nhau (ràng buộc bên dưới).
+
+Thứ tự theo `type_code` là **quy ước biên soạn**: validator chỉ kiểm thứ tự **trong bộ câu**, không kiểm thứ tự toàn đề. Vì thứ tự đã cố định, cách "đổi thứ tự câu" ở luật nhãn bên dưới không áp dụng được. Khi chuỗi nhãn vi phạm §4.1, làm theo một trong hai cách:
+- Thay một câu bằng một câu khác **cùng nhóm dạng** có nhãn đúng phù hợp.
+- Nếu đề có câu soạn mới, **chọn nhãn đúng ngay khi soạn câu mới** để chuỗi đạt luật (cách đã dùng ở `nghe-01`).
+
+**Không đảo nhãn của câu đã có**, vì đảo nhãn kéo theo sửa `explanation_vi`/`note_vi`, tức là thay đổi nội dung (§4.1, §8.2).
 
 **Ràng buộc** (kiểm bởi `npm run validate:content`, mã nguồn ở `lib/db/exam-validation.ts`):
 - Mọi id câu phải tồn tại, đúng kỹ năng của phần, không trùng nhau trong đề.
 - Các câu cùng `group_key` (cặp hoặc bộ dùng chung ngữ liệu, mục 1.3) phải có **đủ** số câu của bộ (đọc từ `group_key`, ví dụ `r46-47-0001` cần 2 câu), đứng **liền nhau** và theo `type_code` tăng dần.
 - Số câu mỗi phần bằng `exam_blueprints` (Mini, Placement) hoặc `sections` (Full) của chương trình. `draft`: cảnh báo; `published`: lỗi.
+- **Luật audio** (mã `audio-missing`): mọi câu thuộc phần `listening` của đề, ở **mọi** kind (`mini`, `full`, `hard`, `ibt`, `placement`), phải có `audio_url` khác rỗng. Thiếu thì gộp thành **một** thông báo liệt kê các id thiếu (tối đa 12 id, phần còn lại ghi "và N câu khác"; validator không bỏ sót câu nào, chỉ rút gọn danh sách hiển thị). `draft`: một cảnh báo gộp; `published`: lỗi chặn, đề không được phục vụ. Câu Đọc không cần audio. Hệ quả cho người soạn: đề Nghe đang soạn (audio còn `null`) giữ `status: draft`; chỉ chuyển `published` khi mọi câu đã có `audio_url` **và** `reviewed_by`.
 - Luật nhãn đúng của đề lắp ráp (mục 4.1), tính trên từng phần. `draft`: cảnh báo; `published`: lỗi.
   - Mỗi nhãn khoảng 25% (áp dụng từ 8 câu trở lên).
   - Không quá 3 câu liền nhau cùng nhãn.
   - Không có chu kỳ lặp, tức không có chuỗi từ 4 nhãn trở lên lặp lại liền nhau.
-  - Muốn sửa thì **đổi thứ tự câu**, không đảo nhãn phương án.
+  - Muốn sửa thì **đổi thứ tự câu**, không đảo nhãn phương án. Đề có thứ tự cố định (ví dụ Mini Nghe xếp theo `type_code`): thay câu cùng nhóm dạng hoặc chọn nhãn khi soạn câu mới, xem đoạn về đề Mini ở trên.
 
 **Đề Test trình độ (`kind: placement`).** Đề ngắn, không cần đăng nhập, dùng để ước lượng trình độ hiện tại của người học theo **bậc độ khó** (độ khó = cấp TOPIK mà câu phân hoá, §2.3). Trình độ ước lượng là bậc cao nhất mà bậc đó và mọi bậc thấp hơn đều đạt tỉ lệ đúng tối thiểu (`placement.band_pass_ratio` của chương trình, hiện là 60%). Kết quả kèm gợi ý các subskill yếu, nên đề cần **đa dạng subskill**. Đề placement **không** nằm trong danh sách đề của trụ Đề thi. Đề đang dùng do `placement.exam_id` của chương trình chỉ định.
 - Số câu và thời gian lấy từ `exam_blueprints.placement` của chương trình (TOPIK II hiện là 12 câu Đọc / 15 phút), không ghi trong file đề. Ưu tiên câu có ngữ liệu ngắn để vừa thời gian. Bậc cao thường có ngữ liệu dài và nằm cuối đề, nên nếu thiếu giờ thì đề sẽ đo cả tốc độ đọc chứ không chỉ trình độ.
@@ -905,7 +921,7 @@ Lỗi (chặn import):
 
 Cảnh báo (không chặn):
 - `pair_with` trỏ tới id chưa tồn tại.
-- Phương án sai thiếu `trap`. Câu có ít hơn 2 kiểu `trap`, trừ ngoại lệ ở mục 2.2.
+- Phương án sai thiếu `trap`. Câu có ít hơn 2 kiểu `trap`, trừ ngoại lệ ở mục 2.2 (`fill_blank_connector`, `sentence_order`, `insert_sentence`, `chart_reading`).
 - Độ dài ngữ liệu lệch quá 30% so với mục 4. Transcript được đếm sau khi bỏ nhãn.
 - Có quá 8 tag.
 - Biểu đồ `pie` có tổng `y` lệch 100 quá ±1.
@@ -1241,7 +1257,7 @@ Dùng cho **topik-content-reviewer**. Ghi mã tiêu chí (ví dụ `[B2]`) ở c
 
 **B · Phương án nhiễu**
 - B1. Mỗi phương án sai vì một lý do cụ thể, gắn `trap` hợp lý.
-- B2. Không sai lộ liễu, không đánh đố vô lý. Ít nhất 2 kiểu bẫy khác nhau, trừ R13–R15, R19, R39–R41 (ngoại lệ ở mục 2.2). Với các dạng này, kiểm tra `note_vi` có nêu quan hệ logic hoặc mối nối cụ thể không. Không lọc được đáp án chỉ nhờ sắc thái (tích cực/tiêu cực).
+- B2. Không sai lộ liễu, không đánh đố vô lý. Ít nhất 2 kiểu bẫy khác nhau, trừ R13–R15, R19, R39–R41 và các câu `chart_reading` (L03, R10) (ngoại lệ ở mục 2.2). Với các dạng này, kiểm tra `note_vi` có nêu quan hệ logic hoặc mối nối cụ thể không; riêng `chart_reading` thì kiểm tra `note_vi` có nêu đúng mốc, xu hướng hoặc thứ hạng bị sai không. Không lọc được đáp án chỉ nhờ sắc thái (tích cực/tiêu cực).
 - B3. Bốn phương án song song về hình thức và độ dài. Đáp án không nổi bật về hình thức.
 
 **C · Tiếng Hàn**
@@ -1412,6 +1428,41 @@ Sửa chính tả thuần tuý (đổi chữ) trong `note_vi`/`explanation_vi` v
 ---
 
 ## Phụ lục B · Lịch sử thay đổi
+
+### v0.3.5 · 2026-10-26
+
+Cập nhật theo báo cáo duyệt `content/_reviews/2026-10-26-mini-nghe-01.md`: mục FIX S3, các gợi ý S1 và "Góp ý cho spec" số 1, 2, 4.
+
+- §5.1, đoạn về đề Mini (S3): ghi rõ thứ tự theo `type_code` của Mini Nghe chỉ là quy ước biên soạn. Validator chỉ kiểm thứ tự trong bộ câu. Vì thứ tự cố định, khi chuỗi nhãn vi phạm §4.1 thì thay câu cùng nhóm dạng, hoặc chọn nhãn đúng ngay khi soạn câu mới. Không đảo nhãn của câu đã có. Dòng "Muốn sửa thì đổi thứ tự câu" trong phần ràng buộc có thêm câu trỏ tới ngoại lệ này.
+- §5.1, luật audio (S1, gợi ý): ghi rằng thông báo `audio-missing` chỉ liệt kê tối đa 12 id (`AUDIO_MISSING_LIST_LIMIT`), phần còn lại ghi "và N câu khác".
+- §2.2 `negation_flip` (góp ý 1, phương án (a)): chỉ dùng cho đảo khẳng định ↔ phủ định. Các trường hợp khác dùng mã sau:
+  - đảo chiều xu hướng, thứ tự, thứ hạng hay mốc số liệu → `detail_swap`;
+  - lập trường hoặc thái độ ngược → `attitude_mismatch`;
+  - đề xuất không có trong ngữ liệu → `outside_text`.
+- §2.2 `concession_point` và `true_not_main` (góp ý 2):
+  - `concession_point` là quan điểm có nhắc tới nhưng **không phải lập trường chính**. Định nghĩa ghi rõ ý nhượng bộ `물론 …` thuộc mã này kể cả khi người nói có đồng ý.
+  - `true_not_main` trỏ sang `concession_point` cho ý nhượng bộ và quan điểm được trích dẫn.
+
+**Bổ sung theo mục "Duyệt lại — 2026-10-26" của cùng báo cáo (FIX nhỏ §2.2)**
+- §2.2: thêm ngoại lệ "ít nhất 2 kiểu bẫy" cho `chart_reading` (L03, R10). Ở dạng này mọi nhiễu có thể cùng là `detail_swap`. Bù lại, `note_vi` phải nêu cụ thể mốc, xu hướng hoặc thứ hạng bị sai và đối chiếu với transcript hoặc biểu đồ. Không gán mã khác chỉ để đủ 2 kiểu.
+- §7.1 B2 và §5.9 (cảnh báo "ít hơn 2 kiểu trap"): thêm `chart_reading` vào danh sách ngoại lệ.
+- §4.5 R25–R27: `negation_flip` chỉ dùng khi cách hiểu sai đảo hẳn tốt ↔ xấu. Sai mức độ của ẩn dụ dùng `degree_shift`.
+- Phụ thuộc code (vùng backend-engineer): đã thêm `"chart_reading"` vào `multi_trap_exempt_subskills` trong `lib/db/programs/topik-ii.ts`, nên validator không còn cảnh báo `few-traps` cho câu `chart_reading` chỉ có một kiểu bẫy.
+
+**File nội dung bị ảnh hưởng**
+- l03-0001 ②: đã đổi `negation_flip` → `detail_swap` (đảo chiều xu hướng). Ba nhiễu của l03 nay đều là `detail_swap`, dùng ngoại lệ `chart_reading`. `note_vi` của cả ba đã nêu đúng chi tiết sai. Chỉ đổi metadata, có ghi trong `notes_internal`.
+- l25-0001 ②: đã đổi `negation_flip` → `attitude_mismatch` (lập trường ngược). Câu có 3 kiểu bẫy. Chỉ đổi metadata, có ghi trong `notes_internal`.
+- Còn lại cho lượt sau: các mục tương tự ở báo cáo 2026-10-23 (r33 ②, r49 ④). Mục r10-0001 (`chart_reading`) không cần đổi: hiện đã có 2 kiểu bẫy.
+- l19-0001 ④ giữ `concession_point`, nay khớp hẳn định nghĩa mới.
+- l32-0001 ② cũ (`negation_flip`) đã được thay theo FIX của báo cáo.
+
+### v0.3.4 · 2026-10-26
+
+- §5.1 "Định dạng file đề thi", phần ràng buộc: thêm **luật audio** (mã `audio-missing`) cho khớp `lib/db/exam-validation.ts` và comment "ĐỊNH DẠNG FILE ĐỀ" đầu `lib/exam/source.ts`: mọi câu thuộc phần `listening` của đề, ở mọi kind, phải có `audio_url` khác rỗng; thiếu thì gộp một thông báo liệt kê id; `draft` cảnh báo, `published` lỗi chặn và đề không được phục vụ. Hàng `status` của bảng trường cấp đề thêm luật "audio" vào nhóm luật chỉ cảnh báo ở `draft`.
+- §5.1: thay câu "Mini Đọc hiện là 20 câu / 30 phút" bằng bảng blueprint Mini hiện hành: Mini Đọc 20 câu / 30 phút, **Mini Nghe 20 câu / 25 phút (gồm cả thời gian phát audio)**, theo `exam_blueprints.mini` trong `lib/db/programs/topik-ii.ts`. Thêm mô tả ngắn cách chọn và xếp câu của đề Mini Nghe.
+- Thêm đề `content/topik-ii/exams/mini/nghe-01.yaml` (draft, 20 câu Nghe: 10 câu đã có + 10 câu mới l03, l07, l10, l16, l19, l21, l25, l32, l37, l45). Các bộ l21–22, l25–26, l31–32, l37–38, l45–46 nay đã đủ hai câu.
+- Không đổi quy tắc soạn câu hỏi nào. Không file câu hỏi cũ nào phải sửa nội dung; notes_internal của l22, l26, l31, l38, l46 được cập nhật (chỉ metadata) để ghi nhận câu cặp đã soạn.
+- Ghi chú cho backend-engineer: hàng `status` trong comment đầu `lib/exam/source.ts` hiện chỉ liệt kê "đủ số câu" và "phân bố nhãn đúng"; nên thêm "audio" (và "phủ bậc" của placement) cho khớp hàng `status` ở mục này.
 
 ### v0.3.3 · 2026-10-25
 

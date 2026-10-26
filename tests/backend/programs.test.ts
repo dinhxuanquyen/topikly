@@ -152,8 +152,11 @@ describe("topik-ii: cấu trúc đề rút gọn và lệnh nhóm", () => {
       duration_sec: 60 * 60,
     });
     expect(getExamBlueprint(topikII, "hard", "reading")?.question_count).toBe(50);
-    // Mini chưa khai báo Nghe -> rơi về sections (không bịa số liệu riêng)
-    expect(getExamBlueprint(topikII, "mini", "listening")?.question_count).toBe(50);
+    // Loại chưa khai báo blueprint (hard, ibt) -> rơi về sections (không bịa số liệu riêng)
+    expect(getExamBlueprint(topikII, "hard", "listening")?.question_count).toBe(50);
+    expect(getExamBlueprint(topikII, "ibt", "listening")?.question_count).toBe(50);
+    // Mini Nghe đã khai báo riêng: 20 câu / 25 phút
+    expect(getExamBlueprint(topikII, "mini", "listening")?.question_count).toBe(20);
     expect(getExamBlueprint(topikII, "full", "speaking")).toBeUndefined();
   });
 

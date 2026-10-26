@@ -1,0 +1,57 @@
+id: l16-0001
+type_code: L16
+subskill: detail_match
+difficulty: 4
+tags: [topic:shopping, topic:aging, genre:interview, vocab:상인]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Thể loại L16 = phỏng vấn ngắn theo bảng 3.1 (còn [cần đối chiếu], Phụ lục A2). Transcript khoảng 210 ký tự (không tính nhãn), đếm tay. Lượt trả lời của nam dài 4 câu nên tách thành 2 dòng cùng nhãn theo §4.3 (genre interview, validator không cảnh báo). Chợ và dịch vụ giao hàng là hư cấu, không gắn với chợ hay hội tiểu thương có thật. Hai con số '2만 원' và '오후 2시' cùng có chữ số 2 nhưng nằm ở hai vế cách nhau, có ghi cách đọc trong tts_notes. 2026-10-26 (FIX [H2] theo content/_reviews/2026-10-26-mini-nghe-01.md): sửa ghi chú phát âm 2만 원 thành [이마눤], đọc liền một nhịp (제15항)."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "phóng viên phỏng vấn"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng rõ ràng, thân thiện"
+  - label: 남자
+    gender: male
+    role_vi: "đại diện hội tiểu thương của một chợ truyền thống"
+    age_range: 50s
+    voice_hint_vi: "giọng trung niên, chân chất, kể chuyện tự nhiên"
+tts_notes:
+  speed: 1.0
+  style_vi: "Phỏng vấn ngắn: phóng viên hỏi rõ ràng, người được phỏng vấn trả lời tự nhiên, xen -거든요, -습니다 và -요."
+  pauses_vi: "Ngắt sau câu hỏi của phóng viên. Ngắt giữa hai dòng của nam, và ngắt nhẹ sau '무료로 배달해 드리고,'."
+  pronunciation_vi: "2만 원 = 이만 원, đọc liền một nhịp, nối âm thành [이마눤] (표준 발음법 제15항), không ngắt giữa 마 và 눤; 오후 2시 = 오후 두 시; 어르신 [어르신]; 언덕길 [언덕낄]; 작년 [장년]; 받으실 [바드실]."
+transcript_ko: |
+  여자: 시장에서 산 물건을 집까지 배달해 주는 서비스를 시작하셨다고요?
+  남자: 네, 우리 시장은 손님 중에 어르신이 많은데, 무거운 장바구니를 들고 언덕길을 올라가시는 모습이 늘 마음에 걸렸거든요. 그래서 상인들이 돈을 조금씩 모아 작년 봄부터 배달을 시작했습니다.
+  남자: 2만 원 이상 사시면 무료로 배달해 드리고, 오후 2시 전에 주문하시면 그날 받으실 수 있어요. 요즘은 젊은 손님들도 많이 이용하세요.
+transcript_vi: |
+  Nữ: Nghe nói ông đã bắt đầu dịch vụ giao tận nhà hàng hoá mua ở chợ phải không ạ?
+  Nam: Vâng, khách của chợ chúng tôi có nhiều người cao tuổi, mà thấy các cụ xách giỏ đi chợ nặng trĩu leo dốc lên nhà, tôi cứ canh cánh mãi. Vì thế các tiểu thương mỗi người góp một ít tiền, rồi từ mùa xuân năm ngoái bắt đầu giao hàng.
+  Nam: Mua từ 20.000 won trở lên thì chúng tôi giao miễn phí, đặt hàng trước 2 giờ chiều thì nhận được ngay trong ngày. Dạo này cả khách trẻ cũng dùng nhiều.
+stem: "다음을 듣고 들은 내용과 같은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 이 서비스는 어르신들만 이용할 수 있다.
+    trap: degree_shift
+    note_vi: "Sai phạm vi: dịch vụ ra đời vì khách cao tuổi, nhưng ông nói 'dạo này cả khách trẻ cũng dùng nhiều' (요즘은 젊은 손님들도 많이 이용하세요)."
+  - label: "②"
+    text: 배달 서비스는 올해 봄에 시작되었다.
+    trap: detail_swap
+    note_vi: "Sai thời điểm: dịch vụ bắt đầu từ mùa xuân năm ngoái (작년 봄부터), không phải năm nay."
+  - label: "③"
+    text: 오후 2시가 지나야 당일에 받을 수 있다.
+    trap: time_shift
+    note_vi: "Đảo trước/sau: phải đặt trước 2 giờ chiều (오후 2시 전에 주문하시면) thì mới nhận được trong ngày."
+  - label: "④"
+    text: 상인들이 비용을 함께 마련해 시작했다.
+    correct: true
+explanation_vi: |
+  **Đáp án ④.** Căn cứ: "그래서 상인들이 돈을 조금씩 모아 작년 봄부터 배달을 시작했습니다" (vì thế các tiểu thương mỗi người góp một ít tiền rồi bắt đầu giao hàng từ mùa xuân năm ngoái).
+  "돈을 조금씩 모으다" (mỗi người góp một ít tiền) được diễn đạt lại thành "비용을 함께 마련하다" (cùng nhau lo chi phí).
+  **Mẹo dạng:** Bài phỏng vấn ngắn thường có nhiều chi tiết nhỏ: thời điểm bắt đầu, điều kiện (이상, 전에), đối tượng. Ghi nhanh từng chi tiết kèm từ chỉ phạm vi (만, 도, 이상, 전에) vì phương án nhiễu hay đổi đúng những chữ này.
+  **Đáng chú ý:** 상인 (商人 – thương nhân) – người buôn bán; ở chợ, 상인 thường là tiểu thương, không nhất thiết là "thương nhân" buôn lớn · 마음에 걸리다 – canh cánh trong lòng, áy náy · 당일 (當日 – đương nhật) – ngay trong ngày, hôm đó.

@@ -1,0 +1,61 @@
+id: l21-0001
+type_code: L21
+subskill: central_thought
+difficulty: 4
+tags: [topic:business, topic:workplace, genre:conversation, setting:office]
+group_key: l21-22-0001
+pair_with: [l22-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Cặp với l22-0001: transcript_ko/transcript_vi, speakers, tts_notes chép nguyên văn từ l22-0001. Căn cứ của L21 là đề xuất và câu kết của nam (lớp trải nghiệm, '고객이 직접 써 보고 만족하면 그게 가장 좋은 홍보'), khác căn cứ của L22 (địa điểm ở tầng 1 trụ sở). Các phương án không nhắc tới địa điểm hay giảng viên, để không làm lộ đáp án và nhiễu ③ của L22. Độ khó 4 theo bảng."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "nhân viên phòng marketing của một công ty đồ gia dụng nhà bếp"
+    age_range: 20s
+    voice_hint_vi: "giọng trẻ, nhanh nhẹn, lễ phép với cấp trên"
+  - label: 남자
+    gender: male
+    role_vi: "trưởng nhóm, cấp trên của nữ"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng chín chắn, cân nhắc, thuyết phục"
+tts_notes:
+  speed: 1.0
+  style_vi: "Hội thoại công sở giữa cấp trên và cấp dưới, nữ dùng 팀장님, cả hai dùng -요."
+  pauses_vi: "Ngắt ngắn sau '글쎄요.' (do dự) và sau '좋은 생각이긴 한데요,'."
+  pronunciation_vi: "1층 = 일 층; 많더라고요 [만터라고요]; 익히는 [이키는]."
+transcript_ko: |
+  여자: 팀장님, 올해 고객 감사 행사도 작년처럼 경품 추첨으로 할까요? 준비하기도 편하고 고객들 반응도 좋았잖아요.
+  남자: 글쎄요. 작년 행사 끝나고 받은 설문 결과를 보니까 경품보다 제품을 제대로 쓰는 방법을 알고 싶다는 의견이 꽤 많더라고요. 이번에는 고객들이 직접 요리를 해 보면서 기능을 익히는 체험 수업을 열면 어떨까요?
+  여자: 좋은 생각이긴 한데요, 수업을 하려면 넓은 장소도 있어야 하고 강사도 따로 구해야 해서 비용이 꽤 들 것 같아요.
+  남자: 장소는 본사 1층 전시실을 쓰면 되고, 강사는 우리 제품 개발팀 직원들한테 부탁해 보죠. 고객이 직접 써 보고 만족하면 그게 가장 좋은 홍보가 될 거예요.
+transcript_vi: |
+  Nữ: Trưởng nhóm ơi, sự kiện tri ân khách hàng năm nay mình cũng làm bốc thăm trúng thưởng như năm ngoái nhé? Vừa dễ chuẩn bị mà phản ứng của khách cũng tốt mà.
+  Nam: Để xem đã. Xem kết quả khảo sát sau sự kiện năm ngoái thì thấy khá nhiều ý kiến nói muốn biết cách dùng sản phẩm cho đúng hơn là quà trúng thưởng. Lần này mình mở lớp trải nghiệm để khách tự nấu ăn và làm quen với các tính năng thì thế nào?
+  Nữ: Ý hay thì hay thật, nhưng muốn mở lớp thì cần địa điểm rộng, lại phải tìm giảng viên riêng nên chắc tốn kha khá chi phí.
+  Nam: Địa điểm thì dùng phòng trưng bày ở tầng 1 trụ sở là được, còn giảng viên thì thử nhờ nhân viên đội phát triển sản phẩm của mình xem. Khách tự dùng thử mà hài lòng thì đó sẽ là cách quảng bá tốt nhất.
+stem: "남자의 중심 생각으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 고객 감사 행사는 작년과 같은 방식이 좋다.
+    trap: speaker_swap
+    note_vi: "Đây là ý của nữ (작년처럼 경품 추첨으로 할까요?). Nam đáp '글쎄요' rồi đề xuất một hình thức khác."
+  - label: "②"
+    text: 비용을 줄이려면 경품 추첨을 그만둬야 한다.
+    trap: reverse_causality
+    note_vi: "Gán sai lý do: nam muốn đổi hình thức vì khảo sát cho thấy khách muốn biết cách dùng sản phẩm (제품을 제대로 쓰는 방법을 알고 싶다는 의견), không phải để tiết kiệm. Chuyện chi phí là lo ngại của nữ về lớp học."
+  - label: "③"
+    text: 고객이 직접 사용해 보는 행사가 홍보에 효과적이다.
+    correct: true
+  - label: "④"
+    text: 고객 의견을 듣기 위해 설문 조사를 늘려야 한다.
+    trap: keyword_echo
+    note_vi: "Lặp từ khoá 설문 nghe được, nhưng nam chỉ dùng kết quả khảo sát năm ngoái làm căn cứ, không đề xuất khảo sát nhiều hơn."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ: đề xuất của nam "고객들이 직접 요리를 해 보면서 기능을 익히는 체험 수업을 열면 어떨까요?" (mở lớp trải nghiệm để khách tự nấu ăn và làm quen với các tính năng thì thế nào?) và câu kết "고객이 직접 써 보고 만족하면 그게 가장 좋은 홍보가 될 거예요" (khách tự dùng thử mà hài lòng thì đó sẽ là cách quảng bá tốt nhất).
+  Nam đề xuất lớp trải nghiệm và tin rằng để khách tự dùng sản phẩm là cách quảng bá hiệu quả nhất. Đáp án gói hai câu này lại thành "직접 사용해 보는 행사가 홍보에 효과적이다".
+  **Mẹo dạng:** Trong hội thoại bàn công việc, ý chính của nam thường là đề xuất (-(으)면 어떨까요?) cộng với lý do anh đưa ra để thuyết phục ở cuối. Chi tiết anh dùng làm căn cứ (kết quả khảo sát) không phải ý chính.
+  **Đáng chú ý:** 체험 (體驗 – thể nghiệm) – trải nghiệm (체험 수업: lớp học trải nghiệm) · 설문 (設問 – thiết vấn) – khảo sát bằng phiếu hỏi · 홍보 (弘報 – hoằng báo) – quảng bá, truyền thông (PR).

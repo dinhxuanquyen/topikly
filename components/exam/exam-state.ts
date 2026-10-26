@@ -40,6 +40,31 @@ export function listBlocks(exam: PublicExam): BlockRef[] {
   return blocks;
 }
 
+/** Số câu Nghe của đề và số câu trong đó chưa có audio. */
+export interface ListeningAudioStatus {
+  listening: number;
+  missing: number;
+}
+
+/**
+ * Đếm câu Nghe thiếu audio (`audio_url` null hoặc rỗng). Khối dùng chung bài nghe chỉ phát audio
+ * của câu đầu khối (xem ExamBlockView), nên cả khối tính theo audio đó.
+ */
+export function listeningAudioStatus(exam: PublicExam): ListeningAudioStatus {
+  let listening = 0;
+  let missing = 0;
+  for (const { block } of listBlocks(exam)) {
+    for (const item of block.questions) {
+      if (item.question.skill !== "listening") continue;
+      listening += 1;
+      const source = block.shared_material ? (block.questions[0] ?? item) : item;
+      const url = source.question.audio_url;
+      if (typeof url !== "string" || url.trim() === "") missing += 1;
+    }
+  }
+  return { listening, missing };
+}
+
 /** Mọi câu của đề theo thứ tự làm bài. */
 export function listQuestions(exam: PublicExam): FlatQuestion[] {
   const questions: FlatQuestion[] = [];
