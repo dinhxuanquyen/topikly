@@ -181,8 +181,8 @@ describe("POST /api/exam/submit", () => {
 describe("exam/queries (hàm 'use cache' cho server component)", () => {
   it("getExams bọc listExams", async () => {
     const all = await getExams("topik-ii");
-    expect(all.map((e) => e.id)).toEqual(["doc-01"]);
-    expect(await getExams("topik-ii", "mini")).toHaveLength(1);
+    expect(all.map((e) => e.id)).toEqual(["doc-01", "nghe-01"]);
+    expect(await getExams("topik-ii", "mini")).toHaveLength(2);
     expect(await getExams("topik-ii", "full")).toEqual([]);
     expect(await getExams("eps")).toEqual([]);
   });

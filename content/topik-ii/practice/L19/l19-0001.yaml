@@ -1,0 +1,59 @@
+id: l19-0001
+type_code: L19
+subskill: central_thought
+difficulty: 4
+tags: [topic:workplace, genre:conversation, setting:office, vocab:회의록]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Transcript khoảng 175 ký tự (không tính nhãn), đếm tay, trong dải 100–180. Độ khó 4 (dải 3–4): nhiễu ④ là ý nhượng bộ '물론 …' của chính nam, người học phải phân biệt ý nhượng bộ với ý chính đứng sau '근데'. Ý chính của nam xuất hiện ở lượt 2 và được nhắc lại ở lượt 4, không dồn vào câu cuối."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "nhân viên mới, được giao ghi biên bản cuộc họp"
+    age_range: 20s
+    voice_hint_vi: "giọng trẻ, than thở nhẹ, sau đó hơi băn khoăn"
+  - label: 남자
+    gender: male
+    role_vi: "đồng nghiệp đàn anh cùng phòng"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng điềm tĩnh, góp ý thân thiện"
+tts_notes:
+  speed: 1.0
+  style_vi: "Hội thoại công sở thân mật lịch sự (-요), tự nhiên, có ngữ điệu góp ý."
+  pauses_vi: "Ngắt ngắn sau '물론 중요한 의견은 적어 둬야죠.' để nhấn chữ '근데'."
+  pronunciation_vi: "회의록 [회의록], cũng được phép đọc [회이록] (표준 발음법 제5항 다만 4: '의' ở âm tiết không đầu từ được đọc [이]); 꼼꼼하게 [꼼꼼하게]; 적을 [저글]; 곤란하잖아요 [골란하자나요]; 읽어요 [일거요]."
+transcript_ko: |
+  여자: 회의 끝나고 회의록을 꼼꼼하게 정리하다 보면 시간이 너무 오래 걸려요.
+  남자: 회의록에 모든 말을 다 적을 필요는 없어요. 결정된 내용하고 누가 언제까지 뭘 할지만 정리해도 충분하거든요.
+  여자: 그래도 나중에 누가 무슨 말을 했는지 물어보면 곤란하잖아요.
+  남자: 물론 중요한 의견은 적어 둬야죠. 근데 회의록이 길면 오히려 아무도 안 읽어요. 짧게 써야 다들 끝까지 읽어요.
+transcript_vi: |
+  Nữ: Họp xong mà ngồi ghi biên bản thật tỉ mỉ thì mất thời gian quá anh ạ.
+  Nam: Biên bản họp đâu cần ghi hết mọi lời. Chỉ cần tóm tắt những gì đã quyết định và ai làm gì, đến khi nào là đủ rồi.
+  Nữ: Nhưng sau này lỡ có người hỏi ai đã nói gì thì khó xử lắm ạ.
+  Nam: Tất nhiên ý kiến quan trọng thì phải ghi lại chứ. Nhưng biên bản mà dài thì lại chẳng ai đọc. Có viết ngắn thì mọi người mới đọc đến cuối.
+stem: "다음을 듣고 남자의 중심 생각으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 회의록은 핵심 위주로 짧게 써야 한다.
+    correct: true
+  - label: "②"
+    text: 회의에서 나온 말은 빠짐없이 적어야 한다.
+    trap: speaker_swap
+    note_vi: "Đây là cách nghĩ của nữ: ghi tỉ mỉ (꼼꼼하게 정리하다) vì sợ bị hỏi ai đã nói gì. Nam nói ngược lại: '모든 말을 다 적을 필요는 없어요' (không cần ghi hết mọi lời)."
+  - label: "③"
+    text: 회의록은 따로 작성할 필요가 없다.
+    trap: overgeneralization
+    note_vi: "Tuyệt đối hoá: nam không bảo bỏ biên bản, anh chỉ nói ghi những gì đã quyết định và ai làm gì 'là đủ' (정리해도 충분하거든요)."
+  - label: "④"
+    text: 중요한 의견은 반드시 기록해 두어야 한다.
+    trap: concession_point
+    note_vi: "Đây là ý nhượng bộ của nam (물론 중요한 의견은 적어 둬야죠). Ngay sau đó anh chuyển sang ý chính bằng '근데…': biên bản dài thì chẳng ai đọc."
+explanation_vi: |
+  **Đáp án ①.** Căn cứ: "회의록에 모든 말을 다 적을 필요는 없어요. 결정된 내용하고 누가 언제까지 뭘 할지만 정리해도 충분하거든요" (không cần ghi hết mọi lời, chỉ cần tóm tắt điều đã quyết định và ai làm gì, đến khi nào là đủ) và "짧게 써야 다들 끝까지 읽어요" (có viết ngắn thì mọi người mới đọc đến cuối).
+  Cả hai lượt của nam cùng hướng tới một ý: biên bản nên ngắn và chỉ giữ phần cốt lõi. Đáp án gói hai ý đó thành "핵심 위주로 짧게 써야 한다".
+  **Mẹo dạng:** Câu bắt đầu bằng 물론 thường là ý nhượng bộ. Ý chính của nam nằm sau 근데/하지만 và thường đã xuất hiện từ lượt trước.
+  **Đáng chú ý:** 회의록 (會議錄 – hội nghị lục) – biên bản cuộc họp · 위주 (爲主 – vi chủ) – lấy … làm chính (핵심 위주로: tập trung vào phần cốt lõi) · 곤란하다 (困難 – khốn nan) – khó xử, rắc rối.

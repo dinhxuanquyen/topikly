@@ -1,8 +1,8 @@
-import { ClipboardList, Eye, Play } from "lucide-react";
+import { ClipboardList, Eye, Play, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { t } from "@/components/i18n";
 import type { ExamResult, PublicExam } from "@/lib/exam/types";
-import { toMinutes } from "./exam-state";
+import { listeningAudioStatus, toMinutes } from "./exam-state";
 
 interface ExamIntroProps {
   exam: PublicExam;
@@ -18,12 +18,15 @@ interface ExamIntroProps {
 export function ExamIntro({ exam, ready, lastResult, onStart, onViewLastResult }: ExamIntroProps) {
   const minutes = toMinutes(exam.duration_sec);
   const multiSection = exam.sections.length > 1;
+  const audio = listeningAudioStatus(exam);
+  const hasPlayableAudio = audio.listening > audio.missing;
   const rules = [
     t.examIntro.rules.timer(minutes),
     t.examIntro.rules.autoSubmit,
     t.examIntro.rules.noAnswers,
     t.examIntro.rules.blank,
     t.examIntro.rules.guest,
+    ...(hasPlayableAudio ? [t.examIntro.rules.audioOnce] : []),
   ];
 
   return (
@@ -48,6 +51,27 @@ export function ExamIntro({ exam, ready, lastResult, onStart, onViewLastResult }
               </li>
             ))}
           </ul>
+        ) : null}
+
+        {audio.missing > 0 ? (
+          <div
+            role="note"
+            aria-labelledby="exam-intro-audio-missing"
+            data-testid="audio-missing-notice"
+            className="mt-4 flex gap-3 rounded-xl border-2 border-amber-600 bg-amber-50 p-3 text-amber-950 dark:bg-amber-950/40 dark:text-amber-50"
+          >
+            <TriangleAlert aria-hidden className="mt-0.5 size-5 shrink-0" />
+            <div className="min-w-0">
+              <p id="exam-intro-audio-missing" className="font-bold">
+                {t.examIntro.audioMissing.heading}
+              </p>
+              <p className="mt-1 text-sm leading-relaxed">
+                {audio.missing === audio.listening
+                  ? t.examIntro.audioMissing.all(audio.listening)
+                  : t.examIntro.audioMissing.some(audio.missing, audio.listening)}
+              </p>
+            </div>
+          </div>
         ) : null}
 
         <h3 className="mt-5 text-sm font-semibold text-muted-foreground">

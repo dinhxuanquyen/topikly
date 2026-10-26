@@ -337,11 +337,18 @@ export const topikII: ProgramConfig = {
     W53: { max_chars: 290, max_cells: 300 },
     W54: { max_chars: 680, max_cells: 700 },
   },
-  multi_trap_exempt_subskills: ["fill_blank_connector", "sentence_order", "insert_sentence"],
+  multi_trap_exempt_subskills: [
+    "fill_blank_connector",
+    "sentence_order",
+    "insert_sentence",
+    "chart_reading",
+  ],
   // Mini test: 1 kỹ năng, ~20–30 phút (tham chiếu Migii, docs/03). Full dùng `sections`.
+  // Mini Nghe: 20 câu / 25 phút (gồm cả thời gian phát audio); mỗi đề Mini chỉ một kỹ năng.
   exam_blueprints: {
     mini: {
       reading: { question_count: 20, duration_sec: 30 * 60 },
+      listening: { question_count: 20, duration_sec: 25 * 60 },
     },
     // Test trình độ: ~12 câu Đọc, ~15 phút (12 phút quá chặt với bộ R48–50, review P7), phủ độ khó 3–6 (Giai đoạn 1 chưa có Nghe).
     placement: {

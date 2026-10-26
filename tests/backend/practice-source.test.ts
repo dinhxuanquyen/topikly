@@ -45,11 +45,11 @@ function collectKeys(value: unknown, keys = new Set<string>()): Set<string> {
 afterEach(() => clearPracticeCache());
 
 describe("practice/source: dữ liệu thật content/topik-ii", () => {
-  it("liệt kê đúng 31 dạng trắc nghiệm (21 Đọc + 10 Nghe), bỏ Viết", () => {
+  it("liệt kê đúng 41 dạng trắc nghiệm (21 Đọc + 20 Nghe), bỏ Viết", () => {
     const all = listPracticeTypes("topik-ii");
-    expect(all).toHaveLength(31);
+    expect(all).toHaveLength(41);
     expect(all.filter((t) => t.skill === "reading")).toHaveLength(21);
-    expect(all.filter((t) => t.skill === "listening")).toHaveLength(10);
+    expect(all.filter((t) => t.skill === "listening")).toHaveLength(20);
     expect(all.some((t) => t.type_code.startsWith("W"))).toBe(false);
     expect(all.every((t) => t.question_count >= 1)).toBe(true);
     expect(all.map((t) => t.type_code)).toEqual([...all.map((t) => t.type_code)].sort());
@@ -64,7 +64,7 @@ describe("practice/source: dữ liệu thật content/topik-ii", () => {
     expect(r40!.name_vi.length).toBeGreaterThan(0);
     expect(r40!.type_group).toBe("R39-41");
     expect(r40!.group_name_vi.length).toBeGreaterThan(0);
-    expect(listPracticeTypes("topik-ii", "listening")).toHaveLength(10);
+    expect(listPracticeTypes("topik-ii", "listening")).toHaveLength(20);
   });
 
   it("program lạ hoặc dạng lạ trả rỗng", () => {
@@ -104,7 +104,7 @@ describe("practice/source: dữ liệu thật content/topik-ii", () => {
 
   it("KHÔNG lộ đáp án, lời giải hay metadata nội bộ trên toàn bộ câu thật", () => {
     const questions = allQuestions();
-    expect(questions).toHaveLength(31);
+    expect(questions).toHaveLength(41);
     for (const q of questions) {
       const json = JSON.stringify(q);
       const full = getFullQuestion("topik-ii", q.id)!;

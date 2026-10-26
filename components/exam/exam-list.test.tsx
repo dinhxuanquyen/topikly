@@ -66,4 +66,26 @@ describe("ExamList", () => {
     expect(screen.getByText("2 lần làm")).toBeInTheDocument();
     expect(store.loadExamStatuses).toHaveBeenCalledWith("topik-ii", "mini");
   });
+
+  it("thẻ Mini test Nghe: kỹ năng 'Nghe', 20 câu, 25 phút, đề nháp", async () => {
+    const listening: ExamSummary = {
+      id: "nghe-01",
+      program: "topik-ii",
+      kind: "mini",
+      title: "Mini test Nghe 01",
+      status: "draft",
+      skills: ["listening"],
+      question_count: 20,
+      duration_sec: 1500,
+    };
+    render(<ExamList program="topik-ii" kind="mini" exams={[listening]} label="Danh sách" />);
+    const card = screen.getByRole("link", { name: /Mini test Nghe 01/ });
+    expect(card).toHaveAttribute("href", "/topik-ii/de-thi/mini/nghe-01");
+    expect(card).toHaveTextContent("20 câu");
+    expect(card).toHaveTextContent("25 phút");
+    expect(card).toHaveTextContent("Nghe");
+    expect(card).not.toHaveTextContent("Đọc");
+    expect(card).toHaveTextContent("Đề mẫu");
+    expect(await screen.findByText("Chưa làm")).toBeInTheDocument();
+  });
 });

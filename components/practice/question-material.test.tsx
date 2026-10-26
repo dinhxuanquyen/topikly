@@ -26,6 +26,25 @@ const LISTENING: PublicQuestion = {
 };
 
 describe("QuestionMaterial", () => {
+  it("phương án là biểu đồ: không hiện khung 'tranh đang được vẽ' cho mô tả chung của câu", () => {
+    const chart = {
+      chart_type: "bar" as const,
+      title: "자전거로 출퇴근하는 이유",
+      unit: "%",
+      series: [{ name: "비율", points: [{ x: "건강 관리", y: 47 }] }],
+    };
+    render(
+      <QuestionMaterial
+        question={{
+          ...LISTENING,
+          image_desc: "Bốn biểu đồ cùng bố cục.",
+          choices: LISTENING.choices.map((c) => ({ ...c, text: "", chart_data: [chart] })),
+        }}
+      />,
+    );
+    expect(screen.queryByText("Bốn biểu đồ cùng bố cục.")).toBeNull();
+  });
+
   it("không có audio: vẫn hiện lời thoại kèm ghi chú, kể cả khi audioMode là exam", () => {
     const { rerender } = render(<QuestionMaterial question={LISTENING} />);
     expect(screen.getByText("Chế độ luyện: chưa có audio, đọc lời thoại.")).toBeInTheDocument();
@@ -34,6 +53,43 @@ describe("QuestionMaterial", () => {
 
     rerender(<QuestionMaterial question={LISTENING} audioMode="exam" />);
     expect(screen.getByText("이 원피스 좀 맡기려고요.")).toBeInTheDocument();
+  });
+
+  it("không có audio, chế độ thi: ghi chú đề nháp, không nói 'Chế độ luyện'", () => {
+    render(<QuestionMaterial question={LISTENING} audioMode="exam" />);
+    expect(screen.getByText(/^Đề nháp: chưa có audio\./)).toHaveTextContent(
+      "Lời thoại hiện thay cho phần nghe, nên kết quả chỉ mang tính tham khảo.",
+    );
+    expect(screen.queryByText(/Chế độ luyện/)).toBeNull();
+    expect(screen.getByText("이 원피스 좀 맡기려고요.")).toBeInTheDocument();
+  });
+
+  it("không có audio, xem lại kết quả: ghi chú trung tính; noAudioNote={null} bỏ ghi chú", () => {
+    const { rerender } = render(<QuestionMaterial question={LISTENING} noAudioNote="review" />);
+    expect(screen.getByText("Chưa có audio, đọc lời thoại.")).toBeInTheDocument();
+    rerender(<QuestionMaterial question={LISTENING} noAudioNote={null} />);
+    expect(screen.queryByText(/chưa có audio/i)).toBeNull();
+  });
+
+  it("không có audio + transcriptVi nhưng không bật inlineTranslation: không in bản dịch (Luyện tập có khối dịch riêng)", () => {
+    render(<QuestionMaterial question={LISTENING} transcriptVi="Tôi muốn gửi chiếc váy này." />);
+    expect(screen.queryByText("Tôi muốn gửi chiếc váy này.")).toBeNull();
+  });
+
+  it("không có audio + transcriptVi + inlineTranslation: bản dịch hiện dưới từng lượt thoại", () => {
+    render(
+      <QuestionMaterial
+        question={LISTENING}
+        noAudioNote="review"
+        inlineTranslation
+        transcriptVi={"Tôi muốn gửi chiếc váy này.\nVâng, được ạ."}
+      />,
+    );
+    const items = screen.getAllByRole("listitem");
+    expect(items).toHaveLength(2);
+    expect(items[0]).toHaveTextContent("이 원피스 좀 맡기려고요.");
+    expect(items[0]).toHaveTextContent("Tôi muốn gửi chiếc váy này.");
+    expect(items[1]).toHaveTextContent("Vâng, được ạ.");
   });
 
   it("có audio, mặc định luyện: trình phát tự dựng, lời thoại ẩn cho tới khi bật", () => {

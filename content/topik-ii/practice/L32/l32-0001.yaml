@@ -1,0 +1,61 @@
+id: l32-0001
+type_code: L32
+subskill: speaker_strategy
+difficulty: 5
+tags: [topic:public-service, topic:education, topic:society, genre:debate]
+group_key: l31-32-0001
+pair_with: [l31-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Cặp với l31-0001: transcript_ko/transcript_vi, speakers, tts_notes chép nguyên văn từ l31-0001. Căn cứ của L32 là cách nam lập luận (thừa nhận một phần rồi dùng 하지만 + kết quả khảo sát '10명 중 8명' để phản bác), khác căn cứ của L31 (nội dung quan điểm: không gian thư viện phải dùng đúng mục đích vốn có). Các phương án nói về cách nói, không nêu lại quan điểm của nam, nên không làm lộ đáp án L31. Nhiễu ④ bám vào việc nam có dùng dẫn chứng (thật) nhưng sai loại dẫn chứng; nhiễu ① bám vào câu nhượng bộ có thật; nhiễu ② (반문) bám vào câu hỏi phản vấn có thật của nữ (speaker_swap). Độ khó 5 theo bảng. 2026-10-26 (FIX [B1][B2] theo content/_reviews/2026-10-26-mini-nghe-01.md): thay phương án ② cũ ('열람실 축소 결정을 미루자고 제안하고 있다', negation_flip, không bám chi tiết có thật) bằng phương án reviewer đề xuất; câu nay có 3 kiểu bẫy. explanation_vi không nhắc ② nên không đổi. Độ dài phương án: ① khoảng 22 (theo reviewer), ② 25, ③ 26, ④ 25 ký tự. 2026-10-26 (gợi ý ở mục Duyệt lại của báo cáo): thêm 반문 (反問 – phản vấn) vào 'Đáng chú ý' vì là từ quyết định của nhiễu ②; bỏ mục 전적으로 để giữ tối đa 3 mục theo §4.2. Đây là thay đổi explanation_vi (nội dung), cần reviewer xác nhận lại mục này."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "người tham gia tranh luận, phản đối việc thu hẹp phòng đọc (열람실, nơi học sinh ngồi tự học) của thư viện"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng dứt khoát, có chút bức xúc"
+  - label: 남자
+    gender: male
+    role_vi: "người tham gia tranh luận, ủng hộ việc thu hẹp một phần phòng đọc để ưu tiên không gian đọc sách"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng bình tĩnh, lập luận chặt, nhấn ở câu phản bác"
+tts_notes:
+  speed: 1.0
+  style_vi: "Tranh luận chính sách, văn nói trang trọng (-습니다) xen -거든요, -죠. Nam nói chậm, rõ ở câu có số liệu."
+  pauses_vi: "Ngắt rõ trước '하지만' và trước '내보내자는 게 아닙니다.'"
+  pronunciation_vi: "10명 중 8명 đọc là 열 명 중 여덟 명; 독서실 [독써실]; 열람실 đọc rõ ㄹㄹ; 없애자는 [업쌔자는]; 일부를 줄이자는 nhấn nhẹ."
+transcript_ko: |
+  여자: 공공 도서관 열람실을 줄이는 데에는 반대합니다. 독서실이나 스터디 카페에 다닐 형편이 안 되는 학생들한테는 도서관 열람실이 사실상 유일하게 마음 놓고 공부할 수 있는 곳이거든요.
+  남자: 그런 학생들이 있다는 건 저도 잘 압니다. 하지만 지난해 한 구립 도서관의 이용 실태를 조사한 결과를 보면, 열람실 이용자 10명 중 8명은 도서관 책을 한 권도 빌리지 않았습니다. 도서관이 책을 읽고 정보를 얻는 곳이 아니라 개인 공부방이 되어 버린 거죠. 공간은 한정되어 있는데 정작 책을 보러 온 아이들과 주민들은 앉을 자리가 없습니다.
+  여자: 그렇다고 공부할 곳이 필요한 사람들을 내보내는 게 맞을까요?
+  남자: 내보내자는 게 아닙니다. 열람실을 완전히 없애자는 게 아니라 일부를 줄이자는 겁니다. 도서관의 공간과 예산은 무엇보다 책과 독서를 위해 쓰여야 합니다. 공부할 곳이 부족한 학생들을 위해서는 주민센터의 빈 공간을 활용하는 방법도 얼마든지 있고요.
+transcript_vi: |
+  Nữ: Tôi phản đối việc thu hẹp phòng đọc của thư viện công cộng. Bởi vì với những học sinh không có điều kiện đến phòng tự học thuê theo giờ hay quán cà phê học tập, phòng đọc của thư viện gần như là nơi duy nhất các em có thể yên tâm ngồi học.
+  Nam: Tôi cũng biết rõ là có những học sinh như vậy. Nhưng theo kết quả khảo sát thực trạng sử dụng của một thư viện quận năm ngoái, cứ 10 người dùng phòng đọc thì có 8 người không mượn một cuốn sách nào của thư viện. Tức là thư viện đã biến thành phòng học cá nhân chứ không còn là nơi đọc sách và tìm thông tin nữa. Không gian thì có hạn, trong khi chính trẻ em và người dân đến để đọc sách lại không có chỗ ngồi.
+  Nữ: Dù vậy, đuổi những người cần chỗ học đi thì có đúng không?
+  Nam: Không phải là đuổi họ đi. Ý tôi không phải là bỏ hẳn phòng đọc mà là thu hẹp một phần. Không gian và ngân sách của thư viện trước hết phải được dùng cho sách và việc đọc. Còn với học sinh thiếu chỗ học thì cũng có rất nhiều cách, chẳng hạn tận dụng không gian trống ở trung tâm dân cư phường.
+stem: "남자의 말하는 방식으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 상대방의 의견에 전적으로 동의하고 있다.
+    trap: attitude_mismatch
+    note_vi: "Nam chỉ thừa nhận một phần (그런 학생들이 있다는 건 저도 잘 압니다) rồi phản bác ngay bằng '하지만'. Anh vẫn giữ lập trường thu hẹp phòng đọc, nên không phải đồng ý hoàn toàn."
+  - label: "②"
+    text: 반문을 통해 상대 주장의 문제점을 지적하고 있다.
+    trap: speaker_swap
+    note_vi: "Người dùng câu hỏi phản vấn để chỉ ra điểm yếu trong đề xuất của đối phương là nữ (그렇다고 공부할 곳이 필요한 사람들을 내보내는 게 맞을까요?). Nam không đặt câu hỏi nào mà đáp bằng câu khẳng định và số liệu khảo sát."
+  - label: "③"
+    text: 조사 결과를 근거로 상대의 주장을 반박하고 있다.
+    correct: true
+  - label: "④"
+    text: 다른 나라의 사례를 들어 주장을 뒷받침하고 있다.
+    trap: detail_swap
+    note_vi: "Nam có đưa dẫn chứng, nhưng đó là kết quả khảo sát của một thư viện quận trong nước (한 구립 도서관의 이용 실태를 조사한 결과), không phải ví dụ của nước khác."
+explanation_vi: |
+  **Đáp án ③.** Căn cứ: "하지만 지난해 한 구립 도서관의 이용 실태를 조사한 결과를 보면, 열람실 이용자 10명 중 8명은 도서관 책을 한 권도 빌리지 않았습니다" (nhưng theo kết quả khảo sát thực trạng sử dụng của một thư viện quận năm ngoái, cứ 10 người dùng phòng đọc thì 8 người không mượn cuốn sách nào).
+  Nữ cho rằng phòng đọc là nơi học sinh cần. Nam đáp lại bằng '하지만' kèm một số liệu khảo sát cụ thể, cho thấy phòng đọc đang bị dùng như phòng học cá nhân. Đó là cách **dùng kết quả khảo sát làm căn cứ để phản bác** ý kiến của đối phương.
+  **Mẹo dạng:** Với câu hỏi 말하는 방식, đừng chọn theo nội dung quan điểm mà nghe xem người nói **dùng công cụ gì**: số liệu, ví dụ, so sánh, câu hỏi. Rồi kiểm tra cả loại công cụ (khảo sát hay ví dụ nước ngoài) và mục đích (phản bác hay đồng ý).
+  **Đáng chú ý:** 반박하다 (反駁 – phản bác) – phản bác · 반문 (反問 – phản vấn) – hỏi vặn lại, câu hỏi phản bác · 근거 (根據 – căn cứ) – căn cứ, cơ sở.

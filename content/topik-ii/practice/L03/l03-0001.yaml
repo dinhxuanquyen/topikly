@@ -1,0 +1,105 @@
+id: l03-0001
+type_code: L03
+subskill: chart_reading
+difficulty: 4
+tags: [topic:transportation, topic:health, genre:news, vocab:출퇴근]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Số liệu giả định. Transcript khoảng 155 ký tự (không tính nhãn), đếm tay. Độ khó 4 (dải 3–4 của L03): biểu đồ nhiễu ③ chỉ đảo hạng 2 và hạng 3, người học phải nghe được trình tự '그다음은 … 순이었습니다'. Transcript dùng '한 연구소가' thay cho '○○연구소가' để TTS không phải đọc ký hiệu ○○; tên cơ quan chỉ in trên biểu đồ (caption '○○연구소'). Bố cục kiểu đề: ①② là biểu đồ đường (xu hướng), ③④ là biểu đồ cột (thứ hạng lý do); cả hai biểu đồ đường đều sai, chỉ một biểu đồ cột đúng. Hai biểu đồ cùng loại có cùng tiêu đề, caption, trục và màu, chỉ khác ở yếu tố có trong audio (xu hướng hoặc thứ hạng). 2026-10-26 (chỉ metadata, theo content-spec v0.3.5 §2.2 và mục Duyệt lại của content/_reviews/2026-10-26-mini-nghe-01.md): trap của ② đổi negation_flip → detail_swap, vì đảo chiều xu hướng (hai con số 4% và 12% bị đặt ngược mốc) không phải đảo khẳng định ↔ phủ định. Ba nhiễu nay cùng là detail_swap, dùng ngoại lệ chart_reading ở §2.2; note_vi của cả ba đã nêu cụ thể mốc/xu hướng/thứ hạng bị sai. Validator có thể vẫn cảnh báo few-traps cho tới khi backend thêm chart_reading vào multi_trap_exempt_subskills."
+audio_url: null
+image_url: null
+data_is_fictional: true
+speakers:
+  - label: 남자
+    gender: male
+    role_vi: "phát thanh viên bản tin, đọc kết quả khảo sát"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng phát thanh rõ, đều, trung tính"
+tts_notes:
+  speed: 1.0
+  style_vi: "Giọng bản tin, rõ ràng, đều; nhấn nhẹ vào các con số và các từ chỉ thứ tự (가장, 그다음은)."
+  pauses_vi: "Ngắt giữa ba dòng. Ngắt ngắn trước '그다음은' và giữa '교통비 절약' với '환경 보호'."
+  pronunciation_vi: "2016년 = 이천십육 년; 2025년 = 이천이십오 년; 3년마다 = 삼 년마다; 1,000명 = 천 명 (không đọc dấu phẩy); 4% = 사 퍼센트; 12% = 십이 퍼센트; 출퇴근 [출퇴근]; 절약 [저략]; 늘어 [느러]. Dấu nháy đơn quanh tên lý do không đọc ra, chỉ ngắt nhẹ."
+image_desc: "Bốn khung hình cùng kích thước, nền trắng, mọi nhãn bằng tiếng Hàn. Khung ① và ② là biểu đồ đường cùng tiêu đề '자전거로 출퇴근하는 직장인 비율', dưới tiêu đề là dòng chú thích nhỏ '○○연구소, 조사 연도별 직장인 1,000명 대상', trục hoành 4 mốc 2016, 2019, 2022, 2025, trục tung 0–15, nhãn '단위: %' ở góc trên phải, số % ghi tại từng điểm. Khung ③ và ④ là biểu đồ cột dọc cùng tiêu đề '자전거로 출퇴근하는 이유', chú thích '○○연구소, 2025년 조사', 3 cột cùng màu xếp từ cao xuống thấp, số % ghi trên đầu cột, nhãn '단위: %'. Hai biểu đồ cùng loại giống hệt nhau về bố cục, màu và trục, chỉ khác ở số liệu nêu trong từng phương án."
+transcript_ko: |
+  남자: 한 연구소가 2016년부터 3년마다 직장인 1,000명에게 출퇴근 방법을 물었습니다.
+  남자: 그 결과 자전거로 출퇴근하는 직장인은 2016년 4%에서 꾸준히 늘어 2025년에는 12%가 되었습니다.
+  남자: 자전거로 출퇴근하는 이유로는 '건강 관리'가 가장 많았고, 그다음은 '교통비 절약', '환경 보호' 순이었습니다.
+transcript_vi: |
+  Nam: Một viện nghiên cứu đã hỏi 1.000 người đi làm về cách đi làm, cứ 3 năm một lần kể từ năm 2016.
+  Nam: Kết quả cho thấy tỉ lệ người đi làm bằng xe đạp tăng đều, từ 4% năm 2016 lên 12% vào năm 2025.
+  Nam: Về lý do đi làm bằng xe đạp, 'giữ gìn sức khoẻ' được chọn nhiều nhất, tiếp theo lần lượt là 'tiết kiệm tiền đi lại' và 'bảo vệ môi trường'.
+stem: "다음을 듣고 알맞은 그림 또는 그래프를 고르십시오."
+choices:
+  - label: "①"
+    text: ""
+    image_desc: "Biểu đồ đường: 2016 – 4, 2019 – 8, 2022 – 12, 2025 – 9. Đường đi lên tới đỉnh năm 2022 rồi đi xuống ở năm 2025."
+    chart_data:
+      - chart_type: line
+        title: "자전거로 출퇴근하는 직장인 비율"
+        caption: "○○연구소, 조사 연도별 직장인 1,000명 대상"
+        unit: "%"
+        series:
+          - name: "자전거 출퇴근"
+            points:
+              - { x: 2016, y: 4 }
+              - { x: 2019, y: 8 }
+              - { x: 2022, y: 12 }
+              - { x: 2025, y: 9 }
+    trap: detail_swap
+    note_vi: "Sai ở mốc cuối: bài nói tỉ lệ tăng đều (꾸준히 늘어) và đạt 12% vào năm 2025 (2025년에는 12%가 되었습니다). Biểu đồ này đạt 12% ở năm 2022 rồi lại giảm."
+  - label: "②"
+    text: ""
+    image_desc: "Biểu đồ đường: 2016 – 12, 2019 – 9, 2022 – 6, 2025 – 4. Đường đi xuống đều."
+    chart_data:
+      - chart_type: line
+        title: "자전거로 출퇴근하는 직장인 비율"
+        caption: "○○연구소, 조사 연도별 직장인 1,000명 대상"
+        unit: "%"
+        series:
+          - name: "자전거 출퇴근"
+            points:
+              - { x: 2016, y: 12 }
+              - { x: 2019, y: 9 }
+              - { x: 2022, y: 6 }
+              - { x: 2025, y: 4 }
+    trap: detail_swap
+    note_vi: "Đảo xu hướng: hai con số 4% và 12% đều có trong bài nhưng bị đặt ngược mốc. Tỉ lệ đi từ 4% (2016년 4%에서) lên 12%, tức là tăng chứ không giảm."
+  - label: "③"
+    text: ""
+    image_desc: "Biểu đồ cột, từ trái sang phải: 건강 관리 47, 환경 보호 31, 교통비 절약 22."
+    chart_data:
+      - chart_type: bar
+        title: "자전거로 출퇴근하는 이유"
+        caption: "○○연구소, 2025년 조사"
+        unit: "%"
+        series:
+          - name: "응답 비율"
+            points:
+              - { x: "건강 관리", y: 47 }
+              - { x: "환경 보호", y: 31 }
+              - { x: "교통비 절약", y: 22 }
+    trap: detail_swap
+    note_vi: "Đảo hạng 2 và hạng 3: bài nói sau '건강 관리' là '교통비 절약', rồi mới đến '환경 보호' (그다음은 '교통비 절약', '환경 보호' 순이었습니다)."
+  - label: "④"
+    text: ""
+    image_desc: "Biểu đồ cột, từ trái sang phải: 건강 관리 47, 교통비 절약 31, 환경 보호 22."
+    chart_data:
+      - chart_type: bar
+        title: "자전거로 출퇴근하는 이유"
+        caption: "○○연구소, 2025년 조사"
+        unit: "%"
+        series:
+          - name: "응답 비율"
+            points:
+              - { x: "건강 관리", y: 47 }
+              - { x: "교통비 절약", y: 31 }
+              - { x: "환경 보호", y: 22 }
+    correct: true
+explanation_vi: |
+  **Đáp án ④.** Căn cứ: "자전거로 출퇴근하는 이유로는 '건강 관리'가 가장 많았고, 그다음은 '교통비 절약', '환경 보호' 순이었습니다" (về lý do đi làm bằng xe đạp, 'giữ gìn sức khoẻ' nhiều nhất, tiếp theo lần lượt là 'tiết kiệm tiền đi lại' và 'bảo vệ môi trường').
+  Biểu đồ ④ xếp đúng thứ tự 건강 관리 → 교통비 절약 → 환경 보호. Hai biểu đồ đường đều sai, vì bài nói tỉ lệ "2016년 4%에서 꾸준히 늘어 2025년에는 12%" (tăng đều từ 4% lên 12%).
+  **Mẹo dạng:** Câu biểu đồ thường có hai biểu đồ xu hướng và hai biểu đồ thứ hạng. Khi nghe, ghi nhanh hai thứ: hướng thay đổi kèm mốc đầu và mốc cuối (늘다/줄다, 꾸준히), và thứ tự xếp hạng (가장, 그다음은, … 순).
+  **Đáng chú ý:** 출퇴근 (出退勤 – xuất thoái cần) – đi làm và tan làm · 절약 (節約 – tiết ước) – tiết kiệm · … 순 (順 – thuận) – theo thứ tự … ('교통비 절약', '환경 보호' 순: lần lượt là tiết kiệm tiền đi lại, rồi bảo vệ môi trường).

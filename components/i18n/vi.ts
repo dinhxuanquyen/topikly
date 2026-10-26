@@ -701,6 +701,9 @@ export const vi = {
     insertSentenceHint: "Câu cần chèn vào đoạn văn",
     transcript: "Lời thoại",
     transcriptNoAudio: "Chế độ luyện: chưa có audio, đọc lời thoại.",
+    transcriptNoAudioExam:
+      "Đề nháp: chưa có audio. Lời thoại hiện thay cho phần nghe, nên kết quả chỉ mang tính tham khảo.",
+    transcriptNoAudioReview: "Chưa có audio, đọc lời thoại.",
     transcriptToggle: "Xem lời thoại",
     imagePending: "Tranh minh hoạ đang được vẽ — mô tả:",
     chartFictional: "Số liệu giả định, chỉ dùng để luyện tập.",
@@ -787,6 +790,14 @@ export const vi = {
         "Đáp án và lời giải chỉ hiện sau khi nộp bài. Bạn có thể đổi hoặc bỏ chọn đáp án và đánh dấu câu để xem lại bất cứ lúc nào trước khi nộp.",
       blank: "Mỗi câu chỉ có một đáp án đúng. Câu bỏ trống tính là sai, không bị trừ điểm.",
       guest: "Tiến độ làm dở được lưu tạm trên thiết bị này, không cần tài khoản.",
+      audioOnce: "Mỗi bài nghe chỉ phát một lần, không tua.",
+    },
+    audioMissing: {
+      heading: "Đề này chưa có audio",
+      all: (count: number) =>
+        `Cả ${count} câu Nghe chưa có audio. Lời thoại tiếng Hàn sẽ hiện thay cho phần nghe, nên kết quả chỉ mang tính tham khảo.`,
+      some: (missing: number, total: number) =>
+        `${missing}/${total} câu Nghe chưa có audio. Lời thoại tiếng Hàn của những câu đó sẽ hiện thay cho phần nghe, nên kết quả chỉ mang tính tham khảo.`,
     },
     estimateNote:
       "Mini test chỉ có một kỹ năng nên cấp hiển thị ở kết quả là ước lượng, quy đổi lên thang điểm tổng.",
@@ -855,7 +866,7 @@ export const vi = {
     levelLabel: "Cấp",
     estimate: "ước lượng",
     estimateNote: (compared: number, max: number) =>
-      `Cấp chỉ là ước lượng: điểm phần Đọc được quy đổi lên thang tổng, tương đương ${compared}/${max} điểm.`,
+      `Cấp chỉ là ước lượng: điểm phần đã làm được quy đổi lên thang tổng, tương đương ${compared}/${max} điểm.`,
     notEstimate: (compared: number, max: number) => `Tổng điểm so ngưỡng cấp: ${compared}/${max}.`,
     nextLevel: (points: number, max: number, label: string) =>
       `Cần thêm ${points} điểm (thang ${max}) để lên ${label}.`,

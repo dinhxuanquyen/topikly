@@ -9,7 +9,7 @@ source: original
 authored_by: topik-content-designer
 created_at: 2026-10-19
 reviewed_by: null
-notes_internal: "l37-0001 chưa soạn. Gợi ý cho L37 (중심 생각 của 여자): 'Khi xây dựng, nên tính đến cách dùng chính cấu trúc công trình để điều tiết nắng và mưa trước khi dựa vào máy móc'. Đáp án L38 (mái hiên che mưa cho cột gỗ) không trùng ý đó. Kiến thức: chức năng che nắng mùa hè (mặt trời cao), đón nắng mùa đông (mặt trời thấp), che mưa cho cột gỗ và cửa giấy của 처마 là kiến thức phổ thông về kiến trúc hanok; reviewer xác nhận lại. Theo spec v0.2: genre:edu-program cho 교양 프로그램 (MC hỏi, chuyên gia trả lời); chuyên gia age_range 60s+ để khớp cách gọi 'bà' trong note_vi. Transcript khoảng 405 ký tự (không tính nhãn), đếm tay."
+notes_internal: "2026-10-26: l37-0001 đã soạn (dùng trong Mini test Nghe 01), chỉ sửa notes_internal ở file này. Gợi ý ban đầu cho L37 (중심 생각 của 여자): 'Khi xây dựng, nên tính đến cách dùng chính cấu trúc công trình để điều tiết nắng và mưa trước khi dựa vào máy móc'. Đáp án L38 (mái hiên che mưa cho cột gỗ) không trùng ý đó. Kiến thức: chức năng che nắng mùa hè (mặt trời cao), đón nắng mùa đông (mặt trời thấp), che mưa cho cột gỗ và cửa giấy của 처마 là kiến thức phổ thông về kiến trúc hanok; reviewer xác nhận lại. Theo spec v0.2: genre:edu-program cho 교양 프로그램 (MC hỏi, chuyên gia trả lời); chuyên gia age_range 60s+ để khớp cách gọi 'bà' trong note_vi. Transcript khoảng 405 ký tự (không tính nhãn), đếm tay."
 audio_url: null
 speakers:
   - label: 남자

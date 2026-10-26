@@ -1,0 +1,39 @@
+# Mini test Nghe 01 (status: draft). Đủ 20 câu theo blueprint mini.listening (20 câu / 25 phút,
+# gồm cả thời gian phát audio; lấy thời gian từ blueprint nên không ghi duration_sec).
+# Thứ tự câu theo type_code tăng dần, các câu cùng bộ đứng liền nhau (l21–22, l25–26, l31–32,
+# l37–38, l45–46). Chuỗi nhãn đúng theo thứ tự trong đề:
+# ③④②①②④①④③①③②①④①③②③④②
+# (mỗi nhãn 5 câu, không có hai câu liền nhau cùng nhãn, không có chu kỳ lặp từ 4 nhãn trở lên).
+# Nhãn đúng của 10 câu cũ giữ nguyên; nhãn đúng của 10 câu mới (l03, l07, l10, l16, l19, l21,
+# l25, l32, l37, l45) được chọn khi soạn để chuỗi đạt luật nhãn của đề lắp ráp (content-spec §4.1).
+# Độ khó: bậc 3 × 5 câu, bậc 4 × 9 câu, bậc 5 × 4 câu, bậc 6 × 2 câu.
+# AUDIO CHƯA CÓ: mọi câu đang có audio_url: null, validator báo cảnh báo `audio-missing` (draft).
+# Đề chỉ được chuyển sang `published` khi MỌI câu trong đề đã có audio_url và reviewed_by.
+# Định dạng file đề: xem docs/content-spec.md mục 5.1, tiểu mục "Định dạng file đề thi".
+id: nghe-01
+kind: mini
+title: "Mini test Nghe 01"
+status: draft
+sections:
+  - skill: listening
+    questions:
+      - l01-0001
+      - l03-0001
+      - l05-0001
+      - l07-0001
+      - l10-0001
+      - l11-0001
+      - l14-0001
+      - l16-0001
+      - l18-0001
+      - l19-0001
+      - l21-0001
+      - l22-0001
+      - l25-0001
+      - l26-0001
+      - l31-0001
+      - l32-0001
+      - l37-0001
+      - l38-0001
+      - l45-0001
+      - l46-0001

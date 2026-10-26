@@ -9,12 +9,15 @@ import {
   GROUP_STEM_2,
   INSTRUCTION_1,
   INSTRUCTION_2,
+  LISTENING_EXAM,
+  LISTEN_INSTRUCTION_2,
   PLACEMENT_EXAM,
   PLACEMENT_RESULT,
   RESULT,
   SHARED_PASSAGE,
   SINGLE_STEM_1,
   SINGLE_STEM_2,
+  withAudio,
 } from "./test-fixtures";
 
 vi.mock("./exam-store", () => ({
@@ -209,6 +212,49 @@ describe("ExamRunner: hiển thị đề theo khối", () => {
     await waitFor(() =>
       expect(screen.getByRole("heading", { level: 3, name: "Câu 4" })).toHaveFocus(),
     );
+  });
+});
+
+describe("ExamRunner: đề Nghe", () => {
+  const NOTE = /^Đề nháp: chưa có audio\./;
+
+  async function startListening(exam: typeof LISTENING_EXAM) {
+    render(<ExamRunner {...props} exam={exam} />);
+    const start = await screen.findByRole("button", { name: /Bắt đầu làm bài/ });
+    await waitFor(() => expect(start).toBeEnabled());
+    fireEvent.click(start);
+  }
+
+  it("đề chưa có audio: intro cảnh báo, lúc làm bài hiện lời thoại thay phần nghe, ghi chú một lần cho khối dùng chung", async () => {
+    await startListening(LISTENING_EXAM);
+    expect(screen.queryByTestId("audio-missing-notice")).toBeNull(); // đã qua màn giới thiệu
+
+    // Khối 1: hai câu đơn, mỗi câu có lời thoại riêng nên mỗi câu một ghi chú.
+    expect(screen.getAllByText("이 원피스 좀 맡기려고요.")).toHaveLength(2);
+    expect(screen.getAllByText(NOTE)).toHaveLength(2);
+    expect(screen.queryByText(/Chế độ luyện/)).toBeNull();
+    expect(document.querySelector("audio")).toBeNull();
+
+    // Khối 2: một bài nghe dùng chung cho cả cặp -> lời thoại và ghi chú chỉ một lần.
+    fireEvent.click(screen.getByRole("button", { name: /Nhóm câu sau/ }));
+    expect(screen.getAllByText(LISTEN_INSTRUCTION_2)).toHaveLength(1);
+    expect(screen.getAllByText("이번 주말에 등산 갈래요?")).toHaveLength(1);
+    expect(screen.getAllByText(NOTE)).toHaveLength(1);
+  });
+
+  it("màn giới thiệu cảnh báo đề chưa có audio trước khi bắt đầu", async () => {
+    render(<ExamRunner {...props} exam={LISTENING_EXAM} />);
+    expect(screen.getByTestId("audio-missing-notice")).toHaveTextContent("chưa có audio");
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: /Bắt đầu làm bài/ })).toBeEnabled(),
+    );
+  });
+
+  it("đề có đủ audio: không ghi chú đề nháp, không lộ lời thoại khi đang thi", async () => {
+    await startListening(withAudio(LISTENING_EXAM));
+    expect(screen.queryByText(NOTE)).toBeNull();
+    expect(screen.queryByText("이 원피스 좀 맡기려고요.")).toBeNull();
+    expect(screen.getAllByRole("button", { name: /^Phát/ })).toHaveLength(2);
   });
 });
 

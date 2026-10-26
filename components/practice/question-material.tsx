@@ -32,12 +32,26 @@ export function ImagePending({
   );
 }
 
+/**
+ * Ghi chú khi câu Nghe chưa có audio, tuỳ ngữ cảnh: luyện tập, đang làm đề (đề nháp) hay xem lại
+ * kết quả. `null` = không ghi chú.
+ */
+export type NoAudioNote = "practice" | "exam" | "review" | null;
+
+const NO_AUDIO_NOTE_TEXT = {
+  practice: () => t.material.transcriptNoAudio,
+  exam: () => t.material.transcriptNoAudioExam,
+  review: () => t.material.transcriptNoAudioReview,
+} as const;
+
 function Transcript({
   question,
-  showNoAudioNote,
+  note,
+  translation,
 }: {
   question: PublicQuestion;
-  showNoAudioNote: boolean;
+  note: NoAudioNote;
+  translation: readonly string[];
 }) {
   const lines = parseTranscript(question.transcript_ko ?? "", question.speakers);
   return (
@@ -48,14 +62,14 @@ function Transcript({
       <h3 id={`${question.id}-transcript`} className="text-sm font-semibold text-muted-foreground">
         {t.material.transcript}
       </h3>
-      {showNoAudioNote ? (
+      {note ? (
         <p className="mt-1 flex items-start gap-1.5 text-xs text-muted-foreground">
           <Info aria-hidden className="mt-0.5 size-3.5 shrink-0" />
-          <span>{t.material.transcriptNoAudio}</span>
+          <span>{NO_AUDIO_NOTE_TEXT[note]()}</span>
         </p>
       ) : null}
       <div className="mt-3">
-        <TranscriptLines lines={lines} />
+        <TranscriptLines lines={lines} translation={translation} />
       </div>
     </section>
   );
@@ -66,23 +80,43 @@ function Transcript({
  * Không chứa đáp án hay lời giải.
  *
  * Câu Nghe có `audio_url` dùng AudioPlayer: `audioMode="practice"` (mặc định; có transcript) hoặc
- * `"exam"` (phát một lần, không transcript). Chưa có audio thì hiện lời thoại tiếng Hàn như trước,
- * cả ở chế độ thi.
- * `transcriptVi` (từ `CheckResponse.transcript_vi`, chỉ có SAU khi nộp) bật tuỳ chọn hiện bản dịch.
+ * `"exam"` (phát một lần, không transcript). Chưa có audio thì hiện lời thoại tiếng Hàn thay cho
+ * phần nghe, cả ở chế độ thi (đề nháp), kèm ghi chú theo ngữ cảnh (`noAudioNote`; mặc định
+ * `"exam"` khi `audioMode="exam"`, ngược lại `"practice"`).
+ * `transcriptVi` (từ `CheckResponse.transcript_vi`, chỉ có SAU khi nộp) bật tuỳ chọn hiện bản dịch
+ * khi có audio; khi chưa có audio, `inlineTranslation` in bản dịch dưới từng lượt thoại (trang kết
+ * quả đề; Luyện tập đã có khối "Bản dịch lời thoại" riêng nên để mặc định false).
  */
 export function QuestionMaterial({
   question,
   audioMode = "practice",
   transcriptVi,
+  noAudioNote,
+  inlineTranslation = false,
 }: {
   question: PublicQuestion;
   audioMode?: AudioPlayerMode;
   transcriptVi?: string;
+  noAudioNote?: NoAudioNote;
+  inlineTranslation?: boolean;
 }) {
   const audioUrl = typeof question.audio_url === "string" ? question.audio_url : "";
   const hasAudio = audioUrl !== "";
+  const note: NoAudioNote =
+    noAudioNote === undefined ? (audioMode === "exam" ? "exam" : "practice") : noAudioNote;
+  const translation = transcriptVi
+    ? transcriptVi
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean)
+    : [];
+  // Phương án là biểu đồ (L03) thì image_desc của câu chỉ mô tả bộ biểu đồ đã vẽ ở phương án.
+  const choicesAreCharts = question.choices.some((c) => (c.chart_data?.length ?? 0) > 0);
   const showImageFrame =
-    question.image_desc && !question.image_url && (question.chart_data?.length ?? 0) === 0;
+    question.image_desc &&
+    !question.image_url &&
+    (question.chart_data?.length ?? 0) === 0 &&
+    !choicesAreCharts;
 
   return (
     <div className="space-y-4">
@@ -98,7 +132,11 @@ export function QuestionMaterial({
       ) : null}
 
       {!hasAudio && question.skill === "listening" && question.transcript_ko ? (
-        <Transcript question={question} showNoAudioNote />
+        <Transcript
+          question={question}
+          note={note}
+          translation={inlineTranslation ? translation : []}
+        />
       ) : null}
 
       {question.passage ? (

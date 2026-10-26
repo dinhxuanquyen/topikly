@@ -97,8 +97,18 @@ describe("exam/source: đề mẫu thật content/topik-ii/exams/mini/doc-01", (
         question_count: 20,
         duration_sec: 1800, // không override: lấy blueprint mini.reading
       },
+      {
+        id: "nghe-01",
+        program: "topik-ii",
+        kind: "mini",
+        title: "Mini test Nghe 01",
+        status: "draft",
+        skills: ["listening"],
+        question_count: 20,
+        duration_sec: 1500, // blueprint mini.listening
+      },
     ]);
-    expect(listExams("topik-ii", "mini")).toHaveLength(1);
+    expect(listExams("topik-ii", "mini")).toHaveLength(2);
     expect(listExams("topik-ii", "full")).toEqual([]);
     expect(listExams("eps")).toEqual([]);
   });

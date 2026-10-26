@@ -51,6 +51,9 @@
  *     ví dụ r46-47-0001 cần 2 câu), đứng LIỀN NHAU và theo type_code tăng dần;
  *   - số câu mỗi phần = `exam_blueprints` (mini, placement) hoặc `sections` (full) của chương trình
  *     (draft: cảnh báo, published: lỗi);
+ *   - luật audio: mọi câu Nghe (phần `listening`) phải có `audio_url` khác rỗng, ở MỌI kind (mini,
+ *     full, hard, ibt, placement); thiếu thì gộp thành MỘT thông báo liệt kê id thiếu (draft: cảnh
+ *     báo, published: lỗi chặn, đề không được phục vụ). Câu Đọc không cần audio;
  *   - riêng `placement`: phủ ≥ 3 bậc độ khó khác nhau trong `difficulty_range`, các bậc LIÊN TỤC từ
  *     `difficulty_range.min` (không lỗ), mỗi bậc có mặt ≥ 3 câu (draft: cảnh báo, published: lỗi),
  *     để ước lượng trình độ theo bậc có nghĩa;
@@ -203,6 +206,7 @@ function buildRefs(program: string, options: PracticeSourceOptions): Map<string,
         ...(pq.group_key ? { group_key: pq.group_key } : {}),
         ...(correctIndex >= 0 ? { correctIndex } : {}),
         difficulty: full.difficulty,
+        ...(full.audio_url !== undefined ? { audio_url: full.audio_url } : {}),
       });
     }
   }

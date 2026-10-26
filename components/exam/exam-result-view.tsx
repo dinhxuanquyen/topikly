@@ -456,7 +456,12 @@ function ReviewItem({ question, entry, idPrefix, isOpen, onToggle }: ReviewItemP
                   {renderInline(entry.item.question.stem)}
                 </p>
               ) : null}
-              <QuestionMaterial question={entry.item.question} />
+              <QuestionMaterial
+                question={entry.item.question}
+                noAudioNote="review"
+                inlineTranslation
+                transcriptVi={question.transcript_vi}
+              />
               <ChoiceList
                 choices={entry.item.question.choices}
                 group={panelId}

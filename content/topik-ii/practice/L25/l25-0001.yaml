@@ -1,0 +1,57 @@
+id: l25-0001
+type_code: L25
+subskill: central_thought
+difficulty: 4
+tags: [topic:society, topic:daily-life, genre:interview, grammar:-더라고요]
+group_key: l25-26-0001
+pair_with: [l26-0001]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+notes_internal: "Cặp với l26-0001: transcript_ko/transcript_vi, speakers, tts_notes chép nguyên văn từ l26-0001. Căn cứ của L25 là câu '고쳐 드리는 것보다 고치는 방법을 알려 드리는 게 더 중요하더라고요' và cách làm hiện nay của ông; khác căn cứ của L26 (lý do người dân bỏ đi xe vì tiệm sửa xa). Các phương án không nhắc tới tiệm sửa xa, việc nghỉ hưu hay tiền phụ tùng, để không làm lộ đáp án ④ và các nhiễu ①③ của L26. Độ khó 4 theo bảng. 2026-10-26 (chỉ metadata, theo content-spec v0.3.5 §2.2 và mục Duyệt lại của content/_reviews/2026-10-26-mini-nghe-01.md): trap của ② đổi negation_flip → attitude_mismatch, vì '전문가에게 맡기는 것이 안전하다' là lập trường ngược với người nói trên cùng đối tượng, không phải đảo khẳng định ↔ phủ định. note_vi giữ nguyên. Câu có 3 kiểu bẫy."
+audio_url: null
+speakers:
+  - label: 여자
+    gender: female
+    role_vi: "phóng viên/người dẫn chương trình phỏng vấn"
+    age_range: 30s-40s
+    voice_hint_vi: "giọng rõ ràng, thân thiện"
+  - label: 남자
+    gender: male
+    role_vi: "người đã nghỉ hưu, cuối tuần giúp hàng xóm sửa xe đạp"
+    age_range: 60s+
+    voice_hint_vi: "giọng ấm, chậm rãi, kể chuyện tự nhiên"
+tts_notes:
+  speed: 1.0
+  style_vi: "Phỏng vấn: nữ hỏi rõ ràng, nam trả lời kiểu kể chuyện, có -더라고요, -거든요."
+  pauses_vi: "Ngắt sau '나눠 보자 싶었죠.' và trước '그런데 막상 해 보니까' để đánh dấu bước ngoặt."
+  pronunciation_vi: "10분 = 십 분; 부품값 [부품깝]; 많더라고요 [만터라고요]; 아끼게 rõ âm căng ㄲ."
+transcript_ko: |
+  여자: 주말마다 아파트 단지 앞에서 이웃들의 자전거를 고쳐 주신다고 들었습니다. 어떻게 시작하시게 됐나요?
+  남자: 회사를 그만두고 나서 시간이 좀 생겼는데, 동네에 바퀴에 바람이 빠진 채로 세워 둔 자전거가 정말 많더라고요. 수리점이 멀어서 고장 나면 그냥 안 타게 된다는 얘기를 듣고, 젊을 때부터 취미로 해 온 걸 나눠 보자 싶었죠. 그런데 막상 해 보니까 고쳐 드리는 것보다 고치는 방법을 알려 드리는 게 더 중요하더라고요. 간단한 고장은 누구나 10분이면 직접 고칠 수 있거든요. 그래서 요즘은 부품값만 받고, 주민분들이 직접 고쳐 보시도록 옆에서 도와드리고 있어요. 자기 손으로 고친 자전거는 더 아끼게 되니까 훨씬 오래 타시더라고요.
+transcript_vi: |
+  Nữ: Tôi nghe nói cuối tuần nào ông cũng sửa xe đạp cho hàng xóm ở trước khu chung cư. Ông đã bắt đầu việc này như thế nào ạ?
+  Nam: Sau khi nghỉ việc ở công ty, tôi có thêm chút thời gian, thì thấy trong khu phố có rất nhiều xe đạp bị xẹp lốp mà cứ để nguyên đó. Nghe mọi người kể là vì tiệm sửa xa nên hễ xe hỏng là thôi không đi nữa, tôi nghĩ hay là chia sẻ cái việc mình làm như sở thích từ hồi trẻ. Nhưng khi bắt tay làm thật thì tôi thấy dạy cách sửa còn quan trọng hơn là sửa giúp. Hỏng hóc đơn giản thì ai cũng tự sửa được trong 10 phút. Vì thế dạo này tôi chỉ lấy tiền phụ tùng, rồi đứng bên cạnh giúp để bà con tự tay sửa. Xe tự tay mình sửa thì người ta quý hơn, nên đi được lâu hơn hẳn.
+stem: "남자의 중심 생각으로 가장 알맞은 것을 고르십시오."
+choices:
+  - label: "①"
+    text: 대신 고쳐 주기보다 고치는 법을 가르치는 게 낫다.
+    correct: true
+  - label: "②"
+    text: 자전거 수리는 전문가에게 맡기는 것이 안전하다.
+    trap: attitude_mismatch
+    note_vi: "Ngược với quan điểm của ông: ông cho rằng hỏng hóc đơn giản thì ai cũng tự sửa được (누구나 10분이면 직접 고칠 수 있거든요) và giúp bà con tự tay sửa."
+  - label: "③"
+    text: 자전거 고장은 누구나 쉽게 직접 고칠 수 있다.
+    trap: overgeneralization
+    note_vi: "Quá khái quát: ông chỉ nói hỏng hóc đơn giản (간단한 고장은) thì ai cũng sửa được, không phải mọi hỏng hóc. Câu này cũng chỉ là lý do hỗ trợ, không phải ý chính."
+  - label: "④"
+    text: 직접 고친 자전거는 더 오래 타게 된다.
+    trap: true_not_main
+    note_vi: "Ông có nói ý này (자기 손으로 고친 자전거는 … 훨씬 오래 타시더라고요), nhưng đó là kết quả tốt mà ông quan sát được để củng cố quan điểm 'dạy cách sửa quan trọng hơn', không phải ý chính."
+explanation_vi: |
+  **Đáp án ①.** Căn cứ: "그런데 막상 해 보니까 고쳐 드리는 것보다 고치는 방법을 알려 드리는 게 더 중요하더라고요" (nhưng khi bắt tay làm thật thì tôi thấy dạy cách sửa còn quan trọng hơn là sửa giúp).
+  Câu này đứng sau '그런데 막상 해 보니까', đánh dấu điều ông rút ra sau khi trực tiếp làm. Phần sau (chỉ lấy tiền phụ tùng, đứng bên cạnh giúp bà con tự sửa) là cách ông đang thực hiện quan điểm đó. Đáp án diễn đạt lại "고쳐 드리다 / 알려 드리다" thành "대신 고쳐 주다 / 가르치다".
+  **Mẹo dạng:** Ở bài phỏng vấn, ý chính thường là điều người được phỏng vấn "nhận ra" (-더라고요, 막상 해 보니까) hoặc so sánh "A보다 B가 더 중요하다". Lý do và kết quả đi kèm chỉ là phần hỗ trợ.
+  **Đáng chú ý:** 수리점 (修理店 – tu lý điếm) – tiệm sửa chữa · 바람이 빠지다 – xì hơi, xẹp (lốp, bóng) · 아끼다 – quý, nâng niu; cũng có nghĩa "tiết kiệm" (시간을 아끼다).
