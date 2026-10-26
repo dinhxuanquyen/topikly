@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  audioPlayedFromDraft,
   buildDraft,
   buildSubmitRequest,
   clampBlockIndex,
@@ -134,6 +135,19 @@ describe("body nộp bài và bản nháp", () => {
       answers: { "r01-0001": "②" },
       marked: { "r19-0001": true },
     });
+  });
+
+  it("bản nháp giữ danh sách audio đã phát và lọc id không còn trong đề", () => {
+    const draft = buildDraft(EXAM, EMPTY_SESSION, 5_000, 0, 6_000, { "r01-0001": true });
+    expect(draft.audioPlayed).toEqual(["r01-0001"]);
+    expect(audioPlayedFromDraft(EXAM, draft)).toEqual({ "r01-0001": true });
+    expect(
+      audioPlayedFromDraft(EXAM, { ...draft, audioPlayed: ["r01-0001", "cu-da-xoa"] }),
+    ).toEqual({ "r01-0001": true });
+    // Bản nháp cũ (trước khi có trường này) vẫn đọc được.
+    const { audioPlayed: _omit, ...legacy } = draft;
+    void _omit;
+    expect(audioPlayedFromDraft(EXAM, legacy)).toEqual({});
   });
 });
 

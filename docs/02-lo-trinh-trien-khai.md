@@ -19,6 +19,27 @@ Giai đoạn 3 ── Hán-Việt, SRS, IBT, Premium ─────────
 Giai đoạn 4 ── Mở rộng: Nói, TOPIK I, EPS, app ───────── liên tục
 ```
 
+## Tiến độ
+
+> Cập nhật 2026-10-26. ✅ xong · 🚧 đang làm · ⏳ chưa bắt đầu.
+
+| Giai đoạn | Hạng mục | Trạng thái |
+|---|---|---|
+| 0 | Taxonomy dạng + kỹ năng con, đặc tả biên soạn (content-spec v0.3), 22 câu mẫu | ✅ |
+| 0 | Next.js + schema đa chương trình (Drizzle/Supabase), script validate nội dung, CI, khung 5 trụ | ✅ (chưa có staging) |
+| 1 | Trang chủ, điều hướng 5 trụ, chế độ khách (IndexedDB) | ✅ |
+| 1 | Đăng nhập Google/email, chuyển tiến độ khách lên tài khoản | ⏳ cần dự án Supabase |
+| 1 | Trình làm bài trắc nghiệm (luyện tập + làm đề, đánh dấu, đồng hồ) | ✅ |
+| 1 | Trình phát audio: chế độ thi (phát 1 lần) / chế độ luyện (tua, 0.75–1.25×, lời thoại song ngữ) | ✅ (chế độ thi chờ Mini test Nghe để chạy thật) |
+| 1 | Luyện tập Nghe / Đọc / Viết theo dạng | ✅ (Viết: đề + đếm ký tự + bài mẫu) |
+| 1 | Mini test Đọc, chấm + quy đổi cấp + kết quả theo dạng | ✅ |
+| 1 | Mini test Nghe / Viết, Full test | ⏳ cần nội dung + audio |
+| 1 | Lý thuyết: từ vựng, Hán tự, ngữ pháp, bảng so sánh | ✅ |
+| 1 | Test trình độ (placement-01, 12 câu Đọc) | ✅ |
+| 1 | Blog, landing, beta | ⏳ |
+
+**Nội dung hiện có / mục tiêu MVP:** 33 câu luyện / ~300 · 1 Mini test / 2 Full + 4 Mini · ~50 từ vựng / ~1.500 · 10 điểm ngữ pháp / ~100. Câu Nghe đều chưa có audio (`audio_url: null`) nên đang hiển thị lời thoại. Toàn bộ nội dung còn `reviewed_by: null`, chờ người dùng duyệt.
+
 ---
 
 ## Giai đoạn 0 — Nền móng (2 tuần)

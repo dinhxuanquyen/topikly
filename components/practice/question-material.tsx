@@ -2,9 +2,11 @@ import { ImageIcon, Info } from "lucide-react";
 import { t } from "@/components/i18n";
 import { cn } from "@/lib/utils";
 import type { PublicQuestion } from "@/lib/practice/types";
+import { AudioPlayer, type AudioPlayerMode } from "@/components/audio/audio-player";
 import { ChartView } from "./chart-view";
 import { RichLines } from "./rich-text";
 import { parseTranscript } from "./transcript";
+import { TranscriptLines } from "./transcript-lines";
 
 /** Khung mô tả tranh khi ảnh chưa có (image_url null). */
 export function ImagePending({
@@ -52,57 +54,51 @@ function Transcript({
           <span>{t.material.transcriptNoAudio}</span>
         </p>
       ) : null}
-      <ul className="mt-3 space-y-2.5">
-        {lines.map((line, index) => (
-          <li key={index} lang="ko" className="flex items-baseline gap-2 text-base leading-relaxed">
-            {line.speaker ? (
-              <span
-                className={cn(
-                  "shrink-0 rounded-md px-1.5 py-0.5 text-xs font-semibold",
-                  line.gender === "female"
-                    ? "bg-rose-100 text-rose-900 dark:bg-rose-950 dark:text-rose-200"
-                    : "bg-sky-100 text-sky-900 dark:bg-sky-950 dark:text-sky-200",
-                )}
-              >
-                {line.speaker}
-              </span>
-            ) : null}
-            <span className="min-w-0">{line.text}</span>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-3">
+        <TranscriptLines lines={lines} />
+      </div>
     </section>
   );
 }
 
 /**
- * Phần đề bài của một câu: lệnh đề, lời thoại (Nghe), ngữ liệu, câu <보기>, biểu đồ, tranh.
+ * Phần đề bài của một câu: lệnh đề, audio / lời thoại (Nghe), ngữ liệu, câu <보기>, biểu đồ, tranh.
  * Không chứa đáp án hay lời giải.
+ *
+ * Câu Nghe có `audio_url` dùng AudioPlayer: `audioMode="practice"` (mặc định; có transcript) hoặc
+ * `"exam"` (phát một lần, không transcript). Chưa có audio thì hiện lời thoại tiếng Hàn như trước,
+ * cả ở chế độ thi.
+ * `transcriptVi` (từ `CheckResponse.transcript_vi`, chỉ có SAU khi nộp) bật tuỳ chọn hiện bản dịch.
  */
-export function QuestionMaterial({ question }: { question: PublicQuestion }) {
-  const hasAudio = typeof question.audio_url === "string" && question.audio_url !== "";
+export function QuestionMaterial({
+  question,
+  audioMode = "practice",
+  transcriptVi,
+}: {
+  question: PublicQuestion;
+  audioMode?: AudioPlayerMode;
+  transcriptVi?: string;
+}) {
+  const audioUrl = typeof question.audio_url === "string" ? question.audio_url : "";
+  const hasAudio = audioUrl !== "";
   const showImageFrame =
     question.image_desc && !question.image_url && (question.chart_data?.length ?? 0) === 0;
 
   return (
     <div className="space-y-4">
       {hasAudio ? (
-        <audio controls src={question.audio_url ?? undefined} className="w-full" />
+        <AudioPlayer
+          src={audioUrl}
+          id={question.id}
+          mode={audioMode}
+          transcriptKo={question.skill === "listening" ? question.transcript_ko : undefined}
+          speakers={question.speakers}
+          transcriptVi={transcriptVi}
+        />
       ) : null}
 
-      {question.skill === "listening" && question.transcript_ko ? (
-        hasAudio ? (
-          <details className="rounded-xl border border-border bg-card p-4">
-            <summary className="min-h-11 cursor-pointer text-sm font-semibold">
-              {t.material.transcriptToggle}
-            </summary>
-            <div className="mt-2">
-              <Transcript question={question} showNoAudioNote={false} />
-            </div>
-          </details>
-        ) : (
-          <Transcript question={question} showNoAudioNote />
-        )
+      {!hasAudio && question.skill === "listening" && question.transcript_ko ? (
+        <Transcript question={question} showNoAudioNote />
       ) : null}
 
       {question.passage ? (

@@ -3,7 +3,7 @@
 **Web học & luyện thi tiếng Hàn cho người Việt — bắt đầu từ TOPIK II.**
 Học lý thuyết theo cấp, đi theo lộ trình đến ngày thi, luyện từng dạng câu, thi thử như thật, được chấm bài Viết như có giáo viên, và học từ vựng qua cầu nối **Hán-Việt ↔ Hán-Hàn**.
 
-> Trạng thái: 🧭 giai đoạn lên kế hoạch. Chưa có code.
+> Trạng thái: 🚧 Giai đoạn 1 (MVP) đang làm — xem [bảng tiến độ](docs/02-lo-trinh-trien-khai.md#tiến-độ).
 > Mô hình sản phẩm tham khảo [Migii TOPIK](https://topik.migii.net/vi/) — xem [phân tích tham khảo](docs/03-phan-tich-tham-khao-migii.md).
 
 ---

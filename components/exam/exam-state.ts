@@ -191,6 +191,8 @@ export interface ExamDraft {
   answers: Record<string, string>;
   marked: string[];
   blockIndex: number;
+  /** Id audio đã bắt đầu phát (chế độ thi: mỗi audio chỉ nghe một lần, tải lại trang không mở khoá). */
+  audioPlayed?: string[];
   updatedAt: number;
 }
 
@@ -200,6 +202,7 @@ export function buildDraft(
   startedAt: number,
   blockIndex: number,
   now: number,
+  audioPlayed: Readonly<Record<string, true>> = {},
 ): ExamDraft {
   return {
     key: examKey(exam.program, exam.kind, exam.id),
@@ -211,8 +214,19 @@ export function buildDraft(
     answers: session.answers,
     marked: Object.keys(session.marked),
     blockIndex,
+    audioPlayed: Object.keys(audioPlayed),
     updatedAt: now,
   };
+}
+
+/** Audio đã phát lấy từ bản nháp, chỉ giữ id còn là câu của đề (id audio = id câu đầu của khối). */
+export function audioPlayedFromDraft(exam: PublicExam, draft: ExamDraft): Record<string, true> {
+  const ids = new Set(listQuestions(exam).map((q) => q.id));
+  const played: Record<string, true> = {};
+  for (const id of draft.audioPlayed ?? []) {
+    if (ids.has(id)) played[id] = true;
+  }
+  return played;
 }
 
 /** Lọc bản nháp theo đề hiện tại: bỏ câu không còn trong đề, nhãn không hợp lệ. */

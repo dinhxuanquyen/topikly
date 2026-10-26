@@ -339,7 +339,7 @@ export function PracticeRunner({ program, questions }: PracticeRunnerProps) {
         {renderInline(question.stem)}
       </p>
 
-      <QuestionMaterial question={question} />
+      <QuestionMaterial question={question} transcriptVi={current.result?.transcript_vi} />
 
       <div className="space-y-2">
         <ChoiceList

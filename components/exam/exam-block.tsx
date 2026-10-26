@@ -74,7 +74,7 @@ export function ExamBlockView({
         </p>
       </div>
 
-      {sharedSource ? <QuestionMaterial question={sharedSource} /> : null}
+      {sharedSource ? <QuestionMaterial question={sharedSource} audioMode="exam" /> : null}
 
       {block.questions.map((item) => (
         <ExamQuestionView
@@ -170,7 +170,7 @@ function ExamQuestionView({
           {renderInline(question.stem)}
         </p>
       ) : (
-        <QuestionMaterial question={question} />
+        <QuestionMaterial question={question} audioMode="exam" />
       )}
 
       <ChoiceList
