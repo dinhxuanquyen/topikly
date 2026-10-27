@@ -1,7 +1,7 @@
 import { Flag } from "lucide-react";
 import { t } from "@/components/i18n";
 import { cn } from "@/lib/utils";
-import type { FlatQuestion, ExamSession } from "./exam-state";
+import { isAnswered, type FlatQuestion, type ExamSession } from "./exam-state";
 
 interface ExamNavProps {
   questions: readonly FlatQuestion[];
@@ -33,7 +33,7 @@ export function ExamNav({ questions, session, currentId, sectionLabels, onGoto }
           ) : null}
           <ol className="flex flex-wrap gap-2">
             {group.items.map((question) => {
-              const answered = question.id in session.answers;
+              const answered = isAnswered(question, session);
               const marked = Boolean(session.marked[question.id]);
               const current = question.id === currentId;
               const statusText = [

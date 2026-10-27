@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useId, useState } from "react";
+import { createContext, forwardRef, useContext, useId, useState } from "react";
 import { t } from "@/components/i18n";
 import { RichMarkdown } from "@/components/practice/rich-markdown";
 import { renderInline } from "@/components/practice/rich-text";
@@ -17,12 +17,32 @@ import {
 import { matchBlank, type BlankMatch } from "./writing-utils";
 
 interface RevealViewProps {
+  /**
+   * true = nhúng trong trang khác (kết quả đề thi) nơi đã có tiêu đề cấp 2–3 của câu: các tiêu đề
+   * trong khối này hạ xuống 2 cấp để dàn ý tiêu đề không bị nhảy cấp.
+   */
+  embedded?: boolean;
+  /** Nhãn vùng (aria-label); mặc định "Bài mẫu và tự so sánh". */
+  regionLabel?: string;
   prompt: WritingPrompt;
   reveal: WritingReveal;
   essay: string;
   blanks: Record<string, string>;
   checked: readonly string[];
   onToggleChecked: (pointId: string) => void;
+}
+
+const EmbeddedContext = createContext(false);
+
+/** Tiêu đề theo cấp gốc; khi `embedded` thì hạ 2 cấp (tối đa h6). */
+function Heading({
+  level,
+  children,
+  ...rest
+}: React.HTMLAttributes<HTMLHeadingElement> & { level: 2 | 3 | 4 }) {
+  const embedded = useContext(EmbeddedContext);
+  const Tag = `h${Math.min(level + (embedded ? 2 : 0), 6)}` as "h2" | "h3" | "h4" | "h5" | "h6";
+  return <Tag {...rest}>{children}</Tag>;
 }
 
 /** Khối chung của mỗi mục: tiêu đề + nội dung. */
@@ -41,9 +61,9 @@ function Section({
       aria-labelledby={id}
       className={cn("rounded-xl border border-border bg-card p-4", className)}
     >
-      <h3 id={id} className="text-base font-semibold">
+      <Heading level={3} id={id} className="text-base font-semibold">
         {title}
-      </h3>
+      </Heading>
       <div className="mt-2">{children}</div>
     </section>
   );
@@ -114,9 +134,9 @@ function EssayCompare({
           aria-labelledby={mineId}
           className="min-w-0 rounded-xl border-2 border-primary/30 bg-card p-4"
         >
-          <h3 id={mineId} className="text-base font-semibold">
+          <Heading level={3} id={mineId} className="text-base font-semibold">
             {t.writing.reveal.yourEssay}
-          </h3>
+          </Heading>
           <p className="text-xs text-muted-foreground tabular-nums">
             {t.writing.counter.count(mine)}
           </p>
@@ -133,9 +153,9 @@ function EssayCompare({
           aria-labelledby={modelId}
           className="min-w-0 rounded-xl border-2 border-border bg-card p-4"
         >
-          <h3 id={modelId} className="text-base font-semibold">
+          <Heading level={3} id={modelId} className="text-base font-semibold">
             {t.writing.reveal.modelEssay(model.level)}
-          </h3>
+          </Heading>
           <p className="text-xs text-muted-foreground tabular-nums">
             {t.writing.reveal.modelMeta(model.char_count, model.manuscript_cells)}
           </p>
@@ -264,7 +284,9 @@ function BlankReveal({ blank, answer }: { blank: WritingBlankReveal; answer: str
 
       <div className="mt-3 space-y-3 text-sm">
         <div>
-          <h4 className="font-semibold">{t.writing.reveal.acceptedTitle}</h4>
+          <Heading level={4} className="font-semibold">
+            {t.writing.reveal.acceptedTitle}
+          </Heading>
           <ul lang="ko" className="mt-1 list-disc space-y-1 pl-5 text-base">
             {blank.accepted_answers.map((a) => (
               <li key={a}>{a}</li>
@@ -273,7 +295,9 @@ function BlankReveal({ blank, answer }: { blank: WritingBlankReveal; answer: str
         </div>
         {blank.partial_answers.length > 0 ? (
           <div>
-            <h4 className="font-semibold">{t.writing.reveal.partialTitle}</h4>
+            <Heading level={4} className="font-semibold">
+              {t.writing.reveal.partialTitle}
+            </Heading>
             <ul lang="ko" className="mt-1 list-disc space-y-1 pl-5 text-base">
               {blank.partial_answers.map((a) => (
                 <li key={a}>{a}</li>
@@ -283,7 +307,9 @@ function BlankReveal({ blank, answer }: { blank: WritingBlankReveal; answer: str
         ) : null}
         {blank.rejected_answers.length > 0 ? (
           <div>
-            <h4 className="font-semibold">{t.writing.reveal.rejectedTitle}</h4>
+            <Heading level={4} className="font-semibold">
+              {t.writing.reveal.rejectedTitle}
+            </Heading>
             <ul className="mt-1 space-y-1.5">
               {blank.rejected_answers.map((r) => (
                 <li key={r.text} className="rounded-lg border border-border bg-background p-2.5">
@@ -300,7 +326,9 @@ function BlankReveal({ blank, answer }: { blank: WritingBlankReveal; answer: str
         ) : null}
         {blank.required_elements_vi.length > 0 ? (
           <div>
-            <h4 className="font-semibold">{t.writing.reveal.requiredElements}</h4>
+            <Heading level={4} className="font-semibold">
+              {t.writing.reveal.requiredElements}
+            </Heading>
             <ul className="mt-1 list-disc space-y-1 pl-5">
               {blank.required_elements_vi.map((e) => (
                 <li key={e} className="leading-relaxed">
@@ -328,102 +356,107 @@ function BlankReveal({ blank, answer }: { blank: WritingBlankReveal; answer: str
  * Nhận focus (tabIndex -1) từ trình viết ngay khi dữ liệu về.
  */
 export const WritingRevealView = forwardRef<HTMLElement, RevealViewProps>(
-  function WritingRevealView({ prompt, reveal, essay, blanks, checked, onToggleChecked }, ref) {
+  function WritingRevealView(
+    { prompt, reveal, essay, blanks, checked, onToggleChecked, embedded = false, regionLabel },
+    ref,
+  ) {
     const [selected, setSelected] = useState(0);
     const models = reveal.model_answers ?? [];
     const model = models[selected] ?? models[0];
 
     return (
-      <section
-        ref={ref}
-        tabIndex={-1}
-        aria-label={t.writing.reveal.regionLabel}
-        className="scroll-mt-[calc(var(--header-height)+0.75rem)] space-y-4 rounded-2xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-      >
-        <div className="rounded-xl border-2 border-primary/30 bg-brand-soft p-4">
-          <h2 className="text-xl font-bold text-brand-soft-foreground">
-            {t.writing.reveal.heading}
-          </h2>
-          <p className="mt-1 text-sm">{t.writing.reveal.selfCheckNote}</p>
-          {reveal.register ? (
-            <p className="mt-1 text-sm">
-              {t.writing.reveal.register(WRITING_REGISTER_NAME_VI[reveal.register])}
-            </p>
+      <EmbeddedContext.Provider value={embedded}>
+        <section
+          ref={ref}
+          tabIndex={-1}
+          aria-label={regionLabel ?? t.writing.reveal.regionLabel}
+          className="scroll-mt-[calc(var(--header-height)+0.75rem)] space-y-4 rounded-2xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          <div className="rounded-xl border-2 border-primary/30 bg-brand-soft p-4">
+            <Heading level={2} className="text-xl font-bold text-brand-soft-foreground">
+              {t.writing.reveal.heading}
+            </Heading>
+            <p className="mt-1 text-sm">{t.writing.reveal.selfCheckNote}</p>
+            {reveal.register ? (
+              <p className="mt-1 text-sm">
+                {t.writing.reveal.register(WRITING_REGISTER_NAME_VI[reveal.register])}
+              </p>
+            ) : null}
+          </div>
+
+          {prompt.format === "essay" && models.length > 0 ? (
+            <>
+              <EssayCompare
+                essay={essay}
+                models={models}
+                selected={selected}
+                onSelect={setSelected}
+              />
+              <PointChecklist
+                prompt={prompt}
+                reveal={reveal}
+                model={model}
+                checked={checked}
+                onToggle={onToggleChecked}
+              />
+              {model ? <RubricNotes model={model} /> : null}
+            </>
           ) : null}
-        </div>
 
-        {prompt.format === "essay" && models.length > 0 ? (
-          <>
-            <EssayCompare
-              essay={essay}
-              models={models}
-              selected={selected}
-              onSelect={setSelected}
-            />
-            <PointChecklist
-              prompt={prompt}
-              reveal={reveal}
-              model={model}
-              checked={checked}
-              onToggle={onToggleChecked}
-            />
-            {model ? <RubricNotes model={model} /> : null}
-          </>
-        ) : null}
+          {prompt.format === "fill_blanks" && reveal.blanks
+            ? reveal.blanks.map((blank) => (
+                <BlankReveal key={blank.label} blank={blank} answer={blanks[blank.label] ?? ""} />
+              ))
+            : null}
 
-        {prompt.format === "fill_blanks" && reveal.blanks
-          ? reveal.blanks.map((blank) => (
-              <BlankReveal key={blank.label} blank={blank} answer={blanks[blank.label] ?? ""} />
-            ))
-          : null}
+          {reveal.scoring_notes_vi ? (
+            <Section title={t.writing.reveal.scoringTitle}>
+              <RichMarkdown text={reveal.scoring_notes_vi} className="text-sm" />
+            </Section>
+          ) : null}
 
-        {reveal.scoring_notes_vi ? (
-          <Section title={t.writing.reveal.scoringTitle}>
-            <RichMarkdown text={reveal.scoring_notes_vi} className="text-sm" />
-          </Section>
-        ) : null}
+          {reveal.outline_vi ? (
+            <Section title={t.writing.reveal.outlineTitle}>
+              <RichMarkdown text={reveal.outline_vi} className="text-sm" />
+            </Section>
+          ) : null}
 
-        {reveal.outline_vi ? (
-          <Section title={t.writing.reveal.outlineTitle}>
-            <RichMarkdown text={reveal.outline_vi} className="text-sm" />
-          </Section>
-        ) : null}
+          {reveal.expression_bank && reveal.expression_bank.length > 0 ? (
+            <Section title={t.writing.reveal.expressionsTitle}>
+              <dl className="grid gap-x-4 gap-y-2 sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+                {reveal.expression_bank.map((item) => (
+                  <div key={item.ko} className="contents">
+                    <dt lang="ko" className="text-base font-medium">
+                      {item.ko}
+                    </dt>
+                    <dd className="mb-2 text-sm text-muted-foreground sm:mb-0">
+                      {renderInline(item.vi, { tagKorean: true })}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </Section>
+          ) : null}
 
-        {reveal.expression_bank && reveal.expression_bank.length > 0 ? (
-          <Section title={t.writing.reveal.expressionsTitle}>
-            <dl className="grid gap-x-4 gap-y-2 sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-              {reveal.expression_bank.map((item) => (
-                <div key={item.ko} className="contents">
-                  <dt lang="ko" className="text-base font-medium">
-                    {item.ko}
-                  </dt>
-                  <dd className="mb-2 text-sm text-muted-foreground sm:mb-0">
-                    {renderInline(item.vi, { tagKorean: true })}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Section>
-        ) : null}
+          {reveal.common_mistakes_vi.length > 0 ? (
+            <Section title={t.writing.reveal.mistakesTitle}>
+              <ul className="list-disc space-y-1.5 pl-5 text-sm">
+                {reveal.common_mistakes_vi.map((mistake) => (
+                  <li key={mistake} className="leading-relaxed">
+                    {renderInline(mistake, { tagKorean: true })}
+                  </li>
+                ))}
+              </ul>
+            </Section>
+          ) : null}
 
-        {reveal.common_mistakes_vi.length > 0 ? (
-          <Section title={t.writing.reveal.mistakesTitle}>
-            <ul className="list-disc space-y-1.5 pl-5 text-sm">
-              {reveal.common_mistakes_vi.map((mistake) => (
-                <li key={mistake} className="leading-relaxed">
-                  {renderInline(mistake, { tagKorean: true })}
-                </li>
-              ))}
-            </ul>
-          </Section>
-        ) : null}
-
-        {reveal.explanation_vi ? (
-          <Section title={t.writing.reveal.explanationTitle}>
-            <RichMarkdown text={reveal.explanation_vi} className="text-sm" />
-          </Section>
-        ) : null}
-      </section>
+          {reveal.explanation_vi ? (
+            <Section title={t.writing.reveal.explanationTitle}>
+              <RichMarkdown text={reveal.explanation_vi} className="text-sm" />
+            </Section>
+          ) : null}
+        </section>
+      </EmbeddedContext.Provider>
     );
   },
 );

@@ -177,6 +177,13 @@ export interface ProgramConfig {
   manuscript: ManuscriptConfig;
   /** Theo type_code Viết (W53, W54). */
   writing_sample_limits: Readonly<Record<string, SampleSoftLimit>>;
+  /**
+   * Điểm tối đa của từng câu Viết trong đề, theo type_code (W51–W54). DỮ LIỆU cấu hình: tổng các câu
+   * Viết của một đề đủ bốn dạng = `max_score` của phần Viết trong `sections` (TOPIK II: 10+10+30+50 =
+   * 100). Đề ít câu hơn thì điểm phần Viết được quy theo tỉ lệ (xem lib/exam/writing-self-score.ts).
+   * Chương trình không có phần Viết để `{}`.
+   */
+  writing_points: Readonly<Record<string, number>>;
   /** Các subskill được miễn quy tắc "ít nhất 2 kiểu trap" (content-spec §2.2). */
   multi_trap_exempt_subskills: readonly string[];
   /**

@@ -28,6 +28,7 @@ function storedConfig(program: ProgramConfig) {
     tag_vocabulary: program.tag_vocabulary,
     manuscript: program.manuscript,
     writing_sample_limits: program.writing_sample_limits,
+    writing_points: program.writing_points,
     multi_trap_exempt_subskills: program.multi_trap_exempt_subskills,
     exam_blueprints: program.exam_blueprints,
     placement: program.placement,

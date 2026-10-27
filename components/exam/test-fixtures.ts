@@ -3,7 +3,26 @@
  * Đề 4 câu, 15 phút: khối 1 là hai câu đơn (R01-2), khối 2 là một bộ dùng chung ngữ liệu (R19-20).
  */
 import type { PublicQuestion } from "@/lib/practice/types";
-import type { ExamResult, PublicExam, PublicExamQuestion, QuestionResult } from "@/lib/exam/types";
+import type {
+  ExamResult,
+  ExamWritingAnswer,
+  PublicExam,
+  PublicExamQuestion,
+  QuestionResult,
+  WritingReviewItem,
+} from "@/lib/exam/types";
+import {
+  charLimitStatus,
+  countChars,
+  type WritingPrompt,
+  type WritingReveal,
+} from "@/lib/practice/writing-types";
+import {
+  BLANKS_PROMPT,
+  BLANKS_REVEAL,
+  ESSAY_PROMPT,
+  ESSAY_REVEAL,
+} from "@/components/writing/writing-test-fixtures";
 
 export const INSTRUCTION_1 = "※ [1~2] ( )에 들어갈 말로 가장 알맞은 것을 고르십시오.";
 export const INSTRUCTION_2 = "※ [3~4] 다음 글을 읽고 물음에 답하십시오.";
@@ -298,16 +317,20 @@ export function withAudio(
 ): PublicExam {
   return {
     ...exam,
-    sections: exam.sections.map((section) => ({
-      ...section,
-      blocks: section.blocks.map((block) => ({
-        ...block,
-        questions: block.questions.map((entry) => ({
-          ...entry,
-          question: { ...entry.question, audio_url: urlFor(entry.question.id) },
-        })),
-      })),
-    })),
+    sections: exam.sections.map((section) =>
+      section.skill === "writing"
+        ? section
+        : {
+            ...section,
+            blocks: section.blocks.map((block) => ({
+              ...block,
+              questions: block.questions.map((entry) => ({
+                ...entry,
+                question: { ...entry.question, audio_url: urlFor(entry.question.id) },
+              })),
+            })),
+          },
+    ),
   };
 }
 
@@ -331,4 +354,132 @@ export const LISTENING_RESULT: ExamResult = {
         : {}),
     }),
   ),
+};
+
+// ------------------------------------------------------------------ đề Viết
+
+export const WRITING_POINTS = { W51: 10, W52: 10, W53: 30, W54: 50 } as const;
+
+const W51_PROMPT: WritingPrompt = { ...BLANKS_PROMPT };
+const W52_PROMPT: WritingPrompt = {
+  ...BLANKS_PROMPT,
+  id: "w52-0001",
+  type_code: "W52",
+  difficulty: 4,
+  passage: "낮잠은 ( ㉠ ). 그러나 ( ㉡ ).",
+};
+const W53_PROMPT: WritingPrompt = { ...ESSAY_PROMPT };
+const W54_PROMPT: WritingPrompt = {
+  ...ESSAY_PROMPT,
+  id: "w54-0001",
+  type_code: "W54",
+  difficulty: 5,
+  stem: "다음을 주제로 하여 자신의 생각을 600~700자로 글을 쓰십시오.",
+  task: "속도를 중시하는 문화에 대해 쓰십시오.",
+  chart_data: undefined,
+  data_is_fictional: undefined,
+  char_limit: { min: 30, max: 60 },
+};
+
+const WRITING_PROMPTS = [W51_PROMPT, W52_PROMPT, W53_PROMPT, W54_PROMPT];
+
+/** Mini test Viết nháp: 4 câu W51~W54, 50 phút. `number` chỉ là vị trí 1..4; số câu thật suy từ type_code. */
+export const WRITING_EXAM: PublicExam = {
+  id: "viet-01",
+  program: "topik-ii",
+  kind: "mini",
+  title: "Mini test Viết 01",
+  status: "draft",
+  skills: ["writing"],
+  question_count: 4,
+  duration_sec: 3000,
+  sections: [
+    {
+      skill: "writing",
+      order: 1,
+      duration_sec: 3000,
+      question_count: 4,
+      max_score: 100,
+      blocks: [],
+      writing_items: WRITING_PROMPTS.map((prompt, index) => ({
+        number: index + 1,
+        type_group: prompt.type_code,
+        max_points: WRITING_POINTS[prompt.type_code as keyof typeof WRITING_POINTS],
+        prompt,
+      })),
+    },
+  ],
+};
+
+const REVEALS: Record<string, WritingReveal> = {
+  "w51-0001": BLANKS_REVEAL,
+  "w52-0001": { ...BLANKS_REVEAL, id: "w52-0001", type_code: "W52" },
+  "w53-0002": ESSAY_REVEAL,
+  "w54-0001": { ...ESSAY_REVEAL, id: "w54-0001", type_code: "W54" },
+};
+
+/** Bài đã nộp mặc định của WRITING_RESULT: câu 51 đúng một đáp án mẫu, 52 bỏ trống, 53 trong khung, 54 dưới khung. */
+export const WRITING_SUBMITTED: Record<string, ExamWritingAnswer> = {
+  "w51-0001": { blanks: { "㉠": "참석할 수 없습니다.", "㉡": "미리 말씀드립니다" } },
+  "w52-0001": { blanks: { "㉠": "", "㉡": "" } },
+  "w53-0002": { text: "열다섯 글자짜리 글입니다 하나둘" },
+  "w54-0001": { text: "짧은 글" },
+};
+
+function reviewItem(prompt: WritingPrompt, index: number): WritingReviewItem {
+  const answer = WRITING_SUBMITTED[prompt.id]!;
+  const charCount = answer.text !== undefined ? countChars(answer.text) : undefined;
+  return {
+    number: index + 1,
+    id: prompt.id,
+    type_code: prompt.type_code,
+    type_group: prompt.type_code,
+    subskill: prompt.subskill,
+    format: prompt.format,
+    prompt,
+    answer,
+    ...(charCount !== undefined ? { char_count: charCount } : {}),
+    ...(charCount !== undefined && prompt.char_limit
+      ? { char_status: charLimitStatus(charCount, prompt.char_limit) }
+      : {}),
+    max_points: WRITING_POINTS[prompt.type_code as keyof typeof WRITING_POINTS],
+    reveal: REVEALS[prompt.id]!,
+  };
+}
+
+/** Kết quả Mini Viết: không có phần chấm tự động nên `level` là null và các bảng theo phần/dạng rỗng. */
+export const WRITING_RESULT: ExamResult = {
+  examId: "viet-01",
+  program: "topik-ii",
+  kind: "mini",
+  title: "Mini test Viết 01",
+  submittedAt: 1_700_000_100_000,
+  timeSpentMs: 1_200_000,
+  timedOut: false,
+  sections: [],
+  total_score: 0,
+  total_max_score: 0,
+  level: null,
+  writing: {
+    order: 1,
+    duration_sec: 3000,
+    items: WRITING_PROMPTS.map(reviewItem),
+    max_score: 100,
+    max_points_total: 100,
+    level_basis: {
+      thresholds: [
+        { level: 3, label: "3급", min_score: 120 },
+        { level: 4, label: "4급", min_score: 150 },
+        { level: 5, label: "5급", min_score: 190 },
+        { level: 6, label: "6급", min_score: 230 },
+      ],
+      total_max_score: 300,
+      auto_score: 0,
+      auto_max_score: 0,
+      is_estimate: true,
+    },
+  },
+  by_type_group: [],
+  by_subskill: [],
+  questions: [],
 };

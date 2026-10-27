@@ -109,7 +109,7 @@ describe("POST /api/exam/submit", () => {
       selectedLabel: "①",
       correctLabel: "②",
     });
-    expect(r.level.level).toBeNull();
+    expect(r.level!.level).toBeNull();
   });
 
   it("200: answers rỗng và khoá lạ bị bỏ qua", async () => {
@@ -154,7 +154,7 @@ describe("POST /api/exam/submit", () => {
     expect(err.code).toBe("invalid_choice");
     expect(err.message).toContain("r10-0001");
 
-    const huge = await post({ ...base, answers: {}, pad: "x".repeat(20_000) });
+    const huge = await post({ ...base, answers: {}, pad: "x".repeat(40_000) });
     expect(huge.status).toBe(400);
     expect((await errorOf(huge)).code).toBe("invalid_body");
   });
@@ -181,8 +181,8 @@ describe("POST /api/exam/submit", () => {
 describe("exam/queries (hàm 'use cache' cho server component)", () => {
   it("getExams bọc listExams", async () => {
     const all = await getExams("topik-ii");
-    expect(all.map((e) => e.id)).toEqual(["doc-01", "nghe-01"]);
-    expect(await getExams("topik-ii", "mini")).toHaveLength(2);
+    expect(all.map((e) => e.id)).toEqual(["doc-01", "nghe-01", "viet-01"]);
+    expect(await getExams("topik-ii", "mini")).toHaveLength(3);
     expect(await getExams("topik-ii", "full")).toEqual([]);
     expect(await getExams("eps")).toEqual([]);
   });

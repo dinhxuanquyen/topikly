@@ -6,12 +6,14 @@ import { expect, test, type Page } from "@playwright/test";
  * trang). Phần Viết chưa chấm tự động nên test này không có bước chấm.
  *
  * Mỗi test chạy trong browser context mới => localStorage luôn sạch (không cần dọn thủ công).
- * Đề hiện có: w53-0002 (khung 200–300, bài mẫu cấp 4/5) và w54-0002 (khung 600–700, cấp 5/6);
- * W51/W52 chưa có đề nên phải là 404.
+ * Đề hiện có: w51-0001, w52-0001 (điền chỗ trống), w53-0002 (khung 200–300, bài mẫu cấp 4/5) và
+ * w54-0002 (khung 600–700, cấp 5/6); dạng không có đề (W99) phải là 404.
  */
 
 const PROGRAM = "topik-ii";
 const LIST = `/${PROGRAM}/luyen-tap/viet`;
+const W51 = `${LIST}/W51`;
+const W52 = `${LIST}/W52`;
 const W53 = `${LIST}/W53`;
 const W54 = `${LIST}/W54`;
 const REVEAL_API = "/api/practice/writing/reveal";
@@ -58,20 +60,24 @@ async function expectNoHorizontalOverflow(page: Page, where: string) {
 }
 
 test.describe("Luyện Viết — trang kỹ năng và điều hướng", () => {
-  test("Trang Viết liệt kê W53, W54 (có khung ký tự); bấm thẻ mở đúng đề; W51/W52 chưa có", async ({
+  test("Trang Viết liệt kê W51–W54 (W53/W54 có khung ký tự); bấm thẻ mở đúng đề", async ({
     page,
   }) => {
     await page.goto(LIST);
     await expect(page.getByRole("heading", { level: 1, name: "Luyện Viết" })).toBeVisible();
 
     const list = page.getByRole("list", { name: "Các dạng câu phần Viết" });
-    await expect(list.getByRole("link")).toHaveCount(2);
+    await expect(list.getByRole("link")).toHaveCount(4);
+    for (const code of ["W51", "W52"]) {
+      const card = list.getByRole("link", { name: new RegExp(code) });
+      await expect(card).toContainText("Điền vào chỗ trống");
+      await expect(card).toContainText("1 đề");
+    }
     const w53 = list.getByRole("link", { name: /W53/ });
     const w54 = list.getByRole("link", { name: /W54/ });
     await expect(w53).toContainText("200–300 ký tự");
     await expect(w53).toContainText("1 đề");
     await expect(w54).toContainText("600–700 ký tự");
-    await expect(list.getByRole("link", { name: /W51|W52/ })).toHaveCount(0);
 
     await w53.click();
     await expect(page).toHaveURL(/\/luyen-tap\/viet\/W53$/);
@@ -89,6 +95,30 @@ test.describe("Luyện Viết — trang kỹ năng và điều hướng", () => 
     await expect(page).toHaveURL(new RegExp(`${LIST}$`));
   });
 
+  test("W51 (điền chỗ trống): hai ô ㉠ ㉡ có nhãn, không có bộ đếm; xem bài mẫu có đáp án chấp nhận", async ({
+    page,
+  }) => {
+    await page.goto(W51);
+    await expect(page.getByRole("heading", { level: 1, name: /^W51 · / })).toBeVisible();
+    await expect(runner(page)).toBeVisible();
+    await expect(page.getByRole("textbox", { name: "Ô điền ㉠" })).toBeVisible();
+    await expect(page.getByRole("textbox", { name: "Ô điền ㉡" })).toBeVisible();
+    await expect(essayBox(page)).toHaveCount(0);
+    await expect(counter(page)).toHaveCount(0);
+    await expectNoHorizontalOverflow(page, W51);
+
+    await page.getByRole("textbox", { name: "Ô điền ㉠" }).fill("저희 집 주소가 아니었습니다");
+    await revealButton(page).click();
+    await expect(revealRegion(page)).toBeVisible();
+    await expect(revealRegion(page)).toContainText("저희 집 주소가 아니었습니다");
+    await expectNoHorizontalOverflow(page, `${W51} sau khi mở bài mẫu`);
+
+    await page.goto(W52);
+    await expect(page.getByRole("heading", { level: 1, name: /^W52 · / })).toBeVisible();
+    await expect(page.getByRole("textbox", { name: "Ô điền ㉠" })).toBeVisible();
+    await expect(page.getByRole("textbox", { name: "Ô điền ㉡" })).toBeVisible();
+  });
+
   test("Từ trang Luyện tập chọn kỹ năng Viết rồi vào W54", async ({ page }) => {
     await page.goto(`/${PROGRAM}/luyen-tap`);
     await page.locator(`a[href="${LIST}"]`).click();
@@ -99,8 +129,8 @@ test.describe("Luyện Viết — trang kỹ năng và điều hướng", () => 
     await expect(essayBox(page)).toBeVisible();
   });
 
-  test("Dạng không có đề (W51, W52, W99) trả trang 404", async ({ page }) => {
-    for (const url of [`${LIST}/W51`, `${LIST}/W52`, `${LIST}/W99`]) {
+  test("Dạng không có đề (W50, W99) trả trang 404", async ({ page }) => {
+    for (const url of [`${LIST}/W50`, `${LIST}/W99`]) {
       await page.goto(url);
       await expect(
         page.getByRole("heading", { level: 1, name: "Không tìm thấy trang" }),
@@ -563,7 +593,7 @@ test.describe("Luyện Viết — bàn phím, ARIA, bố cục", () => {
   test("Không tràn ngang; chữ Hàn dùng keep-all (không vỡ giữa từ) cả trước và sau khi xem bài mẫu", async ({
     page,
   }) => {
-    for (const url of [LIST, W53, W54]) {
+    for (const url of [LIST, W51, W52, W53, W54]) {
       await page.goto(url);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       await expectNoHorizontalOverflow(page, url);
@@ -669,7 +699,7 @@ test.describe("API Viết gọi trực tiếp", () => {
     expect((await request.get(`/api/practice/writing/prompts?program=${PROGRAM}`)).status()).toBe(
       400,
     );
-    const noType = await request.get(`/api/practice/writing/prompts?program=${PROGRAM}&type=W51`);
+    const noType = await request.get(`/api/practice/writing/prompts?program=${PROGRAM}&type=W99`);
     expect(noType.status()).toBe(404);
     expect((await noType.json()).error.code).toBe("type_not_found");
     expect(

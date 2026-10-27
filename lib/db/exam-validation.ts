@@ -13,6 +13,10 @@ import type { ExamKindCode, ProgramConfig } from "./programs";
  *    tại, sai kỹ năng của phần, câu trùng, bộ group_key thiếu câu hoặc không liền nhau.
  *  - Chỉ chặn khi `published` (draft chỉ cảnh báo): số câu khác blueprint, và luật nhãn đúng của
  *    đề lắp ráp (content-spec §4.1: ~25% mỗi nhãn, không quá 3 câu liền cùng nhãn, không chu kỳ lặp).
+ *  - Phần Viết (`writing`): id câu phải là đề Viết tồn tại (nguồn Viết), không trùng; type_code TĂNG
+ *    DẦN NGHIÊM NGẶT (W51 < W52 < W53 < W54, mỗi dạng một câu) và có điểm trong `writing_points` ->
+ *    LỖI chặn mọi trạng thái. Số câu theo blueprint như các phần khác (draft cảnh báo, published lỗi).
+ *    Luật audio và luật nhãn đúng KHÔNG áp dụng cho Viết.
  *  - Luật audio: mọi câu Nghe (phần `listening`) trong đề phải có `audio_url` khác rỗng; thiếu thì
  *    gộp MỘT cảnh báo liệt kê id thiếu (draft) hoặc MỘT lỗi chặn (published). Áp dụng mọi kind.
  *  - Riêng đề `placement` (Test trình độ), cũng chỉ chặn khi `published`: đề phải phủ đủ bậc độ khó,
@@ -25,8 +29,8 @@ const GROUP_KEY_REGEX = /^([lr])([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
 /** Tối đa 6 giờ cho một phần thi, chặn giá trị rác. */
 const MAX_SECTION_DURATION_SEC = 6 * 60 * 60;
 
-/** Kỹ năng đề thi hiện hỗ trợ: trắc nghiệm. Viết/Nói sẽ thêm khi có trụ chấm tương ứng. */
-export const EXAM_SKILLS = ["listening", "reading"] as const;
+/** Kỹ năng đề thi hiện hỗ trợ: trắc nghiệm (chấm tự động) và Viết (người học tự chấm). Nói chưa có. */
+export const EXAM_SKILLS = ["listening", "reading", "writing"] as const;
 export type ExamSkill = (typeof EXAM_SKILLS)[number];
 
 /**
@@ -219,6 +223,11 @@ export function validateExamFile(
 
     checkGroups(section.questions, questions, base, error);
 
+    if (section.skill === "writing") {
+      checkWritingSection(resolved, program, base, error);
+      return; // Viết không có audio, không có nhãn đúng: bỏ qua hai luật bên dưới.
+    }
+
     // Luật audio: đề có phần Nghe thì mọi câu Nghe phải có audio_url (gộp một thông báo).
     if (section.skill === "listening") {
       const noAudio = resolved.filter((r) => !r.audio_url || r.audio_url.trim() === "");
@@ -255,6 +264,36 @@ export function validateExamFile(
   }
 
   return exam;
+}
+
+/**
+ * Luật riêng của phần Viết: type_code tăng dần NGHIÊM NGẶT (đúng thứ tự đề thật, mỗi dạng tối đa một
+ * câu) và mỗi dạng phải có điểm trong `writing_points` (không có thì không tính được điểm tối đa).
+ */
+function checkWritingSection(
+  resolved: readonly ExamQuestionRef[],
+  program: ProgramConfig,
+  base: string,
+  error: Reporter,
+): void {
+  const codes = resolved.map((r) => r.type_code);
+  const bad = codes.findIndex((c, i) => i > 0 && c <= codes[i - 1]!);
+  if (bad >= 0) {
+    error(
+      `${base}.questions`,
+      `các câu Viết phải xếp theo type_code tăng dần và mỗi dạng một câu (W51, W52, W53, W54), đề đang có: ${codes.join(", ")}`,
+      "writing-order",
+    );
+  }
+  for (const ref of resolved) {
+    if (program.writing_points[ref.type_code] === undefined) {
+      error(
+        `${base}.questions`,
+        `chương trình ${program.code} chưa cấu hình điểm (writing_points) cho dạng ${ref.type_code} của câu "${ref.id}"`,
+        "writing-points-missing",
+      );
+    }
+  }
 }
 
 /**

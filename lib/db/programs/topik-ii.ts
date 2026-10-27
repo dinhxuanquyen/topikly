@@ -337,6 +337,8 @@ export const topikII: ProgramConfig = {
     W53: { max_chars: 290, max_cells: 300 },
     W54: { max_chars: 680, max_cells: 700 },
   },
+  // Điểm từng câu Viết TOPIK II (51–52: 10 điểm/câu, 53: 30, 54: 50), tổng 100 = max_score phần Viết.
+  writing_points: { W51: 10, W52: 10, W53: 30, W54: 50 },
   multi_trap_exempt_subskills: [
     "fill_blank_connector",
     "sentence_order",
@@ -349,6 +351,8 @@ export const topikII: ProgramConfig = {
     mini: {
       reading: { question_count: 20, duration_sec: 30 * 60 },
       listening: { question_count: 20, duration_sec: 25 * 60 },
+      // Mini Viết: đủ 4 câu 51–54 / 50 phút (đúng phần Viết của đề thật); người học tự chấm.
+      writing: { question_count: 4, duration_sec: 50 * 60 },
     },
     // Test trình độ: ~12 câu Đọc, ~15 phút (12 phút quá chặt với bộ R48–50, review P7), phủ độ khó 3–6 (Giai đoạn 1 chưa có Nghe).
     placement: {

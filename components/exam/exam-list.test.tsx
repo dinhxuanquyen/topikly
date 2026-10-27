@@ -89,3 +89,89 @@ describe("ExamList", () => {
     expect(await screen.findByText("Chưa làm")).toBeInTheDocument();
   });
 });
+
+describe("ExamList: đề Viết", () => {
+  const writing: ExamSummary = {
+    id: "viet-01",
+    program: "topik-ii",
+    kind: "mini",
+    title: "Mini test Viết 01",
+    status: "draft",
+    skills: ["writing"],
+    question_count: 4,
+    duration_sec: 3000,
+  };
+
+  it("thẻ hiện kỹ năng Viết, 4 câu, 50 phút và ghi chú tự chấm bằng bài mẫu", async () => {
+    render(<ExamList program="topik-ii" kind="mini" exams={[writing]} label="Danh sách" />);
+    const card = screen.getByRole("link", { name: /Mini test Viết 01/ });
+    expect(card).toHaveAttribute("href", "/topik-ii/de-thi/mini/viet-01");
+    expect(card).toHaveTextContent("4 câu");
+    expect(card).toHaveTextContent("50 phút");
+    expect(card).toHaveTextContent("Viết");
+    expect(card).toHaveTextContent("Phần Viết tự chấm bằng bài mẫu, chưa chấm AI.");
+    expect(await screen.findByText("Chưa làm")).toBeInTheDocument();
+  });
+
+  it("đã nộp nhưng chưa tự chấm: không in điểm 0/0 mà nói chưa tự chấm", async () => {
+    vi.mocked(store.loadExamStatuses).mockResolvedValue({
+      "viet-01": {
+        draft: false,
+        attempts: 1,
+        latest: {
+          score: 0,
+          maxScore: 0,
+          levelLabel: "",
+          isEstimate: true,
+          submittedAt: 1,
+          writingPending: true,
+        },
+      },
+    });
+    render(<ExamList program="topik-ii" kind="mini" exams={[writing]} label="Danh sách" />);
+    expect(await screen.findByText("Lần gần nhất: đã nộp, chưa tự chấm Viết")).toBeInTheDocument();
+    expect(screen.queryByText(/0\/0/)).toBeNull();
+  });
+
+  it("đã tự chấm: hiện điểm Viết tự chấm và cấp ước lượng", async () => {
+    vi.mocked(store.loadExamStatuses).mockResolvedValue({
+      "viet-01": {
+        draft: false,
+        attempts: 2,
+        latest: {
+          score: 70,
+          maxScore: 100,
+          levelLabel: "5급",
+          isEstimate: true,
+          submittedAt: 2,
+          selfScored: true,
+        },
+      },
+    });
+    render(<ExamList program="topik-ii" kind="mini" exams={[writing]} label="Danh sách" />);
+    expect(
+      await screen.findByText("Lần gần nhất: 70/100 · 5급 (ước lượng, Viết tự chấm)"),
+    ).toBeInTheDocument();
+  });
+
+  it("đề có cả Đọc lẫn Viết chưa tự chấm: giữ điểm phần tự động và nhắc chưa tự chấm Viết", async () => {
+    vi.mocked(store.loadExamStatuses).mockResolvedValue({
+      "full-01": {
+        draft: false,
+        attempts: 1,
+        latest: {
+          score: 50,
+          maxScore: 100,
+          levelLabel: "3급",
+          isEstimate: true,
+          submittedAt: 3,
+          writingPending: true,
+        },
+      },
+    });
+    const mixed: ExamSummary = { ...writing, id: "full-01", skills: ["reading", "writing"] };
+    render(<ExamList program="topik-ii" kind="mini" exams={[mixed]} label="Danh sách" />);
+    expect(await screen.findByText("Lần gần nhất: 50/100 · 3급 (ước lượng)")).toBeInTheDocument();
+    expect(screen.getByText("Chưa tự chấm phần Viết")).toBeInTheDocument();
+  });
+});

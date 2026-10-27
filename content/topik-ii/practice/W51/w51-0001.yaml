@@ -1,0 +1,92 @@
+id: w51-0001
+type_code: W51
+subskill: practical_completion
+difficulty: 3
+tags: [topic:housing, topic:daily-life, genre:notice, grammar:-(으)시기-바랍니다]
+source: original
+authored_by: topik-content-designer
+created_at: 2026-10-26
+reviewed_by: null
+reviewed_at: null
+notes_internal: |
+  Tình huống tự soạn: bài đăng trên bảng tin chung cư của người nhận nhầm một kiện hàng (cùng số căn, khác tòa) và đang giữ hộ. Văn bản thực dụng kiểu 안내문/게시글, văn phong -습니다 nên register là formal_polite.
+  Độ dài passage: 175 ký tự theo §5.7 (tính khoảng trắng, bỏ xuống dòng), gồm cả dòng tiêu đề (20) và dòng ký tên "101동 503호" (9); thân bài 146. Đếm tay từng câu: 36 + 28 + 35 + 20 + 23 + 4 khoảng trắng giữa câu = 146. Reviewer đếm lại khớp 175. Gần biên trên 180 của §4.6; nếu muốn ngắn hơn thì bỏ "저녁에 " ở câu 1 (−4).
+  Căn cứ của hai chỗ trống: ㉠ dựa vào tiêu đề ("잘못 배달된") và câu ngay sau ("동은 다르고 호수만 같아서 …"); ㉡ dựa vào chủ ngữ tôn kính "이 택배의 주인이신 분은", câu sau ("평일에는 저녁 7시 이후에 집에 있습니다") và dòng ký tên (người viết ở 101동 503호).
+  Difficulty 3: từ vựng đời sống, hai căn cứ đều nằm sát chỗ trống. Từ khó nhất (헷갈리다, 보관하다) không quyết định đáp án.
+  F1 (bản quyền): người soạn và reviewer (content/_reviews/2026-10-26-mini-viet-01.md) đều không thấy đề W51 NIIED hay sách nào có tình huống "kiện hàng giao nhầm do cùng số căn khác tòa".
+  Bản sửa 2026-10-26 theo FIX của content/_reviews/2026-10-26-mini-viet-01.md (passage không đổi, vẫn 175 ký tự):
+  - ㉠ đáp án 2 đổi thành "저희 집 주소가 아니라 다른 동 주소였습니다" (bản cũ ghép "주소 … 저희 집이 아니라" không cân); đáp án 3 đổi thành "저희 집으로 와야 할 택배가 아니었습니다" (bản cũ "저희 집으로 온 택배가 아니었습니다" mâu thuẫn: hàng đã đến nhà người viết).
+  - ㉡ đáp án 1 đổi thành "101동 503호로 찾으러 오시기 바랍니다" (bỏ "저녁 7시 이후에" lặp câu sau; thêm 동 vì chủ hàng cũng ở một căn 503호). required_elements_vi của ㉡ ghi rõ không cần nhắc lại giờ. Partial "503호로 찾으러 오세요" đổi thành "101동 503호로 찾으러 오세요" cho khớp.
+  - Lý do của mọi partial_answers chuyển từ comment YAML (bị mất khi parse) vào note_vi của từng chỗ trống; thêm partial ㉠ "동이 달랐습니다", ㉡ "와서 가져가기 바랍니다". common_mistakes_vi mục 3 và 5 ghi rõ mức điểm một phần; scoring_notes_vi liệt kê đủ các trường hợp một phần.
+  - "Đáng chú ý": bỏ 평일 (từ sơ cấp), thêm 호수 (號數); mục 기사님 thêm cảnh báo "kỹ sư" và 기사 (記事). Vẫn 8 mục.
+  - Không nhận hai gợi ý tuỳ chọn: thêm ㉠ "다른 동 주소가 적혀 있었습니다" (lặp 주소 với vế "주소를 확인해 보니") và ㉡ "저희 집으로 오시면 택배를 돌려 드리겠습니다" (chủ ngữ của vế sau là người viết, dễ làm người học lẫn với lỗi "sai chủ thể" mà rejected_answers đang giải thích).
+  Cho hanviet-lexicographer: các từ 택배 (宅配), 배달 (配達), 보관 (保管), 동 (棟 / 洞), 호수 (號數 / 湖水), 기사 (技士 / 記事), 헷갈리다 chưa có trong words; tag grammar:-(으)시기-바랍니다 chưa có trong grammar_points. Cần xác nhận: âm Hán Việt "hiệu số" cho 號數 (號 hiệu, 數 đọc "số" theo nghĩa con số) và trường false_friend của 호수 (號數) (người soạn và reviewer ghi là bạn giả hoàn toàn với "hiệu số" = kết quả phép trừ) và 기사 (技士) (chưa gắn loại bạn giả, chỉ cảnh báo nhầm với "kỹ sư").
+stem: "다음 글의 ㉠과 ㉡에 알맞은 말을 각각 한 문장으로 쓰십시오."
+register: formal_polite
+passage: |
+  잘못 배달된 택배를 보관하고 있습니다
+  어제 저녁에 저희 집 문 앞에 택배 상자가 하나 놓여 있었습니다. 그런데 상자에 적힌 주소를 확인해 보니 ( ㉠ ). 동은 다르고 호수만 같아서 택배 기사님이 헷갈리신 것 같습니다. 이 택배의 주인이신 분은 ( ㉡ ). 평일에는 저녁 7시 이후에 집에 있습니다.
+  101동 503호
+blanks:
+  - label: "㉠"
+    accepted_answers:
+      - 저희 집 주소가 아니었습니다
+      - 저희 집 주소가 아니라 다른 동 주소였습니다
+      - 저희 집으로 와야 할 택배가 아니었습니다
+      - 다른 동으로 가야 할 택배였습니다
+      - 잘못 배달된 택배였습니다
+    partial_answers:
+      - 저희 집 주소가 아니었어요
+      - 다른 동 주소
+      - 주소가 달랐습니다
+      - 동이 달랐습니다
+    rejected_answers:
+      - { text: "저희 집 주소였습니다", reason_vi: "Ngược với tiêu đề '잘못 배달된 택배' và với câu sau '동은 다르고 호수만 같아서' (kiện hàng không phải của nhà người viết)." }
+      - { text: "주소가 적혀 있지 않았습니다", reason_vi: "Mâu thuẫn với câu sau: người viết biết kiện hàng thuộc tòa khác, cùng số căn, tức là trên hộp có ghi địa chỉ." }
+    required_elements_vi:
+      - "Nội dung: điều người viết phát hiện khi xem địa chỉ, tức là địa chỉ trên hộp không phải nhà mình (thuộc nhà khác/tòa khác). Nhắc 'tòa khác' (다른 동) thì tốt nhưng không bắt buộc."
+      - "Câu hoàn chỉnh nối tiếp '-아/어 보니', đuôi -습니다 (thường là -았/었습니다) cho khớp văn phong của bài."
+    note_vi: "Đừng chép lại câu sau ('동은 다르고 호수만 같아서…') vào ㉠. Câu đó là lời giải thích cho điều ở ㉠, nên ㉠ phải nói kết quả phát hiện, còn lý do để câu sau nói. Các câu sau chỉ được điểm một phần: '저희 집 주소가 아니었어요' (đúng ý nhưng dùng -요 trong văn bản -습니다); '다른 동 주소' (chỉ là cụm danh từ, chưa thành câu); '주소가 달랐습니다' (mơ hồ: không nói khác với địa chỉ nào, lại lặp 주소 của vế trước); '동이 달랐습니다' (chỉ lặp lý do mà câu sau sẽ nói, chưa nêu rõ đây không phải hàng của nhà mình)."
+  - label: "㉡"
+    accepted_answers:
+      - 101동 503호로 찾으러 오시기 바랍니다
+      - 저희 집에 오셔서 택배를 찾아가시기 바랍니다
+      - 101동 503호로 오셔서 가져가 주십시오
+      - 택배를 찾아가 주시기 바랍니다
+    partial_answers:
+      - 101동 503호로 찾으러 오세요
+      - 503호로 오시기 바랍니다
+      - 연락해 주시기 바랍니다
+      - 와서 가져가기 바랍니다
+    rejected_answers:
+      - { text: "택배를 다시 보내 드리겠습니다", reason_vi: "Sai chủ thể: chủ ngữ là '이 택배의 주인이신 분은' nên cần lời đề nghị dành cho chủ hàng, không phải lời hứa của người viết. Câu sau ('저녁 7시 이후에 집에 있습니다') cho thấy người viết chờ chủ hàng đến lấy." }
+      - { text: "경비실에 택배를 맡기겠습니다", reason_vi: "Sai chủ thể và nằm ngoài văn bản: tiêu đề nói người viết đang tự giữ kiện hàng (보관하고 있습니다), câu sau báo giờ người viết có ở nhà để chủ hàng tới lấy." }
+    required_elements_vi:
+      - "Nội dung: đề nghị chủ hàng đến nhà người viết để lấy lại kiện hàng. Nêu nơi đến (저희 집, 101동 503호) thì tốt nhưng không bắt buộc. Không cần nhắc lại giờ vì câu sau đã nói; nhắc lại sẽ thành lặp ý."
+      - "Lời đề nghị lịch sự, trang trọng có kính ngữ: -(으)시기 바랍니다 / -아/어 주시기 바랍니다 / -(으)십시오, khớp chủ ngữ tôn kính '주인이신 분은'."
+    note_vi: "Đọc kỹ chủ ngữ đứng ngay trước chỗ trống ('이 택배의 주인이신 분은'): ㉡ là việc chủ hàng cần làm. Câu sau ('평일에는 저녁 7시 이후에 집에 있습니다') cho biết việc đó là đến nhà người viết. Các câu sau chỉ được điểm một phần: '101동 503호로 찾으러 오세요' (đúng ý nhưng dùng -요 trong văn bản -습니다); '503호로 오시기 바랍니다' (thiếu việc lấy hàng, và chủ hàng cũng ở một căn 503호 nên thiếu 동 thì mơ hồ); '연락해 주시기 바랍니다' (bài không có số điện thoại, câu sau cho thấy chủ hàng cần đến nhà); '와서 가져가기 바랍니다' (thiếu -시-, không khớp chủ ngữ tôn kính '주인이신 분은')."
+scoring_notes_vi: |
+  Mỗi chỗ trống chấm riêng. Cách chia điểm từng phần theo cấu hình chương trình [cần đối chiếu A12].
+  Điểm tối đa: đúng nội dung theo required_elements_vi, đúng văn phong -습니다 (formal_polite), có kính ngữ ở ㉡, và là MỘT câu hoàn chỉnh.
+  Điểm một phần: đúng ý nhưng sai văn phong (dùng -아요/-세요); thiếu kính ngữ chủ thể ở ㉡ ("와서 가져가기 바랍니다"); chỉ viết cụm danh từ; ㉠ nói mơ hồ ("주소가 달랐습니다") hoặc chỉ lặp lý do của câu sau ("동이 달랐습니다"); ㉡ thiếu việc lấy hàng ("503호로 오시기 바랍니다") hoặc đề nghị không khớp căn cứ ("연락해 주시기 바랍니다", bài không có số điện thoại). Lý do từng trường hợp ghi ở note_vi của mỗi chỗ trống.
+  0 điểm: ngược nghĩa (㉠ "là địa chỉ nhà mình"), sai chủ thể ở ㉡ (lời hứa của người viết thay cho lời đề nghị với chủ hàng), lạc ý, hoặc chép lại nguyên câu trước/sau chỗ trống.
+common_mistakes_vi:
+  - "Dịch 'đến lấy' thành '와서 가지세요' hoặc '가지시기 바랍니다'. 가지다 là 'có, cầm giữ'; 'lấy rồi mang đi' phải là 가져가다 hoặc 찾아가다."
+  - "Trộn -요 (오세요, 아니었어요) vào thông báo đang viết -습니다. W51 chấm cả việc giữ đúng văn phong của văn bản."
+  - "Ở ㉠ viết lại lý do của câu sau ('동이 달랐습니다', '동이 달라서 잘못 왔습니다') thay vì nói điều phát hiện được; vừa lặp ý câu sau vừa thiếu ý chính, nên chỉ được điểm một phần."
+  - "Bỏ qua chủ ngữ '이 택배의 주인이신 분은' nên ㉡ thành lời hứa của người viết ('제가 갖다 드리겠습니다'), sai chủ thể."
+  - "Thiếu kính ngữ chủ thể: chủ ngữ là '주인이신 분은' nên động từ cũng phải có -시- ('오셔서 가져가시기 바랍니다'). Viết '와서 가져가기 바랍니다' chỉ được điểm một phần."
+  - "Viết hai câu cho một chỗ trống, ví dụ '503호로 오십시오. 택배를 드리겠습니다.' Mỗi chỗ trống chỉ được một câu."
+explanation_vi: |
+  **Phân tích đề:** bài đăng trên bảng tin chung cư, văn phong -습니다. Người viết nhận nhầm một kiện hàng và đang giữ hộ. Có 2 chỗ trống, mỗi chỗ viết một câu -습니다. ㉠ là điều phát hiện khi xem địa chỉ; ㉡ là lời đề nghị với chủ hàng.
+  **Dàn ý:** ㉠ = "địa chỉ trên hộp không phải nhà tôi (là tòa khác)", viết ở thì quá khứ sau "확인해 보니". ㉡ = "mời chủ hàng đến nhà tôi lấy hàng", dùng -(으)시기 바랍니다 hoặc -(으)십시오.
+  **Lưu ý:** ㉠: tiêu đề "잘못 배달된 택배" (kiện hàng giao nhầm) và câu sau "동은 다르고 호수만 같아서 택배 기사님이 헷갈리신 것 같습니다" (khác tòa, chỉ trùng số căn nên chắc anh giao hàng nhầm) cho biết địa chỉ trên hộp là của nhà khác. "그런데" báo hiệu điều bất ngờ, ngược với việc hộp nằm trước cửa nhà mình. ㉡: chủ ngữ "이 택배의 주인이신 분은" (người là chủ kiện hàng này) đòi một lời đề nghị dành cho chủ hàng, có kính ngữ. Câu sau "평일에는 저녁 7시 이후에 집에 있습니다" (ngày thường tôi ở nhà sau 7 giờ tối) và dòng ký tên "101동 503호" cho biết chủ hàng cần đến nhà người viết để lấy.
+  **Đáng chú ý:**
+  - 택배 (宅配 – trạch phối) – dịch vụ giao hàng tận nhà; kiện hàng được giao
+  - 배달되다 (配達 – phối đạt) – được giao tới; 잘못 배달되다 = bị giao nhầm
+  - 보관하다 (保管 – bảo quản) – cất giữ, giữ hộ; ở đây người viết giữ hộ kiện hàng cho chủ
+  - 동 (棟 – đống) – tòa nhà trong khu chung cư; "101동 503호" = căn 503, tòa 101. Khác 동 (洞 – động) – phường trong địa chỉ hành chính (○○동)
+  - 호수 (號數 – hiệu số) – số phòng, số căn ("101동 503호" = căn số 503); khác "hiệu số" (kết quả phép trừ) trong tiếng Việt; cũng khác 호수 (湖水 – hồ thủy) – cái hồ
+  - 기사님 (技士 – kỹ sĩ) – cách gọi lịch sự tài xế, nhân viên giao hàng (택배 기사); không phải "kỹ sư"; khác 기사 (記事 – ký sự) – bài báo
+  - 헷갈리다 – nhầm lẫn, lẫn lộn
+  - -(으)시기 바랍니다 – mong quý vị vui lòng …; lời đề nghị trang trọng hay dùng trong thông báo

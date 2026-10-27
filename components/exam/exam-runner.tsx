@@ -14,6 +14,7 @@ import { choiceGroupId, ExamBlockView, questionHeadingId } from "./exam-block";
 import { ExamIntro } from "./exam-intro";
 import { ExamNav } from "./exam-nav";
 import { ExamResultView } from "./exam-result-view";
+import { ExamWritingView } from "./exam-writing";
 import { ExamAudioProvider } from "@/components/audio/exam-audio-context";
 import {
   audioPlayedFromDraft,
@@ -21,6 +22,7 @@ import {
   buildSubmitRequest,
   clampBlockIndex,
   countAnswered,
+  countIncompleteWriting,
   countMarked,
   EMPTY_SESSION,
   listBlocks,
@@ -29,10 +31,20 @@ import {
   sessionFromDraft,
   sessionReducer,
   timeWarning,
+  type ExamAttempt,
   type ExamSession,
   type FlatQuestion,
+  type SelfPoints,
 } from "./exam-state";
-import { clearDraft, loadDraft, loadLatestResult, saveDraft, saveResult } from "./exam-store";
+import {
+  clearDraft,
+  loadDraft,
+  loadLatestAttempt,
+  saveDraft,
+  saveResult,
+  saveSelfPoints,
+  stashDraft,
+} from "./exam-store";
 import { SubmitDialog } from "./submit-dialog";
 
 type Phase = "loading" | "intro" | "running" | "result";
@@ -45,6 +57,9 @@ interface SubmitState {
 }
 
 const IDLE: SubmitState = { status: "idle", error: null, timedOut: false };
+
+/** Độ trễ gộp các lần gõ bài Viết trước khi ghi bản nháp (đáp án trắc nghiệm ghi ngay). */
+export const WRITING_DRAFT_DEBOUNCE_MS = 400;
 
 interface ExamRunnerProps {
   exam: PublicExam;
@@ -87,7 +102,9 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
   const [blockIndex, setBlockIndex] = useState(0);
   const [result, setResult] = useState<ExamResult | null>(null);
   const [resultSaved, setResultSaved] = useState<boolean | null>(null);
-  const [lastResult, setLastResult] = useState<ExamResult | null>(null);
+  const [lastAttempt, setLastAttempt] = useState<ExamAttempt | null>(null);
+  // Điểm tự chấm Viết của kết quả đang xem (đề có phần Viết).
+  const [selfPoints, setSelfPoints] = useState<SelfPoints>({});
   const [submit, setSubmit] = useState<SubmitState>(IDLE);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
@@ -113,10 +130,15 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
   const previousBlockRef = useRef(0);
   const submittingRef = useRef(false);
   const expiredRef = useRef(false);
-  const latest = useRef({ session, startedAt });
+  const latest = useRef({ session, startedAt, blockIndex, audioPlayed, phase });
+  // Bản nháp chờ ghi vì người học đang gõ bài Viết (ghi nốt khi rời trang).
+  const pendingDraftRef = useRef(false);
+  const lastWritingRef = useRef(session.writing);
+  // Chuỗi các lần ghi IndexedDB của kết quả: điểm tự chấm chỉ ghi sau khi bản ghi kết quả đã có.
+  const resultWritesRef = useRef<Promise<unknown>>(Promise.resolve());
 
   useEffect(() => {
-    latest.current = { session, startedAt };
+    latest.current = { session, startedAt, blockIndex, audioPlayed, phase };
   });
 
   // ---- nộp bài (thủ công hoặc do hết giờ)
@@ -138,13 +160,17 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
         );
         const response = await submitExam(request);
         setResult(response);
-        setLastResult(response);
+        setLastAttempt({ result: response, selfPoints: {} });
+        setSelfPoints({});
         setSubmit(IDLE);
         setPhase("result");
-        const [saved] = await Promise.all([
+        pendingDraftRef.current = false;
+        const writes = Promise.all([
           saveResult(response),
           clearDraft(exam.program, exam.kind, exam.id),
         ]);
+        resultWritesRef.current = writes;
+        const [saved] = await writes;
         setResultSaved(saved);
       } catch (error) {
         setSubmit({
@@ -165,10 +191,10 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
     void (async () => {
       const [draft, lastSaved] = await Promise.all([
         loadDraft(exam.program, exam.kind, exam.id),
-        loadLatestResult(exam.program, exam.kind, exam.id),
+        loadLatestAttempt(exam.program, exam.kind, exam.id),
       ]);
       if (cancelled) return;
-      setLastResult(lastSaved);
+      setLastAttempt(lastSaved);
       if (!draft) {
         setPhase("intro");
         return;
@@ -215,19 +241,66 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
     };
   }, [phase, startedAt, exam.duration_sec, runSubmit]);
 
-  // ---- tự lưu bài làm dở mỗi khi đáp án / đánh dấu / khối đang xem đổi
+  // ---- tự lưu bài làm dở mỗi khi đáp án / đánh dấu / khối đang xem / bài Viết đổi.
+  // Đáp án trắc nghiệm ghi ngay; riêng bài Viết đang gõ thì gộp lần gõ (debounce) rồi mới ghi.
   useEffect(() => {
     if (phase !== "running" || startedAt === null) return;
     let cancelled = false;
-    void saveDraft(buildDraft(exam, session, startedAt, blockIndex, Date.now(), audioPlayed)).then(
-      (ok) => {
+    const typing = lastWritingRef.current !== session.writing;
+    lastWritingRef.current = session.writing;
+    const write = () => {
+      pendingDraftRef.current = false;
+      void saveDraft(
+        buildDraft(exam, session, startedAt, blockIndex, Date.now(), audioPlayed),
+      ).then((ok) => {
         if (!cancelled) setDraftSaved(ok);
-      },
-    );
+      });
+    };
+    if (!typing) {
+      write();
+      return () => {
+        cancelled = true;
+      };
+    }
+    pendingDraftRef.current = true;
+    // Sao đồng bộ ngay (localStorage): IndexedDB chờ gộp lần gõ nên không kịp nếu trang đóng/tải lại.
+    stashDraft(buildDraft(exam, session, startedAt, blockIndex, Date.now(), audioPlayed));
+    const timer = window.setTimeout(write, WRITING_DRAFT_DEBOUNCE_MS);
     return () => {
       cancelled = true;
+      window.clearTimeout(timer);
     };
   }, [phase, startedAt, session, blockIndex, exam, audioPlayed]);
+
+  // ---- rời trang / đóng tab / chuyển trang trong ứng dụng: ghi nốt bài Viết đang chờ
+  useEffect(() => {
+    const flush = () => {
+      if (!pendingDraftRef.current) return;
+      pendingDraftRef.current = false;
+      const current = latest.current;
+      if (current.phase !== "running" || current.startedAt === null) return;
+      const draft = buildDraft(
+        exam,
+        current.session,
+        current.startedAt,
+        current.blockIndex,
+        Date.now(),
+        current.audioPlayed,
+      );
+      stashDraft(draft);
+      void saveDraft(draft);
+    };
+    const onHidden = () => {
+      if (document.visibilityState === "hidden") flush();
+    };
+    window.addEventListener("pagehide", flush);
+    document.addEventListener("visibilitychange", onHidden);
+    return () => {
+      window.removeEventListener("pagehide", flush);
+      document.removeEventListener("visibilitychange", onHidden);
+      flush();
+    };
+  }, [exam]);
 
   // ---- focus: sang đầu khối (hoặc đúng câu được chọn từ bảng số câu) khi đổi khối
   useEffect(() => {
@@ -248,11 +321,13 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
 
   const answered = countAnswered(questions, session);
   const marked = countMarked(questions, session);
+  const incompleteWriting = countIncompleteWriting(questions, session);
+  const hasWriting = useMemo(() => blocks.some((ref) => ref.kind === "writing"), [blocks]);
   const currentBlock = blocks[blockIndex];
 
   // ---- phím 1–4 chọn đáp án của câu đang xem (ngoài phím mũi tên của radio)
   useEffect(() => {
-    if (phase !== "running" || locked || confirmOpen || !currentBlock) return;
+    if (phase !== "running" || locked || confirmOpen || currentBlock?.kind !== "choice") return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.ctrlKey || event.metaKey || event.altKey) return;
       const target = event.target as HTMLElement | null;
@@ -295,6 +370,9 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
     setResumed(false);
     setAudioPlayed({});
     setDraftSaved(null);
+    lastWritingRef.current = EMPTY_SESSION.writing;
+    pendingDraftRef.current = false;
+    setSelfPoints({});
     setPhase("running");
   }
 
@@ -310,6 +388,21 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
     dispatch({ type: "select", id: questionId, label });
   }
 
+  /** Điểm tự chấm đổi: cập nhật bản đang xem và ghi vào kết quả đã lưu (theo thứ tự, sau khi kết quả đã ghi). */
+  function changeSelfPoints(next: SelfPoints) {
+    if (!result) return;
+    const target = result;
+    setSelfPoints(next);
+    setLastAttempt((previous) =>
+      previous && previous.result.submittedAt === target.submittedAt
+        ? { ...previous, selfPoints: next }
+        : previous,
+    );
+    resultWritesRef.current = resultWritesRef.current
+      .catch(() => undefined)
+      .then(() => saveSelfPoints(target, next));
+  }
+
   function goToBlock(index: number) {
     if (index < 0 || index >= blocks.length || index === blockIndex) return;
     setActiveId(null);
@@ -318,9 +411,11 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
 
   function gotoQuestion(question: FlatQuestion) {
     setNavOpen(false);
-    const targetId = questionHeadingId(idPrefix, question.id);
+    // Câu Viết là một khối riêng: đưa focus về tiêu đề khối ("Câu 53" + lệnh đề), không phải tiêu đề
+    // ẩn của câu (nằm dưới lệnh đề nên cuộn tới đó sẽ che mất lệnh đề).
+    const targetId = question.kind === "writing" ? null : questionHeadingId(idPrefix, question.id);
     if (question.blockIndex === blockIndex) {
-      focusAndReveal(document.getElementById(targetId));
+      focusAndReveal(targetId ? document.getElementById(targetId) : blockHeadingRef.current);
       return;
     }
     focusTargetRef.current = targetId;
@@ -353,11 +448,12 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
         <ExamIntro
           exam={exam}
           ready={phase === "intro"}
-          lastResult={lastResult}
+          lastResult={lastAttempt?.result ?? null}
           onStart={start}
           onViewLastResult={() => {
-            if (!lastResult) return;
-            setResult(lastResult);
+            if (!lastAttempt) return;
+            setResult(lastAttempt.result);
+            setSelfPoints(lastAttempt.selfPoints);
             setResultSaved(null);
             setPhase("result");
           }}
@@ -481,22 +577,46 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
             </div>
           ) : null}
 
-          <ExamAudioProvider value={audioState}>
-            <ExamBlockView
-              key={currentBlock.index}
-              blockRef={currentBlock}
-              session={session}
-              locked={locked}
-              idPrefix={idPrefix}
-              headingRef={blockHeadingRef}
-              sectionLabel={multiSection ? sectionLabels[currentBlock.sectionIndex] : undefined}
-              onSelect={select}
-              onClear={(id) => dispatch({ type: "clear", id })}
-              onToggleMark={(id) => dispatch({ type: "toggle-mark", id })}
-              onQuestionFocus={setActiveId}
-            />
-          </ExamAudioProvider>
-          <p className="text-xs text-muted-foreground">{t.examRun.choiceHint}</p>
+          {currentBlock.kind === "writing" ? (
+            <>
+              <ExamWritingView
+                key={currentBlock.index}
+                blockRef={currentBlock}
+                answer={session.writing[currentBlock.item.prompt.id]}
+                marked={Boolean(session.marked[currentBlock.item.prompt.id])}
+                locked={locked}
+                idPrefix={idPrefix}
+                headingRef={blockHeadingRef}
+                sectionLabel={multiSection ? sectionLabels[currentBlock.sectionIndex] : undefined}
+                onChangeText={(id, text) => dispatch({ type: "write-text", id, text })}
+                onChangeBlank={(id, label, text) =>
+                  dispatch({ type: "write-blank", id, label, text })
+                }
+                onToggleMark={(id) => dispatch({ type: "toggle-mark", id })}
+                onFocus={setActiveId}
+              />
+              <p className="text-xs text-muted-foreground">{t.examRun.writingHint}</p>
+            </>
+          ) : (
+            <>
+              <ExamAudioProvider value={audioState}>
+                <ExamBlockView
+                  key={currentBlock.index}
+                  blockRef={currentBlock}
+                  session={session}
+                  locked={locked}
+                  idPrefix={idPrefix}
+                  headingRef={blockHeadingRef}
+                  sectionLabel={multiSection ? sectionLabels[currentBlock.sectionIndex] : undefined}
+                  onSelect={select}
+                  onClear={(id) => dispatch({ type: "clear", id })}
+                  onToggleMark={(id) => dispatch({ type: "toggle-mark", id })}
+                  onQuestionFocus={setActiveId}
+                />
+              </ExamAudioProvider>
+              <p className="text-xs text-muted-foreground">{t.examRun.choiceHint}</p>
+            </>
+          )}
 
           <div className="flex items-center justify-between gap-2 border-t border-border pt-4">
             <Button
@@ -507,7 +627,7 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
               onClick={() => goToBlock(blockIndex - 1)}
             >
               <ChevronLeft aria-hidden />
-              {t.examRun.prevBlock}
+              {currentBlock.kind === "writing" ? t.examRun.prevQuestion : t.examRun.prevBlock}
             </Button>
             {isLastBlock ? (
               <Button
@@ -525,7 +645,7 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
                 className="h-11 px-4"
                 onClick={() => goToBlock(blockIndex + 1)}
               >
-                {t.examRun.nextBlock}
+                {currentBlock.kind === "writing" ? t.examRun.nextQuestion : t.examRun.nextBlock}
                 <ChevronRight aria-hidden />
               </Button>
             )}
@@ -541,6 +661,8 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
           listHref={listHref}
           saved={resultSaved}
           passRatio={passRatio}
+          initialSelfPoints={selfPoints}
+          onSelfPointsChange={changeSelfPoints}
           onRetry={restart}
         />
       ) : null}
@@ -549,6 +671,8 @@ export function ExamRunner({ exam, practiceTypeCodes, listHref, passRatio }: Exa
         <SubmitDialog
           blank={questions.length - answered}
           marked={marked}
+          hasWriting={hasWriting}
+          incomplete={incompleteWriting}
           onCancel={() => setConfirmOpen(false)}
           onConfirm={() => void runSubmit(false)}
         />

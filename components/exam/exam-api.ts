@@ -3,17 +3,25 @@
  * Lỗi được gói thành ExamSubmitError với `message` tiếng Việt, hiển thị thẳng cho người học.
  */
 import { t } from "@/components/i18n";
-import type { ExamApiErrorBody, ExamResult, ExamSubmitRequest } from "@/lib/exam/types";
+import type {
+  ExamApiErrorBody,
+  ExamErrorCode,
+  ExamResult,
+  ExamSubmitRequest,
+} from "@/lib/exam/types";
 
 export class ExamSubmitError extends Error {
   readonly kind: "network" | "api";
   readonly status?: number;
+  /** Mã lỗi của API (vd. "invalid_writing_answer"); undefined với lỗi mạng hoặc phản hồi lạ. */
+  readonly code?: ExamErrorCode;
 
-  constructor(kind: "network" | "api", message: string, status?: number) {
+  constructor(kind: "network" | "api", message: string, status?: number, code?: ExamErrorCode) {
     super(message);
     this.name = "ExamSubmitError";
     this.kind = kind;
     this.status = status;
+    this.code = code;
   }
 }
 
@@ -50,8 +58,16 @@ export async function submitExam(
   }
 
   if (!response.ok) {
-    const message = isApiErrorBody(body) ? body.error.message : t.examRun.errors.server;
-    throw new ExamSubmitError("api", message, response.status);
+    if (isApiErrorBody(body)) {
+      const { code, message } = body.error;
+      // Bài Viết sai hình dạng / quá dài: nói rõ bài làm còn nguyên, kèm lý do tiếng Việt của server.
+      const text =
+        code === "invalid_writing_answer"
+          ? `${t.examRun.errors.invalidWriting} (${message})`
+          : message;
+      throw new ExamSubmitError("api", text, response.status, code);
+    }
+    throw new ExamSubmitError("api", t.examRun.errors.server, response.status);
   }
   return body as ExamResult;
 }

@@ -85,9 +85,14 @@ function makeRootWithW51(): string {
 }
 
 describe("writing-source: dữ liệu thật content/topik-ii", () => {
-  it("liệt kê dạng Viết có đề (W53, W54) kèm tên, nhóm, định dạng, khung ký tự", () => {
-    const types = listWritingTypes("topik-ii");
-    expect(types.map((t) => t.type_code)).toEqual(["W53", "W54"]);
+  it("liệt kê dạng Viết có đề (W51–W54) kèm tên, nhóm, định dạng, khung ký tự", () => {
+    const all = listWritingTypes("topik-ii");
+    expect(all.map((t) => t.type_code)).toEqual(["W51", "W52", "W53", "W54"]);
+    expect(all.filter((t) => t.format === "fill_blanks").map((t) => t.type_code)).toEqual([
+      "W51",
+      "W52",
+    ]);
+    const types = all.filter((t) => t.format === "essay");
     expect(types[0]).toMatchObject({
       skill: "writing",
       type_group: "W53",
@@ -103,7 +108,7 @@ describe("writing-source: dữ liệu thật content/topik-ii", () => {
     expect(listWritingTypes("khong-co")).toEqual([]);
     expect(listWritingPrompts("khong-co", "W53")).toEqual([]);
     expect(listWritingPrompts("topik-ii", "R10")).toEqual([]);
-    expect(listWritingPrompts("topik-ii", "W51")).toEqual([]);
+    expect(listWritingPrompts("topik-ii", "W55")).toEqual([]);
     expect(getWritingPrompt("topik-ii", "r10-0001")).toBeUndefined();
     expect(getWritingReveal("topik-ii", "khong-co")).toBeUndefined();
   });
@@ -136,7 +141,7 @@ describe("writing-source: dữ liệu thật content/topik-ii", () => {
     const prompts = listWritingTypes("topik-ii").flatMap((t) =>
       listWritingPrompts("topik-ii", t.type_code),
     );
-    expect(prompts).toHaveLength(2);
+    expect(prompts).toHaveLength(4);
     for (const p of prompts) {
       const keys = collectKeys(p);
       for (const key of [...FORBIDDEN_KEYS, ...REVEAL_ONLY_KEYS]) {

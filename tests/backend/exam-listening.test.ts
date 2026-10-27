@@ -338,7 +338,7 @@ describe("đề Mini Nghe: phục vụ và chấm", () => {
         { skill: "listening", correct: 20, total: 20, unanswered: 0, score: 100, max_score: 100 },
       ]);
       expect(all.total_score).toBe(100);
-      expect(all.level.is_estimate).toBe(true);
+      expect(all.level!.is_estimate).toBe(true);
       expect(all.by_type_group.map((g) => g.code)).toEqual(["L09-12"]);
       expect(all.questions[0]!.skill).toBe("listening");
       expect(all.questions[0]!.transcript_vi).toContain("Nữ:");

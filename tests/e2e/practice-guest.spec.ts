@@ -23,7 +23,9 @@ async function pick(page: Page, label: string) {
 const resultRegion = (page: Page) => page.getByRole("region", { name: "Kết quả câu hỏi" });
 const verdict = (page: Page, name: "Đúng" | "Sai" | "Bỏ trống") =>
   resultRegion(page).getByRole("heading", { level: 2, name, exact: true });
-const typeCard = (page: Page, code: string) => page.getByRole("link", { name: new RegExp(code) });
+// Neo ở đầu tên: thẻ dạng khác (vd. L03) có thể nhắc mã dạng này trong mô tả nhóm.
+const typeCard = (page: Page, code: string) =>
+  page.getByRole("link", { name: new RegExp(`^${code}\\b`) });
 
 test.describe("Luyện tập theo dạng — chế độ khách", () => {
   test("Đọc R10: làm bài, xem lời giải, tiến độ hiện ở trang kỹ năng", async ({ page }) => {

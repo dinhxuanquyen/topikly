@@ -8,13 +8,19 @@
  * câu THẬT của đề (Mini ít câu hơn đề thật). Cấp: so điểm tổng (hoặc điểm chiếu lên thang tổng khi
  * đề không phủ hết các phần thi của chương trình) với `level_thresholds`.
  *
+ * Phần Viết (`skill: "writing"`) KHÔNG được chấm: không vào `sections`, `questions`, `by_*`, điểm
+ * tổng hay `level`. Server chỉ kiểm hình dạng bài nộp, đếm ký tự và trả `ExamResult.writing` (bài đã
+ * nộp + bài mẫu) để người học tự chấm (./writing-self-score.ts). Đề không có phần tự động (Mini Viết)
+ * có `sections: []` và `level: null`.
+ *
  * Đề `placement` (Test trình độ) thêm `ExamResult.placement` (xem ./placement.ts).
  */
 import type { ProgramConfig } from "@/lib/db/programs";
 import { gradeQuestion } from "@/lib/practice/check";
 import { CHOICE_LABELS, type ChoiceLabel } from "@/lib/practice/types";
+import { comparedScoreOf, levelFromThresholds } from "./level";
 import { estimatePlacement, type PlacementItem } from "./placement";
-import type { FullExam } from "./source";
+import type { FullExam, FullExamSection } from "./source";
 import type {
   BreakdownRow,
   ExamResult,
@@ -22,6 +28,7 @@ import type {
   QuestionResult,
   SectionResult,
 } from "./types";
+import { buildWritingReview } from "./writing-review";
 
 /** Đáp án không phải ①–④ (hoặc không phải chuỗi). Route đổi thành lỗi 400 `invalid_choice`. */
 export class InvalidChoiceError extends Error {
@@ -42,6 +49,12 @@ export interface ScoreMeta {
   timedOut?: boolean;
   /** Thời điểm nộp (ms epoch). Mặc định Date.now(). */
   submittedAt?: number;
+  /**
+   * Bài Viết thô (`ExamSubmitRequest.writing`), chưa tin cậy: kiểm hình dạng trong
+   * `buildWritingReview`, sai thì ném `InvalidWritingAnswerError` (route đổi thành 400
+   * `invalid_writing_answer`). Bỏ qua nếu đề không có phần Viết.
+   */
+  writing?: unknown;
 }
 
 function isChoiceLabel(value: unknown): value is ChoiceLabel {
@@ -59,20 +72,13 @@ export function estimateLevel(
   program: ProgramConfig,
   isEstimate: boolean,
 ): LevelEstimate {
-  const thresholds = [...program.level_thresholds].sort((a, b) => a.min_score - b.min_score);
-  let reached: (typeof thresholds)[number] | undefined;
-  for (const t of thresholds) if (comparedScore >= t.min_score) reached = t;
-  const next = thresholds.find((t) => t.min_score > comparedScore);
-  return {
-    level: reached?.level ?? null,
-    label: reached?.label ?? "Chưa đạt cấp",
-    compared_score: comparedScore,
-    total_max_score: program.total_max_score,
-    is_estimate: isEstimate,
-    next_level: next
-      ? { level: next.level, label: next.label, points_needed: next.min_score - comparedScore }
-      : null,
-  };
+  // Logic thuần nằm ở ./level để máy khách dùng chung khi tính cấp sau khi tự chấm Viết.
+  return levelFromThresholds(
+    comparedScore,
+    program.level_thresholds,
+    program.total_max_score,
+    isEstimate,
+  );
 }
 
 // ------------------------------------------------------------------ chấm đề
@@ -89,6 +95,7 @@ export function scoreExam(
   const subskillAcc = new Map<string, { correct: number; total: number; codes: Set<string> }>();
   const placementItems: PlacementItem[] = [];
   let anySectionShort = false;
+  let writingSection: FullExamSection | undefined;
 
   const bump = (
     map: Map<string, { correct: number; total: number; codes: Set<string> }>,
@@ -104,6 +111,15 @@ export function scoreExam(
   };
 
   for (const section of exam.sections) {
+    if (section.skill === "writing") {
+      // Không chấm: chỉ ghi nhận để dựng `writing` sau khi biết điểm các phần tự động.
+      writingSection = section;
+      const writingConfig = program.sections.find((s) => s.skill === "writing");
+      if (writingConfig && section.question_count < writingConfig.question_count) {
+        anySectionShort = true;
+      }
+      continue;
+    }
     let correct = 0;
     let unanswered = 0;
 
@@ -160,10 +176,26 @@ export function scoreExam(
     exam.sections.some((s) => s.skill === ps.skill),
   );
   const isEstimate = !coversProgram || anySectionShort;
-  const comparedScore =
-    !isEstimate || totalMax === 0
-      ? totalScore
-      : Math.round((totalScore / totalMax) * program.total_max_score);
+  // Đề có Viết: điểm tự động chưa gồm Viết nên luôn chiếu lên thang tổng và coi là ước lượng; cấp
+  // chính thức hơn do giao diện tính sau khi người học tự chấm (projectLevelWithWriting).
+  const levelIsEstimate = isEstimate || writingSection !== undefined;
+  const level =
+    sections.length === 0
+      ? null
+      : estimateLevel(
+          comparedScoreOf(totalScore, totalMax, program.total_max_score, levelIsEstimate),
+          program,
+          levelIsEstimate,
+        );
+  const writing = writingSection
+    ? buildWritingReview(writingSection, meta.writing, {
+        thresholds: [...program.level_thresholds].sort((a, b) => a.min_score - b.min_score),
+        total_max_score: program.total_max_score,
+        auto_score: totalScore,
+        auto_max_score: totalMax,
+        is_estimate: isEstimate,
+      })
+    : undefined;
 
   const groupOrder = new Map(program.type_groups.map((g, i) => [g.group, i]));
   const by_type_group: BreakdownRow[] = [...groupAcc]
@@ -202,7 +234,8 @@ export function scoreExam(
     sections,
     total_score: totalScore,
     total_max_score: totalMax,
-    level: estimateLevel(comparedScore, program, isEstimate),
+    level,
+    ...(writing ? { writing } : {}),
     // Test trình độ: ước lượng cấp xuất phát + kỹ năng con yếu; `level` ở trên chỉ để không vỡ kiểu.
     ...(exam.kind === "placement" ? { placement: estimatePlacement(placementItems, program) } : {}),
     by_type_group,

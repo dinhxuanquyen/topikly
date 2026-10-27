@@ -763,12 +763,17 @@ export const vi = {
     sampleNote: "Đề mẫu đang chờ duyệt nội dung, dùng để thử trình làm bài.",
     questionCount: (n: number) => `${n} câu`,
     minutes: (n: number) => `${n} phút`,
-    skillNames: { reading: "Đọc", listening: "Nghe" },
+    skillNames: { reading: "Đọc", listening: "Nghe", writing: "Viết" },
     statusNew: "Chưa làm",
     statusDraft: "Đang làm dở",
     statusLatest: (score: number, max: number, level: string, estimate: boolean) =>
       `Lần gần nhất: ${score}/${max} · ${level}${estimate ? " (ước lượng)" : ""}`,
     attempts: (n: number) => `${n} lần làm`,
+    statusLatestSelf: (score: number, max: number, level: string) =>
+      `Lần gần nhất: ${score}/${max} · ${level} (ước lượng, Viết tự chấm)`,
+    statusWritingUnscored: "Lần gần nhất: đã nộp, chưa tự chấm Viết",
+    writingPendingSuffix: "Chưa tự chấm phần Viết",
+    writingNote: "Phần Viết tự chấm bằng bài mẫu, chưa chấm AI.",
   },
 
   exam: {
@@ -791,7 +796,13 @@ export const vi = {
       blank: "Mỗi câu chỉ có một đáp án đúng. Câu bỏ trống tính là sai, không bị trừ điểm.",
       guest: "Tiến độ làm dở được lưu tạm trên thiết bị này, không cần tài khoản.",
       audioOnce: "Mỗi bài nghe chỉ phát một lần, không tua.",
+      autoSubmitWriting: "Hết giờ, bài được tự động nộp với những gì bạn đã làm.",
+      noAnswersWriting:
+        "Bài mẫu và lời giải chỉ hiện sau khi nộp bài. Bạn có thể đánh dấu câu để xem lại trước khi nộp.",
+      blankWriting: "Câu Viết bỏ trống được tính 0 điểm khi tự chấm.",
+      writingCount: "Số ký tự tính cả khoảng trắng, không tính xuống dòng.",
     },
+    writingNote: "Phần Viết tự chấm bằng bài mẫu, chưa chấm AI.",
     audioMissing: {
       heading: "Đề này chưa có audio",
       all: (count: number) =>
@@ -835,6 +846,16 @@ export const vi = {
     markHelp: "Đánh dấu câu để xem lại trước khi nộp",
     prevBlock: "Nhóm câu trước",
     nextBlock: "Nhóm câu sau",
+    prevQuestion: "Câu trước",
+    nextQuestion: "Câu sau",
+    writingHint:
+      "Gõ bài trực tiếp vào ô; bài Viết tự lưu nháp trên thiết bị này. Dùng nút chuyển câu hoặc Bảng câu hỏi để sang câu khác.",
+    writing: {
+      truncated: (max: number) =>
+        `Nội dung dán dài hơn giới hạn ${max} ký tự nên phần dư đã bị cắt.`,
+      essayHint: "Số ký tự tính cả khoảng trắng, không tính xuống dòng.",
+      blanksHint: "Mỗi chỗ trống viết đúng một câu hoàn chỉnh, đúng văn phong của đoạn văn.",
+    },
     warn5: "Còn 5 phút. Hãy kiểm tra lại các câu chưa làm.",
     warn1: "Chỉ còn 1 phút. Bài sẽ tự động nộp khi hết giờ.",
     timeUp: "Đã hết giờ, đang nộp bài…",
@@ -846,6 +867,9 @@ export const vi = {
       title: "Nộp bài?",
       blank: (n: number) => `Còn ${n} câu bỏ trống, sẽ tính là sai.`,
       allAnswered: "Bạn đã chọn đáp án cho tất cả các câu.",
+      blankMixed: (n: number) => `Còn ${n} câu bỏ trống, sẽ không được tính điểm.`,
+      allDone: "Bạn đã làm tất cả các câu.",
+      incompleteBlanks: (n: number) => `${n} câu điền chỗ trống mới điền một phần.`,
       marked: (n: number) => `Bạn đang đánh dấu ${n} câu để xem lại.`,
       final: "Sau khi nộp bạn không thể sửa đáp án.",
       back: "Quay lại làm bài",
@@ -855,6 +879,8 @@ export const vi = {
       network:
         "Không kết nối được tới máy chủ. Bài làm của bạn vẫn được giữ, hãy kiểm tra mạng rồi thử lại.",
       server: "Máy chủ chưa chấm được bài. Bài làm của bạn vẫn được giữ, hãy thử lại sau ít phút.",
+      invalidWriting:
+        "Bài Viết chưa hợp lệ. Bài làm của bạn vẫn được giữ, hãy kiểm tra các ô Viết rồi nộp lại.",
       retry: "Thử lại nộp bài",
     },
   },
@@ -902,6 +928,43 @@ export const vi = {
     backToList: "Về danh sách đề",
     saved: "Kết quả được lưu tạm trên thiết bị này (chế độ khách).",
     unsaved: "Không lưu được kết quả trên thiết bị này (có thể do chế độ riêng tư).",
+    writing: {
+      scoreLabel: "Điểm Viết (tự chấm)",
+      levelLabel: "Cấp (ước lượng)",
+      levelLabelWithAuto: "Cấp ước lượng (gồm Viết tự chấm)",
+      unscored: "Chưa tự chấm",
+      unscoredHint:
+        "Đối chiếu từng câu với bài mẫu ở phần bên dưới rồi nhập điểm tự chấm. Điểm Viết và cấp ước lượng sẽ hiện ở đây sau khi bạn chấm ít nhất một câu.",
+      disclaimer:
+        "Đây là ước lượng do bạn tự chấm bằng bài mẫu, chưa chấm AI. Câu chưa nhập điểm tính 0.",
+      scoredCount: (done: number, total: number) => `Đã tự chấm ${done}/${total} câu`,
+      pointsLine: (points: number, max: number) => `Tổng điểm các câu Viết: ${points}/${max}`,
+      totalWithAuto: (score: number, max: number) => `Tổng điểm gồm Đọc/Nghe: ${score}/${max}`,
+      liveStatus: (score: number, max: number, level: string) =>
+        `Điểm Viết tự chấm ${score} trên ${max}. Cấp ước lượng: ${level}.`,
+      liveUnscored: "Chưa tự chấm câu Viết nào.",
+      reviewHeading: "Bài Viết: so sánh và tự chấm",
+      reviewIntro:
+        "Phần Viết chưa được chấm tự động. Mở bài mẫu, đối chiếu với bài của bạn rồi nhập điểm cho từng câu.",
+      itemTitle: (n: number, code: string) => `Câu ${n} · ${code}`,
+      yourAnswer: "Bài của bạn",
+      blankAnswerLabel: (label: string) => `Chỗ trống ${label}`,
+      blankEmpty: "Bạn chưa điền",
+      essayEmpty: "Bạn chưa viết gì.",
+      showCompare: "Xem bài mẫu & tự so sánh",
+      hideCompare: "Ẩn bài mẫu",
+      compareRegion: (n: number) => `Bài mẫu và tự so sánh câu ${n}`,
+      selfScoreLabel: "Tự chấm (ước lượng)",
+      selfScoreMax: (max: number) => `/ ${max} điểm`,
+      selfScoreChip: (points: number, max: number) => `Tự chấm ${points}/${max}`,
+      selfScoreNone: "Chưa tự chấm",
+      quickLabel: "Chọn nhanh",
+      quickValue: (points: number) => `${points} điểm`,
+      hintBlanks: (perBlank: number, count: number) =>
+        `Gợi ý: mỗi chỗ trống tối đa ${perBlank} điểm (${count} chỗ trống). Đối chiếu câu của bạn với đáp án đạt điểm tối đa, đáp án đúng ý nhưng chưa trọn điểm và các đáp án sai trong bài mẫu.`,
+      hintEssay: (max: number, criteria: string) =>
+        `Gợi ý: đối chiếu bài của bạn với bài mẫu theo 3 tiêu chí chấm (${criteria}), rồi cho một điểm chung cho cả câu, tối đa ${max} điểm.`,
+    },
   },
 
   upgrade: {

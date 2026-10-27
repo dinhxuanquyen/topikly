@@ -150,8 +150,8 @@ describe("scoreExam: chấm điểm", () => {
     expect(r.questions.filter((x) => x.selectedLabel === null)).toHaveLength(5);
     expect(r.questions.every((x) => x.correct === (x.questionId === "r01-0001"))).toBe(true);
     // 17/100 -> 51/300: dưới ngưỡng thấp nhất
-    expect(r.level.level).toBeNull();
-    expect(r.level.label).toBe("Chưa đạt cấp");
+    expect(r.level!.level).toBeNull();
+    expect(r.level!.label).toBe("Chưa đạt cấp");
   });
 
   it("không trả lời gì: 0 điểm, vẫn có đầy đủ đáp án để xem lại", () => {
@@ -279,7 +279,7 @@ describe("scoreExam: điểm thật và ước lượng", () => {
       total_max_score: 100,
       is_estimate: false,
     });
-    expect(r.level.level).toBe(2);
+    expect(r.level!.level).toBe(2);
   });
 
   it("đề ít câu hơn cấu hình phần thi: vẫn là ước lượng", () => {
@@ -288,8 +288,8 @@ describe("scoreExam: điểm thật và ước lượng", () => {
       sections: [{ ...readingOnly.sections[0]!, question_count: 50 }],
     };
     const r = scoreExam(miniExam(), ALL_RIGHT, longer);
-    expect(r.level.is_estimate).toBe(true);
-    expect(r.level.compared_score).toBe(100);
+    expect(r.level!.is_estimate).toBe(true);
+    expect(r.level!.compared_score).toBe(100);
   });
 
   it("hai phần thi: tổng điểm là tổng các phần, chiếu lên thang tổng khi thiếu phần", () => {

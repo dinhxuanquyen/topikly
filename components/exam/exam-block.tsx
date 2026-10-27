@@ -8,7 +8,7 @@ import type { ChoiceLabel } from "@/lib/practice/types";
 import { ChoiceList } from "@/components/practice/choice-list";
 import { QuestionMaterial } from "@/components/practice/question-material";
 import { renderInline } from "@/components/practice/rich-text";
-import type { BlockRef, ExamSession } from "./exam-state";
+import type { ChoiceBlockRef, ExamSession } from "./exam-state";
 
 /** Id vòng cổ của nhóm radio một câu, duy nhất trên trang. */
 export function choiceGroupId(idPrefix: string, questionId: string): string {
@@ -21,7 +21,7 @@ export function questionHeadingId(idPrefix: string, questionId: string): string 
 }
 
 interface ExamBlockViewProps {
-  blockRef: BlockRef;
+  blockRef: ChoiceBlockRef;
   session: ExamSession;
   /** true = đã nộp / đang nộp / hết giờ: không đổi đáp án được. */
   locked: boolean;

@@ -1,5 +1,5 @@
 /**
- * Hợp đồng dữ liệu của trụ Đề thi (Giai đoạn 1: Mini test Đọc trước, Full/Hard/IBT dùng lại sau).
+ * Hợp đồng dữ liệu của trụ Đề thi (Giai đoạn 1: Mini test Đọc/Nghe/Viết, Full/Hard/IBT dùng lại sau).
  *
  * File này AN TOÀN CHO CLIENT: chỉ chứa kiểu thuần, không import fs/node, không import zod.
  * Frontend import kiểu từ đây; logic server nằm ở source.ts / score.ts / queries.ts.
@@ -9,14 +9,35 @@
  * `ExamResult`, do server trả về sau POST /api/exam/submit.
  *
  * Số câu, thời gian, thang điểm và ngưỡng cấp đều lấy từ cấu hình chương trình
- * (`ProgramConfig.sections`, `level_thresholds`, `exam_blueprints`), không hard-code.
+ * (`ProgramConfig.sections`, `level_thresholds`, `exam_blueprints`, `writing_points`), không hard-code.
+ *
+ * Hai loại phần thi:
+ *  - Trắc nghiệm (Đọc, Nghe): `PublicExamSection` có `blocks`; server CHẤM TỰ ĐỘNG, kết quả vào
+ *    `ExamResult.sections` / `questions` / `by_*`.
+ *  - Viết: `PublicExamSection` có `writing_items` (và `blocks: []`); server KHÔNG chấm. Kết quả trả
+ *    `ExamResult.writing` (bài đã nộp + đếm ký tự + bài mẫu) để NGƯỜI HỌC TỰ CHẤM, rồi giao diện tính
+ *    điểm ước lượng bằng các hàm thuần ở ./writing-self-score.ts. Đề nhiều phần (Full: Nghe + Viết +
+ *    Đọc) cứ dựng phần theo thứ tự `order`; phần trắc nghiệm chấm như cũ, phần Viết ra riêng.
  */
+import type { LevelThreshold } from "@/lib/db/programs/types";
 import type {
   CheckResponse,
   ChoiceLabel,
   PracticeSkill,
   PublicQuestion,
 } from "@/lib/practice/types";
+import type {
+  CharLimitStatus,
+  WritingFormat,
+  WritingPrompt,
+  WritingReveal,
+} from "@/lib/practice/writing-types";
+
+/**
+ * Kỹ năng của một phần thi: trắc nghiệm (`PracticeSkill`, chấm tự động) hoặc `writing` (tự chấm).
+ * `PracticeSkill` vẫn chỉ gồm reading | listening nên Luyện tập không bị ảnh hưởng.
+ */
+export type ExamSkill = PracticeSkill | "writing";
 
 /** `placement` = Test trình độ: đề ngắn, kết quả có thêm `placement` (ước lượng cấp xuất phát). */
 export type ExamKind = "full" | "mini" | "hard" | "ibt" | "placement";
@@ -34,10 +55,11 @@ export interface ExamSummary {
   /** Tiêu đề tiếng Việt, ví dụ "Mini test Đọc 01". */
   title: string;
   status: ExamStatus;
-  /** Các kỹ năng theo đúng thứ tự phần thi. Mini test có đúng 1 kỹ năng. */
-  skills: PracticeSkill[];
+  /** Các kỹ năng theo đúng thứ tự phần thi. Mini test có đúng 1 kỹ năng. Có thể chứa "writing". */
+  skills: ExamSkill[];
+  /** Tổng số câu các phần, gồm cả câu Viết (Mini Viết = 4). */
   question_count: number;
-  /** Tổng thời gian các phần (giây). */
+  /** Tổng thời gian các phần (giây), gồm cả phần Viết. */
   duration_sec: number;
 }
 
@@ -68,16 +90,46 @@ export interface PublicExamQuestion {
   question: PublicQuestion;
 }
 
-export interface PublicExamSection {
-  skill: PracticeSkill;
+interface PublicExamSectionBase {
   /** Thứ tự phần thi trong đề (1-based). */
   order: number;
   duration_sec: number;
   question_count: number;
   /** Thang điểm của phần (cấu hình chương trình, vd. Đọc TOPIK II = 100). */
   max_score: number;
+}
+
+/** Phần trắc nghiệm (Đọc, Nghe): `blocks` là các khối câu. */
+export interface PublicChoiceSection extends PublicExamSectionBase {
+  skill: PracticeSkill;
   blocks: PublicExamBlock[];
 }
+
+/**
+ * Một câu Viết trong đề công khai: CHỈ đề (`WritingPrompt`), không bài mẫu, đáp án, ý bắt buộc hay
+ * lời giải (những thứ đó nằm ở `WritingReviewItem.reveal` sau khi nộp).
+ */
+export interface PublicWritingItem {
+  /** Vị trí trong phần Viết (1-based, liên tục: 1..4). Số hiển thị "51~54" suy ra từ `prompt.type_code`. */
+  number: number;
+  /** Mã nhóm dạng, ở Viết trùng type_code ("W53"). */
+  type_group: string;
+  /** Điểm tối đa của câu (`ProgramConfig.writing_points`), vd. W51 = 10, W54 = 50. */
+  max_points: number;
+  prompt: WritingPrompt;
+}
+
+/**
+ * Phần Viết: `blocks` luôn rỗng (để code chỉ đọc `section.blocks` không vỡ), danh sách đề ở
+ * `writing_items`, thứ tự W51 -> W54 tăng dần. Narrow bằng `section.skill === "writing"`.
+ */
+export interface PublicWritingSection extends PublicExamSectionBase {
+  skill: "writing";
+  blocks: [];
+  writing_items: PublicWritingItem[];
+}
+
+export type PublicExamSection = PublicChoiceSection | PublicWritingSection;
 
 export interface PublicExam extends ExamSummary {
   sections: PublicExamSection[];
@@ -94,12 +146,29 @@ export interface ExamSubmitRequest {
    * Server bỏ qua khoá không thuộc đề.
    */
   answers: Record<string, string | null>;
+  /**
+   * Bài Viết, khoá = questionId của câu Viết (w51-0001…). Chỉ cần khi đề có phần Viết; đề chỉ có Viết
+   * vẫn gửi `answers: {}`. Hình dạng theo `WritingPrompt.format`:
+   *  - essay (W53–W54): `{ text }`;
+   *  - fill_blanks (W51–W52): `{ blanks: { "㉠": "...", "㉡": "..." } }`, khoá theo nhãn của đề.
+   * Câu thiếu khoá = bỏ trống (chuỗi rỗng). Khoá không thuộc đề bị bỏ qua. Sai hình dạng hoặc quá dài
+   * (`WRITING_TEXT_MAX_CHARS` / `WRITING_BLANK_MAX_CHARS`) -> 400 `invalid_writing_answer`.
+   */
+  writing?: Record<string, ExamWritingAnswer>;
   /** Thời điểm bắt đầu (ms epoch, đồng hồ máy khách). Dùng cho thống kê. */
   startedAt?: number;
   /** Tổng thời gian làm bài (ms). Chế độ khách chưa kiểm ở server; ghi vào `attempts` khi có CSDL. */
   timeSpentMs?: number;
   /** true = hết giờ, máy khách tự nộp. */
   timedOut?: boolean;
+}
+
+/** Bài làm của một câu Viết (máy khách gửi lên, và server trả lại đã chuẩn hoá trong kết quả). */
+export interface ExamWritingAnswer {
+  /** essay (W53–W54): nội dung bài viết. */
+  text?: string;
+  /** fill_blanks (W51–W52): đáp án từng chỗ trống, khoá = nhãn "㉠" / "㉡" của đề. */
+  blanks?: Record<string, string>;
 }
 
 /** Thống kê đúng/tổng cho một nhóm (nhóm dạng, kỹ năng con…). */
@@ -196,6 +265,69 @@ export interface PlacementEstimate {
   weak_subskills: BreakdownRow[];
 }
 
+// ------------------------------------------------------------------ phần Viết trong kết quả
+
+/**
+ * Dữ kiện server nhúng sẵn để máy khách quy điểm tự chấm Viết sang cấp mà KHÔNG phải import cấu hình
+ * chương trình (xem `projectLevelWithWriting`, ./writing-self-score.ts).
+ */
+export interface LevelProjectionBasis {
+  /** Ngưỡng cấp theo điểm tổng, sắp tăng dần theo min_score. */
+  thresholds: LevelThreshold[];
+  /** Thang điểm tổng của chương trình (TOPIK II = 300). */
+  total_max_score: number;
+  /** Điểm các phần chấm tự động (Đọc/Nghe) của đề này; 0 nếu đề chỉ có Viết. */
+  auto_score: number;
+  /** Tổng thang điểm các phần chấm tự động; 0 nếu đề chỉ có Viết. */
+  auto_max_score: number;
+  /**
+   * true = đề không phủ hết phần thi của chương trình hoặc ít câu hơn cấu hình (Mini…): điểm được chiếu
+   * lên thang tổng. false = đề đủ (Full), so thẳng điểm thật với ngưỡng.
+   */
+  is_estimate: boolean;
+}
+
+/** Một câu Viết để xem lại: đề + bài đã nộp + bài mẫu. Chỉ có trong kết quả, sau khi nộp. */
+export interface WritingReviewItem {
+  /** Vị trí trong phần Viết (1-based). */
+  number: number;
+  /** id câu Viết (khoá của `selfPoints` khi tự chấm). */
+  id: string;
+  type_code: string;
+  type_group: string;
+  subskill: string;
+  format: WritingFormat;
+  prompt: WritingPrompt;
+  /** Bài đã nộp, chuẩn hoá: essay có `text`; fill_blanks có `blanks` đủ mọi nhãn (rỗng = ""). */
+  answer: ExamWritingAnswer;
+  /** essay: số ký tự đếm bằng `countChars` ở server. Không có với fill_blanks. */
+  char_count?: number;
+  /** essay có `prompt.char_limit`: dưới / trong / vượt khung. */
+  char_status?: CharLimitStatus;
+  /** Điểm tối đa của câu; ô nhập điểm tự chấm của giao diện chặn trong [0, max_points]. */
+  max_points: number;
+  /** Bài mẫu, đáp án chấp nhận, rubric, lời giải để người học tự so sánh. */
+  reveal: WritingReveal;
+}
+
+/**
+ * Phần Viết của kết quả. Không chấm tự động: `ExamResult.sections`, `questions`, `by_type_group`,
+ * `by_subskill` KHÔNG chứa câu Viết. Người học tự chấm từng câu (0..max_points), giao diện gọi
+ * `projectWritingScore` / `projectLevelWithWriting` để ra điểm phần Viết và cấp ước lượng.
+ */
+export interface WritingReview {
+  /** Thứ tự phần Viết trong đề (1-based). */
+  order: number;
+  duration_sec: number;
+  /** Theo thứ tự trong đề (W51 -> W54). */
+  items: WritingReviewItem[];
+  /** Thang điểm phần Viết của chương trình (TOPIK II = 100). */
+  max_score: number;
+  /** Tổng `max_points` các câu Viết có trong đề (đề đủ 4 câu = `max_score`; đề thiếu câu thì nhỏ hơn). */
+  max_points_total: number;
+  level_basis: LevelProjectionBasis;
+}
+
 export interface ExamResult {
   examId: string;
   program: string;
@@ -204,11 +336,22 @@ export interface ExamResult {
   submittedAt: number;
   timeSpentMs?: number;
   timedOut: boolean;
+  /** Các phần CHẤM TỰ ĐỘNG (Đọc/Nghe). Phần Viết không nằm đây: xem `writing`. Đề chỉ có Viết = []. */
   sections: SectionResult[];
-  /** Tổng điểm các phần đã làm (thang = tổng max_score các phần trong đề). */
+  /**
+   * Tổng điểm các phần chấm tự động (thang = tổng max_score các phần đó). Không gồm Viết; đề chỉ có
+   * Viết thì cả hai bằng 0.
+   */
   total_score: number;
   total_max_score: number;
-  level: LevelEstimate;
+  /**
+   * Cấp ước lượng từ các phần chấm tự động. `null` khi đề không có phần chấm tự động (Mini Viết): khi
+   * đó cấp chỉ có sau khi người học tự chấm (`projectLevelWithWriting`). Đề có cả Viết: cấp ở đây chiếu
+   * riêng điểm Đọc/Nghe lên thang tổng (`is_estimate` = true) vì Viết chưa có điểm.
+   */
+  level: LevelEstimate | null;
+  /** Có khi đề có phần Viết. Xem `WritingReview`. */
+  writing?: WritingReview;
   /** Chỉ có khi kind = "placement". Frontend của Test trình độ dùng trường này thay vì `level`. */
   placement?: PlacementEstimate;
   /** Sắp theo thứ tự nhóm dạng trong cấu hình. */
@@ -220,7 +363,13 @@ export interface ExamResult {
 }
 
 export type ExamErrorCode =
-  "invalid_json" | "invalid_body" | "program_not_found" | "exam_not_found" | "invalid_choice";
+  | "invalid_json"
+  | "invalid_body"
+  | "program_not_found"
+  | "exam_not_found"
+  | "invalid_choice"
+  /** `writing` sai hình dạng so với đề (essay cần text, fill_blanks cần blanks) hoặc quá dài. */
+  | "invalid_writing_answer";
 
 /** Mọi lỗi của /api/exam/* đều có dạng này; `message` là tiếng Việt, hiển thị được cho người học. */
 export interface ExamApiErrorBody {

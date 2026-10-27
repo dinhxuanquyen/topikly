@@ -8,6 +8,8 @@ import {
   LISTEN_TRANSLATION_1,
   LISTEN_TRANSLATION_2,
   RESULT,
+  WRITING_EXAM,
+  WRITING_RESULT,
   withAudio,
 } from "./test-fixtures";
 
@@ -43,7 +45,7 @@ describe("ExamResultView: tổng quan", () => {
         result={{
           ...RESULT,
           timedOut: true,
-          level: { ...RESULT.level, is_estimate: false, next_level: null },
+          level: { ...RESULT.level!, is_estimate: false, next_level: null },
         }}
       />,
     );
@@ -231,5 +233,243 @@ describe("ExamResultView: xem lại câu Nghe", () => {
     fireEvent.click(screen.getByRole("button", { name: "Xem lời thoại" }));
     fireEvent.click(screen.getByRole("checkbox", { name: "Hiện bản dịch tiếng Việt" }));
     expect(screen.getByText(LISTEN_TRANSLATION_1)).toBeInTheDocument();
+  });
+});
+
+describe("ExamResultView: đề có phần Viết", () => {
+  const writingBase = {
+    ...base,
+    result: WRITING_RESULT,
+    exam: WRITING_EXAM,
+  };
+
+  it("đề chỉ có Viết (level null): không vỡ, không dựng bảng theo phần/dạng/kỹ năng con rỗng", () => {
+    render(<ExamResultView {...writingBase} />);
+    expect(screen.getByRole("heading", { level: 2, name: "Kết quả bài làm" })).toHaveFocus();
+    expect(screen.queryByRole("table")).toBeNull();
+    expect(screen.queryByRole("heading", { name: "Kết quả theo phần" })).toBeNull();
+    expect(screen.queryByRole("heading", { name: "Theo nhóm dạng câu" })).toBeNull();
+    expect(screen.queryByRole("heading", { name: "Theo kỹ năng con" })).toBeNull();
+    expect(screen.queryByRole("heading", { name: "Xem lại từng câu" })).toBeNull();
+    expect(screen.queryByText("Cấp (ước lượng)")).toBeNull();
+    expect(screen.getByRole("heading", { name: "Bài Viết: so sánh và tự chấm" })).toBeVisible();
+    // Thời gian làm bài vẫn hiện ở khối Viết vì không có khối cấp tự động.
+    expect(screen.getByText("Thời gian làm bài: 20:00")).toBeInTheDocument();
+  });
+
+  it("chưa tự chấm câu nào: hiện 'Chưa tự chấm' và lời nhắc, không hiện cấp", () => {
+    render(<ExamResultView {...writingBase} />);
+    const summary = screen.getByTestId("writing-summary");
+    expect(summary).toHaveTextContent("Điểm Viết (tự chấm)");
+    expect(summary).toHaveTextContent("Chưa tự chấm");
+    expect(summary).toHaveTextContent("chưa chấm AI");
+    expect(summary).not.toHaveTextContent("급");
+    expect(summary).not.toHaveTextContent("/100");
+  });
+
+  it("mỗi câu hiển thị bài đã nộp: từng chỗ trống W51–W52, bài W53–W54 kèm số ký tự và trạng thái khung", () => {
+    render(<ExamResultView {...writingBase} />);
+    const w51 = screen.getByTestId("writing-review-w51-0001");
+    expect(within(w51).getByRole("heading", { name: "Câu 51 · W51" })).toBeInTheDocument();
+    expect(within(w51).getByText("Chỗ trống ㉠")).toBeInTheDocument();
+    expect(within(w51).getByText("참석할 수 없습니다.")).toHaveAttribute("lang", "ko");
+    expect(within(w51).getByText("미리 말씀드립니다")).toBeInTheDocument();
+
+    const w52 = screen.getByTestId("writing-review-w52-0001");
+    expect(within(w52).getAllByText("Bạn chưa điền")).toHaveLength(2);
+
+    // Khung của fixture W53: 10–20 ký tự; bài nộp 15 ký tự (không tính khoảng trắng cũng đủ) -> trong khung.
+    const w53 = screen.getByTestId("writing-review-w53-0002");
+    expect(within(w53).getByText("열다섯 글자짜리 글입니다 하나둘")).toHaveAttribute("lang", "ko");
+    expect(within(w53).getByText(/^\d+ ký tự$/)).toBeInTheDocument();
+    expect(within(w53).getByText("Trong khung ký tự")).toBeInTheDocument();
+    expect(within(w53).getByText("Khung: 10–20 ký tự")).toBeInTheDocument();
+
+    // W54: bài "짧은 글" (4 ký tự kể cả khoảng trắng) dưới khung 30–60.
+    const w54 = screen.getByTestId("writing-review-w54-0001");
+    expect(within(w54).getByText("4 ký tự")).toBeInTheDocument();
+    expect(within(w54).getByText("Chưa đủ, cần ít nhất 30 ký tự")).toBeInTheDocument();
+    // Bộ đếm tĩnh: không có vùng aria-live đọc lại ở trang kết quả.
+    expect(within(w54).queryByRole("status")).toBeNull();
+  });
+
+  it("nút xem bài mẫu mở phần tự so sánh (đáp án mẫu, lỗi thường gặp, lời giải) và ẩn lại được", () => {
+    render(<ExamResultView {...writingBase} />);
+    const w51 = screen.getByTestId("writing-review-w51-0001");
+    const toggle = within(w51).getByRole("button", { name: /Xem bài mẫu & tự so sánh/ });
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+    expect(within(w51).queryByText("Đáp án đạt điểm tối đa")).toBeNull();
+
+    fireEvent.click(toggle);
+    const region = within(w51).getByRole("region", { name: "Bài mẫu và tự so sánh câu 51" });
+    expect(within(region).getAllByText("Đáp án đạt điểm tối đa")).toHaveLength(2);
+    expect(within(region).getAllByText("Trùng một đáp án đạt điểm tối đa.")).toHaveLength(2);
+    expect(within(region).getByText("Dùng sai văn phong")).toBeInTheDocument();
+    expect(within(region).getByText("Lời giải ngắn.")).toBeInTheDocument();
+    expect(within(w51).getByRole("button", { name: /Ẩn bài mẫu/ })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+
+    fireEvent.click(within(w51).getByRole("button", { name: /Ẩn bài mẫu/ }));
+    expect(within(w51).queryByRole("region")).toBeNull();
+  });
+
+  it("câu essay mở bài mẫu: bài của bạn cạnh bài mẫu, ý bắt buộc và nhận xét theo 3 tiêu chí", () => {
+    render(<ExamResultView {...writingBase} />);
+    const w53 = screen.getByTestId("writing-review-w53-0002");
+    fireEvent.click(within(w53).getByRole("button", { name: /Xem bài mẫu & tự so sánh/ }));
+    expect(within(w53).getByText("Bài mẫu cấp 4")).toBeInTheDocument();
+    expect(within(w53).getByText("Bài của bạn")).toBeInTheDocument();
+    expect(within(w53).getByText("Tự kiểm tra các ý bắt buộc")).toBeInTheDocument();
+    expect(within(w53).getByText("Nhận xét bài mẫu cấp 4 theo 3 tiêu chí")).toBeInTheDocument();
+    expect(within(w53).getByText("Nội dung và thực hiện nhiệm vụ")).toBeInTheDocument();
+    expect(within(w53).getByText("Cấu trúc triển khai bài viết")).toBeInTheDocument();
+    expect(within(w53).getByText("Sử dụng ngôn ngữ")).toBeInTheDocument();
+    // Ý bắt buộc đánh dấu được (chỉ trong phiên xem).
+    const point = within(w53).getAllByRole("checkbox")[0]!;
+    fireEvent.click(point);
+    expect(point).toBeChecked();
+  });
+
+  it("tiêu đề trong khối so sánh nhúng được hạ cấp: không có h2 bên trong thẻ câu", () => {
+    render(<ExamResultView {...writingBase} />);
+    const w53 = screen.getByTestId("writing-review-w53-0002");
+    fireEvent.click(within(w53).getByRole("button", { name: /Xem bài mẫu & tự so sánh/ }));
+    expect(within(w53).queryAllByRole("heading", { level: 2 })).toHaveLength(0);
+    expect(
+      within(w53).getByRole("heading", { level: 3, name: "Câu 53 · W53" }),
+    ).toBeInTheDocument();
+  });
+
+  it("ô tự chấm: nhãn rõ, kẹp theo điểm tối đa, gợi ý khác nhau cho điền chỗ trống và essay", () => {
+    const onChange = vi.fn();
+    render(<ExamResultView {...writingBase} onSelfPointsChange={onChange} />);
+    const w51 = screen.getByTestId("writing-review-w51-0001");
+    const input = within(w51).getByLabelText("Tự chấm (ước lượng)");
+    expect(input).toHaveAttribute("max", "10");
+    expect(within(w51).getByText("/ 10 điểm")).toBeInTheDocument();
+    expect(within(w51).getByText(/mỗi chỗ trống tối đa 5 điểm/)).toBeInTheDocument();
+    expect(input).toHaveAccessibleDescription(/mỗi chỗ trống tối đa 5 điểm/);
+
+    fireEvent.change(input, { target: { value: "99" } });
+    expect(input).toHaveValue(10);
+    expect(onChange).toHaveBeenLastCalledWith({ "w51-0001": 10 });
+
+    const w54 = screen.getByTestId("writing-review-w54-0001");
+    expect(within(w54).getByLabelText("Tự chấm (ước lượng)")).toHaveAttribute("max", "50");
+    const hint = within(w54).getByText(/3 tiêu chí chấm/);
+    expect(hint).toHaveTextContent("Nội dung và thực hiện nhiệm vụ");
+    expect(hint).toHaveTextContent("tối đa 50 điểm");
+
+    fireEvent.change(input, { target: { value: "" } });
+    expect(onChange).toHaveBeenLastCalledWith({});
+  });
+
+  it("nút chọn nhanh cho câu điền chỗ trống: 0, nửa điểm, trọn điểm", () => {
+    const onChange = vi.fn();
+    render(<ExamResultView {...writingBase} onSelfPointsChange={onChange} />);
+    const w52 = screen.getByTestId("writing-review-w52-0001");
+    const group = within(w52).getByRole("group", { name: "Chọn nhanh" });
+    expect(
+      within(group)
+        .getAllByRole("button")
+        .map((b) => b.textContent),
+    ).toEqual(["0 điểm", "5 điểm", "10 điểm"]);
+    fireEvent.click(within(group).getByRole("button", { name: "5 điểm" }));
+    expect(within(group).getByRole("button", { name: "5 điểm" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(onChange).toHaveBeenLastCalledWith({ "w52-0001": 5 });
+    // Câu essay không có nút chọn nhanh.
+    expect(
+      within(screen.getByTestId("writing-review-w53-0002")).queryByRole("group", {
+        name: "Chọn nhanh",
+      }),
+    ).toBeNull();
+  });
+
+  it("tự chấm cập nhật điểm Viết /100 và cấp ước lượng, ghi rõ chưa chấm AI", () => {
+    render(<ExamResultView {...writingBase} />);
+    const set = (id: string, value: string) =>
+      fireEvent.change(
+        within(screen.getByTestId(`writing-review-${id}`)).getByLabelText("Tự chấm (ước lượng)"),
+        { target: { value } },
+      );
+    const summary = screen.getByTestId("writing-summary");
+
+    set("w51-0001", "10");
+    expect(summary).toHaveTextContent("10/100");
+    expect(summary).toHaveTextContent("Chưa đạt cấp");
+    expect(summary).toHaveTextContent("Đã tự chấm 1/4 câu");
+
+    set("w52-0001", "10");
+    set("w53-0002", "20");
+    set("w54-0001", "30");
+    // 70/100 -> 210/300 -> 5급, cần thêm 20 điểm lên 6급.
+    expect(summary).toHaveTextContent("70/100");
+    expect(summary).toHaveTextContent("5급");
+    expect(summary).toHaveTextContent("Cấp (ước lượng)");
+    expect(summary).toHaveTextContent("Đã tự chấm 4/4 câu");
+    expect(summary).toHaveTextContent("tương đương 210/300 điểm");
+    expect(summary).toHaveTextContent("Cần thêm 20 điểm (thang 300) để lên 6급.");
+    expect(summary).toHaveTextContent("ước lượng do bạn tự chấm bằng bài mẫu, chưa chấm AI");
+    expect(within(summary).getByRole("status")).toHaveTextContent(
+      "Điểm Viết tự chấm 70 trên 100. Cấp ước lượng: 5급.",
+    );
+
+    // Xoá điểm một câu -> điểm giảm; xoá hết -> quay lại 'Chưa tự chấm'.
+    set("w54-0001", "");
+    expect(summary).toHaveTextContent("40/100");
+    set("w51-0001", "");
+    set("w52-0001", "");
+    set("w53-0002", "");
+    expect(summary).toHaveTextContent("Chưa tự chấm");
+    expect(summary).not.toHaveTextContent("급");
+  });
+
+  it("điểm tự chấm đã lưu (initialSelfPoints) hiện lại khi mở kết quả", () => {
+    render(
+      <ExamResultView
+        {...writingBase}
+        initialSelfPoints={{ "w51-0001": 8, "w53-0002": 25, "w54-0001": 40 }}
+      />,
+    );
+    expect(screen.getByTestId("writing-summary")).toHaveTextContent("73/100");
+    expect(
+      within(screen.getByTestId("writing-review-w53-0002")).getByLabelText("Tự chấm (ước lượng)"),
+    ).toHaveValue(25);
+    expect(
+      within(screen.getByTestId("writing-review-w52-0001")).getByLabelText("Tự chấm (ước lượng)"),
+    ).toHaveValue(null);
+    expect(screen.getByTestId("writing-review-w51-0001")).toHaveTextContent("Tự chấm 8/10");
+    expect(screen.getByTestId("writing-review-w52-0001")).toHaveTextContent("Chưa tự chấm");
+  });
+
+  it("đề có cả Đọc lẫn Viết: giữ khối điểm tự động và thêm khối Viết, tổng gồm cả hai", () => {
+    const mixed = {
+      ...RESULT,
+      writing: {
+        ...WRITING_RESULT.writing!,
+        level_basis: {
+          ...WRITING_RESULT.writing!.level_basis,
+          auto_score: 50,
+          auto_max_score: 100,
+        },
+      },
+    };
+    render(<ExamResultView {...base} result={mixed} initialSelfPoints={{ "w51-0001": 10 }} />);
+    // Khối chấm tự động như cũ.
+    expect(screen.getByRole("table", { name: "Kết quả theo phần" })).toBeInTheDocument();
+    expect(screen.getByText("Cấp (ước lượng)")).toBeInTheDocument();
+    // Khối Viết: 10/100 điểm Viết, tổng 60/200 -> 90/300 chiếu lên thang tổng.
+    const summary = screen.getByTestId("writing-summary");
+    expect(summary).toHaveTextContent("10/100");
+    expect(summary).toHaveTextContent("Cấp ước lượng (gồm Viết tự chấm)");
+    expect(summary).toHaveTextContent("Tổng điểm gồm Đọc/Nghe: 60/200");
+    expect(summary).toHaveTextContent("tương đương 90/300 điểm");
+    // Thời gian làm bài chỉ hiện một lần (ở khối tự động).
+    expect(screen.getAllByText("Thời gian làm bài: 10:05")).toHaveLength(1);
   });
 });

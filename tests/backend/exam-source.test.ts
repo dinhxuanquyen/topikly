@@ -107,8 +107,18 @@ describe("exam/source: đề mẫu thật content/topik-ii/exams/mini/doc-01", (
         question_count: 20,
         duration_sec: 1500, // blueprint mini.listening
       },
+      {
+        id: "viet-01",
+        program: "topik-ii",
+        kind: "mini",
+        title: "Mini test Viết 01",
+        status: "draft",
+        skills: ["writing"],
+        question_count: 4,
+        duration_sec: 3000, // blueprint mini.writing (50 phút)
+      },
     ]);
-    expect(listExams("topik-ii", "mini")).toHaveLength(2);
+    expect(listExams("topik-ii", "mini")).toHaveLength(3);
     expect(listExams("topik-ii", "full")).toEqual([]);
     expect(listExams("eps")).toEqual([]);
   });

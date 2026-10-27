@@ -21,7 +21,7 @@ Giai đoạn 4 ── Mở rộng: Nói, TOPIK I, EPS, app ───────
 
 ## Tiến độ
 
-> Cập nhật 2026-10-26 (sau Mini test Nghe 01). ✅ xong · 🚧 đang làm · ⏳ chưa bắt đầu.
+> Cập nhật 2026-10-26 (sau Mini test Viết 01). ✅ xong · 🚧 đang làm · ⏳ chưa bắt đầu.
 
 | Giai đoạn | Hạng mục | Trạng thái |
 |---|---|---|
@@ -34,12 +34,13 @@ Giai đoạn 4 ── Mở rộng: Nói, TOPIK I, EPS, app ───────
 | 1 | Luyện tập Nghe / Đọc / Viết theo dạng | ✅ (Viết: đề + đếm ký tự + bài mẫu) |
 | 1 | Mini test Đọc, chấm + quy đổi cấp + kết quả theo dạng | ✅ |
 | 1 | Mini test Nghe (nghe-01, 20 câu / 25 phút, luật bắt buộc audio khi xuất bản) | 🚧 đề nháp đã duyệt nội dung, chờ audio |
-| 1 | Mini test Viết, Full test | ⏳ cần nội dung + audio |
+| 1 | Mini test Viết (viet-01, W51–W54 / 50 phút, tự chấm theo bài mẫu → điểm /100 và cấp ước lượng) | ✅ (đề nháp đã duyệt nội dung, chờ điền `reviewed_by`) |
+| 1 | Full test | ⏳ cần nội dung + audio (đề nhiều phần Nghe + Viết + Đọc đã hỗ trợ ở backend) |
 | 1 | Lý thuyết: từ vựng, Hán tự, ngữ pháp, bảng so sánh | ✅ |
 | 1 | Test trình độ (placement-01, 12 câu Đọc) | ✅ |
 | 1 | Blog, landing, beta | ⏳ |
 
-**Nội dung hiện có / mục tiêu MVP:** 43 câu luyện / ~300 · 2 Mini test / 2 Full + 4 Mini · ~50 từ vựng / ~1.500 · 10 điểm ngữ pháp / ~100. Câu Nghe đều chưa có audio (`audio_url: null`) nên đang hiển thị lời thoại. Toàn bộ nội dung còn `reviewed_by: null`, chờ người dùng duyệt.
+**Nội dung hiện có / mục tiêu MVP:** 45 câu luyện / ~300 · 3 Mini test / 2 Full + 4 Mini · ~50 từ vựng / ~1.500 · 10 điểm ngữ pháp / ~100. Câu Nghe đều chưa có audio (`audio_url: null`) nên đang hiển thị lời thoại. Toàn bộ nội dung còn `reviewed_by: null`, chờ người dùng duyệt.
 
 ---
 
