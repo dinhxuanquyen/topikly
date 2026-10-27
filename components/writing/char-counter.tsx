@@ -25,11 +25,14 @@ export function CharCounter({
   id,
   count,
   limit,
+  announce = true,
 }: {
   /** id của phần tử hiển thị số đếm, để ô viết trỏ aria-describedby tới. */
   id: string;
   count: number;
   limit?: WritingCharLimit;
+  /** false = bộ đếm tĩnh (xem lại bài đã nộp): không có vùng aria-live đọc trạng thái. */
+  announce?: boolean;
 }) {
   if (!limit) {
     return (
@@ -76,9 +79,11 @@ export function CharCounter({
         />
         <div className="absolute inset-y-0 w-px bg-foreground/50" style={{ left: `${minMark}%` }} />
       </div>
-      <p role="status" aria-live="polite" className="sr-only">
-        {statusText}
-      </p>
+      {announce ? (
+        <p role="status" aria-live="polite" className="sr-only">
+          {statusText}
+        </p>
+      ) : null}
     </div>
   );
 }

@@ -7,11 +7,16 @@ import type { ExamSubmitRequest } from "@/lib/exam/types";
  * POST /api/exam/submit — chấm cả đề ở server.
  *   body: ExamSubmitRequest  ->  200 ExamResult | 400/404 ExamApiErrorBody
  * Đáp án đúng và lời giải chỉ có trong kết quả này, không có trong đề gửi xuống trước khi nộp.
+ * Đề có phần Viết: `writing` = bài làm từng câu Viết (hình dạng kiểm ở lib/exam/writing-review.ts,
+ * sai -> 400 invalid_writing_answer); kết quả có `writing` (bài mẫu để tự chấm), không chấm điểm Viết.
  * POST không bị cache theo Next 16 (Route Handlers chỉ cache GET).
  */
 
-/** Đề 50 câu x ~25 ký tự cho mỗi cặp id: đáp án cũng dưới 4KB; để dư cho đề Full 2 phần. */
-const MAX_BODY_CHARS = 16 * 1024;
+/**
+ * Đề 50 câu x ~25 ký tự cho mỗi cặp id: đáp án trắc nghiệm dưới 4KB (đề Full 100 câu < 8KB). Bài Viết
+ * tối đa 2 bài x 5.000 ký tự + 4 chỗ trống x 500 (WRITING_*_MAX_CHARS) ~ 12KB: trần 32KB đủ cho Full.
+ */
+const MAX_BODY_CHARS = 32 * 1024;
 const MAX_ANSWERS = 200;
 /** 24 giờ: chặn giá trị rác làm bẩn thống kê thời gian làm bài. */
 const MAX_TIME_SPENT_MS = 24 * 60 * 60 * 1000;
@@ -24,6 +29,8 @@ const bodySchema = z.object({
   answers: z
     .record(z.string().min(1).max(64), z.string().max(8).nullable())
     .refine((a) => Object.keys(a).length <= MAX_ANSWERS, { error: "quá nhiều đáp án" }),
+  // Hình dạng từng bài Viết theo đề kiểm trong lib/exam để trả mã invalid_writing_answer riêng.
+  writing: z.unknown().optional(),
   startedAt: z.number().int().min(0).optional(),
   timeSpentMs: z.number().int().min(0).max(MAX_TIME_SPENT_MS).optional(),
   timedOut: z.boolean().optional(),
@@ -53,11 +60,15 @@ export async function POST(request: Request): Promise<Response> {
     const e = examApiError(
       400,
       "invalid_body",
-      "Dữ liệu không hợp lệ: cần program, kind (full|mini|hard|ibt|placement), examId, answers (questionId -> ①–④ hoặc null), và tuỳ chọn startedAt, timeSpentMs, timedOut.",
+      "Dữ liệu không hợp lệ: cần program, kind (full|mini|hard|ibt|placement), examId, answers (questionId -> ①–④ hoặc null; đề chỉ có Viết gửi {}), và tuỳ chọn writing, startedAt, timeSpentMs, timedOut.",
     );
     return respond(e.status, e.body);
   }
 
-  const outcome = submitExam(parsed.data satisfies ExamSubmitRequest);
+  // `writing` còn là unknown ở đây: lib/exam/writing-review.ts kiểm hình dạng theo từng câu của đề.
+  const outcome = submitExam({
+    ...parsed.data,
+    writing: parsed.data.writing as ExamSubmitRequest["writing"],
+  } satisfies ExamSubmitRequest);
   return outcome.ok ? respond(200, outcome.result) : respond(outcome.status, outcome.body);
 }

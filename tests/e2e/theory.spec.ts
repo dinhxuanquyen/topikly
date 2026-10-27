@@ -816,7 +816,7 @@ test.describe("Lý thuyết — nguồn, 404, bố cục, API", () => {
       `${GRAMMAR}/khong-co`,
       `${GRAMMAR}/nhom/xx`,
       `${GRAMMAR}/nhom/na-boda`, // slug điểm ngữ pháp không phải slug nhóm
-      `/${PROGRAM}/luyen-tap/viet/W51`,
+      `/${PROGRAM}/luyen-tap/viet/W99`,
     ];
     for (const url of missing) {
       await page.goto(url);

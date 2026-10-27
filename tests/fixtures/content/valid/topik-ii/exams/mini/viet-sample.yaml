@@ -1,0 +1,9 @@
+# Đề Viết mẫu hợp lệ (draft) cho test validator: chỉ tham chiếu câu Viết có trong fixtures (W52, W53, W54).
+# Thiếu W51 nên chỉ có cảnh báo số câu (3/4), không có lỗi.
+id: viet-sample
+kind: mini
+title: "Mini test Viết mẫu"
+status: draft
+sections:
+  - skill: writing
+    questions: [w52-0001, w53-0001, w54-0001]

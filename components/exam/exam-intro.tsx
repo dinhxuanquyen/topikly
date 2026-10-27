@@ -20,11 +20,14 @@ export function ExamIntro({ exam, ready, lastResult, onStart, onViewLastResult }
   const multiSection = exam.sections.length > 1;
   const audio = listeningAudioStatus(exam);
   const hasPlayableAudio = audio.listening > audio.missing;
+  const hasWriting = exam.sections.some((section) => section.skill === "writing");
+  const writingOnly = exam.sections.every((section) => section.skill === "writing");
   const rules = [
     t.examIntro.rules.timer(minutes),
-    t.examIntro.rules.autoSubmit,
-    t.examIntro.rules.noAnswers,
-    t.examIntro.rules.blank,
+    writingOnly ? t.examIntro.rules.autoSubmitWriting : t.examIntro.rules.autoSubmit,
+    writingOnly ? t.examIntro.rules.noAnswersWriting : t.examIntro.rules.noAnswers,
+    ...(writingOnly ? [] : [t.examIntro.rules.blank]),
+    ...(hasWriting ? [t.examIntro.rules.blankWriting, t.examIntro.rules.writingCount] : []),
     t.examIntro.rules.guest,
     ...(hasPlayableAudio ? [t.examIntro.rules.audioOnce] : []),
   ];
@@ -84,6 +87,14 @@ export function ExamIntro({ exam, ready, lastResult, onStart, onViewLastResult }
         </ul>
         {exam.kind === "mini" ? (
           <p className="mt-3 text-sm text-muted-foreground">{t.examIntro.estimateNote}</p>
+        ) : null}
+        {hasWriting ? (
+          <p
+            data-testid="writing-self-score-note"
+            className="mt-3 rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm font-medium"
+          >
+            {t.examIntro.writingNote}
+          </p>
         ) : null}
         {exam.kind === "placement" ? (
           <p className="mt-3 text-sm text-muted-foreground">{t.placement.intro.note}</p>

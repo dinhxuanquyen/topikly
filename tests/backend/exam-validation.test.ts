@@ -160,9 +160,9 @@ describe("validateExamFile: cấu trúc và tham chiếu", () => {
     ).toEqual(["kind", "status"]);
   });
 
-  it("kỹ năng chưa hỗ trợ (writing) hoặc phần rỗng / duration_sec rác bị chặn", () => {
-    const writing = check(examOf({ sections: [{ skill: "writing", questions: ["r01-0001"] }] }));
-    expect(errors(writing.issues)[0]!.path).toBe("sections[0].skill");
+  it("kỹ năng chưa hỗ trợ (speaking) hoặc phần rỗng / duration_sec rác bị chặn", () => {
+    const speaking = check(examOf({ sections: [{ skill: "speaking", questions: ["r01-0001"] }] }));
+    expect(errors(speaking.issues)[0]!.path).toBe("sections[0].skill");
     const empty = check(examOf({ sections: [{ skill: "reading", questions: [] }] }));
     expect(errors(empty.issues)[0]!.message).toMatch(/ít nhất 1 câu/);
     for (const d of [0, -5, 1.5, 999999, "900"]) {

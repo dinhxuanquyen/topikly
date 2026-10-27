@@ -24,7 +24,9 @@ vi.mock("./exam-store", () => ({
   loadDraft: vi.fn(),
   saveDraft: vi.fn(),
   clearDraft: vi.fn(),
-  loadLatestResult: vi.fn(),
+  loadLatestAttempt: vi.fn(),
+  saveSelfPoints: vi.fn(),
+  stashDraft: vi.fn(),
   saveResult: vi.fn(),
   loadExamStatuses: vi.fn(),
 }));
@@ -95,7 +97,7 @@ beforeEach(() => {
   fetchMock.mockReset();
   vi.stubGlobal("fetch", fetchMock);
   vi.mocked(store.loadDraft).mockResolvedValue(null);
-  vi.mocked(store.loadLatestResult).mockResolvedValue(null);
+  vi.mocked(store.loadLatestAttempt).mockResolvedValue(null);
   vi.mocked(store.saveDraft).mockResolvedValue(true);
   vi.mocked(store.clearDraft).mockResolvedValue(true);
   vi.mocked(store.saveResult).mockResolvedValue(true);
@@ -123,7 +125,7 @@ describe("ExamRunner: màn giới thiệu", () => {
   });
 
   it("có kết quả lần trước thì hiện nút xem lại kết quả đó", async () => {
-    vi.mocked(store.loadLatestResult).mockResolvedValue(RESULT);
+    vi.mocked(store.loadLatestAttempt).mockResolvedValue({ result: RESULT, selfPoints: {} });
     render(<ExamRunner {...props} />);
     fireEvent.click(await screen.findByRole("button", { name: "Xem kết quả lần gần nhất" }));
     expect(screen.getByRole("heading", { level: 2, name: "Kết quả bài làm" })).toBeInTheDocument();
@@ -510,7 +512,7 @@ describe("ExamRunner: Test trình độ", () => {
     respondOk(PLACEMENT_RESULT);
     render(<ExamRunner {...placementProps} />);
     expect(screen.getByText(/Các câu xếp từ dễ đến khó/)).toBeInTheDocument();
-    expect(store.loadLatestResult).toHaveBeenCalledWith("topik-ii", "placement", "doc-01");
+    expect(store.loadLatestAttempt).toHaveBeenCalledWith("topik-ii", "placement", "doc-01");
     const start = await screen.findByRole("button", { name: /Bắt đầu làm bài/ });
     await waitFor(() => expect(start).toBeEnabled());
     fireEvent.click(start);
@@ -528,7 +530,10 @@ describe("ExamRunner: Test trình độ", () => {
   });
 
   it("mở lại kết quả đã lưu từ màn giới thiệu", async () => {
-    vi.mocked(store.loadLatestResult).mockResolvedValue(PLACEMENT_RESULT);
+    vi.mocked(store.loadLatestAttempt).mockResolvedValue({
+      result: PLACEMENT_RESULT,
+      selfPoints: {},
+    });
     render(<ExamRunner {...placementProps} />);
     fireEvent.click(await screen.findByRole("button", { name: "Xem kết quả lần gần nhất" }));
     expect(screen.getByTestId("placement-start")).toHaveTextContent("3급");

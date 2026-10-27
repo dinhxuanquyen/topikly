@@ -1,6 +1,6 @@
 # Đặc tả biên soạn nội dung TOPIK II (content-spec)
 
-> **Phiên bản 0.3.5 · 2026-10-26** · Chủ sở hữu: `topik-content-designer` · Người dùng (product owner) duyệt cuối. Lịch sử thay đổi: xem [Phụ lục B](#phụ-lục-b--lịch-sử-thay-đổi).
+> **Phiên bản 0.3.6 · 2026-10-26** · Chủ sở hữu: `topik-content-designer` · Người dùng (product owner) duyệt cuối. Lịch sử thay đổi: xem [Phụ lục B](#phụ-lục-b--lịch-sử-thay-đổi).
 > Đầu ra Giai đoạn 0 theo [02 · Lộ trình](02-lo-trinh-trien-khai.md#giai-đoạn-0--nền-móng-2-tuần). Dựa trên [01 · Phân tích chuyên môn](01-phan-tich-chuyen-mon.md) mục 2, mô hình dữ liệu ở [README mục 6](../README.md#6-mô-hình-dữ-liệu) và mẫu YAML ở [README mục 7](../README.md#7-cấu-trúc-thư-mục-dự-kiến).
 >
 > Ai dùng tài liệu này:
@@ -681,9 +681,9 @@ ví dụ: content/topik-ii/exams/mini/doc-01.yaml
 
 | Trường | Kiểu | Bắt buộc | Ràng buộc / ghi chú |
 |---|---|---|---|
-| `skill` | enum | ✓ | `reading` \| `listening`. Viết và Nói chưa được hỗ trợ trong đề |
+| `skill` | enum | ✓ | `reading` \| `listening` \| `writing`. Nói chưa được hỗ trợ trong đề |
 | `duration_sec` | int | – | **Ghi đè** thời gian của phần này (giây). Bỏ trống thì lấy `exam_blueprints[kind][skill].duration_sec` của chương trình (đề Full: lấy theo `sections` của chương trình). Chỉ ghi khi thật sự cần thời gian khác blueprint |
-| `questions` | list[id] | ✓ | Id câu hỏi (file trong `practice/`) **theo thứ tự trong đề**. Số câu trong đề là vị trí của câu (đếm từ 1, liên tục trong phần thi), **không nhất thiết** trùng số trong `type_code` |
+| `questions` | list[id] | ✓ | Id câu hỏi (file trong `practice/`) **theo thứ tự trong đề**. Số câu trong đề là vị trí của câu (đếm từ 1, liên tục trong phần thi), **không nhất thiết** trùng số trong `type_code`. Phần `writing`: id là câu Viết (`w51-…` … `w54-…`), xếp theo `type_code` tăng dần, mỗi dạng tối đa một câu |
 
 **Ví dụ**
 
@@ -704,19 +704,27 @@ Ví dụ trên rút gọn còn 3 câu để minh hoạ cú pháp. Đề thật p
 |---|---|---|---|
 | Mini Đọc (`reading`) | 20 | 30 phút | `content/topik-ii/exams/mini/doc-01.yaml` |
 | Mini Nghe (`listening`) | 20 | 25 phút, **gồm cả thời gian phát audio** | `content/topik-ii/exams/mini/nghe-01.yaml` |
+| Mini Viết (`writing`) | 4 (W51–W54) | 50 phút, như phần Viết của đề thật. **Người học tự chấm**, hệ thống không chấm tự động | `content/topik-ii/exams/mini/viet-01.yaml` |
 
-Mỗi đề Mini chỉ có một kỹ năng. Đề Mini Nghe chọn câu theo các nhóm dạng L01–L50 (câu đơn và bộ câu), xếp theo `type_code` tăng dần; mỗi bộ câu dùng chung bài nghe phải đủ cả hai câu và đứng liền nhau (ràng buộc bên dưới).
+Mỗi đề Mini chỉ có một kỹ năng. Đề Mini Viết gồm đủ 4 dạng W51 → W54, mỗi dạng một câu, theo đúng thứ tự đề thật. Đề Mini Nghe chọn câu theo các nhóm dạng L01–L50 (câu đơn và bộ câu), xếp theo `type_code` tăng dần; mỗi bộ câu dùng chung bài nghe phải đủ cả hai câu và đứng liền nhau (ràng buộc bên dưới).
 
-Thứ tự theo `type_code` là **quy ước biên soạn**: validator chỉ kiểm thứ tự **trong bộ câu**, không kiểm thứ tự toàn đề. Vì thứ tự đã cố định, cách "đổi thứ tự câu" ở luật nhãn bên dưới không áp dụng được. Khi chuỗi nhãn vi phạm §4.1, làm theo một trong hai cách:
+**Chấm phần Viết.** Server không chấm phần `writing`: phần này không vào điểm tổng và không vào cấp do server tính (đề Mini Viết có `level: null`). Kết quả trả về bài đã nộp, số ký tự và bài mẫu để người học tự chấm theo `writing_points` của chương trình (TOPIK II: W51 10, W52 10, W53 30, W54 50). Sau khi người học nhập điểm tự chấm, giao diện mới chiếu điểm lên thang tổng và hiện **cấp ước lượng** (`lib/exam/writing-self-score.ts`). Hệ quả cho người soạn: `accepted_answers`, `partial_answers`, `rejected_answers`, `required_elements_vi`, `note_vi`, `scoring_notes_vi` là **thang điểm người học nhìn vào khi tự chấm**. Lý do một đáp án chỉ được điểm một phần phải nằm trong `note_vi` của chỗ trống hoặc trong `scoring_notes_vi`. Không ghi lý do bằng comment YAML (`# …`), vì comment bị mất khi parse.
+
+Với phần Đọc và Nghe, thứ tự theo `type_code` là **quy ước biên soạn**: validator chỉ kiểm thứ tự **trong bộ câu**, không kiểm thứ tự toàn đề. (Phần Viết thì khác: validator kiểm thứ tự toàn phần, xem luật riêng phần Viết bên dưới.) Vì thứ tự đã cố định, cách "đổi thứ tự câu" ở luật nhãn bên dưới không áp dụng được. Khi chuỗi nhãn vi phạm §4.1, làm theo một trong hai cách:
 - Thay một câu bằng một câu khác **cùng nhóm dạng** có nhãn đúng phù hợp.
 - Nếu đề có câu soạn mới, **chọn nhãn đúng ngay khi soạn câu mới** để chuỗi đạt luật (cách đã dùng ở `nghe-01`).
 
 **Không đảo nhãn của câu đã có**, vì đảo nhãn kéo theo sửa `explanation_vi`/`note_vi`, tức là thay đổi nội dung (§4.1, §8.2).
 
 **Ràng buộc** (kiểm bởi `npm run validate:content`, mã nguồn ở `lib/db/exam-validation.ts`):
-- Mọi id câu phải tồn tại, đúng kỹ năng của phần, không trùng nhau trong đề.
+- Mọi id câu phải tồn tại, đúng kỹ năng của phần, không trùng nhau trong đề. Khi phục vụ đề, id câu Viết được tra ở nguồn Viết (`lib/practice/writing-source.ts`), nên file W5x còn phải dựng được thành đề Viết. Điều này được kiểm lúc chạy (`lib/exam/source.ts`), không phải trong `npm run validate:content`; file câu Viết qua được validator (biến thể C1/C2, §5.5–5.6) thì thường dựng được.
 - Các câu cùng `group_key` (cặp hoặc bộ dùng chung ngữ liệu, mục 1.3) phải có **đủ** số câu của bộ (đọc từ `group_key`, ví dụ `r46-47-0001` cần 2 câu), đứng **liền nhau** và theo `type_code` tăng dần.
 - Số câu mỗi phần bằng `exam_blueprints` (Mini, Placement) hoặc `sections` (Full) của chương trình. `draft`: cảnh báo; `published`: lỗi.
+- **Luật riêng phần Viết** (`skill: writing`):
+  - Các câu xếp theo `type_code` **tăng nghiêm ngặt** (W51 < W52 < W53 < W54), tức mỗi dạng tối đa một câu. Vi phạm là **lỗi chặn ở mọi trạng thái**, kể cả `draft` (mã `writing-order`).
+  - Mỗi `type_code` của phần phải có điểm trong `writing_points` của chương trình. Thiếu là lỗi chặn ở mọi trạng thái (mã `writing-points-missing`).
+  - Số câu theo blueprint như các phần khác (`draft`: cảnh báo; `published`: lỗi).
+  - Luật audio và luật nhãn đúng **không áp dụng** (câu Viết không có audio, không có phương án).
 - **Luật audio** (mã `audio-missing`): mọi câu thuộc phần `listening` của đề, ở **mọi** kind (`mini`, `full`, `hard`, `ibt`, `placement`), phải có `audio_url` khác rỗng. Thiếu thì gộp thành **một** thông báo liệt kê các id thiếu (tối đa 12 id, phần còn lại ghi "và N câu khác"; validator không bỏ sót câu nào, chỉ rút gọn danh sách hiển thị). `draft`: một cảnh báo gộp; `published`: lỗi chặn, đề không được phục vụ. Câu Đọc không cần audio. Hệ quả cho người soạn: đề Nghe đang soạn (audio còn `null`) giữ `status: draft`; chỉ chuyển `published` khi mọi câu đã có `audio_url` **và** `reviewed_by`.
 - Luật nhãn đúng của đề lắp ráp (mục 4.1), tính trên từng phần. `draft`: cảnh báo; `published`: lỗi.
   - Mỗi nhãn khoảng 25% (áp dụng từ 8 câu trở lên).
@@ -1428,6 +1436,21 @@ Sửa chính tả thuần tuý (đổi chữ) trong `note_vi`/`explanation_vi` v
 ---
 
 ## Phụ lục B · Lịch sử thay đổi
+
+### v0.3.6 · 2026-10-26
+
+Cập nhật theo báo cáo duyệt `content/_reviews/2026-10-26-mini-viet-01.md` (mục "Duyệt spec" §5.1 và "Góp ý cho spec" số 1), đối chiếu với `lib/db/exam-validation.ts` (`EXAM_SKILLS`, `checkWritingSection`), comment "ĐỊNH DẠNG FILE ĐỀ" đầu `lib/exam/source.ts`, `exam_blueprints.mini.writing` và `writing_points` trong `lib/db/programs/topik-ii.ts`, `lib/exam/score.ts` và `lib/exam/writing-self-score.ts`.
+
+- §5.1, bảng trường của `sections[]`: `skill` thêm `writing`, chỉ còn Nói là chưa hỗ trợ. Ô `questions` ghi quy ước của phần Viết: xếp theo `type_code` tăng dần, mỗi dạng tối đa một câu.
+- §5.1, bảng blueprint Mini: thêm dòng **Mini Viết** (4 câu W51–W54 / 50 phút, người học tự chấm), ví dụ `viet-01.yaml`.
+- §5.1: thêm đoạn **Chấm phần Viết**. Server không chấm phần Viết, đề Mini Viết có `level: null`. Người học tự chấm theo `writing_points`, rồi giao diện hiện cấp ước lượng. Kèm quy ước cho người soạn: lý do của `partial_answers` phải nằm trong `note_vi` hoặc `scoring_notes_vi`, không ghi trong comment YAML (góp ý số 1 của báo cáo, phần "trong lúc chờ"). Đề xuất đổi `partial_answers` sang `[{text, reason_vi}]` vẫn chờ backend-engineer và người dùng quyết định; chưa đổi schema §5.5.
+- §5.1, "Ràng buộc": thêm **luật riêng phần Viết**: `writing-order` (type_code tăng nghiêm ngặt) và `writing-points-missing`, cả hai là lỗi chặn ở mọi trạng thái; số câu theo blueprint; không áp luật audio và luật nhãn. Dòng "mọi id câu phải tồn tại" ghi thêm: id câu Viết được tra ở nguồn Viết **khi phục vụ đề**, việc này `validate:content` không kiểm.
+- Không đổi quy tắc soạn câu hỏi nào.
+
+**File nội dung bị ảnh hưởng** (cùng lượt, theo cùng báo cáo)
+- w51-0001: sửa 5 điểm FIX: hai đáp án ㉠, một đáp án ㉡, lý do partial chuyển vào `note_vi`, "Đáng chú ý". Passage không đổi (175 ký tự).
+- w53-0002, w54-0002: trả nợ khung `explanation_vi` của v0.3 (tiêu đề "Phân tích đề:" / "Dàn ý:" / "Lưu ý:"; bỏ mục "Đáng chú ý" trùng `expression_bank`; w54 sửa mục 중시하다 theo dạng bạn giả một phần). Bài mẫu và `char_count` không đổi. Đây là thay đổi nội dung (§8.2), nên hai câu chờ reviewer duyệt lại trường `explanation_vi`.
+- viet-01.yaml: cập nhật comment đầu file.
 
 ### v0.3.5 · 2026-10-26
 

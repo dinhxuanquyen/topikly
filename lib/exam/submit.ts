@@ -6,6 +6,7 @@ import { findProgram } from "@/lib/db/programs";
 import { InvalidChoiceError, scoreExam } from "./score";
 import { getFullExam, type ExamSourceOptions } from "./source";
 import type { ExamApiErrorBody, ExamErrorCode, ExamResult, ExamSubmitRequest } from "./types";
+import { InvalidWritingAnswerError } from "./writing-review";
 
 export type SubmitOutcome =
   { ok: true; result: ExamResult } | { ok: false; status: 400 | 404; body: ExamApiErrorBody };
@@ -19,12 +20,14 @@ export function examApiError(
 }
 
 /**
- * Thứ tự lỗi: program lạ (404), đề không có (404), đáp án không thuộc ①–④ (400).
- * Khoá đáp án không thuộc đề bị bỏ qua. Câu thiếu khoá hoặc null = bỏ trống.
+ * Thứ tự lỗi: program lạ (404), đề không có (404), đáp án không thuộc ①–④ (400 invalid_choice),
+ * bài Viết sai hình dạng hoặc quá dài (400 invalid_writing_answer; xét sau phần trắc nghiệm).
+ * Khoá đáp án/bài Viết không thuộc đề bị bỏ qua. Câu thiếu khoá hoặc null = bỏ trống.
  *
  * TODO(supabase): ghi `attempts` (user_id/guest_id, program, kind, exam_id, started_at = request.startedAt,
  * submitted_at, time_spent_ms, timed_out, score, level) và `answers` từng câu (selected_choice_id,
- * is_correct, time_spent_ms nếu máy khách có) sau khi chấm, khi có CSDL + đăng nhập. Chế độ khách
+ * is_correct, time_spent_ms nếu máy khách có) sau khi chấm, khi có CSDL + đăng nhập. Bài Viết lưu
+ * thành bản ghi riêng (nội dung bài, char_count, điểm tự chấm nếu người học nhập). Chế độ khách
  * hiện chưa lưu gì ở server.
  */
 export function submitExam(
@@ -53,11 +56,15 @@ export function submitExam(
       submittedAt: now,
       ...(request.timeSpentMs !== undefined ? { timeSpentMs: request.timeSpentMs } : {}),
       timedOut: request.timedOut === true,
+      writing: request.writing,
     });
     return { ok: true, result };
   } catch (err) {
     if (err instanceof InvalidChoiceError) {
       return examApiError(400, "invalid_choice", err.message);
+    }
+    if (err instanceof InvalidWritingAnswerError) {
+      return examApiError(400, "invalid_writing_answer", err.message);
     }
     throw err;
   }

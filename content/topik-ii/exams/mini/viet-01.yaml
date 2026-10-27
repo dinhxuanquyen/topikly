@@ -1,0 +1,29 @@
+# Mini test Viết 01 (status: draft). Đủ 4 câu theo blueprint mini.writing (4 câu / 50 phút, giống
+# phần Viết thật; lấy thời gian từ blueprint nên không ghi duration_sec).
+# Thứ tự W51 → W52 → W53 → W54 như đề thật, mỗi dạng một câu:
+# - w51-0001: bài đăng bảng tin chung cư (kiện hàng giao nhầm), -습니다, độ khó 3. Soạn mới 2026-10-26,
+#   đã sửa theo FIX của content/_reviews/2026-10-26-mini-viet-01.md, chờ reviewer duyệt lại.
+# - w52-0001: đoạn giải thích về ngủ trưa, -ㄴ다, độ khó 4. Chép từ ví dụ C1 của content-spec; PASS
+#   với tư cách câu trong kho (content/_reviews/2026-10-26-mini-viet-01.md).
+# - w53-0002: mô tả số liệu mượn sách giấy/sách điện tử, độ khó 4. Đã PASS (content/_reviews/2026-10-19-mau-viet-va-spec.md);
+#   explanation_vi vừa chuẩn hoá theo khung Viết §4.2 (bài mẫu không đổi), chờ reviewer duyệt lại trường này.
+# - w54-0002: nghị luận về văn hoá coi trọng tốc độ, độ khó 5. Như w53-0002 (PASS cũ, explanation_vi vừa chuẩn hoá).
+# Lý do chọn: đây là các câu Viết duy nhất hiện có trong kho, mỗi dạng một câu, độ khó tăng dần 3-4-4-5
+# và chủ đề không trùng nhau (nhà ở, sức khoẻ, thư viện, xã hội).
+# Validator đã hỗ trợ phần `writing` (luật `writing-order`: type_code tăng nghiêm ngặt, mỗi dạng một câu;
+# luật `writing-points-missing`). Đề Viết không có phương án và không có audio nên luật nhãn đúng
+# (content-spec §4.1) và luật audio không áp dụng. Phần Viết do người học tự chấm (không chấm tự động).
+# Chờ duyệt nội dung: chỉ chuyển sang `published` khi mọi câu trong đề đã có reviewed_by
+# (hiện cả 4 câu còn reviewed_by: null).
+# Định dạng file đề: xem docs/content-spec.md mục 5.1, tiểu mục "Định dạng file đề thi".
+id: viet-01
+kind: mini
+title: "Mini test Viết 01"
+status: draft
+sections:
+  - skill: writing
+    questions:
+      - w51-0001
+      - w52-0001
+      - w53-0002
+      - w54-0002

@@ -59,7 +59,8 @@ function PassageView({ passage }: { passage: string }) {
   );
 }
 
-function PromptMaterial({ prompt }: { prompt: WritingPrompt }) {
+/** Ngữ liệu của đề Viết (đoạn có ㉠ ㉡, biểu đồ + ghi chú số liệu giả định, ảnh, nội dung đề). Dùng chung với trình làm đề thi. */
+export function PromptMaterial({ prompt }: { prompt: WritingPrompt }) {
   const hasCharts = (prompt.chart_data?.length ?? 0) > 0;
   const showImageFrame = prompt.image_desc && !prompt.image_url && !hasCharts;
   return (
@@ -241,7 +242,7 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
           className="scroll-mt-[calc(var(--header-height)+0.75rem)] rounded-md text-lg font-bold outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
         >
           {t.writing.promptOf(position, total)}{" "}
-          <span className="ml-1text-sm font-medium text-muted-foreground">{prompt.type_code}</span>
+          <span className="ml-1 text-sm font-medium text-muted-foreground">{prompt.type_code}</span>
         </h2>
         <p className="text-sm text-muted-foreground">{t.writing.difficulty(prompt.difficulty)}</p>
       </div>

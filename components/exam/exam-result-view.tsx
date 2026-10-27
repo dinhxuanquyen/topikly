@@ -18,7 +18,14 @@ import { formatClock } from "@/components/practice/practice-state";
 import { QuestionMaterial } from "@/components/practice/question-material";
 import { RichLines, renderInline } from "@/components/practice/rich-text";
 import { verdictOf, type Verdict } from "@/components/practice/result-panel";
-import { listBlocks, practiceHrefForGroup, ratePercent } from "./exam-state";
+import {
+  isChoiceBlock,
+  listBlocks,
+  practiceHrefForGroup,
+  ratePercent,
+  type SelfPoints,
+} from "./exam-state";
+import { WritingReviewSection, WritingScoreSummary } from "./exam-writing-result";
 import { PlacementDetails, PlacementSummary } from "./placement-result";
 
 interface ExamResultViewProps {
@@ -33,6 +40,10 @@ interface ExamResultViewProps {
   saved: boolean | null;
   /** Test trình độ: tỉ lệ đúng tối thiểu để vững một bậc (cấu hình chương trình), để giải thích quy tắc. */
   passRatio?: number;
+  /** Đề có phần Viết: điểm tự chấm đã lưu của lần làm này (mở lại vẫn còn). */
+  initialSelfPoints?: SelfPoints;
+  /** Đề có phần Viết: gọi mỗi khi người học đổi điểm tự chấm để lưu lại. */
+  onSelfPointsChange?: (next: SelfPoints) => void;
   onRetry: () => void;
 }
 
@@ -72,12 +83,20 @@ export function ExamResultView({
   listHref,
   saved,
   passRatio,
+  initialSelfPoints,
+  onSelfPointsChange,
   onRetry,
 }: ExamResultViewProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const idPrefix = useId();
   const [filter, setFilter] = useState<Filter>("all");
   const [open, setOpen] = useState<ReadonlySet<string>>(new Set());
+  const [selfPoints, setSelfPoints] = useState<SelfPoints>(initialSelfPoints ?? {});
+
+  function changeSelfPoints(next: SelfPoints) {
+    setSelfPoints(next);
+    onSelfPointsChange?.(next);
+  }
 
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true });
@@ -91,6 +110,7 @@ export function ExamResultView({
   const itemsById = useMemo(() => {
     const map = new Map<string, { item: PublicExamQuestion; shared: boolean }>();
     for (const ref of listBlocks(exam)) {
+      if (!isChoiceBlock(ref)) continue;
       for (const item of ref.block.questions) {
         map.set(item.question.id, { item, shared: ref.block.shared_material });
       }
@@ -105,7 +125,9 @@ export function ExamResultView({
     return filter === "all" || verdict === filter;
   });
 
-  const { level, placement } = result;
+  const { level, placement, writing } = result;
+  // Mini Viết không có phần chấm tự động: không dựng bảng theo phần/dạng/kỹ năng con rỗng.
+  const hasChoiceResult = result.sections.length > 0;
   const filters: { key: Filter; label: string; count: number }[] = [
     { key: "all", label: t.examResult.filterAll, count: result.questions.length },
     { key: "wrong", label: t.examResult.filterWrong, count: wrongCount },
@@ -133,7 +155,7 @@ export function ExamResultView({
           {placement ? t.placement.result.heading : t.examResult.heading}
         </h2>
         {placement ? <PlacementSummary placement={placement} passRatio={passRatio} /> : null}
-        {!placement ? (
+        {!placement && level ? (
           <div className="grid gap-3 rounded-2xl border-2 border-primary/30 bg-brand-soft p-4 sm:grid-cols-2 md:p-5">
             <div>
               <p className="text-sm font-semibold text-brand-soft-foreground">
@@ -188,6 +210,9 @@ export function ExamResultView({
             </div>
           </div>
         ) : null}
+        {!placement && writing ? (
+          <WritingScoreSummary result={result} review={writing} selfPoints={selfPoints} />
+        ) : null}
         {placement && result.timeSpentMs !== undefined ? (
           <p className="text-sm text-muted-foreground">
             {t.examResult.timeSpent(formatClock(result.timeSpentMs))}
@@ -213,7 +238,7 @@ export function ExamResultView({
           passRatio={passRatio}
           idPrefix={idPrefix}
         />
-      ) : (
+      ) : hasChoiceResult ? (
         <>
           <section aria-labelledby={`${idPrefix}-sections`}>
             <h2 id={`${idPrefix}-sections`} className="mb-3 text-lg font-bold">
@@ -301,7 +326,7 @@ export function ExamResultView({
             </ul>
           </section>
         </>
-      )}
+      ) : null}
 
       {/* Test trình độ dùng chung câu với Mini test và làm lại được, nên tạm ẩn đáp án/lời giải
           (ghi ở comment đầu content/topik-ii/exams/placement/placement-01.yaml). */}
@@ -309,7 +334,8 @@ export function ExamResultView({
         <p className="rounded-xl border border-border bg-muted/40 p-3 text-sm">
           {t.placement.result.reviewHidden}
         </p>
-      ) : (
+      ) : null}
+      {!placement && result.questions.length > 0 ? (
         <section aria-labelledby={`${idPrefix}-review`} className="space-y-3">
           <h2 id={`${idPrefix}-review`} className="text-lg font-bold">
             {t.examResult.reviewHeading}
@@ -350,7 +376,16 @@ export function ExamResultView({
             </ol>
           )}
         </section>
-      )}
+      ) : null}
+
+      {!placement && writing ? (
+        <WritingReviewSection
+          review={writing}
+          selfPoints={selfPoints}
+          onChange={changeSelfPoints}
+          idPrefix={idPrefix}
+        />
+      ) : null}
 
       <div className="flex flex-wrap gap-3 border-t border-border pt-5">
         <Button type="button" className="h-12 px-6 text-base" onClick={onRetry}>

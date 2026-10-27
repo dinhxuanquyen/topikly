@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import type { PublicExam } from "@/lib/exam/types";
 import { ExamIntro } from "./exam-intro";
 import { listeningAudioStatus } from "./exam-state";
-import { EXAM, LISTENING_EXAM, withAudio } from "./test-fixtures";
+import { EXAM, LISTENING_EXAM, WRITING_EXAM, withAudio } from "./test-fixtures";
 
 function renderIntro(exam: PublicExam) {
   return render(
@@ -66,5 +66,27 @@ describe("listeningAudioStatus", () => {
 
   it("đề Đọc không có câu Nghe", () => {
     expect(listeningAudioStatus(EXAM)).toEqual({ listening: 0, missing: 0 });
+  });
+});
+
+describe("ExamIntro: đề Viết", () => {
+  it("nêu Viết 4 câu 50 phút kèm ghi chú tự chấm bằng bài mẫu, chưa chấm AI", () => {
+    renderIntro(WRITING_EXAM);
+    expect(screen.getByText("4 câu · 50 phút")).toBeInTheDocument();
+    expect(screen.getByTestId("writing-self-score-note")).toHaveTextContent(
+      "Phần Viết tự chấm bằng bài mẫu, chưa chấm AI.",
+    );
+    expect(screen.getByText(/Số ký tự tính cả khoảng trắng/)).toBeInTheDocument();
+    expect(screen.getByText("Câu Viết bỏ trống được tính 0 điểm khi tự chấm.")).toBeInTheDocument();
+    expect(screen.queryByTestId("audio-missing-notice")).toBeNull();
+    expect(screen.queryByText(ONCE)).toBeNull();
+    // Mini test vẫn giải thích cấp là ước lượng.
+    expect(screen.getByText(/cấp hiển thị ở kết quả là ước lượng/)).toBeInTheDocument();
+  });
+
+  it("đề trắc nghiệm không có ghi chú tự chấm", () => {
+    renderIntro(EXAM);
+    expect(screen.queryByTestId("writing-self-score-note")).toBeNull();
+    expect(screen.getByText(/Mỗi câu chỉ có một đáp án đúng/)).toBeInTheDocument();
   });
 });

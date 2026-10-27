@@ -14,6 +14,7 @@ notes_internal: |
   Tag grammar:-다-보면 chưa đối chiếu với grammar_points của lexicographer; nếu pattern khác thì sửa tag.
   Bài mẫu có dùng lại cụm then chốt của câu hỏi gợi ý (속도를 중시하게 된, 기다림의 가치를 지키기 위해) làm câu chủ đề của đoạn, nhưng không chép nguyên câu hỏi hay đoạn dẫn. Reviewer đã xác nhận chấp nhận được (content/_reviews/2026-10-19-mau-viet-va-spec.md).
   char_count đếm theo mục 5.7 (từng câu, kể cả khoảng trắng; ký tự xuống dòng giữa các đoạn không tính). Bản 2026-10-20: bài cấp 6 bỏ "이제" (đoạn 1 câu 2, đoạn 2 câu 2) và "속도의" (đoạn 3 câu 4), 670 → 660 (đoạn 150/150/182/178), đếm tay lại; cần script validate xác nhận.
+  Bản 2026-10-26 (trả nợ spec v0.3, theo content/_reviews/2026-10-26-mini-viet-01.md): chỉ sửa explanation_vi. Tiêu đề khung đổi thành "Phân tích đề:" / "Dàn ý:"; ba khối "Giữ lập trường", "Mẹo phân bổ ký tự", "Dùng lại từ khoá của đề" gộp dưới "Lưu ý:" (giữ nguyên lời); bỏ hai mục "Đáng chú ý" trùng expression_bank (-(으)ㄹ수록, -는 셈이다); mục 중시하다 viết lại theo dạng bạn giả một phần. Bài mẫu, char_count (642 / 660) và mọi trường khác không đổi. Vì explanation_vi là trường nội dung nên reviewed_by vẫn null, chờ reviewer duyệt lại trường này.
 stem: "다음을 주제로 하여 자신의 생각을 600~700자로 글을 쓰십시오. 단, 문제를 그대로 옮겨 쓰지 마십시오."
 task: |
   요즘은 기다리는 시간을 줄여 주는 서비스가 빠르게 늘고 있다. 사람들은 점점 기다림을 견디기 어려워하고 무엇이든 빨리 얻기를 원한다. 그러나 속도만을 좇다 보면 잃는 것도 생기기 마련이다. 아래의 내용을 중심으로 '속도를 중시하는 사회와 기다림의 가치'에 대한 자신의 생각을 쓰라.
@@ -77,26 +78,23 @@ common_mistakes_vi:
   - "Câu hỏi 3 chỉ viết khẩu hiệu chung chung ('모두 노력해야 한다') mà không nói ai làm gì."
   - "Kể kỷ niệm cá nhân quá dài (một lần chờ giao hàng…) làm hết chỗ cho câu hỏi 2 và 3, hoặc vượt 700 ký tự."
 explanation_vi: |
-  **Phân tích đề.** Đoạn dẫn nêu hiện tượng (dịch vụ rút ngắn thời gian chờ tăng, con người kém kiên nhẫn) và gợi ý vấn đề (chạy theo tốc độ thì đánh mất điều gì đó). Đề có 3 câu hỏi: **nguyên nhân** – **hai mặt** – **giải pháp**. Câu hỏi 2 là bẫy: phải viết cả mặt tích cực rồi mới chuyển sang tiêu cực.
+  **Phân tích đề:** Đoạn dẫn nêu hiện tượng (dịch vụ rút ngắn thời gian chờ tăng, con người kém kiên nhẫn) và gợi ý vấn đề (chạy theo tốc độ thì đánh mất điều gì đó). Đề có 3 câu hỏi: **nguyên nhân** – **hai mặt** – **giải pháp**. Câu hỏi 2 là bẫy: phải viết cả mặt tích cực rồi mới chuyển sang tiêu cực.
 
-  **Dàn ý 4 đoạn (khoảng 150 / 150 / 180 / 170 ký tự):**
+  **Dàn ý:** 4 đoạn, khoảng 150 / 150 / 180 / 170 ký tự.
   1. 서론: một tình huống quen thuộc (giao hàng, tin nhắn, tìm kiếm) → khái quát thành đặc điểm xã hội → nêu hướng bài viết hoặc nêu vấn đề.
   2. 본론 1 (p1): câu chủ đề "…된 데에는 몇 가지 원인이 있다" → nguyên nhân 1: công nghệ (인터넷, 스마트폰, 정보 통신 기술) → nguyên nhân 2: cạnh tranh, tốc độ thành thước đo năng lực.
   3. 본론 2 (p2): 물론 + mặt tích cực (tiện lợi, hiệu quả) → 하지만 + mặt tiêu cực (mất kiên nhẫn, quyết định vội, thiếu chiều sâu) → câu tiểu kết.
   4. 결론 (p3): 따라서 + nỗ lực của cá nhân (một hành động cụ thể) và của xã hội (thay đổi cách đánh giá) → câu kết về sự cân bằng.
 
-  **Giữ lập trường:** không cần phản đối tốc độ. Lập trường an toàn và thuyết phục là "tốc độ có ích nhưng cần cân bằng với sự chờ đợi". Đoạn kết phải khớp lập trường đó.
-
-  **Mẹo phân bổ ký tự:** viết xong mỗi đoạn thì ước lượng độ dài. Nếu đoạn 1 đã quá 180 ký tự, rút ngắn ví dụ mở bài để dành chỗ cho câu hỏi 2 (phần dài nhất). Bài mẫu cấp 6 (660 ký tự) đã dùng gần hết khung 원고지 vì mỗi đoạn còn thêm 1 ô thụt đầu dòng; khi thi giấy nên nhắm khoảng 620–660 ký tự.
-
-  **Dùng lại từ khoá của đề:** được dùng lại từ khoá của câu hỏi gợi ý làm câu chủ đề (ví dụ "속도를 중시하게 된 데에는…"), nhưng không chép nguyên câu hỏi hay đoạn dẫn.
+  **Lưu ý:**
+  - Giữ lập trường: không cần phản đối tốc độ. Lập trường an toàn và thuyết phục là "tốc độ có ích nhưng cần cân bằng với sự chờ đợi". Đoạn kết phải khớp lập trường đó.
+  - Phân bổ ký tự: viết xong mỗi đoạn thì ước lượng độ dài. Nếu đoạn 1 đã quá 180 ký tự, rút ngắn ví dụ mở bài để dành chỗ cho câu hỏi 2 (phần dài nhất). Bài mẫu cấp 6 (660 ký tự) đã dùng gần hết khung 원고지 vì mỗi đoạn còn thêm 1 ô thụt đầu dòng; khi thi giấy nên nhắm khoảng 620–660 ký tự.
+  - Dùng lại từ khoá của đề: được dùng lại từ khoá của câu hỏi gợi ý làm câu chủ đề (ví dụ "속도를 중시하게 된 데에는…"), nhưng không chép nguyên câu hỏi hay đoạn dẫn.
 
   **Đáng chú ý:**
-  - 중시하다 (重視 – trọng thị) – coi trọng, xem là quan trọng; khác "trọng thị" trong tiếng Việt (thái độ tôn trọng, tiếp đón trang trọng một người)
+  - 중시하다 (重視 – trọng thị) – coi trọng, xem là quan trọng; trùng "trọng thị" ở nghĩa coi trọng, khác ở chỗ tiếng Việt chủ yếu dùng cho thái độ với người ("tiếp đón trọng thị"), còn 중시하다 dùng cho mọi đối tượng (속도, 과정…)
   - 즉각적 (卽刻的 – tức khắc đích) – tức thì, ngay lập tức
   - 지연 (遲延 – trì diên) – sự chậm trễ
   - 소홀히 하다 (疏忽 – sơ hốt) – xem nhẹ, lơ là
   - 대가 (代價 – đại giá) – cái giá phải trả; khác 대가 (大家 – đại gia) – bậc thầy trong một lĩnh vực, và khác "đại gia" (người giàu) trong tiếng Việt
   - 길들여지다 – bị quen dần, bị thuần hoá (ở đây: quen với sự thoả mãn tức thì)
-  - -(으)ㄹ수록 – càng … càng …
-  - -는 셈이다 – coi như là, rốt cuộc là

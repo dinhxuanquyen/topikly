@@ -52,7 +52,7 @@ describe("GET /api/practice/writing/prompts", () => {
     const p = await get("?program=eps&type=W53");
     expect(p.status).toBe(404);
     expect((await errorOf(p)).code).toBe("program_not_found");
-    const t = await get("?program=topik-ii&type=W51");
+    const t = await get("?program=topik-ii&type=W55");
     expect(t.status).toBe(404);
     expect((await errorOf(t)).code).toBe("type_not_found");
     expect((await get("?program=topik-ii&type=R10")).status).toBe(404);
@@ -94,7 +94,12 @@ describe("GET /api/practice/writing/reveal", () => {
 
 describe("practice/writing-queries (hàm 'use cache' cho server component)", () => {
   it("bọc đúng các hàm nguồn", async () => {
-    expect((await getWritingTypes("topik-ii")).map((t) => t.type_code)).toEqual(["W53", "W54"]);
+    expect((await getWritingTypes("topik-ii")).map((t) => t.type_code)).toEqual([
+      "W51",
+      "W52",
+      "W53",
+      "W54",
+    ]);
     expect((await getWritingPrompts("topik-ii", "W53")).map((p) => p.id)).toEqual(["w53-0002"]);
     expect((await getWritingPromptById("topik-ii", "w54-0002"))?.type_code).toBe("W54");
     expect(await getWritingPromptById("topik-ii", "khong-co")).toBeNull();

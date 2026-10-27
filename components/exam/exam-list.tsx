@@ -69,6 +69,7 @@ interface ExamCardProps {
 
 export function ExamCard({ exam, href, status }: ExamCardProps) {
   const skills = exam.skills.map((skill) => t.examCard.skillNames[skill]).join(" + ");
+  const hasWriting = exam.skills.includes("writing");
 
   return (
     <Link
@@ -96,6 +97,11 @@ export function ExamCard({ exam, href, status }: ExamCardProps) {
             </span>
             <span>{skills}</span>
           </span>
+          {hasWriting ? (
+            <span className="mt-1.5 block text-xs text-muted-foreground">
+              {t.examCard.writingNote}
+            </span>
+          ) : null}
         </span>
         <ArrowRight
           aria-hidden
@@ -116,17 +122,13 @@ export function ExamCard({ exam, href, status }: ExamCardProps) {
                 !status.draft && !status.latest && "font-normal text-muted-foreground",
               )}
             >
-              {status.draft
-                ? t.examCard.statusDraft
-                : status.latest
-                  ? t.examCard.statusLatest(
-                      status.latest.score,
-                      status.latest.maxScore,
-                      status.latest.levelLabel,
-                      status.latest.isEstimate,
-                    )
-                  : t.examCard.statusNew}
+              {status.draft ? t.examCard.statusDraft : latestText(status.latest)}
             </span>
+            {!status.draft && status.latest?.writingPending && status.latest.maxScore > 0 ? (
+              <span className="block text-xs text-muted-foreground">
+                {t.examCard.writingPendingSuffix}
+              </span>
+            ) : null}
             {status.attempts > 0 ? (
               <span className="block text-xs text-muted-foreground">
                 {t.examCard.attempts(status.attempts)}
@@ -136,5 +138,21 @@ export function ExamCard({ exam, href, status }: ExamCardProps) {
         )}
       </span>
     </Link>
+  );
+}
+
+/** Dòng trạng thái "lần gần nhất" của thẻ đề; đề có Viết có cách nói riêng cho phần tự chấm. */
+function latestText(latest: ExamStatusSummary["latest"]): string {
+  if (!latest) return t.examCard.statusNew;
+  // Mini Viết chưa tự chấm: chưa có điểm nào để hiện, đừng in "0/0".
+  if (latest.writingPending && latest.maxScore === 0) return t.examCard.statusWritingUnscored;
+  if (latest.selfScored) {
+    return t.examCard.statusLatestSelf(latest.score, latest.maxScore, latest.levelLabel);
+  }
+  return t.examCard.statusLatest(
+    latest.score,
+    latest.maxScore,
+    latest.levelLabel,
+    latest.isEstimate,
   );
 }

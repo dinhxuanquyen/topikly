@@ -9,6 +9,10 @@ interface SubmitDialogProps {
   blank: number;
   /** Số câu đang đánh dấu. */
   marked: number;
+  /** Đề có câu Viết: lời nhắc về câu bỏ trống nói theo "điểm" thay vì "sai". */
+  hasWriting?: boolean;
+  /** Số câu điền chỗ trống (W51–W52) mới điền một phần. */
+  incomplete?: number;
   onCancel: () => void;
   onConfirm: () => void;
 }
@@ -17,7 +21,14 @@ interface SubmitDialogProps {
  * Hộp xác nhận nộp bài (role="dialog", aria-modal). Focus vào "Quay lại làm bài" (lựa chọn an
  * toàn), Tab xoay vòng trong hộp, Esc đóng và trả focus về nút đã mở.
  */
-export function SubmitDialog({ blank, marked, onCancel, onConfirm }: SubmitDialogProps) {
+export function SubmitDialog({
+  blank,
+  marked,
+  hasWriting = false,
+  incomplete = 0,
+  onCancel,
+  onConfirm,
+}: SubmitDialogProps) {
   const titleId = useId();
   const bodyId = useId();
   const backRef = useRef<HTMLButtonElement>(null);
@@ -73,11 +84,16 @@ export function SubmitDialog({ blank, marked, onCancel, onConfirm }: SubmitDialo
         <div id={bodyId} className="space-y-2 text-sm leading-relaxed">
           {blank > 0 ? (
             <p className="font-semibold text-red-700 dark:text-red-300">
-              {t.examRun.confirm.blank(blank)}
+              {hasWriting ? t.examRun.confirm.blankMixed(blank) : t.examRun.confirm.blank(blank)}
             </p>
           ) : (
-            <p>{t.examRun.confirm.allAnswered}</p>
+            <p>{hasWriting ? t.examRun.confirm.allDone : t.examRun.confirm.allAnswered}</p>
           )}
+          {incomplete > 0 ? (
+            <p className="font-semibold text-red-700 dark:text-red-300">
+              {t.examRun.confirm.incompleteBlanks(incomplete)}
+            </p>
+          ) : null}
           {marked > 0 ? <p>{t.examRun.confirm.marked(marked)}</p> : null}
           <p className="text-muted-foreground">{t.examRun.confirm.final}</p>
         </div>

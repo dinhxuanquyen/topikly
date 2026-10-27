@@ -1,7 +1,7 @@
 /**
  * Nguồn dữ liệu TẠM của trụ Đề thi: đọc content/<program>/exams/<kind>/<id>.yaml, đối chiếu với
- * kho câu hỏi của Luyện tập (lib/practice/source), rồi dựng `PublicExam` (gửi client, không đáp án)
- * và `FullExam` (chỉ server, để chấm). Khi có Supabase, thay file này bằng truy vấn CSDL nhưng
+ * kho câu hỏi của Luyện tập (lib/practice/source cho Đọc/Nghe, lib/practice/writing-source cho Viết),
+ * rồi dựng `PublicExam` (gửi client, không đáp án/bài mẫu) và `FullExam` (chỉ server, để chấm). Khi có Supabase, thay file này bằng truy vấn CSDL nhưng
  * GIỮ NGUYÊN chữ ký hàm.
  *
  * CHỈ DÙNG TRÊN SERVER (đọc fs). Không import file này từ component "use client".
@@ -28,13 +28,15 @@
  *                                 published: các luật đó thành LỖI CHẶN; đề lỗi không được phục vụ.
  *   program    string   tuỳ chọn  nếu có phải khớp thư mục chương trình
  *   sections   list     bắt buộc  các phần thi THEO THỨ TỰ làm bài, mỗi kỹ năng tối đa một phần:
- *     - skill         enum    reading | listening   (Viết/Nói chưa hỗ trợ trong đề)
+ *     - skill         enum    reading | listening | writing   (Nói chưa hỗ trợ trong đề)
  *       duration_sec  int     tuỳ chọn  ghi đè thời gian phần này (giây). Bỏ trống = lấy
  *                             `exam_blueprints[kind][skill].duration_sec` của chương trình
  *                             (Full: theo `sections` của chương trình).
  *       questions     list    bắt buộc  id câu hỏi (file trong practice/) THEO THỨ TỰ trong đề.
  *                             Số thứ tự câu trong đề là vị trí (1-based, liên tục trong phần thi),
  *                             KHÔNG nhất thiết trùng số trong type_code.
+ *                             Phần `writing`: id là đề Viết (w51-0001, w52-0001, w53-0002, w54-0002),
+ *                             xếp theo type_code tăng dần, mỗi dạng tối đa một câu.
  *
  * Ví dụ:
  *   id: doc-01
@@ -46,11 +48,15 @@
  *       questions: [r01-0001, r03-0001, r07-0001]   # thời gian lấy từ blueprint
  *
  * Ràng buộc (kiểm bởi `npm run validate:content`, lib/db/exam-validation.ts):
- *   - mọi id câu phải tồn tại, đúng kỹ năng của phần, không trùng trong đề;
+ *   - mọi id câu phải tồn tại, đúng kỹ năng của phần, không trùng trong đề (id Viết tra ở nguồn
+ *     Viết: file W5x phải dựng được thành đề Viết);
  *   - câu cùng `group_key` (cặp/bộ dùng chung ngữ liệu) phải có ĐỦ số câu của bộ (đọc từ group_key,
  *     ví dụ r46-47-0001 cần 2 câu), đứng LIỀN NHAU và theo type_code tăng dần;
  *   - số câu mỗi phần = `exam_blueprints` (mini, placement) hoặc `sections` (full) của chương trình
- *     (draft: cảnh báo, published: lỗi);
+ *     (draft: cảnh báo, published: lỗi). Mini Viết = 4 câu / 50 phút;
+ *   - phần Viết: type_code các câu phải TĂNG DẦN NGHIÊM NGẶT (W51 < W52 < W53 < W54, không hai câu
+ *     cùng dạng) -> lỗi chặn mọi trạng thái; type_code phải có điểm trong `ProgramConfig.writing_points`
+ *     (lỗi chặn). Luật audio và luật nhãn đúng KHÔNG áp dụng cho Viết (không có audio, không có nhãn);
  *   - luật audio: mọi câu Nghe (phần `listening`) phải có `audio_url` khác rỗng, ở MỌI kind (mini,
  *     full, hard, ibt, placement); thiếu thì gộp thành MỘT thông báo liệt kê id thiếu (draft: cảnh
  *     báo, published: lỗi chặn, đề không được phục vụ). Câu Đọc không cần audio;
@@ -60,6 +66,9 @@
  *   - luật nhãn đúng của đề lắp ráp, tính trên từng phần (draft: cảnh báo, published: lỗi):
  *     mỗi nhãn ~25% (từ 8 câu), không quá 3 câu liền cùng nhãn, không chu kỳ lặp ≥ 4 nhãn lặp
  *     liền nhau. Muốn sửa thì ĐỔI THỨ TỰ CÂU, không đảo nhãn phương án.
+ *
+ * Chấm: phần Đọc/Nghe chấm tự động (scoreExam). Phần Viết KHÔNG chấm tự động: kết quả trả bài đã nộp
+ * + đếm ký tự + bài mẫu (`ExamResult.writing`) để người học tự chấm (lib/exam/writing-self-score.ts).
  *
  * Chấm đề `placement`: như Mini (scoreExam) và thêm `ExamResult.placement` (lib/exam/placement.ts):
  * gom câu theo `difficulty`, bậc vững khi tỉ lệ đúng >= `placement.band_pass_ratio`, trình độ
@@ -88,15 +97,24 @@ import {
   type FullQuestion,
   type PracticeSourceOptions,
 } from "@/lib/practice/source";
-import type { PracticeSkill } from "@/lib/practice/types";
+import {
+  getWritingPrompt,
+  getWritingReveal,
+  listWritingPrompts,
+  listWritingTypes,
+} from "@/lib/practice/writing-source";
+import type { WritingPrompt, WritingReveal } from "@/lib/practice/writing-types";
 import type {
   ExamKind,
+  ExamSkill,
   ExamStatus,
   ExamSummary,
+  PublicChoiceSection,
   PublicExam,
   PublicExamBlock,
   PublicExamQuestion,
   PublicExamSection,
+  PublicWritingSection,
 } from "./types";
 
 // ------------------------------------------------------------------ kiểu nội bộ
@@ -108,13 +126,28 @@ export interface FullExamQuestion {
   question: FullQuestion;
 }
 
+/** Một câu Viết của đề, bản đầy đủ: có bài mẫu (`reveal`). Không bao giờ gửi xuống client trước khi nộp. */
+export interface FullWritingItem {
+  /** Vị trí trong phần Viết (1-based, liên tục). */
+  number: number;
+  type_group: string;
+  /** Điểm tối đa của câu (`ProgramConfig.writing_points`). */
+  max_points: number;
+  prompt: WritingPrompt;
+  reveal: WritingReveal;
+}
+
 export interface FullExamSection {
-  skill: PracticeSkill;
+  skill: ExamSkill;
   order: number;
   duration_sec: number;
+  /** Số câu của phần (phần Viết: số câu Viết). */
   question_count: number;
   max_score: number;
+  /** Câu trắc nghiệm (Đọc/Nghe). Phần Viết luôn là []. */
   questions: FullExamQuestion[];
+  /** Chỉ phần Viết (skill = "writing"): các câu Viết theo thứ tự trong đề. */
+  writing_items?: FullWritingItem[];
 }
 
 /** Bản đầy đủ của đề: CÓ đáp án và lời giải. Không bao giờ gửi xuống client. */
@@ -210,6 +243,16 @@ function buildRefs(program: string, options: PracticeSourceOptions): Map<string,
       });
     }
   }
+  // Đề Viết có nguồn riêng (writing-source); chỉ cần id/type_code/độ khó, không có nhãn đúng/audio.
+  for (const type of listWritingTypes(program, options)) {
+    for (const prompt of listWritingPrompts(program, type.type_code, options)) {
+      refs.set(prompt.id, {
+        id: prompt.id,
+        type_code: prompt.type_code,
+        difficulty: prompt.difficulty,
+      });
+    }
+  }
   return refs;
 }
 
@@ -291,6 +334,34 @@ function buildExam(
     const blueprint = getExamBlueprint(config, file.kind, section.skill);
     if (!programSection || !blueprint) return undefined;
 
+    if (section.skill === "writing") {
+      const items: FullWritingItem[] = [];
+      for (const id of section.questions) {
+        const prompt = getWritingPrompt(program, id, options);
+        const reveal = getWritingReveal(program, id, options);
+        const type = config.question_types.find((t) => t.code === prompt?.type_code);
+        const maxPoints = prompt ? config.writing_points[prompt.type_code] : undefined;
+        if (!prompt || !reveal || !type || maxPoints === undefined) return undefined;
+        items.push({
+          number: items.length + 1,
+          type_group: type.type_group,
+          max_points: maxPoints,
+          prompt,
+          reveal,
+        });
+      }
+      sections.push({
+        skill: "writing",
+        order: index + 1,
+        duration_sec: section.duration_sec ?? blueprint.duration_sec,
+        question_count: items.length,
+        max_score: programSection.max_score,
+        questions: [],
+        writing_items: items,
+      });
+      continue;
+    }
+
     const questions: FullExamQuestion[] = [];
     for (const id of section.questions) {
       const question = getFullQuestion(program, id, options);
@@ -370,6 +441,8 @@ export function toPublicSection(
   config: ProgramConfig,
   section: FullExamSection,
 ): PublicExamSection {
+  if (section.skill === "writing") return toPublicWritingSection(section);
+  const skill = section.skill;
   const blocks: PublicExamBlock[] = [];
   let currentKey: string | undefined;
 
@@ -404,13 +477,35 @@ export function toPublicSection(
     );
   }
 
-  return {
-    skill: section.skill,
+  const publicSection: PublicChoiceSection = {
+    skill,
     order: section.order,
     duration_sec: section.duration_sec,
     question_count: section.question_count,
     max_score: section.max_score,
     blocks,
+  };
+  return publicSection;
+}
+
+/**
+ * Phần Viết công khai: chỉ `WritingPrompt` (đã whitelist ở writing-source) + điểm tối đa. KHÔNG kèm
+ * `reveal` (bài mẫu, đáp án, rubric, lời giải): những thứ đó chỉ có trong `ExamResult.writing`.
+ */
+function toPublicWritingSection(section: FullExamSection): PublicWritingSection {
+  return {
+    skill: "writing",
+    order: section.order,
+    duration_sec: section.duration_sec,
+    question_count: section.question_count,
+    max_score: section.max_score,
+    blocks: [],
+    writing_items: (section.writing_items ?? []).map((item) => ({
+      number: item.number,
+      type_group: item.type_group,
+      max_points: item.max_points,
+      prompt: item.prompt,
+    })),
   };
 }
 

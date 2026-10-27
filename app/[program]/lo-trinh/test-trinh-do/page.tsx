@@ -70,7 +70,7 @@ export default async function PlacementPage({ params }: Props) {
   // Dạng nào đã có câu luyện: trang kết quả chỉ gắn "Luyện dạng này" tới trang tồn tại.
   const practiceTypeCodes: string[] = [];
   for (const skill of exam.skills) {
-    if (!PRACTICE_SKILLS.includes(skill)) continue;
+    if (skill === "writing" || !PRACTICE_SKILLS.includes(skill)) continue;
     for (const type of await getPracticeTypes(program.slug, skill)) {
       practiceTypeCodes.push(type.type_code);
     }
