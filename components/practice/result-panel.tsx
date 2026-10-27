@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import { CircleCheck, CircleMinus, CircleX } from "lucide-react";
+import { TopiCat } from "@/components/brand/topi-cat";
 import { t } from "@/components/i18n";
 import { cn } from "@/lib/utils";
 import type { CheckResponse } from "@/lib/practice/types";
@@ -26,12 +27,15 @@ export function verdictAnnouncement(result: CheckResponse): string {
 }
 
 const VERDICT_STYLE: Record<Verdict, string> = {
-  correct:
-    "border-emerald-600 bg-emerald-50 text-emerald-950 dark:border-emerald-500 dark:bg-emerald-950/40 dark:text-emerald-50",
-  wrong:
-    "border-red-600 bg-red-50 text-red-950 dark:border-red-500 dark:bg-red-950/40 dark:text-red-50",
-  blank:
-    "border-amber-600 bg-amber-50 text-amber-950 dark:border-amber-500 dark:bg-amber-950/40 dark:text-amber-50",
+  correct: "bg-mint-100 text-ink-900 dark:bg-emerald-950/40 dark:text-emerald-50",
+  wrong: "bg-coral-100 text-ink-900 dark:bg-red-950/40 dark:text-red-50",
+  blank: "bg-sun-100 text-ink-900 dark:bg-amber-950/40 dark:text-amber-50",
+};
+
+const VERDICT_TEXT: Record<Verdict, string> = {
+  correct: "text-mint-700",
+  wrong: "text-coral-700",
+  blank: "text-sun-600",
 };
 
 /**
@@ -59,12 +63,19 @@ export const ResultPanel = forwardRef<HTMLElement, { result: CheckResponse }>(fu
       tabIndex={-1}
       aria-label={t.result.regionLabel}
       data-verdict={verdict}
-      className="scroll-mt-[calc(var(--header-height)+0.75rem)] space-y-4 rounded-2xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      className="anim-slide-up scroll-mt-[calc(var(--header-height)+0.75rem)] space-y-4 rounded-3xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >
-      <div className={cn("flex items-start gap-3 rounded-xl border-2 p-4", VERDICT_STYLE[verdict])}>
-        <Icon aria-hidden className="mt-0.5 size-7 shrink-0" />
-        <div className="min-w-0">
-          <h2 className="text-xl font-bold">{heading}</h2>
+      <div className={cn("flex items-start gap-3 rounded-3xl p-4 md:p-5", VERDICT_STYLE[verdict])}>
+        <Icon
+          aria-hidden
+          className={cn(
+            "mt-0.5 size-8 shrink-0",
+            VERDICT_TEXT[verdict],
+            verdict === "correct" && "anim-pop",
+          )}
+        />
+        <div className="min-w-0 flex-1">
+          <h2 className={cn("text-2xl font-extrabold", VERDICT_TEXT[verdict])}>{heading}</h2>
           <p className="mt-0.5 text-sm">
             {result.selectedLabel === null
               ? t.result.blankChoice
@@ -72,10 +83,13 @@ export const ResultPanel = forwardRef<HTMLElement, { result: CheckResponse }>(fu
             {t.result.correctAnswerIs(result.correctLabel)}
           </p>
         </div>
+        {verdict === "correct" ? (
+          <TopiCat className="anim-hop size-11 shrink-0 md:size-16" />
+        ) : null}
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-4">
-        <h3 className="text-base font-semibold">{t.result.explanation}</h3>
+      <div className="rounded-3xl bg-surface p-4 md:p-5">
+        <h3 className="text-lg font-extrabold">{t.result.explanation}</h3>
         <RichLines
           text={result.explanation_vi}
           tagKorean
@@ -85,8 +99,8 @@ export const ResultPanel = forwardRef<HTMLElement, { result: CheckResponse }>(fu
       </div>
 
       {translation.length > 0 ? (
-        <div className="rounded-xl border border-border bg-card p-4">
-          <h3 className="text-base font-semibold">{t.result.translation}</h3>
+        <div className="rounded-3xl bg-surface p-4 md:p-5">
+          <h3 className="text-lg font-extrabold">{t.result.translation}</h3>
           <ul className="mt-2 space-y-1.5">
             {translation.map((line, index) => (
               <li key={index} className="leading-relaxed">

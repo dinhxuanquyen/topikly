@@ -6,6 +6,12 @@ import { ChartView } from "./chart-view";
 import { ImagePending } from "./question-material";
 import { renderInline } from "./rich-text";
 
+/** "①" → "1": nhãn hiển thị trong ô số (nhãn gốc vẫn dùng cho trình đọc màn hình và khi chấm). */
+export function choiceNumber(label: string): string {
+  const index = "①②③④⑤".indexOf(label);
+  return index >= 0 ? String(index + 1) : label;
+}
+
 export function choiceInputId(group: string, index: number): string {
   return `${group}-choice-${index}`;
 }
@@ -46,14 +52,12 @@ function choiceSummary(choice: PublicChoice): string {
 }
 
 const STATUS_CLASS: Record<ChoiceStatus, string> = {
-  idle: "border-border bg-card hover:border-primary/40 hover:bg-brand-soft/60",
-  selected: "border-primary bg-brand-soft ring-1 ring-primary",
-  correct:
-    "border-emerald-600 bg-emerald-50 text-emerald-950 dark:border-emerald-500 dark:bg-emerald-950/50 dark:text-emerald-50",
-  missed:
-    "border-emerald-600 bg-emerald-50 text-emerald-950 dark:border-emerald-500 dark:bg-emerald-950/50 dark:text-emerald-50",
+  idle: "border-line bg-card hover:bg-sky-50",
+  selected: "border-sky-600 bg-sky-50",
+  correct: "border-mint-500 bg-mint-100 text-ink-900 dark:bg-emerald-950/50 dark:text-emerald-50",
+  missed: "border-mint-500 bg-mint-100 text-ink-900 dark:bg-emerald-950/50 dark:text-emerald-50",
   wrong:
-    "border-red-600 bg-red-50 text-red-950 dark:border-red-500 dark:bg-red-950/50 dark:text-red-50",
+    "anim-shake border-coral-500 bg-coral-100 text-ink-900 dark:bg-red-950/50 dark:text-red-50",
 };
 
 interface ChoiceListProps {
@@ -109,7 +113,8 @@ export function ChoiceList({
             <label
               htmlFor={inputId}
               className={cn(
-                "relative flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border-2 p-3 transition-colors md:p-4",
+                "relative flex min-h-14 cursor-pointer items-start gap-3 rounded-2xl border-2 border-b-4 p-3 transition-[background-color,border-color,transform] duration-150 md:p-4",
+                !locked && "motion-safe:active:translate-y-0.5",
                 "has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/60",
                 locked && "cursor-default",
                 STATUS_CLASS[status],
@@ -130,12 +135,12 @@ export function ChoiceList({
               <span
                 aria-hidden
                 className={cn(
-                  "grid size-9 shrink-0 place-items-center rounded-full border text-lg leading-none font-semibold",
-                  status === "idle" && "border-border bg-background",
-                  status === "selected" && "border-primary bg-primary text-primary-foreground",
+                  "grid size-9 shrink-0 place-items-center rounded-lg border-2 text-lg leading-none font-extrabold",
+                  status === "idle" && "border-ink-300 bg-background text-ink-600",
+                  status === "selected" && "border-sky-600 bg-sky-600 text-white",
                   (status === "correct" || status === "missed") &&
-                    "border-emerald-600 bg-emerald-600 text-white",
-                  status === "wrong" && "border-red-600 bg-red-600 text-white",
+                    "anim-pop border-mint-500 bg-mint-500 text-white",
+                  status === "wrong" && "border-coral-500 bg-coral-500 text-white",
                 )}
               >
                 {status === "correct" || status === "missed" ? (
@@ -143,7 +148,7 @@ export function ChoiceList({
                 ) : status === "wrong" ? (
                   <X className="size-5" strokeWidth={3} />
                 ) : (
-                  choice.label
+                  choiceNumber(choice.label)
                 )}
               </span>
               <span className="min-w-0 flex-1 pt-1">
@@ -167,8 +172,8 @@ export function ChoiceList({
                 {badge ? (
                   <span
                     className={cn(
-                      "mt-1.5 inline-block rounded-md px-2 py-0.5 text-xs font-semibold",
-                      status === "wrong" ? "bg-red-600 text-white" : "bg-emerald-600 text-white",
+                      "mt-1.5 inline-block rounded-full px-2.5 py-0.5 text-sm font-extrabold",
+                      status === "wrong" ? "bg-coral-700 text-white" : "bg-mint-700 text-white",
                     )}
                   >
                     {choice.label} {badge}
@@ -179,7 +184,7 @@ export function ChoiceList({
             {hasNote && checkedChoice ? (
               <div
                 id={noteId}
-                className="mx-1 mt-1.5 rounded-lg border-l-4 border-border bg-muted/50 px-3 py-2 text-sm"
+                className="anim-slide-up mx-1 mt-2 rounded-2xl bg-surface px-4 py-3 text-[0.9375rem] leading-relaxed"
               >
                 {checkedChoice.trap_name_vi ? (
                   <p className="font-semibold">

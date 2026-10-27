@@ -12,7 +12,7 @@ export function ProgramSwitcher({ current }: { current: Program }) {
     <Menu.Root>
       <Menu.Trigger
         aria-label={`${t.nav.programSwitcher.choose}: ${current.name}`}
-        className="inline-flex h-9 items-center gap-1 rounded-full border border-border bg-background px-3 text-sm font-semibold outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 data-popup-open:bg-muted"
+        className="inline-flex h-9 items-center gap-1 rounded-full bg-sky-50 px-3 text-sm font-extrabold whitespace-nowrap text-sky-700 transition-colors outline-none hover:bg-sky-100 focus-visible:ring-3 focus-visible:ring-ring/50 data-popup-open:bg-sky-100"
       >
         {current.name}
         <ChevronDown aria-hidden className="size-4 text-muted-foreground" />

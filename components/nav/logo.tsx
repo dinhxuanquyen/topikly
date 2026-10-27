@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TopiCat } from "@/components/brand/topi-cat";
 import { t } from "@/components/i18n";
 import { SITE_LINKS } from "@/components/config/pillars";
 
@@ -7,16 +8,12 @@ export function Logo() {
     <Link
       href={SITE_LINKS.home}
       aria-label={t.a11y.goHome}
-      className="flex items-center gap-2 rounded-md font-bold tracking-tight outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      className="group flex shrink-0 items-center gap-2 rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >
-      <span
-        aria-hidden
-        lang="ko"
-        className="grid size-8 place-items-center rounded-lg bg-primary text-base leading-none text-primary-foreground"
-      >
-        토
+      <TopiCat className="size-9 transition-transform duration-200 group-hover:-rotate-6 motion-reduce:transition-none" />
+      <span className="text-xl font-black tracking-tight text-sky-600 max-[360px]:sr-only">
+        {t.brand.name}
       </span>
-      <span className="text-lg max-[360px]:sr-only">{t.brand.name}</span>
     </Link>
   );
 }

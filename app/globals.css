@@ -7,13 +7,64 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* Pretendard là chính (nạp ở app/layout.tsx), Noto Sans KR dự phòng cho Hangul.
-     Chỉ khai báo tên font, không nạp từ Google: máy có sẵn thì dùng. */
+  /* Nunito (nạp ở app/layout.tsx) cho tiếng Việt: chữ tròn, thân thiện, đủ dấu.
+     Pretendard đứng sau để gánh Hangul; chữ Hán rơi về font hệ thống (Malgun Gothic…). */
   --font-sans:
-    var(--font-pretendard), "Pretendard Variable", Pretendard, "Noto Sans KR",
+    var(--font-nunito), var(--font-pretendard), "Pretendard Variable", Pretendard, "Noto Sans KR",
     "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-korean:
+    var(--font-pretendard), "Pretendard Variable", Pretendard, "Noto Sans KR",
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  /* Chỉ cho mã thật (<code>, <pre>); không dùng làm nhãn trang trí. */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; /* taste-skill-ignore */
   --font-heading: var(--font-sans);
+
+  /* Thang màu Topikly, khớp biến trong file Figma "Topikly — Giao diện học sinh sinh viên". */
+  --color-sky-50: var(--sky-50);
+  --color-sky-100: var(--sky-100);
+  --color-sky-200: var(--sky-200);
+  --color-sky-300: var(--sky-300);
+  --color-sky-500: var(--sky-500);
+  --color-sky-600: var(--sky-600);
+  --color-sky-700: var(--sky-700);
+  --color-mint-100: var(--mint-100);
+  --color-mint-500: var(--mint-500);
+  --color-mint-700: var(--mint-700);
+  --color-coral-100: var(--coral-100);
+  --color-coral-500: var(--coral-500);
+  --color-coral-700: var(--coral-700);
+  --color-sun-100: var(--sun-100);
+  --color-sun-400: var(--sun-400);
+  --color-sun-600: var(--sun-600);
+  --color-ink-900: var(--ink-900);
+  --color-ink-600: var(--ink-600);
+  --color-ink-300: var(--ink-300);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+
+  /* Đúng / sai / cảnh báo trong toàn app đang viết bằng emerald / red / amber: trỏ chúng về
+     bạc hà / san hô / vàng của Topikly để mọi màn đổi theo một bảng màu. */
+  --color-emerald-50: var(--mint-100);
+  --color-emerald-500: var(--mint-500);
+  --color-emerald-600: var(--mint-700);
+  --color-emerald-700: var(--mint-700);
+  --color-emerald-950: var(--ink-900);
+  --color-red-50: var(--coral-100);
+  --color-red-300: var(--coral-500);
+  --color-red-500: var(--coral-500);
+  --color-red-600: var(--coral-700);
+  --color-red-700: var(--coral-700);
+  --color-red-950: var(--ink-900);
+  --color-amber-50: var(--sun-100);
+  --color-amber-300: var(--sun-400);
+  --color-amber-400: var(--sun-400);
+  --color-amber-500: var(--sun-600);
+  --color-amber-600: var(--sun-600);
+  --color-amber-700: var(--sun-600);
+  --color-amber-800: var(--ink-900);
+  --color-amber-900: var(--ink-900);
+  --color-amber-950: var(--ink-900);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -55,43 +106,66 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  /* Màu thương hiệu: chàm. Chữ trắng trên nền này đạt tương phản > 7:1. */
-  --primary: oklch(0.46 0.2 266);
-  --primary-foreground: oklch(0.99 0 0);
-  --brand-soft: oklch(0.96 0.025 266);
-  --brand-soft-foreground: oklch(0.36 0.17 266);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.58 0.17 266);
+  /* Xanh da trời làm chủ đạo: bình tĩnh, tin cậy, ít kích thích, hợp với học lâu.
+     sky-500 cho thương hiệu và tiến độ; sky-600 riêng cho hành động (chữ trắng trên nó đạt AA).
+     Màu nóng chỉ mang nghĩa: bạc hà = đúng, san hô = sai / bẫy, vàng = phần thưởng nhỏ. */
+  --sky-50: #f2f9ff;
+  --sky-100: #e0f2fe;
+  --sky-200: #bae3fd;
+  --sky-300: #7cc8f8;
+  --sky-500: #2e9bea;
+  --sky-600: #0a6fb8;
+  --sky-700: #075a96;
+  --mint-100: #e3f6ef;
+  --mint-500: #2bb38a;
+  --mint-700: #137556;
+  --coral-100: #fdece9;
+  --coral-500: #eb6e5e;
+  --coral-700: #a63e30;
+  --sun-100: #fff6dd;
+  --sun-400: #f5c451;
+  --sun-600: #9a6f12;
+  --ink-900: #1b2b3a;
+  --ink-600: #536474;
+  --ink-300: #a7b4c1;
+  --line: #e2e8ef;
+  --surface: #f5f8fb;
+  --background: #ffffff;
+  --foreground: var(--ink-900);
+  --card: #ffffff;
+  --card-foreground: var(--ink-900);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink-900);
+  --primary: var(--sky-600);
+  --primary-foreground: #ffffff;
+  --brand-soft: var(--sky-100);
+  --brand-soft-foreground: var(--sky-700);
+  --secondary: var(--surface);
+  --secondary-foreground: var(--ink-900);
+  --muted: var(--surface);
+  --muted-foreground: var(--ink-600);
+  --accent: var(--sky-50);
+  --accent-foreground: var(--ink-900);
+  --destructive: var(--coral-700);
+  --border: var(--line);
+  --input: #cfd8e2;
+  --ring: var(--sky-500);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.75rem;
+  --radius: 1rem;
   /* Màu dãy số liệu của biểu đồ luyện tập: phân biệt được cả khi in đen trắng nhờ khác độ sáng. */
-  --series-1: oklch(0.48 0.2 266);
+  --series-1: var(--sky-600);
   --series-2: oklch(0.74 0.16 60);
-  --series-3: oklch(0.58 0.13 165);
-  --series-4: oklch(0.6 0.2 10);
-  --series-5: oklch(0.42 0.1 300);
-  --series-6: oklch(0.8 0.08 100);
+  --series-3: var(--mint-500);
+  --series-4: var(--coral-500);
+  --series-5: oklch(0.42 0.05 240);
+  --series-6: var(--sky-300);
   /* Chiều cao thanh điều hướng; nội dung chừa chỗ theo các biến này. */
-  --header-height: 3.5rem;
-  --tabbar-height: 3.5rem;
+  --header-height: 4rem;
+  --tabbar-height: 4rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -103,37 +177,37 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.72 0.14 266);
-  --primary-foreground: oklch(0.2 0.05 266);
-  --brand-soft: oklch(0.28 0.06 266);
-  --brand-soft-foreground: oklch(0.88 0.06 266);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  --background: #0f1b26;
+  --foreground: #eef4fa;
+  --card: #16263a;
+  --card-foreground: #eef4fa;
+  --popover: #16263a;
+  --popover-foreground: #eef4fa;
+  --primary: var(--sky-300);
+  --primary-foreground: #0f1b26;
+  --brand-soft: #1b3550;
+  --brand-soft-foreground: #e0f2fe;
+  --secondary: #1b2d40;
+  --secondary-foreground: #eef4fa;
+  --muted: #1b2d40;
+  --muted-foreground: #a7b4c1;
+  --accent: #1b2d40;
+  --accent-foreground: #eef4fa;
+  --destructive: var(--coral-500);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: var(--sky-300);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --series-1: oklch(0.72 0.14 266);
+  --series-1: var(--sky-300);
   --series-2: oklch(0.78 0.15 60);
-  --series-3: oklch(0.72 0.13 165);
-  --series-4: oklch(0.7 0.17 10);
-  --series-5: oklch(0.68 0.12 300);
-  --series-6: oklch(0.85 0.08 100);
+  --series-3: var(--mint-500);
+  --series-4: var(--coral-500);
+  --series-5: oklch(0.72 0.05 240);
+  --series-6: var(--sky-200);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -156,6 +230,7 @@
   }
   /* Chữ Hàn: không ngắt giữa từ, chỉ ngắt ở khoảng trắng. */
   :lang(ko) {
+    font-family: var(--font-korean);
     word-break: keep-all;
     overflow-wrap: break-word;
     line-break: strict;
@@ -191,5 +266,93 @@
   padding-bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom));
   @media (min-width: 48rem) {
     padding-bottom: 0;
+  }
+}
+
+/* Nút kiểu phím: đế đậm phía dưới, bấm thì lún xuống (phản hồi tức thì cho mỗi lần bấm). */
+@utility key-press {
+  border-bottom-width: 4px;
+  transition:
+    transform 120ms ease-out,
+    border-bottom-width 120ms ease-out,
+    background-color 150ms ease-out;
+  &:active:not(:disabled) {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: background-color 150ms ease-out;
+    &:active:not(:disabled) {
+      transform: none;
+    }
+  }
+}
+
+/* Hiệu ứng phản hồi khi làm bài (dùng chung cho trình luyện tập và trang chủ).
+   Đúng: bật lên. Sai: rung nhẹ một lần. Lời giải: trượt lên. Mèo Topi: nhún khi đúng.
+   Chỉ transform/opacity; "giảm chuyển động" thì hiện ngay, không di chuyển. */
+@keyframes topik-pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes topik-shake {
+  0%,
+  100% {
+    transform: none;
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+@keyframes topik-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes topik-hop {
+  0% {
+    transform: none;
+  }
+  35% {
+    transform: translateY(-12px) scale(1.06);
+  }
+  100% {
+    transform: none;
+  }
+}
+.anim-pop {
+  animation: topik-pop 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.anim-shake {
+  animation: topik-shake 360ms ease-in-out both;
+}
+.anim-slide-up {
+  animation: topik-slide-up 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.anim-hop {
+  animation: topik-hop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .anim-pop,
+  .anim-shake,
+  .anim-slide-up,
+  .anim-hop {
+    animation: none;
   }
 }

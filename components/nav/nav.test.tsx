@@ -36,6 +36,12 @@ describe("BottomTabBar", () => {
     ]);
   });
 
+  it("không hiện ở trang chủ (trang giới thiệu có nút hành động riêng)", () => {
+    nav.pathname = "/";
+    render(<BottomTabBar />);
+    expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
+  });
+
   it("không đánh dấu trụ nào khi ở trang tổng quan chương trình", () => {
     render(<BottomTabBar />);
     expect(activeLinks(screen.getByRole("navigation"))).toHaveLength(0);

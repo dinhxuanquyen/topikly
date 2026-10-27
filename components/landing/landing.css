@@ -1,0 +1,231 @@
+/*
+ * Trang chủ: thang chữ và lớp chuyển động.
+ * Chuyển động phục vụ việc học, không trang trí: phản hồi tức thì khi bấm, đúng thì bật lên,
+ * sai thì rung nhẹ một lần, lời giải trượt lên sau khi kiểm tra, nội dung hiện dần khi cuộn tới.
+ * Chỉ dùng transform và opacity; bật "giảm chuyển động" thì mọi thứ hiện ngay, không trượt.
+ */
+
+.lp-display {
+  font-size: clamp(2.125rem, 1.5rem + 2.6vw, 3.375rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  font-weight: 900;
+}
+.lp-h2 {
+  font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+.lp-title {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 800;
+}
+.lp-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.55;
+  font-weight: 600;
+}
+.lp-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Trang chủ không có thanh tab dưới đáy: bỏ khoảng chừa của <main> (pb-tabbar) trên điện thoại. */
+.lp-root {
+  margin-bottom: calc(-1 * (var(--tabbar-height) + env(safe-area-inset-bottom)));
+}
+@media (min-width: 48rem) {
+  .lp-root {
+    margin-bottom: 0;
+  }
+}
+
+:root {
+  --lp-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --lp-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---------------------------------------------------------------- màn đầu */
+
+.lp-rise {
+  animation: lp-fade-up 700ms var(--lp-ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes lp-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Mèo Topi lơ lửng rất nhẹ: thứ duy nhất chuyển động liên tục, và chỉ ở trang chủ. */
+.lp-float {
+  animation: lp-float 4.5s ease-in-out infinite;
+}
+@keyframes lp-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+.topi-sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lp-twinkle 2.6s ease-in-out infinite;
+}
+.topi-sparkle-late {
+  animation-delay: 1.3s;
+}
+@keyframes lp-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.6);
+  }
+}
+
+/* ---------------------------------------------------------------- phản hồi khi làm bài */
+
+/* Đúng: dấu tích bật lên. */
+.lp-pop {
+  animation: lp-pop 420ms var(--lp-ease-spring) both;
+}
+@keyframes lp-pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+/* Sai: rung nhẹ một lần, không đỏ chớp. */
+.lp-shake {
+  animation: lp-shake 360ms ease-in-out both;
+}
+@keyframes lp-shake {
+  0%,
+  100% {
+    transform: none;
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+/* Lời giải trượt lên sau khi bấm Kiểm tra. */
+.lp-slide-up {
+  animation: lp-fade-up 420ms var(--lp-ease-out) both;
+}
+/* Mèo nhún khi trả lời đúng. */
+.lp-hop {
+  animation: lp-hop 600ms var(--lp-ease-spring) both;
+}
+@keyframes lp-hop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-14px) scale(1.06);
+  }
+  100% {
+    transform: none;
+  }
+}
+/* Thanh tiến độ chạy mượt tới vị trí mới. */
+.lp-progress > span {
+  transform-origin: left;
+  transition: transform 600ms var(--lp-ease-out);
+}
+
+/* Nút đang học trên lộ trình: vòng sáng lan nhẹ để mắt tìm được "ở đâu". */
+.lp-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 3px solid var(--sky-300);
+  animation: lp-pulse 2.4s ease-out infinite;
+}
+@keyframes lp-pulse {
+  from {
+    opacity: 0.9;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+
+/* ---------------------------------------------------------------- hiện dần khi cuộn */
+
+/* Chỉ ẩn khi script đã chạy (lớp lp-reveal-ready do components/landing/reveal.tsx gắn),
+   nên tắt JS vẫn thấy toàn bộ nội dung. Tiêu đề không bao giờ ẩn: chỉ trượt nhẹ. */
+.lp-reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 650ms var(--lp-ease-out),
+    transform 750ms var(--lp-ease-out);
+  transition-delay: var(--d, 0ms);
+}
+.lp-reveal-ready h2[data-reveal] {
+  opacity: 1;
+}
+.lp-reveal-ready [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+/* Cột điểm theo cấp mọc từ đáy lên. */
+.lp-reveal-ready [data-bars] .lp-bar {
+  transform: scaleY(0.08);
+  transform-origin: bottom;
+  transition: transform 900ms var(--lp-ease-out);
+  transition-delay: var(--d, 0ms);
+}
+.lp-reveal-ready [data-bars].is-in .lp-bar {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-rise,
+  .lp-float,
+  .topi-sparkle,
+  .lp-pop,
+  .lp-shake,
+  .lp-slide-up,
+  .lp-hop {
+    animation: none;
+  }
+  .lp-pulse::after {
+    animation: none;
+    opacity: 0.6;
+  }
+  .lp-progress > span {
+    transition: none;
+  }
+  .lp-reveal-ready [data-reveal],
+  .lp-reveal-ready [data-bars] .lp-bar {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

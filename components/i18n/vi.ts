@@ -32,6 +32,7 @@ export const vi = {
     },
     blog: "Blog",
     account: "Tài khoản",
+    tryFree: "Học thử miễn phí",
     programSwitcher: {
       label: "Chương trình",
       choose: "Chọn chương trình thi",
@@ -76,33 +77,120 @@ export const vi = {
   },
 
   landing: {
-    title: "Học TOPIK như có người thầy bên cạnh",
-    lead: (program: string) =>
-      `Topikly là nơi luyện thi ${program} dành riêng cho người Việt: lời giải bằng tiếng Việt, phân tích cả phương án nhiễu, và chẩn đoán điểm yếu theo từng dạng câu.`,
-    ctaProgram: (program: string) => `Vào ${program}`,
-    ctaTry: "Làm thử, không cần tài khoản",
-    valuesHeading: "Vì sao khác",
-    values: [
-      {
-        title: "Lời giải đến từng phương án nhiễu",
-        body: "Biết vì sao đáp án đúng, và vì sao ba đáp án còn lại sai.",
+    /** Hai dòng do người soạn ngắt, mỗi dòng ≤ 20 ký tự để vừa điện thoại. */
+    titleLines: ["Chinh phục TOPIK II,", "mỗi ngày 15 phút"],
+    lead: "Bài luyện ngắn theo từng dạng câu, lời giải tiếng Việt cho cả đáp án sai, và từ vựng học qua âm Hán-Việt bạn vốn đã biết.",
+    ctaStart: "Bắt đầu miễn phí",
+    ctaPlacement: (minutes: number) => `Làm test trình độ ${minutes} phút`,
+    proof: ["Không cần tài khoản", "Không quảng cáo", "Một câu một màn hình"],
+    quiz: {
+      label: "Làm thử một câu",
+      check: "Kiểm tra",
+      retry: "Làm lại",
+      more: "Làm các câu cùng dạng",
+      correct: "Chính xác!",
+      wrong: "Chưa đúng",
+      correctIs: (label: string) => `Đáp án đúng là ${label}.`,
+      why: (label: string) => `Vì sao ${label} sai`,
+      correctNote: "Bạn đọc đúng chuỗi nhân quả của tít báo.",
+      progress: "Tiến độ câu làm thử",
+    },
+    numbers: {
+      heading: "Topikly có gì cho bạn",
+      types: "dạng câu có bài luyện riêng",
+      traps: "kiểu bẫy được gọi tên trong lời giải",
+      choices: "phương án, phương án nào cũng có lời giải",
+      placement: "phút test trình độ để biết cấp xuất phát",
+    },
+    focus: {
+      heading: "Khi làm bài, chỉ còn bạn và câu hỏi",
+      lead: "Thanh điều hướng, linh vật và mọi thứ khác tạm ẩn đi. Bạn đọc, chọn, kiểm tra, rồi mới xem lời giải.",
+      items: [
+        ["Một câu một màn hình", "Không cuộn, không có gì chen giữa bạn và câu hỏi."],
+        ["Không quảng cáo, không thông báo", "Không có gì nhấp nháy trong lúc bạn đang nghĩ."],
+        [
+          "Lời giải đến sau khi bạn trả lời",
+          "Bạn tự nghĩ trước, rồi đọc vì sao từng phương án đúng hay sai.",
+        ],
+      ] as const,
+      mockLabel: "Xem trước màn làm bài",
+      mockQuestion: "Chọn ý đúng nhất với tít báo",
+    },
+    features: {
+      heading: "Học đúng chỗ yếu, hiểu tận gốc",
+      lead: "Mỗi câu không chỉ có đáp án. Bạn biết vì sao đúng, vì sao sai, và lần sau tránh được bẫy nào.",
+      distractor: {
+        title: "Lời giải cho cả đáp án sai",
+        body: "Mỗi phương án nhiễu được gọi tên bẫy và giải thích bằng tiếng Việt.",
       },
-      {
-        title: "Chẩn đoán theo dạng câu",
-        body: "Không chỉ “Đọc 42–50”, mà chỉ ra bạn yếu ở thái độ tác giả hay chèn câu.",
+      hanja: {
+        title: "Từ vựng qua âm Hán-Việt",
+        body: "Người Việt có sẵn chìa khoá: 經濟 đọc là kinh tế, người Hàn đọc là 경제.",
+        family: (hanja: string) => `Cùng họ chữ ${hanja}`,
       },
-      {
-        title: "Viết với 원고지 và rubric 3 tiêu chí",
-        body: "Đếm ký tự, kiểm tra văn phong và nhận bản sửa theo đúng tiêu chí chấm.",
+      writing: {
+        title: "Viết như trên giấy 원고지",
+        body: "Đếm ký tự kể cả khoảng trắng, nhắc khi bạn lỡ dùng đuôi -요 ở câu 53–54.",
+        sample: "최근 1인 가구가 빠르게 늘고 있다",
+        count: "212 / 300 ký tự",
+        style: "Văn phong -다",
       },
-      {
-        title: "Hán-Hàn theo hình vị",
-        body: "경제 là “kinh tế”: học một âm tiết, mở ra cả họ từ, kèm cảnh báo bạn giả.",
+      diagnose: {
+        title: "Biết mình yếu dạng nào",
+        body: "Thống kê theo từng dạng và kỹ năng con, không chỉ “Đọc 42–50”.",
+        rows: [
+          ["Thái độ tác giả", 42],
+          ["Chèn câu", 66],
+          ["Hiểu tít báo", 88],
+        ] as const,
+        sample: "Số liệu minh hoạ",
       },
-    ],
-    pillarsHeading: "Năm trụ học tập",
-    guestNote:
-      "Dùng thử không cần tài khoản. Tiến độ lưu tạm trên máy và chuyển lên tài khoản khi bạn đăng ký.",
+    },
+    roadmap: {
+      heading: "Mỗi ngày một nhiệm vụ nhỏ, đến ngày thi là xong",
+      items: [
+        "Test trình độ ngắn để biết cấp xuất phát",
+        "Chọn cấp mục tiêu và ngày thi, Topikly chia bài theo ngày (sắp có)",
+        "Mở khoá từng bước, giữ chuỗi ngày học để không bỏ cuộc",
+      ],
+      cta: "Làm test trình độ",
+      streak: "Giữ chuỗi ngày học",
+      path: [
+        ["done", "Test trình độ"],
+        ["done", "Đọc · Điền ngữ pháp"],
+        ["current", "Hôm nay: Hiểu tít báo"],
+        ["locked", "Nghe · Chọn tranh"],
+        ["locked", "Mini test Đọc"],
+      ] as const,
+      pathLabel: "Ví dụ một lộ trình",
+      stateLabel: { done: "đã xong", current: "đang học", locked: "chưa mở" },
+    },
+    pillars: {
+      heading: "Năm góc học, một mục tiêu",
+      lead: "Từ lý thuyết đến đề thi thật, đi theo đúng hành trình học, lên kế hoạch, luyện, rồi kiểm tra.",
+    },
+    levels: {
+      heading: "Bạn nhắm cấp mấy?",
+      lead: (total: number, parts: string) =>
+        `Tổng ${total} điểm: ${parts}. Chọn cấp mục tiêu, Topikly cho biết bạn còn thiếu bao nhiêu.`,
+      from: (score: number) => `từ ${score} điểm`,
+      skillNames: { listening: "Nghe", writing: "Viết", reading: "Đọc", speaking: "Nói" } as Record<
+        string,
+        string
+      >,
+    },
+    closing: {
+      heading: "Sẵn sàng làm câu đầu tiên?",
+      body: "Không cần tài khoản. Tiến độ lưu trên máy và chuyển lên tài khoản khi bạn đăng ký.",
+    },
+    footer: {
+      tagline:
+        "Người thầy TOPIK cho người Việt. Đề và lời giải do Topikly tự biên soạn, không sao chép đề thi gốc.",
+      learn: "Học",
+      programs: "Chương trình",
+      more: "Thêm",
+      top: "Lên đầu trang",
+    },
   },
 
   pillarSummaries: {
