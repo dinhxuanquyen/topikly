@@ -7,6 +7,7 @@ import { ComingSoon } from "@/components/placeholder/coming-soon";
 // (bọc thì 404 chỉ hiện sau khi stream đã bắt đầu và trả mã 200). Các trang
 // placeholder chưa có dữ liệu động nên không mất gì; khi làm trang thật, cân nhắc
 // lại: tách phần cần params vào Suspense và để layout kiểm tra segment.
+// Mã 404 ngay lần gọi đầu còn cần `partialPrefetching: false` (xem next.config.ts).
 
 export function generateStaticParams() {
   return PROGRAMS.map((program) => ({ program: program.slug }));

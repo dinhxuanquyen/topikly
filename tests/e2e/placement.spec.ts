@@ -576,10 +576,6 @@ test.describe("Test trình độ — chế độ khách", () => {
       `/${PROGRAM}/de-thi/placement/${EXAM_ID}`,
       `/${PROGRAM}/de-thi/mini/${EXAM_ID}`,
     ];
-    // Lưu ý (lỗi sản phẩm minor, đã báo): lần GET ĐẦU TIÊN (cache lạnh) tới đường dẫn lạ có thể trả
-    // mã 200 kèm giao diện 404 (soft 404); từ lần thứ hai mới đúng 404. Khởi động nguội một lần
-    // rồi kiểm mã trạng thái để test không phụ thuộc thứ tự chạy của các worker.
-    for (const url of hidden) await request.get(url);
     for (const url of hidden) {
       const response = await page.goto(url);
       expect(response?.status(), url).toBe(404);
