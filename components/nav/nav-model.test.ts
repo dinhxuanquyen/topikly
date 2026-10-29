@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getPillarLinks, isPathActive, resolveProgram } from "./nav-model";
+import { getPillarLinks, isFocusPath, isPathActive, resolveProgram } from "./nav-model";
 
 describe("resolveProgram", () => {
   it("lấy chương trình từ segment đầu của URL", () => {
@@ -40,5 +40,16 @@ describe("getPillarLinks", () => {
     const links = getPillarLinks("topik-ii");
     expect(links.map((l) => l.key)).toEqual(["theory", "roadmap", "practice", "exams", "upgrade"]);
     expect(links.at(-1)?.href).toBe("/nang-cap");
+  });
+});
+
+describe("isFocusPath", () => {
+  it("chỉ trang làm bài một dạng là chế độ tập trung", () => {
+    expect(isFocusPath("/topik-ii/luyen-tap/doc/R26")).toBe(true);
+    expect(isFocusPath("/topik-ii/luyen-tap/viet/W53/")).toBe(true);
+    expect(isFocusPath("/topik-ii/luyen-tap/doc")).toBe(false);
+    expect(isFocusPath("/topik-ii/luyen-tap")).toBe(false);
+    expect(isFocusPath("/topik-ii/de-thi/mini/doc-01")).toBe(false);
+    expect(isFocusPath("/")).toBe(false);
   });
 });

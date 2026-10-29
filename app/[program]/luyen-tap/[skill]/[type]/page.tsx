@@ -72,6 +72,7 @@ export default async function PracticeTypePage({ params }: Props) {
     return (
       <PracticePageShell
         wide
+        exitHref={`/${program.slug}/luyen-tap/${skill.slug}`}
         breadcrumb={breadcrumb}
         title={t.practiceType.pageTitle(code, writingSummary?.name_vi ?? skillName)}
         description={writingSummary?.group_name_vi}
@@ -88,11 +89,16 @@ export default async function PracticeTypePage({ params }: Props) {
 
   return (
     <PracticePageShell
+      exitHref={`/${program.slug}/luyen-tap/${skill.slug}`}
       breadcrumb={breadcrumb}
       title={t.practiceType.pageTitle(code, summary?.name_vi ?? skillName)}
       description={summary?.group_name_vi}
     >
-      <PracticeRunner program={program.slug} questions={questions} />
+      <PracticeRunner
+        program={program.slug}
+        questions={questions}
+        exitHref={`/${program.slug}/luyen-tap/${skill.slug}`}
+      />
     </PracticePageShell>
   );
 }

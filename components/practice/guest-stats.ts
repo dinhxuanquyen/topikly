@@ -137,3 +137,58 @@ export function applyMarkToProgress(
     updatedAt: now,
   };
 }
+
+// ------------------------------------------------------------------ hôm nay & chuỗi ngày
+
+/** Khoá ngày theo giờ máy người học, ví dụ "2026-10-28". */
+export function localDayKey(epochMs: number): string {
+  const d = new Date(epochMs);
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${d.getFullYear()}-${m}-${day}`;
+}
+
+export interface DailySummary {
+  /** Số lượt nộp bài trong ngày hôm nay (giờ máy). */
+  todayCount: number;
+  /**
+   * Số ngày liên tiếp có học, tính tới hôm nay. Hôm nay chưa học thì vẫn giữ chuỗi tới hôm qua
+   * (chưa coi là đứt cho tới hết ngày). 0 = chưa có chuỗi.
+   */
+  streakDays: number;
+}
+
+export function dailySummary(answers: readonly AnswerRecord[], now: number): DailySummary {
+  const days = new Set(answers.map((a) => localDayKey(a.answeredAt)));
+  const today = localDayKey(now);
+  const todayCount = answers.filter((a) => localDayKey(a.answeredAt) === today).length;
+  const cursor = new Date(now);
+  if (!days.has(today)) cursor.setDate(cursor.getDate() - 1);
+  let streakDays = 0;
+  while (days.has(localDayKey(cursor.getTime()))) {
+    streakDays += 1;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return { todayCount, streakDays };
+}
+
+/**
+ * Dạng nên học tiếp: dạng đầu tiên (theo thứ tự đưa vào) còn câu chưa làm; làm hết rồi thì dạng
+ * có tỉ lệ đúng thấp nhất. Trả về chỉ số trong `types`, -1 khi danh sách rỗng.
+ */
+export function nextTypeIndex(
+  types: readonly { type_code: string; question_count: number }[],
+  stats: Readonly<Record<string, TypeStats>>,
+): number {
+  if (types.length === 0) return -1;
+  const unfinished = types.findIndex(
+    (t) => (stats[t.type_code]?.attempted ?? 0) < t.question_count,
+  );
+  if (unfinished !== -1) return unfinished;
+  let worst = 0;
+  types.forEach((t, i) => {
+    const rate = stats[t.type_code]?.rate ?? 1;
+    if (rate < (stats[types[worst]!.type_code]?.rate ?? 1)) worst = i;
+  });
+  return worst;
+}

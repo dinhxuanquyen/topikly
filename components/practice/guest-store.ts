@@ -174,6 +174,20 @@ export async function loadProgressForType(
   }
 }
 
+/** Mọi lượt trả lời của một chương trình (dùng cho màn "Hôm nay": số câu hôm nay, chuỗi ngày). */
+export async function loadAnswers(program: string): Promise<AnswerRecord[]> {
+  try {
+    const db = await openDb();
+    if (!db) return [];
+    const tx = db.transaction(STORE_ANSWERS, "readonly");
+    return (await requestToPromise(
+      tx.objectStore(STORE_ANSWERS).index("byProgram").getAll(program),
+    )) as AnswerRecord[];
+  } catch {
+    return [];
+  }
+}
+
 /**
  * Thống kê của MỌI dạng trong một chương trình, theo type_code. Nhiều thẻ trên cùng trang dùng
  * chung một lần đọc; kết quả được cache tới lần ghi kế tiếp.

@@ -201,6 +201,25 @@ export const vi = {
     upgrade: "Mở khoá phân tích sâu, chấm Viết AI và học offline.",
   },
 
+  today: {
+    heading: "Hôm nay",
+    goalLeft: (left: number) => `Còn ${left} câu là xong mục tiêu hôm nay`,
+    goalDone: "Xong mục tiêu hôm nay rồi, giỏi lắm!",
+    goalStart: "Bắt đầu ngày học bằng vài câu ngắn",
+    goalCount: (done: number, goal: number) => `${done} / ${goal} câu hôm nay`,
+    goalLabel: "Tiến độ mục tiêu hôm nay",
+    streak: (days: number) => `Chuỗi ${days} ngày`,
+    streakLabel: (days: number) => `Đã học ${days} ngày liên tiếp`,
+    continueChip: (skill: string, position: number) => `${skill} · Câu ${position}`,
+    continueMeta: (count: number) =>
+      `${count} câu · lời giải cho cả đáp án đúng và từng phương án nhiễu`,
+    continue: "Học tiếp",
+    start: "Bắt đầu",
+    pathHeading: "Các dạng tiếp theo",
+    state: { done: "đã làm", current: "học tiếp", next: "chưa làm" },
+    exploreHeading: "Khám phá",
+  },
+
   programOverview: {
     title: (program: string) => `Tổng quan ${program}`,
     description: (program: string) =>
@@ -745,6 +764,21 @@ export const vi = {
       wrong: "Bạn đã làm câu này và trả lời sai.",
       blank: "Bạn đã nộp câu này để trống.",
       yourChoice: (label: string) => `Lựa chọn lần trước của bạn: ${label}.`,
+    },
+    exit: "Thoát bài luyện, về danh sách dạng",
+    progressLabel: "Tiến độ bài luyện",
+    progressCount: (done: number, total: number) => `${done}/${total}`,
+    continue: "Tiếp tục",
+    showSummary: "Xem tổng kết",
+    summary: {
+      heading: "Xong bài rồi!",
+      correct: "câu đúng",
+      time: "thời gian",
+      traps: "Bẫy bạn đã mắc",
+      noTrap: "Không mắc bẫy nào. Tuyệt vời!",
+      tip: "Lần sau, đọc kỹ chiều của câu hỏi trước rồi mới so từng phương án.",
+      reviewWrong: "Ôn lại câu sai",
+      backToTypes: "Chọn dạng khác",
     },
   },
 

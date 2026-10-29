@@ -8,7 +8,7 @@ import { t } from "@/components/i18n";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
-import { getPillarLinks, isPathActive, resolveProgram } from "./nav-model";
+import { getPillarLinks, isFocusPath, isPathActive, resolveProgram } from "./nav-model";
 import { PILLAR_ICONS } from "./pillar-icons";
 import { ProgramSwitcher } from "./program-switcher";
 
@@ -31,7 +31,13 @@ export function SiteHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b-2 border-line bg-background pt-[env(safe-area-inset-top)]">
+    <header
+      className={cn(
+        "sticky top-0 z-40 border-b-2 border-line bg-background pt-[env(safe-area-inset-top)]",
+        // Chế độ tập trung: trên điện thoại chỉ còn câu hỏi (trang có nút thoát riêng).
+        isFocusPath(pathname) && "max-md:hidden",
+      )}
+    >
       <div className="mx-auto flex h-(--header-height) w-full max-w-7xl items-center gap-2 px-4 md:gap-3 md:px-6">
         <Logo />
         <ProgramSwitcher current={program} />

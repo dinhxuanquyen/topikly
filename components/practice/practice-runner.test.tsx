@@ -468,3 +468,49 @@ describe("PracticeRunner: khôi phục tiến độ khách", () => {
     expect(await screen.findByText(/Không lưu được tiến độ/)).toBeInTheDocument();
   });
 });
+
+describe("PracticeRunner: tiến độ và tổng kết", () => {
+  it("thanh tiến độ tăng sau khi nộp; câu cuối có 'Xem tổng kết' với số câu đúng và bẫy đã mắc", async () => {
+    respondWith(checkResponse({ correct: false, selectedLabel: "①" }));
+    render(
+      <PracticeRunner
+        program="topik-ii"
+        questions={[QUESTION_1]}
+        exitHref="/topik-ii/luyen-tap/doc"
+      />,
+    );
+    const progress = screen.getByRole("progressbar", { name: "Tiến độ bài luyện" });
+    expect(progress).toHaveAttribute("aria-valuenow", "0");
+
+    choose("①");
+    fireEvent.click(screen.getByRole("button", { name: "Nộp bài" }));
+    await screen.findByRole("heading", { name: "Sai", level: 2 });
+    expect(progress).toHaveAttribute("aria-valuenow", "1");
+
+    fireEvent.click(screen.getByRole("button", { name: "Xem tổng kết" }));
+    const summary = await screen.findByRole("heading", { name: "Xong bài rồi!", level: 2 });
+    expect(summary).toHaveFocus();
+    expect(screen.getByText("0/1")).toBeInTheDocument();
+    expect(screen.getByText("Khái quát hoá quá mức")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Chọn dạng khác" })).toHaveAttribute(
+      "href",
+      "/topik-ii/luyen-tap/doc",
+    );
+
+    // Ôn lại câu sai: quay về câu đó, mở khoá để làm lại.
+    fireEvent.click(screen.getByRole("button", { name: "Ôn lại câu sai" }));
+    expect(screen.getByRole("radio", { name: /①/ })).not.toBeDisabled();
+    expect(screen.getByRole("button", { name: "Nộp bài" })).toBeInTheDocument();
+  });
+
+  it("nhiều câu: 'Tiếp tục' sang câu kế chưa làm", async () => {
+    respondWith(checkResponse({ correct: true, selectedLabel: "③" }));
+    render(<PracticeRunner program="topik-ii" questions={[QUESTION_1, QUESTION_2]} />);
+    choose("③");
+    fireEvent.click(screen.getByRole("button", { name: "Nộp bài" }));
+    await screen.findByRole("heading", { name: "Đúng", level: 2 });
+    fireEvent.click(screen.getByRole("button", { name: "Tiếp tục" }));
+    expect(await screen.findByRole("heading", { name: /Câu 2\/2/ })).toBeInTheDocument();
+    expect(screen.getByText("두 번째 문제의 지문입니다.")).toBeInTheDocument();
+  });
+});

@@ -36,6 +36,12 @@ describe("BottomTabBar", () => {
     ]);
   });
 
+  it("không hiện ở trang làm bài (chế độ tập trung)", () => {
+    nav.pathname = "/topik-ii/luyen-tap/doc/R39";
+    render(<BottomTabBar />);
+    expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
+  });
+
   it("không hiện ở trang chủ (trang giới thiệu có nút hành động riêng)", () => {
     nav.pathname = "/";
     render(<BottomTabBar />);
@@ -51,7 +57,7 @@ describe("BottomTabBar", () => {
     ["/topik-ii/ly-thuyet", "Lý thuyết"],
     ["/topik-ii/lo-trinh", "Lộ trình"],
     ["/topik-ii/luyen-tap", "Luyện tập"],
-    ["/topik-ii/luyen-tap/doc/R39", "Luyện tập"],
+    ["/topik-ii/luyen-tap/doc", "Luyện tập"],
     ["/topik-ii/de-thi/full/01", "Đề thi"],
     ["/nang-cap", "Nâng cấp"],
   ])("đường dẫn %s chỉ đánh dấu active trụ %s", (pathname, label) => {

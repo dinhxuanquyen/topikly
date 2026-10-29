@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { t } from "@/components/i18n";
 import { cn } from "@/lib/utils";
-import { getPillarLinks, isPathActive, resolveProgram } from "./nav-model";
+import { getPillarLinks, isFocusPath, isPathActive, resolveProgram } from "./nav-model";
 import { PILLAR_ICONS } from "./pillar-icons";
 
 /**
@@ -18,7 +18,8 @@ export function BottomTabBar() {
   const pillars = getPillarLinks(program.slug);
 
   // Trang chủ có nút hành động riêng; thanh tab là điều hướng của app, không đè lên trang giới thiệu.
-  if (pathname === "/") return null;
+  // Trang làm bài (chế độ tập trung) cũng không có thanh tab.
+  if (pathname === "/" || isFocusPath(pathname)) return null;
 
   return (
     <nav

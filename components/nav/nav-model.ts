@@ -29,3 +29,11 @@ export function isPathActive(pathname: string | null | undefined, href: string):
   if (target === "/") return path === "/";
   return path === target || path.startsWith(`${target}/`);
 }
+
+/**
+ * Trang làm bài luyện một dạng (/<chương trình>/luyen-tap/<kỹ năng>/<dạng>): "chế độ tập trung".
+ * Trên điện thoại ẩn header và thanh tab; trang tự có nút thoát (xem PracticePageShell).
+ */
+export function isFocusPath(pathname: string | null | undefined): boolean {
+  return /^\/[^/]+\/luyen-tap\/[^/]+\/[^/]+$/.test(normalize(pathname));
+}

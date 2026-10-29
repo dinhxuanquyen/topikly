@@ -55,10 +55,7 @@ function Transcript({
 }) {
   const lines = parseTranscript(question.transcript_ko ?? "", question.speakers);
   return (
-    <section
-      aria-labelledby={`${question.id}-transcript`}
-      className="rounded-xl border border-border bg-card p-4"
-    >
+    <section aria-labelledby={`${question.id}-transcript`} className="rounded-3xl bg-surface p-4">
       <h3 id={`${question.id}-transcript`} className="text-sm font-semibold text-muted-foreground">
         {t.material.transcript}
       </h3>
@@ -143,7 +140,7 @@ export function QuestionMaterial({
         <section
           aria-label={t.material.passage}
           lang="ko"
-          className="rounded-xl border border-border bg-card p-4 text-base leading-8 md:p-5 md:text-lg md:leading-9"
+          className="rounded-3xl bg-surface p-4 text-base leading-8 font-semibold md:p-5 md:text-lg md:leading-9"
         >
           <RichLines text={question.passage} lineClassName="[&:not(:first-child)]:mt-1" />
         </section>

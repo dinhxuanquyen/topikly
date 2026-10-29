@@ -3,8 +3,10 @@ import {
   applyAnswerToProgress,
   applyMarkToProgress,
   computeTypeStats,
+  dailySummary,
   groupStatsByType,
   latestAnswerByQuestion,
+  nextTypeIndex,
   progressKey,
   ratePercent,
   type AnswerRecord,
@@ -133,5 +135,62 @@ describe("tiến độ theo câu", () => {
       answer({ questionId: "r10-0001", selectedLabel: null, correct: false }),
     );
     expect(rec).toMatchObject({ answered: true, lastSelected: null, lastCorrect: false });
+  });
+});
+
+describe("dailySummary", () => {
+  // 28/10/2026, 15:00 giờ máy.
+  const now = new Date(2026, 9, 28, 15, 0).getTime();
+  const at = (day: number, hour = 9) => new Date(2026, 9, day, hour).getTime();
+
+  it("chưa học gì: 0 câu hôm nay, chưa có chuỗi", () => {
+    expect(dailySummary([], now)).toEqual({ todayCount: 0, streakDays: 0 });
+  });
+
+  it("đếm lượt hôm nay và số ngày liên tiếp tới hôm nay", () => {
+    const answers = [
+      answer({ questionId: "a", answeredAt: at(28) }),
+      answer({ questionId: "b", answeredAt: at(28, 10) }),
+      answer({ questionId: "c", answeredAt: at(27) }),
+      answer({ questionId: "d", answeredAt: at(26) }),
+      answer({ questionId: "e", answeredAt: at(24) }),
+    ];
+    expect(dailySummary(answers, now)).toEqual({ todayCount: 2, streakDays: 3 });
+  });
+
+  it("hôm nay chưa học: chuỗi vẫn giữ tới hôm qua", () => {
+    const answers = [
+      answer({ questionId: "a", answeredAt: at(27) }),
+      answer({ questionId: "b", answeredAt: at(26) }),
+    ];
+    expect(dailySummary(answers, now)).toEqual({ todayCount: 0, streakDays: 2 });
+  });
+
+  it("nghỉ từ hôm kia: chuỗi về 0", () => {
+    expect(dailySummary([answer({ questionId: "a", answeredAt: at(25) })], now).streakDays).toBe(0);
+  });
+});
+
+describe("nextTypeIndex", () => {
+  const types = [
+    { type_code: "R01", question_count: 2 },
+    { type_code: "R03", question_count: 1 },
+  ];
+
+  it("danh sách rỗng: -1", () => {
+    expect(nextTypeIndex([], {})).toBe(-1);
+  });
+
+  it("chọn dạng đầu tiên còn câu chưa làm", () => {
+    expect(nextTypeIndex(types, {})).toBe(0);
+    expect(nextTypeIndex(types, { R01: { attempted: 2, correct: 2, rate: 1 } })).toBe(1);
+  });
+
+  it("làm hết rồi: chọn dạng có tỉ lệ đúng thấp nhất", () => {
+    const stats = {
+      R01: { attempted: 2, correct: 2, rate: 1 },
+      R03: { attempted: 1, correct: 0, rate: 0 },
+    };
+    expect(nextTypeIndex(types, stats)).toBe(1);
   });
 });
