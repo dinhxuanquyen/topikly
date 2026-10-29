@@ -210,7 +210,8 @@ describe("PracticeRunner: nộp bài", () => {
 
     const region = screen.getByRole("region", { name: "Kết quả câu hỏi" });
     expect(region).toContainElement(heading);
-    expect(region).toHaveFocus();
+    // Effect chuyển focus chạy sau commit hiện kết quả: chờ thay vì kiểm ngay (tránh chập chờn khi tải nặng).
+    await waitFor(() => expect(region).toHaveFocus());
     // lời giải: **đậm** thành <strong>, mỗi dòng một đoạn
     expect(within(region).getByText("Đáp án ③.").tagName).toBe("STRONG");
     expect(within(region).getByText("Dòng thứ hai của lời giải.")).toBeInTheDocument();

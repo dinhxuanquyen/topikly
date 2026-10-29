@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Nunito } from "next/font/google";
 import localFont from "next/font/local";
 import { DEFAULT_PROGRAM } from "@/components/config/programs";
+import { getSiteUrl } from "@/components/config/site";
 import { t } from "@/components/i18n";
 import { BottomTabBar } from "@/components/nav/bottom-tab-bar";
 import { SiteHeader } from "@/components/nav/site-header";
@@ -27,6 +28,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
+  // Gốc để canonical / Open Graph tương đối thành URL tuyệt đối (NEXT_PUBLIC_SITE_URL).
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: `${t.brand.name} · ${t.brand.tagline}`,
     template: `%s · ${t.brand.name}`,

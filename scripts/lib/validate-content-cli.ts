@@ -8,6 +8,9 @@ import {
   type ContentFileInput,
 } from "../../lib/db/content-validation";
 import { verifyFormatOnly } from "../../lib/db/format-only";
+import { buildBlogLinkIndex } from "../../lib/blog/links";
+import { collectBlogFiles } from "../../lib/blog/source";
+import { validateBlogFiles } from "../../lib/blog/validation";
 
 /** Đọc đệ quy *.yaml|*.yml; đường dẫn trả về tương đối so với `root`, dùng dấu "/". */
 export function collectYamlFiles(root: string): ContentFileInput[] {
@@ -148,11 +151,27 @@ export function runValidateContent(argv: readonly string[], io: CliIo = console)
     return 0;
   }
   const files = collectYamlFiles(root);
-  if (files.length === 0) {
-    io.log(`Thư mục ${root} chưa có file YAML nào — không có gì để kiểm tra.`);
+  const blogFiles = collectBlogFiles(root);
+  if (files.length === 0 && blogFiles.length === 0) {
+    io.log(
+      `Thư mục ${root} chưa có file YAML hay bài blog (blog/*.md) nào — không có gì để kiểm tra.`,
+    );
     return 0;
   }
   const result = validateContent(files, { forImport });
+  if (blogFiles.length > 0) {
+    const blog = validateBlogFiles(blogFiles, {
+      forImport,
+      linkIndex: buildBlogLinkIndex({
+        contentRoot: root,
+        blogSlugs: blogFiles.map((f) => f.file.replace(/^blog\//, "").replace(/\.md$/i, "")),
+      }),
+    });
+    result.issues.push(...blog.issues);
+    result.errorCount += blog.errorCount;
+    result.warningCount += blog.warningCount;
+    result.blog = { checked: blog.filesChecked, published: blog.published, draft: blog.draft };
+  }
   const report = formatReport(result);
   if (result.errorCount > 0) io.error(report);
   else io.log(report);

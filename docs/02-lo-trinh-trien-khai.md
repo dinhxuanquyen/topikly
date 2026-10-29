@@ -21,7 +21,7 @@ Giai đoạn 4 ── Mở rộng: Nói, TOPIK I, EPS, app ───────
 
 ## Tiến độ
 
-> Cập nhật 2026-10-26 (sau Mini test Viết 01). ✅ xong · 🚧 đang làm · ⏳ chưa bắt đầu.
+> Cập nhật 2026-10-29 (sau giao diện mới, màn mobile và Blog lô 1). ✅ xong · 🚧 đang làm · ⏳ chưa bắt đầu.
 
 | Giai đoạn | Hạng mục | Trạng thái |
 |---|---|---|
@@ -38,9 +38,12 @@ Giai đoạn 4 ── Mở rộng: Nói, TOPIK I, EPS, app ───────
 | 1 | Full test | ⏳ cần nội dung + audio (đề nhiều phần Nghe + Viết + Đọc đã hỗ trợ ở backend) |
 | 1 | Lý thuyết: từ vựng, Hán tự, ngữ pháp, bảng so sánh | ✅ |
 | 1 | Test trình độ (placement-01, 12 câu Đọc) | ✅ |
-| 1 | Blog, landing, beta | ⏳ |
+| 1 | Blog: trang danh sách / chuyên mục / bài, SEO (metadata, JSON-LD, sitemap, robots), 5 bài đầu ([blog-spec](blog-spec.md)) | ✅ (bài nháp đã duyệt nội dung, chờ điền `reviewed_by`) |
+| 1 | Giao diện mới theo Figma: xanh da trời, Nunito, nút kiểu phím, mèo Topi; landing có câu làm thử thật và "Bài viết mới" | ✅ |
+| 1 | Mobile: màn "Hôm nay" (mục tiêu ngày, chuỗi ngày học từ chế độ khách), chế độ tập trung khi làm bài, tổng kết buổi học | ✅ |
+| 1 | Beta 20–50 người | ⏳ cần đăng nhập + staging |
 
-**Nội dung hiện có / mục tiêu MVP:** 45 câu luyện / ~300 · 3 Mini test / 2 Full + 4 Mini · ~50 từ vựng / ~1.500 · 10 điểm ngữ pháp / ~100. Câu Nghe đều chưa có audio (`audio_url: null`) nên đang hiển thị lời thoại. Toàn bộ nội dung còn `reviewed_by: null`, chờ người dùng duyệt.
+**Nội dung hiện có / mục tiêu MVP:** 45 câu luyện / ~300 · 3 Mini test / 2 Full + 4 Mini · ~50 từ vựng / ~1.500 · 10 điểm ngữ pháp / ~100 · 5 bài blog / 5–10. Câu Nghe đều chưa có audio (`audio_url: null`) nên đang hiển thị lời thoại. Toàn bộ nội dung còn `reviewed_by: null`, chờ người dùng duyệt.
 
 ---
 

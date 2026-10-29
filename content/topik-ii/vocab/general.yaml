@@ -121,8 +121,10 @@ words:
     example_vi: "Trong kỳ thi quan trọng, tôi mất điểm chỉ vì một lỗi nhỏ."
     false_friend:
       kind: full
-      vi_meaning: "thất thủ: (thành trì, cứ điểm) bị đối phương chiếm mất; thua, để mất vị trí"
-      note_vi: "Không có nghĩa nào trùng. 실수 là lỗi do vô ý hay sơ suất (đọc nhầm, nói nhầm, làm sai). Đừng dịch thành 'thất thủ'."
+      vi_meaning: "thất thủ (thường viết 失守): (thành trì, cứ điểm) bị đối phương chiếm mất; thua, để mất vị trí"
+      note_vi: "Không có nghĩa nào trùng. Âm Hán-Việt của 失手 là 'thất thủ', nhưng 'thất thủ' quen dùng trong tiếng Việt ứng với chữ 失守 (để mất), chữ khác với 失手; chỉ giống ở âm nên người Việt dễ liên tưởng nhầm. 실수 là lỗi do vô ý hay sơ suất (đọc nhầm, nói nhầm, làm sai), nghĩa đen là lỡ tay. Đừng dịch thành 'thất thủ'."
+    notes_internal: "Sửa theo duyệt 2026-10-27 (blog ban-gia-han-viet-tieng-han): 'thất thủ' tiếng Việt là 失守, không phải 失手. Chữ 失守 là kiến thức người soạn, chưa mở từ điển. Giữ kind: full vì nghĩa không trùng; reviewer xác nhận lại. Đã đặt reviewed_by: null cho từ."
+    reviewed_by: null
     collocations:
       - { ko: "실수를 하다", vi: "mắc lỗi" }
       - { ko: "실수로", vi: "do vô ý, lỡ tay" }

@@ -11,6 +11,7 @@ import {
   Star,
   X,
 } from "lucide-react";
+import { BlogPostCard } from "@/components/blog/blog-post-card";
 import { TopiCat } from "@/components/brand/topi-cat";
 import { PILLAR_KEYS, pillarHref } from "@/components/config/pillars";
 import { PROGRAMS } from "@/components/config/programs";
@@ -18,6 +19,7 @@ import { choiceNumber } from "@/components/practice/choice-list";
 import { buttonVariants } from "@/components/ui/button";
 import { t } from "@/components/i18n";
 import { PILLAR_ICONS } from "@/components/nav/pillar-icons";
+import type { BlogPostSummary } from "@/lib/blog/types";
 import type { LandingData } from "@/lib/landing/queries";
 import { cn } from "@/lib/utils";
 
@@ -485,6 +487,37 @@ export function Levels({
           ))}
         </ul>
       </div>
+    </section>
+  );
+}
+
+// ------------------------------------------------------------------ bài viết mới
+
+export function LatestPosts({ posts }: { posts: BlogPostSummary[] }) {
+  if (posts.length === 0) return null;
+  return (
+    <section aria-labelledby="latest-heading" className={cn(frame, "pt-24 md:pt-28")}>
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <SectionHead id="latest-heading" title={L.latestHeading} lead={L.latestLead} />
+        <Link
+          href="/blog"
+          data-reveal
+          className="group inline-flex shrink-0 items-center gap-2 rounded-lg text-lg font-extrabold text-sky-600 outline-none hover:text-sky-700 focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          {L.latestAll}
+          <ArrowRight
+            aria-hidden
+            className="size-5 transition-transform duration-200 group-hover:translate-x-1"
+          />
+        </Link>
+      </div>
+      <ul aria-label={L.latestHeading} className="mt-10 grid gap-4 md:grid-cols-3">
+        {posts.map((post, i) => (
+          <li key={post.slug} data-reveal style={delay(i * 70)}>
+            <BlogPostCard post={post} />
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

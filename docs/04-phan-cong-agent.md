@@ -6,11 +6,11 @@
 
 | Agent | Vai trò | Vùng file được sửa | Model |
 |---|---|---|---|
-| [`topik-content-designer`](../.claude/agents/topik-content-designer.md) | Chuyên gia khảo thí: đặc tả dạng câu, soạn câu hỏi/đề, lời giải, chiến lược | `content/*/exams`, `practice`, `strategies`, `docs/content-spec.md` | opus |
-| [`hanviet-lexicographer`](../.claude/agents/hanviet-lexicographer.md) | Từ vựng, Hán tự, âm Hán-Việt, bạn giả, ngữ pháp gần nghĩa | `content/*/vocab`, `content/*/grammar` | sonnet |
+| [`topik-content-designer`](../.claude/agents/topik-content-designer.md) | Chuyên gia khảo thí: đặc tả dạng câu, soạn câu hỏi/đề, lời giải, chiến lược | `content/*/exams`, `practice`, `strategies`, `content/blog` (bài về đề thi, kỹ năng, kinh nghiệm), `docs/content-spec.md` | opus |
+| [`hanviet-lexicographer`](../.claude/agents/hanviet-lexicographer.md) | Từ vựng, Hán tự, âm Hán-Việt, bạn giả, ngữ pháp gần nghĩa | `content/*/vocab`, `content/*/grammar`, `content/blog` (bài về từ vựng, Hán-Việt, ngữ pháp) | sonnet |
 | [`topik-content-reviewer`](../.claude/agents/topik-content-reviewer.md) | Kiểm duyệt độc lập mọi nội dung, chỉ báo cáo | `content/_reviews/` | opus |
 | [`frontend-engineer`](../.claude/agents/frontend-engineer.md) | Giao diện 5 trụ, trình làm bài, audio, 원고지, PWA | `app/` (trừ `api/`), `components/`, `styles/`, `public/` | sonnet |
-| [`backend-engineer`](../.claude/agents/backend-engineer.md) | Schema, RLS, API, chấm điểm, lộ trình, SRS, Premium, import nội dung | `lib/{db,scoring,planner,srs,billing}`, `app/api/` (trừ `writing/`), `scripts/`, `supabase/` | sonnet |
+| [`backend-engineer`](../.claude/agents/backend-engineer.md) | Schema, RLS, API, chấm điểm, lộ trình, SRS, Premium, import nội dung | `lib/{db,exam,practice,lexicon,blog,scoring,planner,srs,billing}`, `app/api/` (trừ `writing/`), `scripts/`, `supabase/` | sonnet |
 | [`writing-ai-engineer`](../.claude/agents/writing-ai-engineer.md) | Rule check + chấm Viết AI theo rubric, hiệu chỉnh | `lib/writing/`, `app/api/writing/`, `tests/writing-eval/` | opus |
 | [`qa-engineer`](../.claude/agents/qa-engineer.md) | E2E, hồi quy, di động, trợ năng, review trước merge | `tests/` (trừ `writing-eval/`) | sonnet |
 

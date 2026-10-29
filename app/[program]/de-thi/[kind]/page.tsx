@@ -20,7 +20,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { program: programSlug, kind: kindSlug } = await params;
   const program = requireProgram(programSlug);
   const kind = requireExamKind(kindSlug);
-  return { title: `${t.examKind.title(t.examKinds[kind.slug].name)} ${program.name}` };
+  const exams = await getExams(program.slug, kind.slug);
+  return {
+    title: `${t.examKind.title(t.examKinds[kind.slug].name)} ${program.name}`,
+    // Loại đề chưa có đề là trang "Sắp ra mắt" (nội dung mỏng): không lập chỉ mục.
+    robots: exams.length === 0 ? { index: false, follow: true } : undefined,
+  };
 }
 
 export default async function ExamKindPage({ params }: Props) {

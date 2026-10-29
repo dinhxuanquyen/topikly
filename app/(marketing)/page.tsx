@@ -6,26 +6,34 @@ import {
   Features,
   FocusSection,
   LandingFooter,
+  LatestPosts,
   Levels,
   NumberStrip,
   Pillars,
   Roadmap,
 } from "@/components/landing/sections";
+import { getBlogPosts } from "@/lib/blog/queries";
 import { getPlacementExam } from "@/lib/exam/queries";
 import { getLandingData } from "@/lib/landing/queries";
 import "@/components/landing/landing.css";
 
 /** Thời lượng test trình độ hiển thị khi chưa đọc được đề (phút). */
 const FALLBACK_PLACEMENT_MINUTES = 15;
+/** Số bài blog mới nhất hiện ở trang chủ. */
+const LATEST_POST_COUNT = 3;
 
 /**
  * Trang chủ (thiết kế: file Figma "Topikly — Giao diện học sinh sinh viên"). Thứ tự theo hành
  * trình của người học: làm thử một câu ngay → biết Topikly có gì → thấy màn học tập trung →
- * hiểu vì sao học ở đây hiệu quả → lộ trình → năm trụ → mục tiêu theo cấp → bắt đầu.
+ * hiểu vì sao học ở đây hiệu quả → lộ trình → năm trụ → mục tiêu theo cấp → bài viết mới → bắt đầu.
  */
 export default async function LandingPage() {
   const program = DEFAULT_PROGRAM.slug;
-  const [data, placement] = await Promise.all([getLandingData(program), getPlacementExam(program)]);
+  const [data, placement, posts] = await Promise.all([
+    getLandingData(program),
+    getPlacementExam(program),
+    getBlogPosts(),
+  ]);
   const placementMinutes = placement
     ? Math.round(placement.duration_sec / 60)
     : FALLBACK_PLACEMENT_MINUTES;
@@ -56,6 +64,7 @@ export default async function LandingPage() {
           />
         </>
       ) : null}
+      <LatestPosts posts={posts.slice(0, LATEST_POST_COUNT)} />
       <Closing program={program} />
       <LandingFooter program={program} />
     </div>

@@ -74,6 +74,8 @@ export interface ValidationResult {
   examsChecked: number;
   /** Số file từ vựng & ngữ pháp (<program>/vocab/**, <program>/grammar/**) đã kiểm. */
   lexiconChecked: number;
+  /** Bài blog (content/blog/*.md); chỉ có khi CLI kiểm cả blog (xem lib/blog/validation.ts). */
+  blog?: { checked: number; published: number; draft: number };
 }
 
 // ------------------------------------------------------------------ hằng số theo spec
@@ -1322,9 +1324,15 @@ export function formatReport(result: ValidationResult): string {
     lines.push(`[CẢNH BÁO] ${unreviewed} file chưa duyệt (reviewed_by: null)`, "");
   }
 
-  lines.push(
-    `Đã kiểm ${result.filesChecked} file câu hỏi, ${result.examsChecked} file đề thi và ${result.lexiconChecked} file từ vựng/ngữ pháp, bỏ qua ${result.filesSkipped} file ngoài practice/, exams/, vocab/ và grammar/.`,
-  );
+  if (result.blog) {
+    lines.push(
+      `Đã kiểm ${result.filesChecked} file câu hỏi, ${result.examsChecked} file đề thi, ${result.lexiconChecked} file từ vựng/ngữ pháp và ${result.blog.checked} bài blog (${result.blog.published} đã xuất bản, ${result.blog.draft} bản nháp), bỏ qua ${result.filesSkipped} file ngoài practice/, exams/, vocab/, grammar/ và blog/.`,
+    );
+  } else {
+    lines.push(
+      `Đã kiểm ${result.filesChecked} file câu hỏi, ${result.examsChecked} file đề thi và ${result.lexiconChecked} file từ vựng/ngữ pháp, bỏ qua ${result.filesSkipped} file ngoài practice/, exams/, vocab/ và grammar/.`,
+    );
+  }
   lines.push(
     result.errorCount === 0
       ? `Hợp lệ. ${result.warningCount} cảnh báo.`
