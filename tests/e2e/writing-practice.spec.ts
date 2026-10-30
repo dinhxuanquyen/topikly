@@ -62,7 +62,7 @@ async function expectNoHorizontalOverflow(page: Page, where: string) {
 test.describe("Luyện Viết — trang kỹ năng và điều hướng", () => {
   test("Trang Viết liệt kê W51–W54 (W53/W54 có khung ký tự); bấm thẻ mở đúng đề", async ({
     page,
-  }) => {
+  }, testInfo) => {
     await page.goto(LIST);
     await expect(page.getByRole("heading", { level: 1, name: "Luyện Viết" })).toBeVisible();
 
@@ -87,11 +87,15 @@ test.describe("Luyện Viết — trang kỹ năng và điều hướng", () => 
     await expect(counter(page)).toHaveAttribute("data-status", "below");
     await expect(counter(page)).toContainText("Khung: 200–300 ký tự");
 
-    // Đường dẫn breadcrumb về lại trang Viết.
-    await page
-      .getByRole("navigation", { name: "Đường dẫn" })
-      .getByRole("link", { name: "Viết" })
-      .click();
+    // Mobile ở chế độ tập trung dùng nút thoát, desktop dùng breadcrumb.
+    if (testInfo.project.name === "mobile") {
+      await page.getByRole("link", { name: "Thoát bài luyện, về danh sách dạng" }).click();
+    } else {
+      await page
+        .getByRole("navigation", { name: "Đường dẫn" })
+        .getByRole("link", { name: "Viết" })
+        .click();
+    }
     await expect(page).toHaveURL(new RegExp(`${LIST}$`));
   });
 

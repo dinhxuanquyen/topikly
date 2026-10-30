@@ -1,5 +1,6 @@
 import { DEFAULT_PROGRAM } from "@/components/config/programs";
 import { Hero } from "@/components/landing/hero";
+import { StartHere } from "@/components/landing/start-here";
 import { Reveal } from "@/components/landing/reveal";
 import {
   Closing,
@@ -13,7 +14,7 @@ import {
   Roadmap,
 } from "@/components/landing/sections";
 import { getBlogPosts } from "@/lib/blog/queries";
-import { getPlacementExam } from "@/lib/exam/queries";
+import { getExams, getPlacementExam } from "@/lib/exam/queries";
 import { getLandingData } from "@/lib/landing/queries";
 import "@/components/landing/landing.css";
 
@@ -29,10 +30,11 @@ const LATEST_POST_COUNT = 3;
  */
 export default async function LandingPage() {
   const program = DEFAULT_PROGRAM.slug;
-  const [data, placement, posts] = await Promise.all([
+  const [data, placement, posts, exams] = await Promise.all([
     getLandingData(program),
     getPlacementExam(program),
     getBlogPosts(),
+    getExams(program, "mini"),
   ]);
   const placementMinutes = placement
     ? Math.round(placement.duration_sec / 60)
@@ -64,6 +66,7 @@ export default async function LandingPage() {
           />
         </>
       ) : null}
+      <StartHere program={program} placement={placement} exams={exams} />
       <LatestPosts posts={posts.slice(0, LATEST_POST_COUNT)} />
       <Closing program={program} />
       <LandingFooter program={program} />

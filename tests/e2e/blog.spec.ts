@@ -291,10 +291,7 @@ test.describe("Blog — danh sách và chuyên mục", () => {
   test("HTTP 404 thật ngay lần truy cập đầu tới slug / mã chuyên mục chưa từng gọi (tránh soft 404 cho crawler)", async ({
     request,
   }, testInfo) => {
-    // LỖI ĐÃ BIẾT (xem báo cáo QA): với `next start`, lần GET đầu tiên tới một đường dẫn động lạ trả
-    // 200 kèm giao diện 404 (PPR "postponed"), từ lần thứ hai mới trả 404. test.fail() để bộ test xanh
-    // nhưng báo ngay khi frontend sửa xong (khi đó test này "đột ngột pass" và phải gỡ test.fail).
-    test.fail(true, "soft 404 ở lần gọi đầu: blog/[slug] và blog/chuyen-muc/[category]");
+    // Bản sửa soft 404 đã nằm trên main: mọi lần gọi đầu đều phải trả đúng 404.
     const nonce = `${testInfo.project.name}-${Date.now()}`;
     for (const url of [`/blog/khong-co-${nonce}`, `/blog/chuyen-muc/khong-co-${nonce}`]) {
       const response = await request.get(url);

@@ -21,7 +21,7 @@ Giai đoạn 4 ── Mở rộng: Nói, TOPIK I, EPS, app ───────
 
 ## Tiến độ
 
-> Cập nhật 2026-10-29 (sau giao diện mới, màn mobile và Blog lô 1). ✅ xong · 🚧 đang làm · ⏳ chưa bắt đầu.
+> Cập nhật 2026-10-30 (thêm lộ trình học theo ngày cho khách). ✅ xong · 🚧 đang làm · ⏳ chưa bắt đầu.
 
 | Giai đoạn | Hạng mục | Trạng thái |
 |---|---|---|
@@ -42,6 +42,8 @@ Giai đoạn 4 ── Mở rộng: Nói, TOPIK I, EPS, app ───────
 | 1 | Giao diện mới theo Figma: xanh da trời, Nunito, nút kiểu phím, mèo Topi; landing có câu làm thử thật và "Bài viết mới" | ✅ |
 | 1 | Mobile: màn "Hôm nay" (mục tiêu ngày, chuỗi ngày học từ chế độ khách), chế độ tập trung khi làm bài, tổng kết buổi học | ✅ |
 | 1 | Beta 20–50 người | ⏳ cần đăng nhập + staging |
+| 2A | Chọn mục tiêu/ngày thi/phút học, nhiệm vụ từ nội dung thật, ưu tiên dạng sai placement, Mini cuối tuần, tự đánh dấu và chuỗi hoàn thành | ✅ chế độ khách; xem [hiện trạng và giới hạn](05-hien-trang-va-lo-trinh-khach.md) |
+| 2A | Đồng bộ tài khoản, tự ghi nhận nhiệm vụ, mở khóa tuần tự, nhắc học và tự điều chỉnh lịch | ⏳ |
 
 **Nội dung hiện có / mục tiêu MVP:** 45 câu luyện / ~300 · 3 Mini test / 2 Full + 4 Mini · ~50 từ vựng / ~1.500 · 10 điểm ngữ pháp / ~100 · 5 bài blog / 5–10. Câu Nghe đều chưa có audio (`audio_url: null`) nên đang hiển thị lời thoại. Toàn bộ nội dung còn `reviewed_by: null`, chờ người dùng duyệt.
 
@@ -92,8 +94,8 @@ Mục tiêu: người học **vào là làm được ngay** (không bắt đăng
 ## Giai đoạn 2 — Lộ trình & Viết (6 tuần)
 
 ### 2A. Lộ trình theo ngày
-- [ ] Người học nhập **cấp mục tiêu + ngày thi + số phút/ngày** (hoặc chọn nhanh 30/60/90/180 ngày như Migii).
-- [ ] Sinh kế hoạch theo ngày: từ vựng + ngữ pháp + luyện dạng + Mini test cuối tuần; ưu tiên dạng yếu từ test trình độ.
+- [x] Người học nhập **cấp mục tiêu + ngày thi + số phút/ngày** (hoặc chọn nhanh 30/60/90/180 ngày).
+- [x] Sinh kế hoạch theo ngày: từ vựng + ngữ pháp + luyện dạng + Mini test cuối tuần nếu đủ thời gian; ưu tiên dạng làm sai từ test trình độ (chế độ khách).
 - [ ] Mở khoá tuần tự trong lộ trình (học xong ngày trước mới mở ngày sau); luyện tự do vẫn mở.
 - [ ] Theo dõi tiến độ theo ngày, chuỗi ngày học (streak), nhắc học qua email/thông báo đẩy PWA.
 - [ ] Tự điều chỉnh: bỏ lỡ ngày → dồn/giãn lịch; điểm Mini test thấp → thêm bài cho dạng yếu.

@@ -9,6 +9,7 @@ import { BlogPostList } from "./blog-post-list";
 import { BlogToc } from "./blog-toc";
 import { formatBlogDate } from "./format";
 import { blogCategoryPath } from "./seo";
+import { renderBlogPlain } from "./blog-inline";
 
 function hostOf(url: string): string {
   try {
@@ -42,10 +43,10 @@ export function BlogArticle({ post, sameCategory }: BlogArticleProps) {
       <article>
         <header>
           <h1 className="text-3xl leading-tight font-black tracking-tight text-balance md:text-5xl">
-            {post.title}
+            {renderBlogPlain(post.title)}
           </h1>
           <p className="mt-3 text-base text-pretty text-muted-foreground md:text-lg">
-            {post.description}
+            {renderBlogPlain(post.description)}
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-2">
             <Link

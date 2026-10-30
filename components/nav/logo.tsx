@@ -7,6 +7,8 @@ export function Logo() {
   return (
     <Link
       href={SITE_LINKS.home}
+      // Trang chủ có câu làm thử kèm lời giải; không tải trước khi người học đang làm bài.
+      prefetch={false}
       aria-label={t.a11y.goHome}
       className="group flex shrink-0 items-center gap-2 rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >

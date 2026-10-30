@@ -150,7 +150,7 @@ export const vi = {
       heading: "Mỗi ngày một nhiệm vụ nhỏ, đến ngày thi là xong",
       items: [
         "Test trình độ ngắn để biết cấp xuất phát",
-        "Chọn cấp mục tiêu và ngày thi, Topikly chia bài theo ngày (sắp có)",
+        "Chọn cấp mục tiêu và ngày thi, Topikly chia bài theo ngày",
         "Mở khoá từng bước, giữ chuỗi ngày học để không bỏ cuộc",
       ],
       cta: "Làm test trình độ",
@@ -515,7 +515,6 @@ export const vi = {
     description:
       "Từ test trình độ đến kế hoạch từng ngày, bám theo cấp mục tiêu và ngày thi của bạn.",
     planned: [
-      "Nhập ngày thi, cấp mục tiêu và số phút học mỗi ngày để nhận kế hoạch theo ngày.",
       "Mở khoá tuần tự, chuỗi ngày học (streak) và nhắc học.",
       "Tự điều chỉnh khi bỏ lỡ ngày học hoặc điểm Mini test thấp.",
     ],

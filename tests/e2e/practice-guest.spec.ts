@@ -88,9 +88,12 @@ test.describe("Luyện tập theo dạng — chế độ khách", () => {
     await expect(page.getByText("chưa có audio")).toBeVisible();
     await expect(page.locator("audio")).toHaveCount(0);
 
-    // Phím số 1 chọn ①; focus nhảy theo.
-    await page.keyboard.press("1");
-    await expect(choice(page, "①")).toBeChecked();
+    // HTML prerender có thể xuất hiện trước khi hydration gắn phím tắt.
+    // Thử lại thao tác bàn phím, không thay bằng click để vẫn kiểm tra phím số thật.
+    await expect(async () => {
+      await page.keyboard.press("1");
+      expect(await choice(page, "①").isChecked()).toBe(true);
+    }).toPass();
     await expect(choice(page, "①")).toBeFocused();
     await page.getByRole("button", { name: "Nộp bài" }).click();
 
