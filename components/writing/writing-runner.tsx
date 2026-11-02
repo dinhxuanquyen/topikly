@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { countChars, type WritingPrompt, type WritingReveal } from "@/lib/practice/writing-types";
 import { checkBlank, checkEssay } from "@/lib/writing/rules";
 import { CharCounter } from "./char-counter";
+import { EssayField } from "./essay-field";
 import { BlankRuleNote, RuleCheckPanel } from "./rule-check";
 import { clearDraft, loadDraft, saveDraft, type WritingDraft } from "./writing-draft";
 import { fetchWritingReveal, WritingRevealError } from "./writing-api";
@@ -154,6 +155,13 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
           })
         : null,
     [isEssay, prompt, deferred.essay],
+  );
+  const essayHighlights = useMemo(
+    () =>
+      essayRules?.findings.flatMap((finding) =>
+        finding.matches.map((match) => ({ ...match, severity: finding.severity })),
+      ) ?? [],
+    [essayRules],
   );
   const blankRules = useMemo(
     () =>
@@ -296,19 +304,22 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
           <p id={hintId} className="text-sm text-muted-foreground">
             {t.writing.essayHint}
           </p>
-          <textarea
-            id={essayId}
-            lang="ko"
-            rows={10}
-            value={values.essay}
-            onChange={(event) => apply({ ...values, essay: event.target.value })}
-            aria-describedby={`${counterId} ${hintId}`}
-            spellCheck={false}
-            autoCapitalize="off"
-            autoCorrect="off"
-            autoComplete="off"
-            placeholder={t.writing.essayPlaceholder}
-            className="min-h-64 w-full resize-y rounded-xl border-2 border-input bg-background p-3 text-base leading-8 outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/50"
+          <EssayField
+            prompt={prompt}
+            highlights={essayHighlights}
+            textareaProps={{
+              id: essayId,
+              lang: "ko",
+              rows: 10,
+              value: values.essay,
+              onChange: (event) => apply({ ...values, essay: event.target.value }),
+              "aria-describedby": `${counterId} ${hintId}`,
+              spellCheck: false,
+              autoCapitalize: "off",
+              autoCorrect: "off",
+              autoComplete: "off",
+              placeholder: t.writing.essayPlaceholder,
+            }}
           />
           <CharCounter id={counterId} count={essayCount} limit={prompt.char_limit} />
           {essayRules ? <RuleCheckPanel report={essayRules} typeCode={prompt.type_code} /> : null}

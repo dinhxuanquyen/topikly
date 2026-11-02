@@ -40,6 +40,6 @@ Văn phong của W51 theo văn bản gốc, chỉ biết sau khi xem đáp án, 
 
 ## Còn lại của 2B
 
-1. Trình soạn 원고지 / IBT, tô sáng vị trí lỗi trong ô.
+1. ~~Trình soạn 원고지 / IBT, tô sáng vị trí lỗi trong ô.~~ Đã làm, xem [07](07-trinh-soan-wongoji.md).
 2. Chấm AI theo rubric 3 tiêu chí (cần khoá API, giới hạn lượt theo tài khoản), hiệu chỉnh với bài giáo viên chấm.
 3. Thư viện biểu hiện viết theo chức năng.

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { t } from "@/components/i18n";
 import { renderInline } from "@/components/practice/rich-text";
 import { CharCounter } from "@/components/writing/char-counter";
+import { EssayField } from "@/components/writing/essay-field";
 import { PromptMaterial } from "@/components/writing/writing-runner";
 import { cn } from "@/lib/utils";
 import { WRITING_BLANK_MAX_CHARS, WRITING_TEXT_MAX_CHARS } from "@/lib/exam/writing-self-score";
@@ -136,25 +137,27 @@ export function ExamWritingView({
             <p id={hintId} className="text-sm text-muted-foreground">
               {t.examRun.writing.essayHint}
             </p>
-            <textarea
-              id={essayId}
-              lang="ko"
-              rows={10}
-              value={text}
-              readOnly={locked}
-              maxLength={WRITING_TEXT_MAX_CHARS}
-              onChange={(event) => {
-                onEdit(event.target.value, WRITING_TEXT_MAX_CHARS);
-                onChangeText(prompt.id, event.target.value);
+            <EssayField
+              prompt={prompt}
+              textareaProps={{
+                id: essayId,
+                lang: "ko",
+                rows: 10,
+                value: text,
+                readOnly: locked,
+                maxLength: WRITING_TEXT_MAX_CHARS,
+                onChange: (event) => {
+                  onEdit(event.target.value, WRITING_TEXT_MAX_CHARS);
+                  onChangeText(prompt.id, event.target.value);
+                },
+                onPaste: (event) => onPaste(event, WRITING_TEXT_MAX_CHARS),
+                "aria-describedby": `${counterId} ${hintId}`,
+                spellCheck: false,
+                autoCapitalize: "off",
+                autoCorrect: "off",
+                autoComplete: "off",
+                placeholder: t.writing.essayPlaceholder,
               }}
-              onPaste={(event) => onPaste(event, WRITING_TEXT_MAX_CHARS)}
-              aria-describedby={`${counterId} ${hintId}`}
-              spellCheck={false}
-              autoCapitalize="off"
-              autoCorrect="off"
-              autoComplete="off"
-              placeholder={t.writing.essayPlaceholder}
-              className="min-h-64 w-full resize-y rounded-xl border-2 border-input bg-background p-3 text-base leading-8 outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/50"
             />
             <CharCounter id={counterId} count={countChars(text)} limit={prompt.char_limit} />
           </div>

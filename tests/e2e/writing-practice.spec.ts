@@ -338,6 +338,62 @@ test.describe("Luyện Viết — kiểm tra quy tắc tức thì", () => {
   });
 });
 
+test.describe("Luyện Viết — trình soạn 원고지", () => {
+  const grid = (page: Page) => page.getByTestId("manuscript-grid");
+  const manuscriptButton = (page: Page) => page.getByRole("button", { name: "원고지 (giấy thi)" });
+  /** Chữ trong các ô của một dòng lưới, ô trống là "_" (bỏ ô trống cuối dòng). */
+  const rowText = (page: Page, row: number) =>
+    grid(page)
+      .locator(`[data-row="${row}"] > [data-col]`)
+      .evaluateAll((cells) =>
+        cells
+          .map((cell) => cell.textContent || "_")
+          .join("|")
+          .replace(/(\|_)+$/u, ""),
+      );
+
+  test("W53: khung 300 ô (15 dòng); gõ bàn phím thì chữ vào ô, mỗi đoạn thụt một ô", async ({
+    page,
+  }) => {
+    await page.goto(W53);
+    await expect(async () => {
+      await manuscriptButton(page).click();
+      await expect(grid(page)).toBeVisible({ timeout: 1_000 });
+    }).toPass({ timeout: 10_000 });
+    await expect(grid(page).locator("[data-row]")).toHaveCount(15);
+    await expect(page.getByText("Đã dùng 0/300 ô · 0/15 dòng")).toBeVisible();
+
+    await grid(page).locator('[data-row="0"] > [data-col="5"]').click();
+    await expect(essayBox(page)).toBeFocused();
+    await page.keyboard.type("2024년에 증가하였다. 반면");
+    await page.keyboard.press("Enter");
+    await page.keyboard.type("둘째");
+    await expect.poll(() => rowText(page, 0)).toBe("_|20|24|년|에|_|증|가|하|였|다|.|반|면");
+    await expect.poll(() => rowText(page, 1)).toBe("_|둘|째");
+    await expect(page.getByText(/Đã dùng 23\/300 ô · 2\/15 dòng/)).toBeVisible();
+    await expect(page.getByTestId("manuscript-caret")).toBeVisible();
+
+    // Bộ đếm ký tự vẫn đếm theo cách của đề (kể cả khoảng trắng sau dấu chấm).
+    await expect(counter(page)).toContainText("18 ký tự");
+  });
+
+  test("Lựa chọn 원고지 và bài viết còn sau khi tải lại; không tràn ngang", async ({ page }) => {
+    await page.goto(W54);
+    await writeEssay(page, "가나다", 3);
+    await manuscriptButton(page).click();
+    await expect(grid(page).locator("[data-row]")).toHaveCount(35);
+
+    await page.reload();
+    await expect(manuscriptButton(page)).toHaveAttribute("aria-pressed", "true");
+    await expect.poll(() => rowText(page, 0)).toBe("_|가|나|다");
+    await expectNoHorizontalOverflow(page, "W54 원고지");
+
+    await page.getByRole("button", { name: "Ô gõ (máy, IBT)" }).click();
+    await expect(grid(page)).toHaveCount(0);
+    await expect(essayBox(page)).toHaveValue("가나다");
+  });
+});
+
 test.describe("Luyện Viết — xem bài mẫu và tự so sánh", () => {
   test("Bài mẫu KHÔNG có sẵn trong trang/payload và chỉ được tải sau khi bấm nút", async ({
     page,

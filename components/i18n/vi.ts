@@ -727,6 +727,17 @@ export const vi = {
       rejectedTitle: "Đáp án sai thường gặp",
       requiredElements: "Yếu tố bắt buộc để đạt điểm tối đa",
     },
+    manuscript: {
+      modeLabel: "Cách viết",
+      modeManuscript: "원고지 (giấy thi)",
+      modeTyping: "Ô gõ (máy, IBT)",
+      hint: "Bấm vào giấy để viết. Mỗi lần xuống dòng là một đoạn mới, tự thụt một ô đầu đoạn. Dấu chấm, dấu phẩy rơi vào đầu dòng được viết chung ô cuối dòng trước.",
+      usage: (used: number, frame: number, rows: number, frameRows: number) =>
+        `Đã dùng ${used}/${frame} ô · ${rows}/${frameRows} dòng`,
+      overflow: (cells: number) => `Tràn khung giấy ${cells} ô`,
+      frameEnd: (frame: number) => `Hết khung ${frame} ô`,
+      note: "Số ô 원고지 có thể khác số ký tự: ô thụt đầu đoạn được tính; khoảng trắng ở đầu dòng và sau dấu chấm, dấu phẩy thì không viết. Chữ số viết hai chữ một ô.",
+    },
     rules: {
       regionLabel: "Kiểm tra quy tắc",
       heading: "Kiểm tra nhanh",

@@ -21,7 +21,7 @@ Giai đoạn 4 ── Mở rộng: Nói, TOPIK I, EPS, app ───────
 
 ## Tiến độ
 
-> Cập nhật 2026-11-02 (thêm kiểm tra quy tắc Viết tức thì). ✅ xong · 🚧 đang làm · ⏳ chưa bắt đầu.
+> Cập nhật 2026-11-02 (thêm kiểm tra quy tắc Viết tức thì và trình soạn 원고지). ✅ xong · 🚧 đang làm · ⏳ chưa bắt đầu.
 
 | Giai đoạn | Hạng mục | Trạng thái |
 |---|---|---|
@@ -45,7 +45,8 @@ Giai đoạn 4 ── Mở rộng: Nói, TOPIK I, EPS, app ───────
 | 2A | Chọn mục tiêu/ngày thi/phút học, nhiệm vụ từ nội dung thật, ưu tiên dạng sai placement, Mini cuối tuần, tự đánh dấu và chuỗi hoàn thành | ✅ chế độ khách; xem [hiện trạng và giới hạn](05-hien-trang-va-lo-trinh-khach.md) |
 | 2A | Đồng bộ tài khoản, tự ghi nhận nhiệm vụ, mở khóa tuần tự, nhắc học và tự điều chỉnh lịch | ⏳ |
 | 2B | Kiểm tra quy tắc Viết tức thì (không gọi API): đuôi -요/-습니다, chép đề, tiêu đề, gạch đầu dòng, khẩu ngữ, xưng 저/제, ý kiến cá nhân ở 53, rào đón và chia đoạn ở 54, một câu mỗi chỗ trống 51–52; hiện khi luyện và ở kết quả Mini Viết | ✅ (chưa kiểm tra "thiếu ý đề 54"; xem [06](06-kiem-tra-quy-tac-viet.md)) |
-| 2B | 원고지 / IBT, chấm AI theo rubric, hiệu chỉnh | ⏳ |
+| 2B | Trình soạn 원고지 (khung 300/700 ô theo cấu hình, thụt đầu đoạn, dấu câu treo cuối dòng, chữ số hai chữ một ô, tô lỗi quy tắc trên ô) và ô gõ IBT, chọn được ở Luyện tập và Mini Viết | ✅ (xem [07](07-trinh-soan-wongoji.md)) |
+| 2B | Chấm AI theo rubric, hiệu chỉnh | ⏳ |
 
 **Nội dung hiện có / mục tiêu MVP:** 45 câu luyện / ~300 · 3 Mini test / 2 Full + 4 Mini · ~50 từ vựng / ~1.500 · 10 điểm ngữ pháp / ~100 · 5 bài blog / 5–10. Câu Nghe đều chưa có audio (`audio_url: null`) nên đang hiển thị lời thoại. Toàn bộ nội dung còn `reviewed_by: null`, chờ người dùng duyệt.
 
@@ -103,7 +104,7 @@ Mục tiêu: người học **vào là làm được ngay** (không bắt đăng
 - [ ] Tự điều chỉnh: bỏ lỡ ngày → dồn/giãn lịch; điểm Mini test thấp → thêm bài cho dạng yếu.
 
 ### 2B. Viết có chấm AI
-- [ ] Trình soạn **chế độ 원고지** (lưới ô, quy tắc dấu câu, lùi đầu đoạn) và **chế độ IBT** (ô gõ thường).
+- [x] Trình soạn **chế độ 원고지** (lưới ô, quy tắc dấu câu, lùi đầu đoạn) và **chế độ IBT** (ô gõ thường).
 - [x] **Kiểm tra quy tắc tức thì** (không tốn API): đếm ký tự, phát hiện -요/-습니다 trong 53–54, chép đề. *Thiếu ý đề 54 chưa làm: cần so khớp ngữ nghĩa, để cho bước chấm AI.*
 - [ ] **Chấm AI theo rubric 3 tiêu chí** → điểm ước lượng, nhận xét tiếng Việt, đánh dấu lỗi trên câu, bản sửa, bài mẫu ở cấp mục tiêu.
 - [ ] Hiệu chỉnh với ~50 bài giáo viên đã chấm (mục tiêu lệch trung bình ≤ ±5 điểm ở câu 54).
