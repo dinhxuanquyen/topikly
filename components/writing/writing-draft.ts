@@ -14,6 +14,8 @@ export interface WritingDraft {
   blanks: Record<string, string>;
   /** W53–W54: id các ý bắt buộc người học đã tự đánh dấu "bài mình có". */
   checked: string[];
+  /** Optional for backward compatibility with existing drafts. */
+  selfScore?: number;
   savedAt: number;
 }
 
@@ -28,11 +30,14 @@ export function draftKey(program: string, promptId: string): string {
 }
 
 /** Nháp có rỗng không (không có chữ nào, không có ý nào được đánh dấu). */
-export function isDraftEmpty(draft: Pick<WritingDraft, "essay" | "blanks" | "checked">): boolean {
+export function isDraftEmpty(
+  draft: Pick<WritingDraft, "essay" | "blanks" | "checked" | "selfScore">,
+): boolean {
   return (
     draft.essay.trim() === "" &&
     Object.values(draft.blanks).every((v) => v.trim() === "") &&
-    draft.checked.length === 0
+    draft.checked.length === 0 &&
+    draft.selfScore === undefined
   );
 }
 
@@ -51,7 +56,14 @@ export function parseDraft(raw: unknown): WritingDraft | null {
     ? value.checked.filter((id): id is string => typeof id === "string")
     : [];
   const savedAt = typeof value.savedAt === "number" ? value.savedAt : 0;
-  return { essay, blanks, checked, savedAt };
+  const selfScore =
+    typeof value.selfScore === "number" &&
+    Number.isInteger(value.selfScore) &&
+    value.selfScore >= 0 &&
+    value.selfScore <= 100
+      ? value.selfScore
+      : undefined;
+  return { essay, blanks, checked, savedAt, ...(selfScore !== undefined ? { selfScore } : {}) };
 }
 
 function storage(): Storage | null {

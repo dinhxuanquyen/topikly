@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { t } from "@/components/i18n";
 import { renderInline } from "@/components/practice/rich-text";
 import { CharCounter } from "@/components/writing/char-counter";
+import { ManuscriptPreview } from "@/components/writing/manuscript-preview";
 import { PromptMaterial } from "@/components/writing/writing-runner";
 import { cn } from "@/lib/utils";
 import { WRITING_BLANK_MAX_CHARS, WRITING_TEXT_MAX_CHARS } from "@/lib/exam/writing-self-score";
@@ -157,6 +158,7 @@ export function ExamWritingView({
               className="min-h-64 w-full resize-y rounded-xl border-2 border-input bg-background p-3 text-base leading-8 outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/50"
             />
             <CharCounter id={counterId} count={countChars(text)} limit={prompt.char_limit} />
+            <ManuscriptPreview text={text} maxCells={prompt.char_limit?.max} />
           </div>
         ) : (
           <fieldset className="space-y-4">

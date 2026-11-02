@@ -13,6 +13,13 @@ beforeEach(() => localStorage.clear());
 afterEach(() => vi.restoreAllMocks());
 
 describe("parseDraft", () => {
+  it("accepts a score of zero, rejects invalid scores, and reads old drafts", () => {
+    expect(parseDraft({ essay: "가", selfScore: 0 })?.selfScore).toBe(0);
+    for (const selfScore of [-1, 101, 1.5, "20", Infinity, null]) {
+      expect(parseDraft({ selfScore })?.selfScore).toBeUndefined();
+    }
+    expect(parseDraft({ essay: "가" })?.selfScore).toBeUndefined();
+  });
   it("bỏ qua trường sai kiểu và cắt chuỗi quá dài", () => {
     const draft = parseDraft({
       essay: "가".repeat(6000),
@@ -32,6 +39,10 @@ describe("parseDraft", () => {
 });
 
 describe("saveDraft / loadDraft / clearDraft", () => {
+  it("keeps a self-score of zero even for an empty answer", async () => {
+    await saveDraft("topik-ii", "w53-0002", { essay: "", blanks: {}, checked: [], selfScore: 0 });
+    expect((await loadDraft("topik-ii", "w53-0002"))?.selfScore).toBe(0);
+  });
   it("ghi rồi đọc lại đúng nội dung", async () => {
     expect(
       await saveDraft("topik-ii", "w53-0002", { essay: "안녕", blanks: {}, checked: ["p1"] }),

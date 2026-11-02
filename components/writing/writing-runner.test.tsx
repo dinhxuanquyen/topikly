@@ -275,6 +275,33 @@ describe("điền chỗ trống (W51/W52)", () => {
 });
 
 describe("WritingPracticeRunner", () => {
+  it("switches paper preview without losing text; persists self-score and clears it on edit", async () => {
+    const prompt = { ...ESSAY_PROMPT, max_points: 30 };
+    const { unmount } = render(<WritingPromptPanel program="topik-ii" prompt={prompt} />);
+    fireEvent.change(essayBox(), { target: { value: "가나다" } });
+    expect(screen.getByText(/khoảng 20 ô/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "IBT · Văn bản" }));
+    expect(screen.queryByText(/khoảng 20 ô/)).not.toBeInTheDocument();
+    expect(essayBox()).toHaveValue("가나다");
+    respondWith(ESSAY_REVEAL);
+    fireEvent.click(screen.getByRole("button", { name: "Xem bài mẫu & tự so sánh" }));
+    const score = await screen.findByRole("spinbutton", { name: "Điểm tự chấm (0–30)" });
+    fireEvent.change(score, { target: { value: "23" } });
+    await waitFor(() =>
+      expect(localStorage.getItem(draftKey("topik-ii", prompt.id))).toContain('"selfScore":23'),
+    );
+    unmount();
+    render(<WritingPromptPanel program="topik-ii" prompt={prompt} />);
+    await waitFor(() => expect(essayBox()).toHaveValue("가나다"));
+    respondWith(ESSAY_REVEAL);
+    fireEvent.click(screen.getByRole("button", { name: "Xem bài mẫu & tự so sánh" }));
+    expect(await screen.findByRole("spinbutton")).toHaveValue(23);
+    fireEvent.change(essayBox(), { target: { value: "수정" } });
+    expect(screen.getByRole("spinbutton")).toHaveValue(null);
+    await waitFor(() =>
+      expect(localStorage.getItem(draftKey("topik-ii", prompt.id))).not.toContain("selfScore"),
+    );
+  });
   it("nhiều đề: có thanh chọn đề, mỗi đề giữ nháp riêng", async () => {
     const second = { ...ESSAY_PROMPT, id: "w53-0003", stem: "두 번째 문제의 지시문입니다." };
     render(<WritingPracticeRunner program="topik-ii" prompts={[ESSAY_PROMPT, second]} />);

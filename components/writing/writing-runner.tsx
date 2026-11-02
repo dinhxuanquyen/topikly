@@ -10,6 +10,7 @@ import { RichLines, renderInline, splitLines } from "@/components/practice/rich-
 import { cn } from "@/lib/utils";
 import { countChars, type WritingPrompt, type WritingReveal } from "@/lib/practice/writing-types";
 import { CharCounter } from "./char-counter";
+import { ManuscriptPreview } from "./manuscript-preview";
 import { clearDraft, loadDraft, saveDraft, type WritingDraft } from "./writing-draft";
 import { fetchWritingReveal, WritingRevealError } from "./writing-api";
 import { WritingRevealView } from "./writing-reveal-view";
@@ -18,7 +19,7 @@ import { splitPassageLine } from "./writing-utils";
 /** Độ trễ gộp các lần gõ trước khi ghi nháp. */
 export const DRAFT_SAVE_DELAY_MS = 400;
 
-type DraftValues = Pick<WritingDraft, "essay" | "blanks" | "checked">;
+type DraftValues = Pick<WritingDraft, "essay" | "blanks" | "checked" | "selfScore">;
 const EMPTY_VALUES: DraftValues = { essay: "", blanks: {}, checked: [] };
 
 type DraftStatus = "idle" | "restored" | "saved" | "failed";
@@ -136,7 +137,17 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
     let cancelled = false;
     void loadDraft(program, prompt.id).then((draft) => {
       if (cancelled || !draft || dirtyRef.current) return;
-      const restored = { essay: draft.essay, blanks: draft.blanks, checked: draft.checked };
+      const restored = {
+        essay: draft.essay,
+        blanks: draft.blanks,
+        checked: draft.checked,
+        selfScore:
+          draft.selfScore !== undefined &&
+          prompt.max_points !== undefined &&
+          draft.selfScore <= prompt.max_points
+            ? draft.selfScore
+            : undefined,
+      };
       latestRef.current = restored;
       setValues(restored);
       setDraftStatus("restored");
@@ -144,7 +155,7 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
     return () => {
       cancelled = true;
     };
-  }, [program, prompt.id]);
+  }, [program, prompt.id, prompt.max_points]);
 
   // ---- ghi nháp: gộp lần gõ; ghi nốt khi rời trang / đổi đề
   const persist = useCallback(async () => {
@@ -266,7 +277,10 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
             lang="ko"
             rows={10}
             value={values.essay}
-            onChange={(event) => apply({ ...values, essay: event.target.value })}
+            maxLength={5000}
+            onChange={(event) =>
+              apply({ ...values, essay: event.target.value, selfScore: undefined })
+            }
             aria-describedby={`${counterId} ${hintId}`}
             spellCheck={false}
             autoCapitalize="off"
@@ -276,6 +290,7 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
             className="min-h-64 w-full resize-y rounded-xl border-2 border-input bg-background p-3 text-base leading-8 outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/50"
           />
           <CharCounter id={counterId} count={essayCount} limit={prompt.char_limit} />
+          <ManuscriptPreview text={values.essay} maxCells={prompt.char_limit?.max} />
         </div>
       ) : (
         <fieldset className="space-y-4">
@@ -408,22 +423,68 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
       </div>
 
       {showReveal && reveal ? (
-        <WritingRevealView
-          ref={revealRef}
-          prompt={prompt}
-          reveal={reveal}
-          essay={values.essay}
-          blanks={values.blanks}
-          checked={values.checked}
-          onToggleChecked={(pointId) =>
-            apply({
-              ...values,
-              checked: values.checked.includes(pointId)
-                ? values.checked.filter((id) => id !== pointId)
-                : [...values.checked, pointId],
-            })
-          }
-        />
+        <>
+          <WritingRevealView
+            ref={revealRef}
+            prompt={prompt}
+            reveal={reveal}
+            essay={values.essay}
+            blanks={values.blanks}
+            checked={values.checked}
+            onToggleChecked={(pointId) =>
+              apply({
+                ...values,
+                checked: values.checked.includes(pointId)
+                  ? values.checked.filter((id) => id !== pointId)
+                  : [...values.checked, pointId],
+              })
+            }
+          />
+          {isEssay && prompt.max_points !== undefined ? (
+            <section
+              aria-labelledby={`${uid}-score-heading`}
+              className="space-y-3 rounded-xl border border-border bg-card p-4"
+            >
+              <h3 id={`${uid}-score-heading`} className="text-base font-semibold">
+                {t.writing.selfScore.heading}
+              </h3>
+              <p id={`${uid}-score-hint`} className="text-sm text-muted-foreground">
+                {t.writing.selfScore.hint}
+              </p>
+              <label htmlFor={`${uid}-score`} className="block text-sm font-semibold">
+                {t.writing.selfScore.label(prompt.max_points)}
+              </label>
+              <input
+                id={`${uid}-score`}
+                type="number"
+                min={0}
+                max={prompt.max_points}
+                step={1}
+                aria-describedby={`${uid}-score-hint ${uid}-score-edit`}
+                value={values.selfScore ?? ""}
+                onChange={(event) => {
+                  const raw = event.target.value;
+                  const score = event.target.valueAsNumber;
+                  if (
+                    raw === "" ||
+                    (Number.isInteger(score) && score >= 0 && score <= prompt.max_points!)
+                  ) {
+                    apply({ ...values, selfScore: raw === "" ? undefined : score });
+                  }
+                }}
+                className="min-h-11 w-28 rounded-lg border border-input bg-background px-3 text-base tabular-nums outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+              />
+              <p aria-live="polite" className="text-sm">
+                {values.selfScore === undefined
+                  ? t.writing.selfScore.empty
+                  : t.writing.selfScore.result(values.selfScore, prompt.max_points)}
+              </p>
+              <p id={`${uid}-score-edit`} className="text-xs text-muted-foreground">
+                {t.writing.selfScore.editNote}
+              </p>
+            </section>
+          ) : null}
+        </>
       ) : null}
     </div>
   );

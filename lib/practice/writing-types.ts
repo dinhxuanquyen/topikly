@@ -73,6 +73,8 @@ export interface WritingBlankSlot {
 }
 
 export interface WritingPrompt {
+  /** Public scoring scale from the program configuration, without answers. */
+  max_points?: number;
   /** Ví dụ "w53-0002". Khoá ổn định. */
   id: string;
   /** Slug chương trình, ví dụ "topik-ii". */

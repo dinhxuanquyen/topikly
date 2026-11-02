@@ -654,6 +654,23 @@ export const vi = {
     essayHint:
       "Số ký tự tính cả khoảng trắng, không tính xuống dòng. Tự viết rồi mới xem bài mẫu sẽ nhớ lâu hơn.",
     essayPlaceholder: "Viết bài của bạn ở đây (bằng tiếng Hàn)…",
+    manuscript: {
+      modeLabel: "Chế độ trình bày bài viết",
+      paper: "원고지 · Giấy ô",
+      ibt: "IBT · Văn bản",
+      caption: (cells: number) =>
+        `Bản giấy cập nhật khi gõ · khoảng ${cells} ô (làm tròn theo dòng)`,
+      hint: "Gõ bài ở ô phía trên. Bản xem trước có 20 ô/dòng, thụt 1 ô đầu mỗi đoạn; Enter để ngắt đoạn. Mỗi ký tự và dấu câu chiếm 1 ô, chưa áp dụng quy tắc ghép hoặc treo dấu câu. Đây là ước tính bố cục, không phải số ký tự hay điểm thi.",
+      overflow: (max: number) => `Bố cục ước tính vượt ${max} ô. Bạn vẫn có thể tiếp tục sửa bài.`,
+    },
+    selfScore: {
+      heading: "Tự chấm sau khi đối chiếu",
+      hint: "Đọc nhận xét bài mẫu theo ba tiêu chí: nội dung, cấu trúc và ngôn ngữ; kiểm tra các ý bắt buộc rồi nhập điểm chung cho cả bài. Đây là điểm bạn tự ước lượng.",
+      label: (max: number) => `Điểm tự chấm (0–${max})`,
+      result: (points: number, max: number) => `Điểm tự chấm: ${points}/${max}`,
+      empty: "Chưa tự chấm. Điểm được lưu cùng bản nháp trên thiết bị này.",
+      editNote: "Sửa nội dung bài sẽ xóa điểm cũ để bạn tự chấm lại.",
+    },
     showReveal: "Xem bài mẫu & tự so sánh",
     loadingReveal: "Đang tải bài mẫu…",
     hideReveal: "Ẩn bài mẫu",

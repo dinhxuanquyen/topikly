@@ -148,6 +148,7 @@ function buildItem(
     program: programCode,
     type_code: code,
     skill: "writing",
+    max_points: program.writing_points[code],
     subskill: q.subskill,
     difficulty: q.difficulty,
     format,
