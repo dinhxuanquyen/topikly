@@ -279,9 +279,9 @@ describe("WritingPracticeRunner", () => {
     const prompt = { ...ESSAY_PROMPT, max_points: 30 };
     const { unmount } = render(<WritingPromptPanel program="topik-ii" prompt={prompt} />);
     fireEvent.change(essayBox(), { target: { value: "가나다" } });
-    expect(screen.getByText(/khoảng 20 ô/)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "IBT · Văn bản" }));
-    expect(screen.queryByText(/khoảng 20 ô/)).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "원고지 (giấy thi)" }));
+    expect(essayBox()).toHaveValue("가나다");
+    fireEvent.click(screen.getByRole("button", { name: "Ô gõ (máy, IBT)" }));
     expect(essayBox()).toHaveValue("가나다");
     respondWith(ESSAY_REVEAL);
     fireEvent.click(screen.getByRole("button", { name: "Xem bài mẫu & tự so sánh" }));

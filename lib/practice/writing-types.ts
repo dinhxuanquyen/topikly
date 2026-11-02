@@ -12,6 +12,7 @@
  *    (GET /api/practice/writing/reveal). Không nhúng vào trang trước.
  * Không kiểu nào có `notes_internal`, `reviewed_by`, `reviewed_at`, `authored_by`, `source`, `tags`.
  */
+import type { ManuscriptConfig } from "@/lib/db/programs/types";
 import type { ChartData } from "./types";
 
 // `countChars` thuần (không import node), nên client import thẳng được; re-export để frontend chỉ
@@ -103,6 +104,8 @@ export interface WritingPrompt {
   data_is_fictional?: boolean;
   /** W53–W54: khung ký tự. Không có với W51–W52 (mỗi chỗ trống đúng một câu). */
   char_limit?: WritingCharLimit;
+  /** W53–W54: khung 원고지 của chương trình (số ô mỗi dòng, ô thụt đầu đoạn) cho trình soạn 원고지. */
+  manuscript?: ManuscriptConfig;
 }
 
 /** Một dạng Viết đang có ít nhất 1 đề. */

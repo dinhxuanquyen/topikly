@@ -654,15 +654,6 @@ export const vi = {
     essayHint:
       "Số ký tự tính cả khoảng trắng, không tính xuống dòng. Tự viết rồi mới xem bài mẫu sẽ nhớ lâu hơn.",
     essayPlaceholder: "Viết bài của bạn ở đây (bằng tiếng Hàn)…",
-    manuscript: {
-      modeLabel: "Chế độ trình bày bài viết",
-      paper: "원고지 · Giấy ô",
-      ibt: "IBT · Văn bản",
-      caption: (cells: number) =>
-        `Bản giấy cập nhật khi gõ · khoảng ${cells} ô (làm tròn theo dòng)`,
-      hint: "Gõ bài ở ô phía trên. Bản xem trước có 20 ô/dòng, thụt 1 ô đầu mỗi đoạn; Enter để ngắt đoạn. Mỗi ký tự và dấu câu chiếm 1 ô, chưa áp dụng quy tắc ghép hoặc treo dấu câu. Đây là ước tính bố cục, không phải số ký tự hay điểm thi.",
-      overflow: (max: number) => `Bố cục ước tính vượt ${max} ô. Bạn vẫn có thể tiếp tục sửa bài.`,
-    },
     selfScore: {
       heading: "Tự chấm sau khi đối chiếu",
       hint: "Đọc nhận xét bài mẫu theo ba tiêu chí: nội dung, cấu trúc và ngôn ngữ; kiểm tra các ý bắt buộc rồi nhập điểm chung cho cả bài. Đây là điểm bạn tự ước lượng.",
@@ -743,6 +734,71 @@ export const vi = {
       partialTitle: "Đúng ý nhưng chưa trọn điểm",
       rejectedTitle: "Đáp án sai thường gặp",
       requiredElements: "Yếu tố bắt buộc để đạt điểm tối đa",
+    },
+    manuscript: {
+      modeLabel: "Cách viết",
+      modeManuscript: "원고지 (giấy thi)",
+      modeTyping: "Ô gõ (máy, IBT)",
+      hint: "Bấm vào giấy để viết. Mỗi lần xuống dòng là một đoạn mới, tự thụt một ô đầu đoạn. Dấu chấm, dấu phẩy rơi vào đầu dòng được viết chung ô cuối dòng trước.",
+      usage: (used: number, frame: number, rows: number, frameRows: number) =>
+        `Đã dùng ${used}/${frame} ô · ${rows}/${frameRows} dòng`,
+      overflow: (cells: number) => `Tràn khung giấy ${cells} ô`,
+      frameEnd: (frame: number) => `Hết khung ${frame} ô`,
+      note: "Số ô 원고지 có thể khác số ký tự: ô thụt đầu đoạn được tính; khoảng trắng ở đầu dòng và sau dấu chấm, dấu phẩy thì không viết. Chữ số viết hai chữ một ô.",
+    },
+    rules: {
+      regionLabel: "Kiểm tra quy tắc",
+      heading: "Kiểm tra nhanh",
+      note: "Máy chỉ kiểm tra hình thức (văn phong, chép đề, tiêu đề, khẩu ngữ…), chưa chấm nội dung và ngữ pháp.",
+      summaryClean: "Chưa thấy lỗi hình thức nào.",
+      summary: (errors: number, warnings: number) =>
+        [errors > 0 ? `${errors} lỗi cần sửa` : "", warnings > 0 ? `${warnings} lưu ý` : ""]
+          .filter(Boolean)
+          .join(" · "),
+      passedLabel: "Đạt",
+      errorLabel: "Lỗi",
+      warningLabel: "Lưu ý",
+      excerptsLabel: "Chỗ cần xem",
+      more: (n: number) => `+${n}`,
+      passed: {
+        length: "Đủ khung ký tự",
+        register: "Văn phong -ㄴ다/-다",
+        copied_prompt: "Không chép đề",
+        title: "Không có tiêu đề",
+        list_marker: "Không gạch đầu dòng",
+        first_person: "Không xưng 저/제",
+        personal_opinion: "Không thêm ý kiến cá nhân",
+        colloquial: "Không dùng khẩu ngữ",
+        hedging: "Không lạm dụng -는 것 같다",
+        paragraphs: "Có chia đoạn",
+        one_sentence: "Đúng một câu",
+      },
+      lengthBelow: (count: number, min: number) =>
+        `Mới có ${count} ký tự, cần ít nhất ${min}. Bài dưới khung bị trừ điểm nặng.`,
+      lengthAbove: (count: number, max: number) =>
+        `Đang có ${count} ký tự, vượt ${max}. Phần vượt khung có thể không được chấm.`,
+      register: (endings: string) =>
+        `Có câu kết thúc bằng ${endings}. Bài này phải viết văn viết -ㄴ다/-다 từ đầu đến cuối.`,
+      registerPolite: "-요",
+      registerFormal: "-습니다/-ㅂ니다",
+      copied_prompt:
+        "Có đoạn chép nguyên văn từ đề. Phần chép không được tính điểm; hãy diễn đạt lại bằng lời của bạn.",
+      titleW53: "Dòng đầu trông như tiêu đề. Đề 53 yêu cầu không viết tiêu đề.",
+      title: "Dòng đầu trông như tiêu đề. Tiêu đề tốn ô 원고지 và không được tính điểm.",
+      list_marker:
+        "Có gạch đầu dòng hoặc đánh số. Bài viết cần câu văn liền mạch, không liệt kê như ghi chú.",
+      first_person:
+        "Có xưng 저/제 (khiêm xưng của lối nói lịch sự). Văn viết -다 nên viết khách quan, hoặc dùng 나/필자.",
+      personal_opinion:
+        "Có ý kiến cá nhân. Câu 53 chỉ mô tả và so sánh dữ liệu, không thêm suy nghĩ hay lời khuyên của bạn.",
+      colloquial:
+        "Có từ khẩu ngữ. Nên đổi sang từ văn viết, ví dụ 너무 → 매우, 진짜 → 실제로, 근데 → 그런데, 좀 → 조금.",
+      hedging:
+        "Dùng -는 것 같다 nhiều lần khiến lập luận thiếu dứt khoát. Nên dùng -다고 본다, -아야 한다.",
+      paragraphs:
+        "Bài chưa chia đoạn. Bài 54 nên có 3–4 đoạn: mở bài, thân bài theo từng câu hỏi gợi ý, kết bài.",
+      one_sentence: "Mỗi chỗ trống chỉ viết một câu. Viết thêm câu sẽ bị trừ điểm.",
+      registerBlank: "Câu 52 phải dùng văn viết -ㄴ다/-다, không dùng -요/-습니다.",
     },
   },
 

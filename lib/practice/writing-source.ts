@@ -165,6 +165,7 @@ function buildItem(
     ...(q.chart_data ? { chart_data: toChartData(q.chart_data) } : {}),
     ...(q.data_is_fictional != null ? { data_is_fictional: q.data_is_fictional } : {}),
     ...(format === "essay" && charLimit ? { char_limit: charLimit } : {}),
+    ...(format === "essay" ? { manuscript: { ...program.manuscript } } : {}),
   };
 
   const blanks: WritingBlankReveal[] | undefined =

@@ -79,6 +79,7 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-brand-soft: var(--brand-soft);
+  --color-manuscript: var(--manuscript);
   --color-brand-soft-foreground: var(--brand-soft-foreground);
   --color-ring: var(--ring);
   --color-input: var(--input);
@@ -163,6 +164,8 @@
   --series-4: var(--coral-500);
   --series-5: oklch(0.42 0.05 240);
   --series-6: var(--sky-300);
+  /* Đường kẻ ô của giấy 원고지. */
+  --manuscript: var(--sky-300);
   /* Chiều cao thanh điều hướng; nội dung chừa chỗ theo các biến này. */
   --header-height: 4rem;
   --tabbar-height: 4rem;
@@ -187,6 +190,7 @@
   --primary-foreground: #0f1b26;
   --brand-soft: #1b3550;
   --brand-soft-foreground: #e0f2fe;
+  --manuscript: #3a5f80;
   --secondary: #1b2d40;
   --secondary-foreground: #eef4fa;
   --muted: #1b2d40;

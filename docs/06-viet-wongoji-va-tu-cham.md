@@ -1,5 +1,7 @@
 # Viết trên giấy ô và tự chấm
 
+> Ghi chú tích hợp: khi đồng bộ `origin/main`, bản xem trước dưới đây đã được thay bằng trình soạn trực tiếp trong `docs/07-trinh-soan-wongoji.md`. Giữ trình soạn và kiểm tra quy tắc mới từ remote; phần điểm tự chấm, lưu nháp và xóa điểm khi sửa bài tiếp tục áp dụng. Mô tả bố cục ước tính và vùng mã bản xem trước bên dưới là lịch sử của bản đầu, không còn là hành vi hiện tại.
+
 Ngày 2026-11-02. Phần luyện W53–W54 có bản xem giấy 원고지 cập nhật theo ô gõ, chuyển sang IBT để ẩn giấy mà giữ nguyên nội dung. Màn làm đề dùng lại bản xem giấy; điểm tự chấm của đề thi tiếp tục dùng luồng kết quả hiện có.
 
 Ô textarea là bề mặt nhập liệu duy nhất, giữ bộ gõ Hàn, chọn chữ, dán và thao tác bàn phím gốc của trình duyệt. Giấy là bản xem trước bên dưới, không phải trình sửa từng ô. Trình đọc màn hình đọc nội dung qua ô gõ; các ô trang trí được ẩn để tránh lặp từng ký tự.

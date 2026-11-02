@@ -21,6 +21,7 @@ export const ESSAY_PROMPT: WritingPrompt = {
     },
   ],
   char_limit: { min: 10, max: 20 },
+  manuscript: { cells_per_line: 20, indent_cells: 1 },
 };
 
 export const ESSAY_REVEAL: WritingReveal = {
