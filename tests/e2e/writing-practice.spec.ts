@@ -23,7 +23,7 @@ const runner = (page: Page) => page.getByRole("region", { name: "Trình luyện 
 const essayBox = (page: Page) => page.getByRole("textbox", { name: "Bài viết của bạn" });
 const counter = (page: Page) => page.locator("[data-status]");
 /** Dòng trạng thái bộ đếm cho trình đọc màn hình (sr-only), chỉ đổi khi dưới/đạt/vượt khung. */
-const counterStatus = (page: Page) => page.locator("p[role=status]");
+const counterStatus = (page: Page) => page.locator("[data-status] ~ p[role=status]");
 const revealButton = (page: Page) => page.getByRole("button", { name: "Xem bài mẫu & tự so sánh" });
 const revealRegion = (page: Page) => page.getByRole("region", { name: "Bài mẫu và tự so sánh" });
 /** Bỏ qua route announcer của Next (cũng có role="alert"): lọc theo nội dung. */
@@ -287,6 +287,54 @@ test.describe("Luyện Viết — ô viết, bộ đếm, nháp", () => {
     await page.reload();
     await expect(essayBox(page)).toHaveValue("");
     await expect(page.getByText("Đã khôi phục bản nháp")).toHaveCount(0);
+  });
+});
+
+test.describe("Luyện Viết — kiểm tra quy tắc tức thì", () => {
+  const rules = (page: Page) => page.getByRole("region", { name: "Kiểm tra quy tắc" });
+
+  test("W54: bắt đuôi -요/-습니다 và đoạn chép đề; sửa xong thì báo sạch", async ({ page }) => {
+    await page.goto(W54);
+    await expect(rules(page)).toHaveCount(0);
+
+    const bad = "요즘은 기다리는 시간을 줄여 주는 서비스가 빠르게 늘고 있다. 그래서 편리해졌어요.";
+    await writeEssay(page, bad, countIndependently(bad));
+    await expect(rules(page)).toContainText("2 lỗi cần sửa");
+    const register = rules(page).locator("[data-rule=register]");
+    await expect(register).toContainText("-요");
+    await expect(register.getByText("편리해졌어요")).toBeVisible();
+    await expect(rules(page).locator("[data-rule=copied_prompt]")).toContainText(
+      "기다리는 시간을 줄여 주는 서비스가",
+    );
+
+    const good = "기술이 발달하면서 기다리는 시간이 크게 줄었다. 그래서 생활이 편리해졌다.";
+    await writeEssay(page, good, countIndependently(good));
+    await expect(rules(page)).toContainText("Chưa thấy lỗi hình thức nào.");
+    await expect(rules(page).locator("[data-severity]")).toHaveCount(0);
+  });
+
+  test("W52: chỗ trống viết -요 hiện lời nhắc văn phong ngay dưới ô", async ({ page }) => {
+    await page.goto(W52);
+    const input = page.getByRole("textbox", { name: "Ô điền ㉠" });
+    await expect(async () => {
+      await input.fill("더 피곤해질 수 있어요");
+      await expect(page.getByTestId("writing-blank-rule")).toContainText("-ㄴ다/-다", {
+        timeout: 1_000,
+      });
+    }).toPass({ timeout: 10_000 });
+    await expect(input).toHaveAttribute("aria-describedby", /.+/);
+
+    await input.fill("더 피곤해질 수 있다");
+    await expect(page.getByTestId("writing-blank-rule")).toHaveCount(0);
+  });
+
+  test("Không tràn ngang khi có nhiều lỗi", async ({ page }) => {
+    await page.goto(W53);
+    const text =
+      "도서 대출 현황\n- 종이책이 줄었어요. 진짜 많이 줄었습니다. 나는 아쉽다고 생각한다.";
+    await writeEssay(page, text, countIndependently(text));
+    await expect(rules(page).locator("[data-severity=error]")).not.toHaveCount(0);
+    await expectNoHorizontalOverflow(page, "W53 kiểm tra quy tắc");
   });
 });
 

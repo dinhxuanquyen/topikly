@@ -7,6 +7,7 @@ import { t } from "@/components/i18n";
 import { renderInline } from "@/components/practice/rich-text";
 import { formatClock } from "@/components/practice/practice-state";
 import { CharCounter } from "@/components/writing/char-counter";
+import { BlankRuleNote, RuleCheckPanel } from "@/components/writing/rule-check";
 import { WritingRevealView } from "@/components/writing/writing-reveal-view";
 import { cn } from "@/lib/utils";
 import {
@@ -16,6 +17,7 @@ import {
 } from "@/lib/exam/writing-self-score";
 import type { ExamResult, WritingReview, WritingReviewItem } from "@/lib/exam/types";
 import { countChars, WRITING_RUBRIC_CRITERIA } from "@/lib/practice/writing-types";
+import { checkBlank, checkEssay } from "@/lib/writing/rules";
 import { numberOfWritingType, type SelfPoints } from "./exam-state";
 
 // ------------------------------------------------------------------ khối tổng
@@ -244,6 +246,17 @@ function WritingReviewCard({
   const isEssay = item.format === "essay";
   const text = item.answer.text ?? "";
   const blankLabels = (item.prompt.blanks ?? []).map((blank) => blank.label);
+  const essayRules = useMemo(
+    () =>
+      isEssay
+        ? checkEssay({
+            type_code: item.prompt.type_code,
+            text,
+            sources: [item.prompt.stem, item.prompt.task, item.prompt.passage],
+          })
+        : null,
+    [isEssay, item.prompt, text],
+  );
   const criteria = WRITING_RUBRIC_CRITERIA.map((c) => c.name_vi).join(", ");
   const perBlank = blankLabels.length > 0 ? Math.round(item.max_points / blankLabels.length) : 0;
   const quick = isEssay
@@ -281,6 +294,9 @@ function WritingReviewCard({
             limit={item.prompt.char_limit}
             announce={false}
           />
+          {essayRules ? (
+            <RuleCheckPanel report={essayRules} typeCode={item.prompt.type_code} announce={false} />
+          ) : null}
           {!isOpen ? (
             text.trim() === "" ? (
               <p className="text-sm text-muted-foreground">{t.examResult.writing.essayEmpty}</p>
@@ -311,7 +327,15 @@ function WritingReviewCard({
                       {t.examResult.writing.blankEmpty}
                     </span>
                   ) : (
-                    value
+                    <>
+                      {value}
+                      <div lang="vi" className="mt-2">
+                        <BlankRuleNote
+                          report={checkBlank({ type_code: item.prompt.type_code, text: value })}
+                          typeCode={item.prompt.type_code}
+                        />
+                      </div>
+                    </>
                   )}
                 </dd>
               </div>

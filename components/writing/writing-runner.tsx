@@ -1,6 +1,15 @@
 "use client";
 
-import { Fragment, useCallback, useEffect, useId, useRef, useState } from "react";
+import {
+  Fragment,
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Eye, EyeOff, RotateCcw, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { t } from "@/components/i18n";
@@ -9,7 +18,9 @@ import { ImagePending } from "@/components/practice/question-material";
 import { RichLines, renderInline, splitLines } from "@/components/practice/rich-text";
 import { cn } from "@/lib/utils";
 import { countChars, type WritingPrompt, type WritingReveal } from "@/lib/practice/writing-types";
+import { checkBlank, checkEssay } from "@/lib/writing/rules";
 import { CharCounter } from "./char-counter";
+import { BlankRuleNote, RuleCheckPanel } from "./rule-check";
 import { clearDraft, loadDraft, saveDraft, type WritingDraft } from "./writing-draft";
 import { fetchWritingReveal, WritingRevealError } from "./writing-api";
 import { WritingRevealView } from "./writing-reveal-view";
@@ -130,6 +141,30 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
   const isEssay = prompt.format === "essay";
   const blankLabels = (prompt.blanks ?? []).map((b) => b.label);
   const essayCount = countChars(values.essay);
+
+  // Kiểm tra quy tắc chạy trên giá trị hoãn để không chặn lúc gõ. Khung ký tự đã có bộ đếm riêng.
+  const deferred = useDeferredValue(values);
+  const essayRules = useMemo(
+    () =>
+      isEssay
+        ? checkEssay({
+            type_code: prompt.type_code,
+            text: deferred.essay,
+            sources: [prompt.stem, prompt.task, prompt.passage],
+          })
+        : null,
+    [isEssay, prompt, deferred.essay],
+  );
+  const blankRules = useMemo(
+    () =>
+      Object.fromEntries(
+        (prompt.blanks ?? []).map((b) => [
+          b.label,
+          checkBlank({ type_code: prompt.type_code, text: deferred.blanks[b.label] ?? "" }),
+        ]),
+      ),
+    [prompt, deferred.blanks],
+  );
 
   // ---- nạp nháp (sau khi hydrate). Nếu người học đã gõ trước khi nạp xong thì giữ bản đang gõ.
   useEffect(() => {
@@ -276,6 +311,7 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
             className="min-h-64 w-full resize-y rounded-xl border-2 border-input bg-background p-3 text-base leading-8 outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/50"
           />
           <CharCounter id={counterId} count={essayCount} limit={prompt.char_limit} />
+          {essayRules ? <RuleCheckPanel report={essayRules} typeCode={prompt.type_code} /> : null}
         </div>
       ) : (
         <fieldset className="space-y-4">
@@ -283,6 +319,9 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
           <p className="text-sm text-muted-foreground">{t.writing.blanksHint}</p>
           {blankLabels.map((label) => {
             const inputId = `${uid}-blank-${label}`;
+            const ruleId = `${inputId}-rules`;
+            const rules = blankRules[label];
+            const hasRuleNote = (rules?.findings.length ?? 0) > 0;
             return (
               <div key={label} className="space-y-1.5">
                 <label htmlFor={inputId} className="block text-sm font-semibold">
@@ -296,12 +335,16 @@ export function WritingPromptPanel({ program, prompt, position = 1, total = 1 }:
                   onChange={(event) =>
                     apply({ ...values, blanks: { ...values.blanks, [label]: event.target.value } })
                   }
+                  aria-describedby={hasRuleNote ? ruleId : undefined}
                   spellCheck={false}
                   autoCapitalize="off"
                   autoCorrect="off"
                   autoComplete="off"
                   className="min-h-12 w-full rounded-xl border-2 border-input bg-background px-3 text-base outline-none placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-ring/50"
                 />
+                {rules ? (
+                  <BlankRuleNote id={ruleId} report={rules} typeCode={prompt.type_code} />
+                ) : null}
               </div>
             );
           })}
