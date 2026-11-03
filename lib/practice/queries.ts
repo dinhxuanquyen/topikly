@@ -14,6 +14,19 @@
 import { cacheLife } from "next/cache";
 import { listPracticeTypes, listPublicQuestions, getPublicQuestion } from "./source";
 import type { PracticeSkill, PracticeTypeSummary, PublicQuestion } from "./types";
+import type { ReviewItem } from "./review";
+
+export async function getReviewCatalog(program: string): Promise<ReviewItem[]> {
+  cacheLife("max");
+  return listPracticeTypes(program).flatMap((type) =>
+    listPublicQuestions(program, type.type_code).map((q) => ({
+      id: q.id,
+      type_code: q.type_code,
+      skill: q.skill,
+      title: type.name_vi,
+    })),
+  );
+}
 
 /** Các dạng đang có câu, sắp theo type_code. `skill` bỏ trống = cả Đọc và Nghe. */
 export async function getPracticeTypes(

@@ -44,7 +44,8 @@ describe("getPillarLinks", () => {
 });
 
 describe("isFocusPath", () => {
-  it("chỉ trang làm bài một dạng là chế độ tập trung", () => {
+  it("trang làm bài và sổ câu dùng chế độ tập trung, không che nút nộp trên di động", () => {
+    expect(isFocusPath("/topik-ii/luyen-tap/on-tap")).toBe(true);
     expect(isFocusPath("/topik-ii/luyen-tap/doc/R26")).toBe(true);
     expect(isFocusPath("/topik-ii/luyen-tap/viet/W53/")).toBe(true);
     expect(isFocusPath("/topik-ii/luyen-tap/doc")).toBe(false);

@@ -35,5 +35,5 @@ export function isPathActive(pathname: string | null | undefined, href: string):
  * Trên điện thoại ẩn header và thanh tab; trang tự có nút thoát (xem PracticePageShell).
  */
 export function isFocusPath(pathname: string | null | undefined): boolean {
-  return /^\/[^/]+\/luyen-tap\/[^/]+\/[^/]+$/.test(normalize(pathname));
+  return /^\/[^/]+\/luyen-tap\/(?:on-tap|[^/]+\/[^/]+)$/.test(normalize(pathname));
 }

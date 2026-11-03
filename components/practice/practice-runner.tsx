@@ -39,6 +39,8 @@ interface PracticeRunnerProps {
   questions: readonly PublicQuestion[];
   /** Trang danh sách dạng (nút "Chọn dạng khác" ở màn tổng kết). */
   exitHref?: string;
+  /** Ôn lại từ đầu, giữ dấu đánh dấu nhưng không hiện lựa chọn/lời giải cũ. */
+  freshAttempt?: boolean;
 }
 
 /** Chuyển focus tới phần tử và cuộn đầu phần tử lên dưới thanh header (focus mặc định có thể cuộn lệch với khối cao). */
@@ -64,7 +66,12 @@ const NAV_STATUS_CLASS: Record<NavStatus, string> = {
 };
 
 /** Trình làm bài luyện tập từng dạng: một câu mỗi lần, chấm ở server, lưu tiến độ khách. */
-export function PracticeRunner({ program, questions, exitHref }: PracticeRunnerProps) {
+export function PracticeRunner({
+  program,
+  questions,
+  exitHref,
+  freshAttempt = false,
+}: PracticeRunnerProps) {
   const [index, setIndex] = useState(0);
   const [state, dispatch] = useReducer(runnerReducer, {} as RunnerState);
   const [paused, setPaused] = useState(false);
@@ -94,9 +101,15 @@ export function PracticeRunner({ program, questions, exitHref }: PracticeRunnerP
   // ---- nạp tiến độ khách (sau khi hydrate)
   useEffect(() => {
     let cancelled = false;
-    const typeCode = questions[0]?.type_code;
-    if (!typeCode) return;
-    void loadProgressForType(program, typeCode).then((records) => {
+    const codes = [...new Set(questions.map((q) => q.type_code))];
+    void Promise.all(codes.map((code) => loadProgressForType(program, code))).then((groups) => {
+      const records = groups
+        .flat()
+        .map((record) =>
+          freshAttempt
+            ? { ...record, answered: false, lastCorrect: null, lastSelected: null }
+            : record,
+        );
       if (!cancelled && records.length > 0) {
         dispatch({ type: "load-progress", records, labels: CHOICE_LABELS });
       }
@@ -104,7 +117,7 @@ export function PracticeRunner({ program, questions, exitHref }: PracticeRunnerP
     return () => {
       cancelled = true;
     };
-  }, [program, questions]);
+  }, [program, questions, freshAttempt]);
 
   // ---- đồng hồ làm câu: chỉ chạy khi đang làm, không tạm dừng, tab đang hiện
   useEffect(() => {

@@ -47,6 +47,7 @@ export async function getPlannerCatalog(program: string): Promise<PlannerCatalog
         href: `${base}/luyen-tap/${type.skill === "reading" ? "doc" : "nghe"}/${type.type_code}`,
         level: Math.min(...questions.map((q) => q.difficulty)),
         typeCodes: [type.type_code],
+        questionIds: questions.map((q) => q.id),
       };
     }),
   );

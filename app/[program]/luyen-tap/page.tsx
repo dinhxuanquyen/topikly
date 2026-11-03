@@ -5,6 +5,7 @@ import { SKILLS, type SkillSlug } from "@/components/config/taxonomy";
 import { t } from "@/components/i18n";
 import { LinkCard } from "@/components/placeholder/link-card";
 import { PlaceholderPage } from "@/components/placeholder/placeholder-page";
+import { LearningLinks } from "@/components/progress/learning-links";
 
 /** Cố ý blocking để segment lạ trả 404: xem ghi chú ở app/[program]/layout.tsx. */
 export const instant = false;
@@ -32,6 +33,7 @@ export default async function PracticePage({ params }: Props) {
       description={t.practice.description}
       planned={t.practice.planned}
     >
+      <LearningLinks program={program.slug} />
       <section aria-labelledby="skills-heading">
         <h2 id="skills-heading" className="mb-3 text-sm font-semibold text-muted-foreground">
           {t.practice.skillHeading}

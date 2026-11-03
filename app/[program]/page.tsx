@@ -7,6 +7,7 @@ import { PILLAR_ICONS } from "@/components/nav/pillar-icons";
 import { LinkCard } from "@/components/placeholder/link-card";
 import { TodayPanel, type TodayType } from "@/components/today/today-panel";
 import { getPracticeTypes } from "@/lib/practice/queries";
+import { LearningLinks } from "@/components/progress/learning-links";
 
 /** Cố ý blocking để segment lạ trả 404: xem ghi chú ở app/[program]/layout.tsx. */
 export const instant = false;
@@ -50,6 +51,7 @@ export default async function ProgramOverviewPage({ params }: Props) {
         <span className="sr-only"> · {program.name}</span>
       </h1>
       <TodayPanel program={program.slug} types={types} />
+      <LearningLinks program={program.slug} />
 
       <section aria-labelledby="explore-heading" className="mt-10">
         <h2 id="explore-heading" className="mb-3 text-xl font-extrabold">

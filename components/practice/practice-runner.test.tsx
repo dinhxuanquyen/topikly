@@ -45,6 +45,35 @@ const QUESTION_2: PublicQuestion = {
   passage: "두 번째 문제의 지문입니다.",
 };
 
+it("phiên ôn hỗn hợp giữ đánh dấu, ẩn kết quả cũ và nạp mọi dạng", async () => {
+  vi.mocked(store.loadProgressForType).mockImplementation(async (_program, code) => [
+    {
+      key: `topik-ii:${code === "R10" ? QUESTION_1.id : QUESTION_2.id}`,
+      program: "topik-ii",
+      questionId: code === "R10" ? QUESTION_1.id : QUESTION_2.id,
+      type_code: code,
+      skill: "reading",
+      answered: true,
+      lastCorrect: false,
+      lastSelected: "②",
+      marked: true,
+      updatedAt: Date.now(),
+    },
+  ]);
+  render(
+    <PracticeRunner
+      program="topik-ii"
+      questions={[QUESTION_1, { ...QUESTION_2, type_code: "R11" }]}
+      freshAttempt
+    />,
+  );
+  await waitFor(() => expect(store.loadProgressForType).toHaveBeenCalledWith("topik-ii", "R11"));
+  expect(screen.getAllByRole("radio").every((radio) => !(radio as HTMLInputElement).checked)).toBe(
+    true,
+  );
+  expect(screen.queryByText(/Đáp án ③/)).not.toBeInTheDocument();
+});
+
 function checkResponse(partial: Partial<CheckResponse> = {}): CheckResponse {
   return {
     questionId: "r10-0001",

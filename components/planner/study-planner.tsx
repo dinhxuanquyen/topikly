@@ -17,6 +17,7 @@ import {
   type StudyPlan,
 } from "@/lib/planner/plan";
 import { readPlan, useStudyPlan, writePlan } from "./plan-store";
+import { useAutoComplete } from "./use-auto-complete";
 
 const inputClass =
   "mt-1 min-h-11 w-full rounded-xl border border-input bg-background px-3 py-2 text-base outline-none focus-visible:ring-3 focus-visible:ring-ring/50";
@@ -99,6 +100,7 @@ function PlanForm({
     }
     const plan: StudyPlan = {
       version: 1,
+      createdAt: Date.now(),
       program,
       startDate: today,
       examDate,
@@ -247,6 +249,7 @@ export function StudyPlanner({ program, catalog, placementExamId }: Props) {
   );
   const [editing, setEditing] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
+  useAutoComplete(program, catalog, plan, today);
   if (!ready || !today)
     return (
       <p role="status" className="py-4 text-muted-foreground">
@@ -403,6 +406,12 @@ export function StudyPlanner({ program, catalog, placementExamId }: Props) {
                   {kindLabels[task.kind]} · {task.minutes} phút
                   {task.priority ? " · Ưu tiên từ test trình độ" : ""}
                 </p>
+                {task.kind === "practice" && task.questionIds?.length ? (
+                  <p className="text-sm text-muted-foreground">
+                    Tự hoàn thành khi trả lời {Math.min(5, task.questionIds.length)} câu khác nhau
+                    trong hôm nay.
+                  </p>
+                ) : null}
                 <Link
                   href={task.href}
                   className="inline-block min-h-11 py-2 text-base font-semibold underline-offset-4 hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-ring"
@@ -425,8 +434,10 @@ export function StudyPlanner({ program, catalog, placementExamId }: Props) {
           </p>
         ) : null}
         <p className="mt-3 text-sm text-muted-foreground">
-          Tự đánh dấu sau khi học xong. Mini test chỉ được xếp mỗi ngày thứ 7 nếu đủ thời gian làm
-          trọn đề. Bài học lặp lại để ôn tập; phần Nghe thiếu audio sẽ ghi rõ là đọc lời thoại.
+          Luyện tập, nộp Mini test và ôn từ bằng flashcard trong hôm nay được tự ghi nhận khi bạn
+          quay lại lộ trình. Các bài còn lại có thể tự đánh dấu sau khi học xong. Mini test chỉ được
+          xếp mỗi ngày thứ 7 nếu đủ thời gian làm trọn đề. Bài học lặp lại để ôn tập; phần Nghe
+          thiếu audio sẽ ghi rõ là đọc lời thoại.
         </p>
       </section>
       <p className="text-sm text-muted-foreground">

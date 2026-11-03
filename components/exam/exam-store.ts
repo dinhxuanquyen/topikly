@@ -234,6 +234,7 @@ export async function clearDraft(
     done.catch(() => undefined);
     tx.objectStore(STORE_DRAFTS).delete(examKey(program, kind, examId));
     await done;
+    if (typeof window !== "undefined") window.dispatchEvent(new Event("topikly:exam-changed"));
     return true;
   } catch {
     return false;
@@ -241,6 +242,23 @@ export async function clearDraft(
 }
 
 // ------------------------------------------------------------------ kết quả
+
+/** Lịch sử còn lưu của chương trình; mỗi đề giữ tối đa MAX_RESULTS_PER_EXAM lần. */
+export async function loadExamHistory(program: string): Promise<ExamResultRecord[] | null> {
+  try {
+    const db = await openDb();
+    if (!db) return null;
+    const tx = db.transaction(STORE_RESULTS, "readonly");
+    const rows = (await requestToPromise(
+      tx.objectStore(STORE_RESULTS).getAll(),
+    )) as ExamResultRecord[];
+    return rows
+      .filter((row) => row.program === program)
+      .sort((a, b) => b.submittedAt - a.submittedAt);
+  } catch {
+    return null;
+  }
+}
 
 /** Lưu một lần nộp bài, giữ MAX_RESULTS_PER_EXAM lần gần nhất của đề. true = đã lưu. */
 export async function saveResult(result: ExamResult, selfPoints?: SelfPoints): Promise<boolean> {
@@ -263,6 +281,7 @@ export async function saveResult(result: ExamResult, selfPoints?: SelfPoints): P
       for (const row of oldest) if (row.id !== undefined) store.delete(row.id);
     }
     await done;
+    if (typeof window !== "undefined") window.dispatchEvent(new Event("topikly:exam-changed"));
     return true;
   } catch {
     return false;
@@ -324,6 +343,7 @@ export async function saveSelfPoints(result: ExamResult, selfPoints: SelfPoints)
     }
     store.put(updated);
     await done;
+    if (typeof window !== "undefined") window.dispatchEvent(new Event("topikly:exam-changed"));
     return true;
   } catch {
     return false;

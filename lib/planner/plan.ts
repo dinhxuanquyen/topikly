@@ -26,6 +26,7 @@ const daySchema = z.string().refine(isDateKey);
 export const planSchema = z
   .object({
     version: z.literal(1),
+    createdAt: z.number().finite().nonnegative().optional(),
     program: z.string().min(1).max(40),
     startDate: daySchema,
     examDate: daySchema,
@@ -53,6 +54,8 @@ export interface PlanResource {
   typeCodes?: string[];
   /** Thời lượng thật của đề; các nhiệm vụ còn lại là thời gian học gợi ý. */
   durationMinutes?: number;
+  /** Các câu thật để đếm câu khác nhau khi tự ghi nhận luyện tập. */
+  questionIds?: string[];
 }
 export interface PlannerCatalog {
   levels: { level: number; label: string }[];

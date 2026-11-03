@@ -32,15 +32,26 @@ let dbPromise: Promise<IDBDatabase | null> | null = null;
 function openDb(): Promise<IDBDatabase | null> {
   if (dbPromise) return dbPromise;
   dbPromise = new Promise<IDBDatabase | null>((resolve) => {
+    let settled = false;
+    const timer = setTimeout(() => finish(null), 4000);
+    const finish = (db: IDBDatabase | null) => {
+      if (settled) {
+        db?.close();
+        return;
+      }
+      settled = true;
+      clearTimeout(timer);
+      resolve(db);
+    };
     if (typeof indexedDB === "undefined") {
-      resolve(null);
+      finish(null);
       return;
     }
     let request: IDBOpenDBRequest;
     try {
       request = indexedDB.open(DB_NAME, DB_VERSION);
     } catch {
-      resolve(null);
+      finish(null);
       return;
     }
     request.onupgradeneeded = () => {
@@ -61,10 +72,10 @@ function openDb(): Promise<IDBDatabase | null> {
         db.close();
         dbPromise = null;
       };
-      resolve(db);
+      finish(db);
     };
-    request.onerror = () => resolve(null);
-    request.onblocked = () => resolve(null);
+    request.onerror = () => finish(null);
+    request.onblocked = () => finish(null);
   });
   return dbPromise;
 }
@@ -157,6 +168,19 @@ export async function setMarked(meta: QuestionMeta, marked: boolean): Promise<bo
 // ------------------------------------------------------------------ đọc
 
 /** Tiến độ các câu thuộc một dạng. */
+export async function loadProgress(program: string): Promise<ProgressRecord[] | null> {
+  try {
+    const db = await openDb();
+    if (!db) return null;
+    const tx = db.transaction(STORE_PROGRESS, "readonly");
+    return (await requestToPromise(
+      tx.objectStore(STORE_PROGRESS).index("byProgram").getAll(program),
+    )) as ProgressRecord[];
+  } catch {
+    return null;
+  }
+}
+
 export async function loadProgressForType(
   program: string,
   typeCode: string,

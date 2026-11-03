@@ -5,6 +5,7 @@ import { t } from "@/components/i18n";
 import { TheoryShell } from "@/components/lexicon/theory-shell";
 import { VocabBrowser } from "@/components/lexicon/vocab-browser";
 import { getVocabFacets, getVocabList } from "@/lib/lexicon/queries";
+import { LearningLinks } from "@/components/progress/learning-links";
 
 /** Cố ý blocking để segment lạ trả 404: xem ghi chú ở app/[program]/layout.tsx. */
 export const instant = false;
@@ -41,6 +42,7 @@ export default async function VocabListPage({ params }: Props) {
       title={t.vocab.title}
       description={t.vocab.description}
     >
+      <LearningLinks program={program.slug} />
       <VocabBrowser program={program.slug} words={words} facets={facets} />
     </TheoryShell>
   );

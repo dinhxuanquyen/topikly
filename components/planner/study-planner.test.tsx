@@ -6,7 +6,10 @@ import { addDays, dateKey, generateDays, type PlannerCatalog } from "@/lib/plann
 import { loadLatestResult } from "@/components/exam/exam-store";
 import { PLACEMENT_RESULT } from "@/components/exam/test-fixtures";
 
-vi.mock("@/components/exam/exam-store", () => ({ loadLatestResult: vi.fn() }));
+vi.mock("@/components/exam/exam-store", () => ({
+  loadLatestResult: vi.fn(),
+  loadExamHistory: vi.fn(async () => []),
+}));
 const catalog: PlannerCatalog = {
   levels: [
     { level: 3, label: "3급" },
