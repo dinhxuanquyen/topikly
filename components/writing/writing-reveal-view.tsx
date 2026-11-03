@@ -2,9 +2,11 @@
 
 import { createContext, forwardRef, useContext, useId, useState } from "react";
 import { t } from "@/components/i18n";
+import { Button } from "@/components/ui/button";
 import { RichMarkdown } from "@/components/practice/rich-markdown";
 import { renderInline } from "@/components/practice/rich-text";
 import { cn } from "@/lib/utils";
+import { frameRows, layoutManuscript } from "@/lib/writing/manuscript";
 import {
   countChars,
   WRITING_REGISTER_NAME_VI,
@@ -15,6 +17,7 @@ import {
   type WritingReveal,
 } from "@/lib/practice/writing-types";
 import { matchBlank, type BlankMatch } from "./writing-utils";
+import { ManuscriptGrid } from "./manuscript-editor";
 
 interface RevealViewProps {
   /**
@@ -87,17 +90,27 @@ function Paragraphs({ text, className }: { text: string; className?: string }) {
 }
 
 function EssayCompare({
+  prompt,
   essay,
   models,
   selected,
   onSelect,
 }: {
+  prompt: WritingPrompt;
   essay: string;
   models: readonly WritingModelAnswer[];
   selected: number;
   onSelect: (index: number) => void;
 }) {
+  const [showPaper, setShowPaper] = useState(false);
+  const config = prompt.manuscript;
+  const limit = prompt.char_limit;
+  const frameCells = config && limit ? frameRows(limit.max, config) * config.cells_per_line : 0;
+  const mineLayout =
+    showPaper && config && frameCells && essay.trim() ? layoutManuscript(essay, config) : null;
   const model = models[selected] ?? models[0]!;
+  const modelLayout =
+    showPaper && config && frameCells ? layoutManuscript(model.text, config) : null;
   const mine = countChars(essay);
   const uid = useId();
   const mineId = `${uid}-mine`;
@@ -129,7 +142,20 @@ function EssayCompare({
         </div>
       ) : null}
 
-      <div className="grid gap-3 md:grid-cols-2">
+      {frameCells > 0 ? (
+        <Button
+          type="button"
+          variant="outline"
+          className="min-h-11 px-4 aria-pressed:bg-brand-soft"
+          aria-pressed={showPaper}
+          aria-controls={`${uid}-comparison`}
+          onClick={() => setShowPaper(!showPaper)}
+        >
+          {t.writing.reveal.paperView}
+        </Button>
+      ) : null}
+
+      <div id={`${uid}-comparison`} className="grid gap-3 md:grid-cols-2">
         <section
           aria-labelledby={mineId}
           className="min-w-0 rounded-xl border-2 border-primary/30 bg-card p-4"
@@ -143,10 +169,23 @@ function EssayCompare({
           {essay.trim() === "" ? (
             <p className="mt-2 text-sm text-muted-foreground">{t.writing.reveal.yourEssayEmpty}</p>
           ) : (
-            <p lang="ko" className="mt-2 text-base leading-8 break-words whitespace-pre-wrap">
+            <p
+              lang="ko"
+              className={
+                mineLayout ? "sr-only" : "mt-2 text-base leading-8 break-words whitespace-pre-wrap"
+              }
+            >
               {essay}
             </p>
           )}
+          {mineLayout ? (
+            <div className="mt-2 space-y-2">
+              <p className="text-xs text-muted-foreground tabular-nums">
+                {t.writing.reveal.paperCells(mineLayout.usedCells, frameCells)}
+              </p>
+              <ManuscriptGrid layout={mineLayout} frameCells={frameCells} />
+            </div>
+          ) : null}
         </section>
 
         <section
@@ -157,10 +196,20 @@ function EssayCompare({
             {t.writing.reveal.modelEssay(model.level)}
           </Heading>
           <p className="text-xs text-muted-foreground tabular-nums">
-            {t.writing.reveal.modelMeta(model.char_count, model.manuscript_cells)}
+            {modelLayout
+              ? t.writing.counter.count(model.char_count)
+              : t.writing.reveal.modelMeta(model.char_count, model.manuscript_cells)}
           </p>
           <div className="mt-2">
-            <Paragraphs text={model.text} />
+            <Paragraphs text={model.text} className={modelLayout ? "sr-only" : undefined} />
+            {modelLayout ? (
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground tabular-nums">
+                  {t.writing.reveal.paperCells(modelLayout.usedCells, frameCells)}
+                </p>
+                <ManuscriptGrid layout={modelLayout} frameCells={frameCells} />
+              </div>
+            ) : null}
           </div>
         </section>
       </div>
@@ -387,6 +436,7 @@ export const WritingRevealView = forwardRef<HTMLElement, RevealViewProps>(
           {prompt.format === "essay" && models.length > 0 ? (
             <>
               <EssayCompare
+                prompt={prompt}
                 essay={essay}
                 models={models}
                 selected={selected}

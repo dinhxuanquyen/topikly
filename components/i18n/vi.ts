@@ -708,6 +708,8 @@ export const vi = {
       yourEssayEmpty: "Bạn chưa viết gì.",
       modelEssay: (level: number) => `Bài mẫu cấp ${level}`,
       modelMeta: (chars: number, cells: number) => `${chars} ký tự · khoảng ${cells} ô 원고지`,
+      paperView: "Xem trên giấy 원고지",
+      paperCells: (used: number, frame: number) => `Đã dùng ${used}/${frame} ô`,
       modelCovers: "Bài mẫu có bao quát ý này.",
       checklistTitle: "Tự kiểm tra các ý bắt buộc",
       checklistHintData: "Đánh dấu những ý bài của bạn đã có, kèm số liệu đúng.",

@@ -164,14 +164,25 @@ describe("xem bài mẫu và tự so sánh (W53)", () => {
   it("chọn cấp bài mẫu đổi bài mẫu và nhận xét rubric", async () => {
     respondWith(ESSAY_REVEAL);
     render(<WritingPromptPanel program="topik-ii" prompt={ESSAY_PROMPT} />);
+    fireEvent.change(essayBox(), { target: { value: "안녕하세요." } });
     fireEvent.click(screen.getByRole("button", { name: /Xem bài mẫu/ }));
     await screen.findByText("Bài mẫu cấp 4");
     expect(screen.getByRole("button", { name: "Cấp 4" })).toHaveAttribute("aria-pressed", "true");
+
+    const comparison = within(screen.getByRole("region", { name: "Bài mẫu và tự so sánh" }));
+    const paperToggle = comparison.getByRole("button", { name: "Xem trên giấy 원고지" });
+    fireEvent.click(paperToggle);
+    expect(comparison.getAllByTestId("manuscript-grid")).toHaveLength(2);
 
     fireEvent.click(screen.getByRole("button", { name: "Cấp 5" }));
     expect(screen.getByText("Bài mẫu cấp 5")).toBeInTheDocument();
     expect(screen.getByText("더 높은 수준의 문단입니다.")).toBeInTheDocument();
     expect(screen.getByText("Có diễn giải thêm.")).toBeInTheDocument();
+    const model = within(comparison.getByRole("region", { name: "Bài mẫu cấp 5" }));
+    expect(model.getByTestId("manuscript-grid")).toHaveTextContent("더높은수준의문단입니다.");
+    fireEvent.click(paperToggle);
+    expect(comparison.queryByTestId("manuscript-grid")).not.toBeInTheDocument();
+    expect(essayBox()).toHaveValue("안녕하세요.");
   });
 
   it("checklist ý bắt buộc: tự đánh dấu, đếm tiến độ và lưu cùng nháp", async () => {
