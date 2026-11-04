@@ -1,46 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import type { PublicQuestion } from "@/lib/practice/types";
-import { reviewQueue, type ReviewItem } from "@/lib/practice/review";
-import { loadProgress, setMarked, subscribeGuestChanges } from "./guest-store";
-import type { ProgressRecord } from "./guest-stats";
+import { examReviewQueue, reviewQueue, type ReviewItem } from "@/lib/practice/review";
+import { useLearningHistory } from "@/components/progress/use-learning-history";
+import { setMarked } from "./guest-store";
 import { PracticeRunner } from "./practice-runner";
 
 export function ReviewNotebook({ program, catalog }: { program: string; catalog: ReviewItem[] }) {
-  const [progress, setProgress] = useState<ProgressRecord[]>([]);
-  const [ready, setReady] = useState(false);
+  const history = useLearningHistory(program);
   const [error, setError] = useState("");
-  const [mode, setMode] = useState<"wrong" | "marked">("wrong");
+  const [mode, setMode] = useState<"wrong" | "marked" | "exam">("wrong");
   const [skill, setSkill] = useState("");
   const [type, setType] = useState("");
   const [session, setSession] = useState<PublicQuestion[] | null>(null);
   const [busy, setBusy] = useState(false);
   const starting = useRef(false);
-  useEffect(() => {
-    let active = true;
-    const refresh = () =>
-      void loadProgress(program).then((rows) => {
-        if (!active) return;
-        setReady(true);
-        if (rows === null)
-          setError(
-            "Không đọc được lịch sử trên thiết bị. Hãy cho phép trình duyệt lưu dữ liệu rồi tải lại trang.",
-          );
-        else setProgress(rows);
-      });
-    refresh();
-    const unsubscribe = subscribeGuestChanges(refresh);
-    window.addEventListener("focus", refresh);
-    return () => {
-      active = false;
-      unsubscribe();
-      window.removeEventListener("focus", refresh);
-    };
-  }, [program]);
-  const queue = reviewQueue(catalog, progress, { mode, skill, type });
+  const queue =
+    mode === "exam"
+      ? examReviewQueue(catalog, history, { skill, type })
+      : reviewQueue(catalog, history.progress, { mode, skill, type });
   const types = [
     ...new Map(
       catalog.filter((q) => !skill || q.skill === skill).map((q) => [q.type_code, q.title]),
@@ -68,7 +49,7 @@ export function ReviewNotebook({ program, catalog }: { program: string; catalog:
       setBusy(false);
     }
   }
-  if (!ready) return <p role="status">Đang đọc sổ câu trên thiết bị…</p>;
+  if (!history.ready) return <p role="status">Đang đọc sổ câu trên thiết bị…</p>;
   if (session)
     return (
       <div className="space-y-4">
@@ -94,7 +75,15 @@ export function ReviewNotebook({ program, catalog }: { program: string; catalog:
           aria-pressed={mode === "wrong"}
           onClick={() => setMode("wrong")}
         >
-          Câu sai
+          Sai khi luyện
+        </Button>
+        <Button
+          className="min-h-11"
+          variant={mode === "exam" ? "default" : "outline"}
+          aria-pressed={mode === "exam"}
+          onClick={() => setMode("exam")}
+        >
+          Sai trong đề thi
         </Button>
         <Button
           className="min-h-11"
@@ -138,11 +127,16 @@ export function ReviewNotebook({ program, catalog }: { program: string; catalog:
           {error}
         </p>
       )}
+      {history.failed && (
+        <p role="status" className="text-muted-foreground">
+          Không đọc được một phần lịch sử trên thiết bị. Danh sách có thể chưa đầy đủ.
+        </p>
+      )}
       <section className="rounded-2xl bg-surface p-4 md:p-6" aria-label="Danh sách ôn tập">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <p className="text-lg">
             <strong className="text-3xl font-normal tabular-nums">{queue.length}</strong> câu{" "}
-            {mode === "wrong" ? "cần ôn" : "đã đánh dấu"}
+            {mode === "marked" ? "đã đánh dấu" : "cần ôn"}
           </p>
           <Button
             className="min-h-11"
@@ -159,13 +153,15 @@ export function ReviewNotebook({ program, catalog }: { program: string; catalog:
                 ? "Không có câu phù hợp với bộ lọc này."
                 : mode === "wrong"
                   ? "Chưa có câu cần ôn. Các câu có lần trả lời gần nhất sai sẽ xuất hiện ở đây."
-                  : "Chưa đánh dấu câu nào. Dùng nút đánh dấu khi luyện tập để lưu câu muốn xem lại."}
+                  : mode === "exam"
+                    ? "Chưa có câu trắc nghiệm cần ôn từ các đề đã nộp trên thiết bị này."
+                    : "Chưa đánh dấu câu nào. Dùng nút đánh dấu khi luyện tập để lưu câu muốn xem lại."}
             </p>
             <Link
               className={buttonVariants({ variant: "outline", className: "min-h-11" })}
-              href={`/${program}/luyen-tap`}
+              href={`/${program}/${mode === "exam" ? "de-thi" : "luyen-tap"}`}
             >
-              Đến luyện tập
+              {mode === "exam" ? "Xem đề thi" : "Đến luyện tập"}
             </Link>
           </div>
         ) : (
@@ -177,7 +173,8 @@ export function ReviewNotebook({ program, catalog }: { program: string; catalog:
                     {q.type_code} · {q.title}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {q.skill === "reading" ? "Đọc" : "Nghe"} · {q.id}
+                    {q.skill === "reading" ? "Đọc" : "Nghe"} ·{" "}
+                    {"examTitle" in q ? `${q.examTitle} · Câu ${q.examNumber}` : q.id}
                   </p>
                 </div>
                 {q.marked && (
@@ -202,8 +199,8 @@ export function ReviewNotebook({ program, catalog }: { program: string; catalog:
         )}
       </section>
       <p className="text-sm text-muted-foreground">
-        Gồm câu luyện trên thiết bị này. Trả lời đúng sẽ đưa câu ra khỏi danh sách câu sai; lịch sử
-        và dấu đánh dấu vẫn được giữ.
+        Gồm câu luyện và câu trắc nghiệm từ đề đã nộp trên thiết bị này. Trả lời đúng sẽ đưa câu ra
+        khỏi danh sách câu sai; lịch sử và dấu đánh dấu vẫn được giữ.
       </p>
     </div>
   );

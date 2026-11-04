@@ -25,6 +25,19 @@ const word: VocabWord = {
 };
 afterEach(() => vi.restoreAllMocks());
 describe("Flashcard", () => {
+  it("ôn trực tiếp từ được giao dù chưa đến hạn và quay về lộ trình", async () => {
+    const program = "flash-plan-target";
+    rateWord(program, word.id, "easy");
+    render(<FlashcardStudy program={program} words={[word]} targeted />);
+    expect(screen.queryByText(word.meaning_vi)).not.toBeInTheDocument();
+    fireEvent.click(await screen.findByRole("button", { name: "Hiện nghĩa" }));
+    fireEvent.click(screen.getByRole("button", { name: "Chưa nhớ 10 phút" }));
+    expect(readReviewCards(program).cards[word.id]?.reviews).toBe(2);
+    expect(screen.getByRole("link", { name: "Về lộ trình" })).toHaveAttribute(
+      "href",
+      `/${program}/lo-trinh`,
+    );
+  });
   it("ẩn nghĩa trước khi lật, ghi một lượt, khôi phục lịch sau khi mở lại", async () => {
     const view = render(<FlashcardStudy program="flash-flow" words={[word]} />);
     fireEvent.click(await screen.findByRole("button", { name: "Bắt đầu ôn 1 thẻ" }));

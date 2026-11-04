@@ -2,7 +2,8 @@
 
 import { useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { useSearchParams } from "next/navigation";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { dueWords, scheduleReview, type ReviewRating } from "@/lib/lexicon/review-schedule";
 import type { VocabWord } from "@/lib/lexicon/types";
 import { useKnownWords } from "./known-store";
@@ -15,7 +16,35 @@ const LABELS: Record<ReviewRating, string> = {
   good: "Đã nhớ",
   easy: "Rất dễ",
 };
-export function FlashcardStudy({ program, words }: { program: string; words: VocabWord[] }) {
+export function FlashcardRoute({ program, words }: { program: string; words: VocabWord[] }) {
+  const id = useSearchParams().get("tu");
+  const word = id ? words.find((item) => item.id === id) : undefined;
+  return (
+    <>
+      {id && !word && (
+        <p role="status" className="mb-4">
+          Từ này không còn trong danh sách. Bạn vẫn có thể ôn các từ khác.
+        </p>
+      )}
+      <FlashcardStudy
+        key={word?.id ?? "all"}
+        program={program}
+        words={word ? [word] : words}
+        targeted={!!word}
+      />
+    </>
+  );
+}
+
+export function FlashcardStudy({
+  program,
+  words,
+  targeted = false,
+}: {
+  program: string;
+  words: VocabWord[];
+  targeted?: boolean;
+}) {
   const { cards, persisted, ready } = useReviewCards(program);
   const { known } = useKnownWords(program);
   const now = useSyncExternalStore(
@@ -24,7 +53,7 @@ export function FlashcardStudy({ program, words }: { program: string; words: Voc
     () => 0,
   );
   const [level, setLevel] = useState("");
-  const [deck, setDeck] = useState<VocabWord[] | null>(null);
+  const [deck, setDeck] = useState<VocabWord[] | null>(() => (targeted ? words.slice(0, 1) : null));
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [last, setLast] = useState("");
@@ -152,6 +181,24 @@ export function FlashcardStudy({ program, words }: { program: string; words: Voc
             </fieldset>
           )}
         </>
+      ) : targeted ? (
+        <div className="space-y-4 rounded-2xl bg-surface p-5">
+          <p className="font-semibold">{deck ? "Đã ôn xong từ này." : "Đã kết thúc phiên ôn."}</p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href={`/${program}/lo-trinh`}
+              className={buttonVariants({ className: "min-h-11" })}
+            >
+              Về lộ trình
+            </Link>
+            <Link
+              href={`/${program}/ly-thuyet/tu-vung/on-tap`}
+              className={buttonVariants({ variant: "outline", className: "min-h-11" })}
+            >
+              Tất cả flashcard
+            </Link>
+          </div>
+        </div>
       ) : (
         <>
           {deck && (

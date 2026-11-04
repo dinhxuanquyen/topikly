@@ -418,6 +418,15 @@ export function StudyPlanner({ program, catalog, placementExamId }: Props) {
                 >
                   {task.title}
                 </Link>
+                {task.kind === "vocab" && (
+                  <Link
+                    href={`/${program}/ly-thuyet/tu-vung/on-tap?tu=${encodeURIComponent(task.id)}`}
+                    aria-label={`Ôn flashcard: ${task.title}`}
+                    className="flex min-h-11 w-fit items-center text-sm font-semibold text-primary underline underline-offset-4"
+                  >
+                    Ôn flashcard
+                  </Link>
+                )}
               </div>
             </li>
           ))}

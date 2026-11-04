@@ -6,7 +6,7 @@ Bốn tính năng dùng dữ liệu học thật trong trình duyệt, không y�
 
 `/topik-ii/luyen-tap/on-tap` tổng hợp câu luyện có kết quả gần nhất sai hoặc đã đánh dấu. Lọc theo Nghe/Đọc và dạng câu; mỗi phiên tối đa 10 câu. Đáp án cũ được ẩn khi bắt đầu phiên mới, dấu đánh dấu vẫn giữ. Làm đúng đưa câu khỏi danh sách sai, không xóa lịch sử. Câu không còn trong ngân hàng không xuất hiện.
 
-API `/api/practice/review` chỉ trả câu công khai, kiểm tra chương trình, id duy nhất và giới hạn 10 câu. Chấm qua API có sẵn. Chưa gom câu sai từ đề thi vì đề thi có kho dữ liệu riêng.
+API `/api/practice/review` chỉ trả câu công khai, kiểm tra chương trình, id duy nhất và giới hạn 10 câu. Chấm qua API có sẵn. Tab “Sai trong đề thi” lấy câu trắc nghiệm từ lần nộp gần nhất có câu đó trong lịch sử trên thiết bị. Ôn đúng sau lần nộp sẽ đưa câu ra khỏi tab này.
 
 ## Flashcard
 
@@ -22,7 +22,7 @@ Khi mở/quay lại Lộ trình hoặc Tiến bộ, đối chiếu dữ liệu v
 
 - Luyện tập: trả lời ít nhất 5 câu khác nhau thuộc đúng dạng; nếu dạng có ít hơn 5 câu thì cần làm hết số câu có sẵn. Không tính bỏ trống hoặc làm lại cùng một câu để đủ số lượng. Không yêu cầu tất cả câu đúng.
 - Mini test: nộp đúng đề được xếp cho hôm nay.
-- Từ vựng: đánh giá flashcard của đúng từ hôm nay, kể cả mức chưa nhớ.
+- Từ vựng: chọn “Ôn flashcard” ở nhiệm vụ để mở đúng từ được giao, kể cả khi thẻ chưa đến hạn. Đánh giá mức nhớ rồi quay về lộ trình để ghi nhận nhiệm vụ hôm nay.
 
 Kế hoạch mới lưu `createdAt`, bỏ qua hoạt động trước lúc tạo. Kế hoạch cũ vẫn tương thích, chỉ dùng hoạt động trong ngày. Không tự đánh dấu ngữ pháp khi chỉ mở trang. Giữ dấu thủ công, không hoàn thành các ngày tương lai hay ngày học bù bằng một lượt học hôm nay. Người học vẫn có thể tự đánh dấu hoặc bỏ dấu; lần đồng bộ hoạt động tiếp theo có thể ghi nhận lại nếu đủ điều kiện.
 

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { requireProgram } from "@/components/config/route-guards";
 import { TheoryShell } from "@/components/lexicon/theory-shell";
-import { FlashcardStudy } from "@/components/lexicon/flashcard-study";
+import { FlashcardRoute } from "@/components/lexicon/flashcard-study";
 import { getVocabList, getVocabWord } from "@/lib/lexicon/queries";
 import type { VocabWord } from "@/lib/lexicon/types";
 
@@ -23,7 +24,9 @@ export default async function FlashcardPage({ params }: { params: Promise<{ prog
         { label: "Flashcard" },
       ]}
     >
-      <FlashcardStudy program={program.slug} words={words} />
+      <Suspense fallback={<p role="status">Đang tải flashcard…</p>}>
+        <FlashcardRoute program={program.slug} words={words} />
+      </Suspense>
     </TheoryShell>
   );
 }
